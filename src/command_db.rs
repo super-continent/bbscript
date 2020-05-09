@@ -12,12 +12,9 @@ pub struct GameDB {
     functions: Vec<Function>,
 }
 impl GameDB {
-    pub fn new(db_path: Option<&str>, game_folder: &str) -> Result<GameDB, Box<dyn Error>> {
-        let cmd_db_path: String = String::from(db_path.unwrap_or("static_db"))
-            + DIR_SEPARATOR
-            + game_folder
-            + DIR_SEPARATOR
-            + "commandDB.ron";
+    pub fn new(db_path: Option<&str>, game: &str) -> Result<GameDB, Box<dyn Error>> {
+        let cmd_db_path: String =
+            String::from(db_path.unwrap_or("static_db")) + DIR_SEPARATOR + game + ".ron";
 
         let cmd_db_file = File::open(cmd_db_path)?;
 
