@@ -1,0 +1,35 @@
+{
+
+"grouped_values": {
+	"2": "INPUT_SPECIALMOVE",
+	"1542": "INPUT_DISTORTION",
+	"1543": "INPUT_ASTRAL"
+},
+"buttonbyte": {
+	"1": "A",
+	"2": "B",
+	"3": "C",
+	"4": "D"  
+},
+"directionbyte": {
+	"0": "INPUT_1",
+	"1": "INPUT_2",
+	"2": "INPUT_3",
+	"3": "INPUT_4",
+	"4": "INPUT_5",
+	"5": "INPUT_6",
+	"6": "INPUT_7",
+	"7": "INPUT_8",
+	"8": "INPUT_9",
+	"9": "INPUT_J1",
+	"10": "INPUT_J2",
+	"11": "INPUT_J3",
+	"12": "INPUT_J4",
+	"13": "INPUT_J5",
+	"14": "INPUT_J6",
+	"15": "INPUT_J7",
+	"16": "INPUT_J8",
+	"17": "INPUT_J9"
+}
+
+}

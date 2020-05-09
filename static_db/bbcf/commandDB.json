@@ -1,0 +1,4483 @@
+{
+    "9072": {
+        "size": 8,
+        "format": "i"
+    },
+    "9073": {
+        "format": ""
+    },
+    "9070": {
+        "name": "AirPushbackX",
+        "format": "i"
+    },
+    "9071": {
+        "format": ""
+    },
+    "4024": {
+        "size": 8,
+        "format": "i"
+    },
+    "4025": {
+        "size": 8,
+        "format": "i"
+    },
+    "4022": {
+        "size": 8,
+        "format": "i"
+    },
+    "4023": {
+        "size": 8,
+        "format": "i"
+    },
+    "4020": {
+        "size": 8,
+        "format": "i"
+    },
+    "4021": {
+        "size": 40
+    },
+    "14075": {
+        "size": 8,
+        "format": "i"
+    },
+    "14074": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14077": {
+        "size": 8,
+        "format": "i"
+    },
+    "14076": {
+        "size": 8,
+        "name": "WhiffCancelEnable",
+        "format": "i"
+    },
+    "14071": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14070": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14073": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14072": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "19014": {
+        "format": ""
+    },
+    "19015": {
+        "size": 8,
+        "format": "i"
+    },
+    "19016": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9289": {
+        "format": ""
+    },
+    "9288": {
+        "size": 8,
+        "format": "i"
+    },
+    "19012": {
+        "size": 8,
+        "format": "i"
+    },
+    "19013": {
+        "format": ""
+    },
+    "9021": {
+        "format": "i",
+        "size": 8
+    },
+    "9287": {
+        "format": ""
+    },
+    "9286": {
+        "name": "AttackP2",
+        "format": "i"
+    },
+    "23180": {
+        "size": 8,
+        "format": "i"
+    },
+    "9020": {
+        "size": 8,
+        "format": "i"
+    },
+    "0": {
+        "name": "startState",
+        "format": "32s"
+    },
+    "20009": {
+        "size": 8,
+        "format": "i"
+    },
+    "23047": {
+        "size": 12
+    },
+    "20008": {
+        "size": 8,
+        "format": "i"
+    },
+    "30053": {
+        "format": "i",
+        "size": 8
+    },
+    "23045": {
+        "format": "i",
+        "size": 8
+    },
+    "30055": {
+        "format": "3i",
+        "size": 16
+    },
+    "23125": {
+        "size": 4
+    },
+    "30054": {
+        "format": "i",
+        "size": 8
+    },
+    "22009": {
+        "size": 8,
+        "format": "i"
+    },
+    "22008": {
+        "name": "setInvincibleFor",
+        "size": 8,
+        "format": "i"
+    },
+    "30056": {
+        "format": "3i",
+        "size": 16
+    },
+    "30057": {
+        "size": 4
+    },
+    "22001": {
+        "size": 8,
+        "format": "i"
+    },
+    "22000": {
+        "format": ""
+    },
+    "22003": {
+        "size": 8,
+        "format": "i"
+    },
+    "22002": {
+        "format": ""
+    },
+    "22005": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "22004": {
+        "size": 12,
+        "format": "ii"
+    },
+    "22007": {
+        "size": 8,
+        "name": "setInvincible",
+        "format": "i"
+    },
+    "22006": {
+        "size": 8,
+        "format": "i"
+    },
+    "1069": {
+        "size": 8,
+        "format": "i"
+    },
+    "1068": {
+        "size": 8,
+        "format": "i"
+    },
+    "23179": {
+        "size": 8,
+        "format": "i"
+    },
+    "1061": {
+        "size": 8,
+        "format": "i"
+    },
+    "1060": {
+        "size": 8,
+        "format": "i"
+    },
+    "1063": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1062": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1065": {
+        "size": 8,
+        "format": "i"
+    },
+    "1064": {
+        "size": 8,
+        "format": "i"
+    },
+    "1067": {
+        "size": 8,
+        "format": "i"
+    },
+    "1066": {
+        "size": 8,
+        "format": "i"
+    },
+    "13016": {
+        "size": 8,
+        "format": "i"
+    },
+    "13017": {
+        "size": 8,
+        "format": "i"
+    },
+    "13014": {
+        "size": 8,
+        "format": "i"
+    },
+    "13015": {
+        "size": 8,
+        "format": "i"
+    },
+    "13012": {
+        "size": 8,
+        "format": "i"
+    },
+    "13013": {
+        "size": 8,
+        "format": "i"
+    },
+    "13010": {
+        "size": 8,
+        "format": "i"
+    },
+    "13011": {
+        "size": 8,
+        "format": "i"
+    },
+    "14079": {
+        "size": 8,
+        "name": "JumpCancel_",
+        "format": "i"
+    },
+    "13018": {
+        "size": 8,
+        "format": "i"
+    },
+    "13019": {
+        "size": 8,
+        "format": "i"
+    },
+    "1087": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1086": {
+        "size": 8,
+        "format": "i"
+    },
+    "1085": {
+        "size": 16,
+        "format": "iii"
+    },
+    "1084": {
+        "size": 8,
+        "format": "i"
+    },
+    "1083": {
+        "size": 8,
+        "format": "i"
+    },
+    "1082": {
+        "size": 8,
+        "format": "i"
+    },
+    "1081": {
+        "size": 8,
+        "format": "i"
+    },
+    "1080": {
+        "size": 8,
+        "format": "i"
+    },
+    "23090": {
+        "size": 8,
+        "format": "i"
+    },
+    "1089": {
+        "size": 8,
+        "format": "i"
+    },
+    "1088": {
+        "size": 8,
+        "format": "i"
+    },
+    "14047": {
+        "format": ""
+    },
+    "30021": {
+        "size": 4
+    },
+    "12019": {
+		"format": "16s",
+        "size": 20
+    },
+    "12018": {
+        "format": "i32s"
+    },
+    "3029": {
+        "size": 8,
+        "format": "i"
+    },
+    "3028": {
+        "name": "ScreenShake",
+        "format": "ii"
+    },
+    "3027": {
+        "size": 8,
+        "format": "i"
+    },
+    "3026": {
+        "size": 8,
+        "format": "i"
+    },
+    "3025": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3024": {
+        "size": 8,
+        "format": "i"
+    },
+    "3023": {
+        "size": 8,
+        "format": "i"
+    },
+    "3022": {
+        "size": 8,
+        "format": "i"
+    },
+    "3021": {
+        "size": 8,
+        "format": "i"
+    },
+    "3020": {
+        "size": 8,
+        "format": "i"
+    },
+    "30001": {
+        "size": 40
+    },
+    "23001": {
+        "format": "ii"
+    },
+    "1018": {
+        "format": ""
+    },
+    "1019": {
+        "size": 8,
+        "format": "i"
+    },
+    "1014": {
+        "size": 8,
+        "format": "i"
+    },
+    "1015": {
+        "size": 8,
+        "format": "i"
+    },
+    "1016": {
+        "size": 8,
+        "format": "i"
+    },
+    "1017": {
+        "format": ""
+    },
+    "1010": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1011": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1012": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1013": {
+        "name": "physicsXImpulse",
+        "format": "i"
+    },
+    "5003": {
+        "size": 8,
+        "format": "i"
+    },
+    "9154": {
+        "name": "hitstun",
+        "size": 8,
+        "format": "i"
+    },
+    "5001": {
+        "format": "5i",
+        "size": 24
+    },
+    "5000": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23004": {
+        "size": 12,
+        "format": "ii"
+    },
+    "5005": {
+        "size": 8,
+        "format": "i"
+    },
+    "5004": {
+        "format": ""
+    },
+    "14048": {
+        "hex": true,
+        "format": "32sii"
+    },
+    "23005": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9252": {
+        "size": 8,
+        "format": "i"
+    },
+    "9253": {
+        "format": ""
+    },
+    "9250": {
+        "name": "FreezeCount",
+        "size": 8,
+        "format": "i"
+    },
+    "9251": {
+        "format": ""
+    },
+    "23099": {
+        "size": 8,
+        "format": "i"
+    },
+    "23098": {
+        "size": 8,
+        "format": "i"
+    },
+    "30066": {
+        "format": "i",
+        "size": 8
+    },
+    "23091": {
+        "size": 8,
+        "format": "i"
+    },
+    "19010": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23093": {
+        "size": 8,
+        "format": "i"
+    },
+    "23095": {
+        "size": 8,
+        "format": "i"
+    },
+    "23094": {
+        "size": 8,
+        "format": "i"
+    },
+    "23097": {
+        "size": 8,
+        "format": "i"
+    },
+    "19011": {
+        "size": 8,
+        "format": "i"
+    },
+    "2046": {
+        "size": 8,
+        "format": "i"
+    },
+    "2047": {
+        "size": 8,
+        "format": "i"
+    },
+    "39": {
+        "name": "random_",
+        "format": "iii"
+    },
+    "2045": {
+        "size": 8,
+        "format": "i"
+    },
+    "2042": {
+        "format": "i"
+    },
+    "2043": {
+        "size": 8,
+        "format": "i"
+    },
+    "2040": {
+        "size": 8,
+        "format": "i"
+    },
+    "2041": {
+        "size": 8,
+        "format": "i"
+    },
+    "32": {
+        "size": 20
+    },
+    "31": {
+        "size": 12,
+        "format": "ii"
+    },
+    "30": {
+        "size": 12,
+        "name": "loopRelated",
+        "format": "ii"
+    },
+    "36": {
+        "size": 8,
+        "format": "i"
+    },
+    "35": {
+        "format": ""
+    },
+    "2049": {
+        "size": 8,
+        "format": "i"
+    },
+    "30077": {
+        "size": 12
+    },
+    "30076": {
+        "format": "i",
+        "size": 8
+    },
+    "23066": {
+        "size": 8,
+        "format": "i"
+    },
+    "23067": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "30073": {
+        "format": "i",
+        "size": 8
+    },
+    "30072": {
+        "size": 4
+    },
+    "23149": {
+        "size": 8,
+        "format": "i"
+    },
+    "23148": {
+        "format": "32s"
+    },
+    "23147": {
+        "format": ""
+    },
+    "23146": {
+        "size": 40
+    },
+    "23145": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "23144": {
+        "size": 48
+    },
+    "23068": {
+        "size": 8,
+        "format": "i"
+    },
+    "23069": {
+        "size": 8,
+        "format": "i"
+    },
+    "23141": {
+        "size": 8,
+        "format": "i"
+    },
+    "30078": {
+        "format": "i",
+        "size": 8
+    },
+    "14030": {
+        "size": 8,
+        "format": "i"
+    },
+    "14033": {
+        "size": 8,
+        "format": "i"
+    },
+    "14035": {
+        "size": 40
+    },
+    "17015": {
+        "format": ""
+    },
+    "12024": {
+        "size": 8,
+        "format": "i"
+    },
+    "9322": {
+        "name": "GroundedHitstunAnimation",
+        "format": "i"
+    },
+    "9323": {
+        "format": ""
+    },
+    "9324": {
+        "size": 8,
+        "format": "i"
+    },
+    "9325": {
+        "format": ""
+    },
+    "14019": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14018": {
+        "size": 16,
+        "format": "iii"
+    },
+    "14017": {
+        "size": 20
+    },
+    "6": {
+        "name": "label",
+        "format": "i"
+    },
+    "11107": {
+        "size": 8,
+        "format": "i"
+    },
+    "7009": {
+        "size": 8,
+        "format": "i"
+    },
+    "7008": {
+        "size": 12,
+        "format": "ii"
+    },
+    "20005": {
+        "size": 12,
+        "format": "ii"
+    },
+    "20004": {
+        "size": 8,
+        "format": "i"
+    },
+    "20003": {
+        "size": 8,
+        "format": "i"
+    },
+    "20002": {
+        "size": 8,
+        "format": "i"
+    },
+    "20001": {
+        "size": 8,
+        "format": "i"
+    },
+    "20000": {
+        "size": 8,
+        "format": "i"
+    },
+    "7001": {
+        "name": "SFX_1",
+        "format": "16s"
+    },
+    "7000": {
+        "name": "SFX_0",
+        "format": "32s"
+    },
+    "7003": {
+        "name": "SFX_3",
+        "format": "32s"
+    },
+    "7002": {
+        "size": 36,
+        "name": "SFX_2",
+        "format": "32s"
+    },
+    "7005": {
+        "size": 72,
+        "name": "tag_voice",
+        "format": "i16s16s16s16s"
+    },
+    "7004": {
+        "name": "SFX_4",
+        "format": "16s"
+    },
+    "7007": {
+        "format": "16si16si16si16si",
+        "size": 84
+    },
+    "7006": {
+        "format": "16si16si16si16si"
+    },
+    "12051": {
+        "name": "StarterRating",
+        "size": 8,
+        "format": "i"
+    },
+    "12050": {
+        "size": 8,
+        "format": "i"
+    },
+    "30067": {
+        "format": "i",
+        "size": 8
+    },
+    "12053": {
+        "name": "OverdriveDuration",
+        "format": "10i"
+    },
+    "12006": {
+        "name": "SuperJumpYVelocity",
+        "format": "i"
+    },
+    "12052": {
+        "size": 8,
+        "format": "i"
+    },
+    "12007": {
+        "size": 8,
+        "format": "i"
+    },
+    "12055": {
+        "size": 8,
+        "format": "i"
+    },
+    "12004": {
+        "name": "DashFMaxVelocity",
+        "format": "i"
+    },
+    "13054": {
+        "size": 8,
+        "format": "i"
+    },
+    "12054": {
+        "format": "ii"
+    },
+    "14049": {
+        "format": "32s32sii"
+    },
+    "12005": {
+        "name": "JumpYVelocity",
+        "format": "i"
+    },
+    "12057": {
+        "format": "i",
+        "size": 8
+    },
+    "23178": {
+        "size": 8,
+        "format": "i"
+    },
+    "12002": {
+        "name": "DashFInitialVelocity",
+        "format": "i"
+    },
+    "12056": {
+        "format": ""
+    },
+    "12003": {
+        "name": "DashFAccel",
+        "format": "i"
+    },
+    "3063": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3062": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3061": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3060": {
+		"format": "i32s",
+        "size": 40
+    },
+    "3067": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3066": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3065": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3064": {
+        "size": 12,
+        "format": "ii"
+    },
+    "12059": {
+		"format": "i32s",
+        "size": 40
+    },
+    "12058": {
+        "format": "i",
+        "size": 8
+    },
+    "3069": {
+        "size": 8,
+        "format": "i"
+    },
+    "3068": {
+        "size": 24
+    },
+    "1050": {
+        "format": ""
+    },
+    "1051": {
+        "size": 8,
+        "format": "i"
+    },
+    "1052": {
+        "size": 8,
+        "format": "i"
+    },
+    "1053": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1054": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1055": {
+        "format": ""
+    },
+    "1056": {
+        "size": 8,
+        "format": "i"
+    },
+    "1057": {
+        "size": 8,
+        "format": "i"
+    },
+    "1058": {
+        "size": 8,
+        "format": "i"
+    },
+    "1059": {
+        "size": 8,
+        "format": "i"
+    },
+    "1": {
+        "name": "endState",
+        "format": ""
+    },
+    "21007": {
+        "size": 12,
+        "format": "ii"
+    },
+    "14078": {
+        "size": 8,
+        "name": "HitOrBlockJumpCancel",
+        "format": "i"
+    },
+    "12025": {
+        "size": 8,
+        "format": "i"
+    },
+    "9119": {
+        "format": ""
+    },
+    "9118": {
+        "size": 8,
+        "format": "i"
+    },
+    "30028": {
+        "format": "i",
+        "name": "selfDamage",
+        "size": 8
+    },
+    "23058": {
+        "format": "i",
+        "size": 8
+    },
+    "23055": {
+        "size": 4
+    },
+    "23054": {
+		"format": "32si",
+        "size": 40
+    },
+    "23057": {
+        "format": "i",
+        "size": 8
+    },
+    "23056": {
+		"format": "",
+        "size": 4
+    },
+    "23051": {
+        "size": 68
+    },
+    "23000": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23053": {
+        "size": 12
+    },
+    "23052": {
+        "size": 8
+    },
+    "11047": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "11046": {
+        "size": 8,
+        "format": "i"
+    },
+    "11045": {
+        "size": 8,
+        "format": "i"
+    },
+    "11044": {
+        "size": 8,
+        "format": "i"
+    },
+    "11043": {
+        "size": 8,
+        "format": "i"
+    },
+    "11042": {
+        "size": 8,
+        "format": "i"
+    },
+    "11040": {
+        "size": 8,
+        "format": "i"
+    },
+    "30030": {
+        "format": "i",
+        "size": 8
+    },
+    "11049": {
+        "size": 8,
+        "format": "i"
+    },
+    "11048": {
+        "size": 8,
+        "format": "i"
+    },
+    "23028": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23029": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23020": {
+        "size": 8,
+        "format": "i"
+    },
+    "23021": {
+        "size": 8,
+        "format": "i"
+    },
+    "23022": {
+        "size": 8,
+        "format": "i"
+    },
+    "23023": {
+        "format": ""
+    },
+    "23024": {
+        "size": 8,
+        "format": "i"
+    },
+    "23025": {
+        "size": 8,
+        "format": "i"
+    },
+    "23026": {
+        "size": 8,
+        "format": "i"
+    },
+    "23027": {
+        "name": "DisableAttackRestOfMove",
+        "format": ""
+    },
+    "9205": {
+        "format": ""
+    },
+    "9204": {
+        "size": 8,
+        "format": "i"
+    },
+    "11075": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9203": {
+        "format": ""
+    },
+    "9202": {
+        "size": 8,
+        "format": "i"
+    },
+    "23006": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9364": {
+        "size": 8,
+        "format": "i"
+    },
+    "9365": {
+        "size": 8,
+        "format": "i"
+    },
+    "9362": {
+        "size": 8,
+        "format": "i"
+    },
+    "9363": {
+        "size": 8,
+        "format": "i"
+    },
+    "9360": {
+        "size": 8,
+        "format": "i"
+    },
+    "9361": {
+        "format": ""
+    },
+    "17009": {
+        "format": ""
+    },
+    "17008": {
+        "format": ""
+    },
+    "9168": {
+        "size": 8,
+        "format": "i"
+    },
+    "9169": {
+        "format": ""
+    },
+    "17001": {
+        "name": "AttackDefaults_AirNormal",
+        "format": ""
+    },
+    "17000": {
+        "name": "AttackDefaults_StandingNormal",
+        "format": ""
+    },
+    "9166": {
+        "name": "AirUntechableTime",
+        "format": "i"
+    },
+    "9167": {
+        "format": ""
+    },
+    "17005": {
+        "name": "AttackDefaults_AirDD",
+        "format": ""
+    },
+    "17004": {
+        "name": "AttackDefaults_StandingDD",
+        "format": ""
+    },
+    "8011": {
+        "name": "SFX_FOOTSTEP_",
+        "format": "iii"
+    },
+    "8010": {
+        "size": 16,
+        "format": "iii"
+    },
+    "24": {
+        "size": 40
+    },
+    "25": {
+        "size": 40
+    },
+    "26": {
+        "format": "32s"
+    },
+    "20": {
+        "size": 16,
+        "format": "iii"
+    },
+    "21": {
+        "name": "enterState",
+        "format": "32s"
+    },
+    "22": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "23": {
+        "size": 68
+    },
+    "30040": {
+        "format": "i",
+        "size": 8
+    },
+    "28": {
+        "format": "i32s"
+    },
+    "29": {
+        "name": "sendToLabelUpon",
+        "format": "ii"
+    },
+    "23114": {
+        "size": 8,
+        "format": "i"
+    },
+    "23115": {
+        "size": 8,
+        "format": "i"
+    },
+    "23116": {
+        "size": 8,
+        "format": "i"
+    },
+    "23117": {
+        "size": 12,
+        "format": "ii"
+    },
+    "2019": {
+        "size": 8,
+        "format": "i"
+    },
+    "2018": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23112": {
+        "size": 8,
+        "format": "i"
+    },
+    "23113": {
+        "size": 8,
+        "format": "i"
+    },
+    "2015": {
+        "size": 8,
+        "format": "i"
+    },
+    "2017": {
+        "name": "EnableCollision",
+        "size": 8,
+        "format": "i"
+    },
+    "2016": {
+        "size": 8,
+        "format": "i"
+    },
+    "2011": {
+        "format": ""
+    },
+    "2010": {
+        "format": ""
+    },
+    "2013": {
+        "format": "i",
+        "size": 8
+    },
+    "2012": {
+        "format": ""
+    },
+    "30042": {
+        "format": "i",
+        "size": 8
+    },
+    "30019": {
+		"format": "ii",
+        "size": 12
+    },
+    "30018": {
+        "size": 4
+    },
+    "30034": {
+        "size": 4
+    },
+    "14068": {
+        "name": "WhiffCancel",
+        "format": "32s"
+    },
+    "14069": {
+        "name": "HitOrBlockCancel",
+        "format": "32s"
+    },
+    "14067": {
+        "size": 8,
+        "format": "i"
+    },
+    "11102": {
+        "size": 8,
+        "format": "i"
+    },
+    "23088": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23089": {
+        "format": "8i",
+        "size": 36
+    },
+    "30048": {
+        "format": "i",
+        "size": 8
+    },
+    "30060": {
+        "size": 12
+    },
+    "30083": {
+        "size": 20
+    },
+    "11103": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "9015": {
+        "size": 8,
+        "format": "i"
+    },
+    "9016": {
+        "size": 8,
+        "format": "i"
+    },
+    "9017": {
+        "size": 8,
+        "format": "i"
+    },
+    "9010": {
+		"format": "16si16si",
+        "size": 88
+    },
+    "9011": {
+        "size": 44
+    },
+    "9012": {
+        "size": 32
+    },
+    "9013": {
+        "size": 24
+    },
+    "30069": {
+        "format": "i",
+        "size": 8
+    },
+    "9018": {
+        "size": 8,
+        "format": "i"
+    },
+    "9019": {
+        "size": 8,
+        "format": "i"
+    },
+    "30029": {
+        "format": "i",
+        "size": 8
+    },
+    "4045": {
+        "auto": "autostr",
+        "format": "32si",
+        "size": 40
+    },
+    "4046": {
+        "size": 16,
+        "format": "iii"
+    },
+    "4047": {
+        "size": 16,
+        "format": "iii"
+    },
+    "4048": {
+        "size": 8,
+        "format": "i"
+    },
+    "4049": {
+        "size": 8,
+        "format": "i"
+    },
+    "30039": {
+        "format": "i",
+        "size": 8
+    },
+    "23087": {
+        "size": 8,
+        "format": "i"
+    },
+    "13022": {
+        "size": 8,
+        "format": "i"
+    },
+    "13021": {
+        "size": 8,
+        "format": "i"
+    },
+    "13027": {
+        "size": 8,
+        "format": "i"
+    },
+    "13026": {
+        "size": 8,
+        "format": "i"
+    },
+    "7": {
+        "name": "gotoLabel",
+        "format": "i"
+    },
+    "13024": {
+        "size": 8,
+        "format": "i"
+    },
+    "13029": {
+        "size": 8,
+        "format": "i"
+    },
+    "13028": {
+        "size": 8,
+        "format": "i"
+    },
+    "30026": {
+        "size": 4
+    },
+    "30027": {
+        "size": 4
+    },
+    "30020": {
+        "size": 4
+    },
+    "30038": {
+        "format": "i",
+        "size": 8
+    },
+    "23050": {
+        "size": 12
+    },
+    "23169": {
+        "size": 8,
+        "format": "i"
+    },
+    "11089": {
+        "size": 8,
+        "format": "i"
+    },
+    "11088": {
+        "size": 8,
+        "name": "FatalCounter",
+        "format": "i"
+    },
+    "22035": {
+        "size": 8,
+        "format": "i"
+    },
+    "23168": {
+        "size": 8,
+        "format": "i"
+    },
+    "11083": {
+        "size": 8,
+        "format": "i"
+    },
+    "11082": {
+        "size": 8,
+        "format": "i"
+    },
+    "11081": {
+        "size": 8,
+        "format": "i"
+    },
+    "11080": {
+        "size": 8,
+        "format": "i"
+    },
+    "11087": {
+        "size": 12,
+        "format": "ii"
+    },
+    "11086": {
+        "size": 8,
+        "format": "i"
+    },
+    "11085": {
+        "size": 8,
+        "format": "i"
+    },
+    "11084": {
+        "size": 8,
+        "format": "i"
+    },
+    "11106": {
+        "size": 8,
+        "format": "i"
+    },
+    "3018": {
+        "size": 8,
+        "format": "i"
+    },
+    "3019": {
+        "size": 8,
+        "format": "i"
+    },
+    "12008": {
+        "size": 8,
+        "format": "i"
+    },
+    "12009": {
+        "size": 8,
+        "format": "i"
+    },
+    "3012": {
+        "size": 8,
+        "format": "i"
+    },
+    "3013": {
+        "size": 8,
+        "format": "i"
+    },
+    "3010": {
+        "size": 8,
+        "format": "i"
+    },
+    "3011": {
+        "size": 8,
+        "format": "i"
+    },
+    "3016": {
+        "size": 8,
+        "format": "i"
+    },
+    "3017": {
+        "size": 8,
+        "format": "i"
+    },
+    "3014": {
+        "size": 8,
+        "format": "i"
+    },
+    "3015": {
+        "size": 8,
+        "format": "i"
+    },
+    "1009": {
+        "format": ""
+    },
+    "1008": {
+        "format": ""
+    },
+    "1007": {
+        "size": 8,
+        "format": "i"
+    },
+    "1006": {
+        "size": 8,
+        "name": "teleportRelativeY",
+        "format": "i"
+    },
+    "1005": {
+        "format": ""
+    },
+    "1004": {
+        "format": ""
+    },
+    "1003": {
+        "size": 8,
+        "format": "i"
+    },
+    "1002": {
+        "size": 8,
+        "name": "teleportRelativeX",
+        "format": "i"
+    },
+    "1001": {
+        "size": 8,
+        "format": "i"
+    },
+    "1000": {
+        "size": 8,
+        "format": "i"
+    },
+    "9120": {
+        "size": 8,
+        "format": "i"
+    },
+    "9121": {
+        "format": ""
+    },
+    "30017": {
+        "size": 8
+    },
+    "30016": {
+        "size": 8
+    },
+    "30011": {
+        "size": 4
+    },
+    "30010": {
+        "size": 8
+    },
+    "30013": {
+        "size": 4
+    },
+    "30012": {
+        "format": "i",
+        "size": 8
+    },
+    "9241": {
+        "format": ""
+    },
+    "9240": {
+        "size": 8,
+        "format": "i"
+    },
+    "23121": {
+        "size": 8,
+        "format": "i"
+    },
+    "23120": {
+        "format": ""
+    },
+    "23123": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23122": {
+        "size": 8,
+        "format": "i"
+    },
+    "15007": {
+        "size": 8,
+        "format": "i"
+    },
+    "15006": {
+        "size": 8,
+        "format": "i"
+    },
+    "15005": {
+        "size": 8,
+        "format": "i"
+    },
+    "15004": {
+        "size": 8,
+        "format": "i"
+    },
+    "15003": {
+        "size": 8,
+        "format": "i"
+    },
+    "30065": {
+        "format": "i",
+        "size": 8
+    },
+    "15001": {
+        "size": 16,
+        "format": "iii"
+    },
+    "15000": {
+        "size": 8,
+        "format": "i"
+    },
+    "23082": {
+        "size": 20
+    },
+    "23083": {
+        "size": 8,
+        "format": "i"
+    },
+    "23080": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23081": {
+        "size": 8,
+        "format": "i"
+    },
+    "23086": {
+        "size": 8,
+        "format": "i"
+    },
+    "11104": {
+        "size": 8,
+        "format": "i"
+    },
+    "15009": {
+        "format": ""
+    },
+    "15008": {
+        "format": ""
+    },
+    "2050": {
+        "format": "i",
+        "size": 8
+    },
+    "2053": {
+        "size": 8,
+        "format": "i"
+    },
+    "2052": {
+        "size": 8,
+        "format": "i"
+    },
+    "2055": {
+        "size": 8,
+        "format": "i"
+    },
+    "2054": {
+        "size": 8,
+        "format": "i"
+    },
+    "2057": {
+        "size": 8,
+        "format": "i"
+    },
+    "2056": {
+        "size": 8,
+        "format": "i"
+    },
+    "2059": {
+        "size": 8,
+        "format": "i"
+    },
+    "2058": {
+        "name": "ConsumeSuperMeter",
+        "size": 8,
+        "format": "i"
+    },
+    "15013": {
+        "size": 8,
+        "format": "i"
+    },
+    "30062": {
+        "format": "i",
+        "size": 8
+    },
+    "23011": {
+        "size": 8,
+        "format": "i"
+    },
+    "23010": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23013": {
+        "size": 8,
+        "format": "i"
+    },
+    "2": {
+        "name": "sprite",
+        "format": "32si"
+    },
+    "23015": {
+        "size": 8,
+        "format": "i"
+    },
+    "23014": {
+        "format": ""
+    },
+    "23017": {
+        "size": 8,
+        "format": "i"
+    },
+    "23016": {
+        "format": ""
+    },
+    "23019": {
+        "size": 8,
+        "format": "i"
+    },
+    "23018": {
+        "size": 8,
+        "format": "i"
+    },
+    "23152": {
+        "size": 8,
+        "format": "i"
+    },
+    "11105": {
+        "size": 8,
+        "format": "i"
+    },
+    "23154": {
+        "size": 8,
+        "format": "i"
+    },
+    "23155": {
+        "size": 44
+    },
+    "23156": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "23157": {
+        "size": 8,
+        "format": "i"
+    },
+    "9335": {
+        "format": ""
+    },
+    "9334": {
+        "name": "AirHitstunAnimation",
+        "format": "i"
+    },
+    "9337": {
+        "format": ""
+    },
+    "9336": {
+        "size": 8,
+        "format": "i"
+    },
+    "14026": {
+        "size": 8,
+        "format": "i"
+    },
+    "14027": {
+        "format": "32s"
+    },
+    "14024": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14025": {
+        "size": 8,
+        "format": "i"
+    },
+    "14029": {
+        "size": 8,
+        "format": "i"
+    },
+    "23150": {
+        "size": 8,
+        "format": "i"
+    },
+    "23124": {
+        "format": "i",
+        "size": 8
+    },
+    "9238": {
+        "size": 8,
+        "format": "i"
+    },
+    "9239": {
+        "format": ""
+    },
+    "12000": {
+        "name": "WalkFSpeed",
+        "format": "i"
+    },
+    "23151": {
+        "size": 12,
+        "format": "ii"
+    },
+    "30082": {
+        "format": "i",
+        "size": 8
+    },
+    "11": {
+        "name": "sendToLabel",
+        "format": "i"
+    },
+    "10": {
+        "name": "callSubroutine",
+        "format": "32s"
+    },
+    "13": {
+        "size": 8,
+        "format": "i"
+    },
+    "12": {
+        "name": "ExitState",
+        "format": ""
+    },
+    "15": {
+        "name": "upon",
+        "format": "i"
+    },
+    "14": {
+        "format": ""
+    },
+    "17": {
+        "size": 8,
+        "name": "clearUponHandler",
+        "format": "i"
+    },
+    "16": {
+        "name": "endUpon",
+        "format": ""
+    },
+    "19": {
+        "size": 16,
+        "format": "iii"
+    },
+    "18": {
+        "format": "iii"
+    },
+    "30068": {
+        "format": "i",
+        "size": 8
+    },
+    "2020": {
+        "size": 8,
+        "format": "i"
+    },
+    "2021": {
+        "size": 8,
+        "format": "i"
+    },
+    "2022": {
+        "format": ""
+    },
+    "2023": {
+        "size": 12
+    },
+    "23119": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23158": {
+        "size": 12
+    },
+    "23085": {
+        "size": 8,
+        "format": "i"
+    },
+    "14022": {
+        "name": "MoveMaxChainRepeat",
+        "format": "i"
+    },
+    "30046": {
+        "format": "i",
+        "size": 8
+    },
+    "14023": {
+        "size": 8,
+        "format": "i"
+    },
+    "62": {
+        "size": 28
+    },
+    "14020": {
+        "size": 8,
+        "format": "i"
+    },
+    "17022": {
+        "size": 4
+    },
+    "20011": {
+        "size": 12
+    },
+    "14021": {
+        "size": 8,
+        "format": "i"
+    },
+    "14093": {
+        "format": ""
+    },
+    "14092": {
+        "format": ""
+    },
+    "14091": {
+        "format": ""
+    },
+    "14090": {
+        "format": ""
+    },
+    "23159": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "4008": {
+        "size": 8,
+        "format": "i"
+    },
+    "4009": {
+        "size": 8,
+        "format": "i"
+    },
+    "4000": {
+        "name": "GFX_0",
+        "format": "32si"
+    },
+    "4001": {
+        "name": "GFX_1",
+        "format": "32si"
+    },
+    "4002": {
+        "size": 36,
+        "name": "GFX_2",
+        "format": "32s"
+    },
+    "4003": {
+        "format": "32s32s",
+        "size": 68
+    },
+    "4004": {
+        "format": "32si",
+        "name": "SystemGFX",
+        "size": 40
+    },
+    "4006": {
+        "size": 8,
+        "format": "i"
+    },
+    "4007": {
+        "size": 8,
+        "format": "i"
+    },
+    "30047": {
+        "format": "i",
+        "size": 8
+    },
+    "12045": {
+        "size": 68,
+        "format": "16i"
+    },
+    "21014": {
+        "size": 8,
+        "format": "i"
+    },
+    "21013": {
+        "format": "32si",
+        "size": 40
+    },
+    "21012": {
+        "auto": "autostr",
+        "format": "32si",
+        "size": 40
+    },
+    "21011": {
+        "size": 8,
+        "format": "i"
+    },
+    "21010": {
+        "size": 8,
+        "format": "i"
+    },
+    "12042": {
+        "size": 8,
+        "format": "i"
+    },
+    "12043": {
+        "size": 8,
+        "format": "i"
+    },
+    "12040": {
+        "size": 8,
+        "format": "i"
+    },
+    "12041": {
+        "size": 28
+    },
+    "12046": {
+        "size": 8,
+        "format": "i"
+    },
+    "12047": {
+        "size": 8,
+        "format": "i"
+    },
+    "3058": {
+        "size": 8,
+        "format": "i"
+    },
+    "3059": {
+        "size": 8,
+        "format": "i"
+    },
+    "3056": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3057": {
+        "size": 8,
+        "format": "i"
+    },
+    "3054": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3055": {
+        "size": 12,
+        "format": "ii"
+    },
+    "30044": {
+        "size": 4
+    },
+    "3053": {
+        "size": 8,
+        "format": "i"
+    },
+    "1043": {
+        "format": ""
+    },
+    "1042": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1041": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1040": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1047": {
+        "size": 8,
+        "format": "i"
+    },
+    "1046": {
+        "size": 8,
+        "format": "i"
+    },
+    "1045": {
+        "size": 8,
+        "format": "i"
+    },
+    "1044": {
+        "format": ""
+    },
+    "1049": {
+        "format": ""
+    },
+    "1048": {
+        "size": 8,
+        "format": "i"
+    },
+    "12001": {
+        "name": "WalkBSpeed",
+        "format": "i"
+    },
+    "12026": {
+        "size": 8,
+        "format": "i"
+    },
+    "19006": {
+        "size": 8,
+        "format": "i"
+    },
+    "12015": {
+        "name": "Health",
+        "format": "i"
+    },
+    "30061": {
+        "format": "i",
+        "size": 8
+    },
+    "12027": {
+        "size": 8,
+        "format": "i"
+    },
+    "23079": {
+        "size": 8,
+        "format": "i"
+    },
+    "12014": {
+        "size": 8,
+        "format": "i"
+    },
+    "12020": {
+        "format": ""
+    },
+    "12017": {
+        "name": "ComboRate",
+        "format": "i"
+    },
+    "12021": {
+        "size": 8,
+        "format": "i"
+    },
+    "30059": {
+        "size": 4
+    },
+    "30058": {
+        "size": 4
+    },
+    "12016": {
+        "size": 12,
+        "format": "ii"
+    },
+    "12022": {
+        "size": 8,
+        "format": "i"
+    },
+    "23048": {
+        "size": 8
+    },
+    "23049": {
+        "size": 12
+    },
+    "23046": {
+        "size": 8
+    },
+    "12011": {
+        "size": 8,
+        "format": "i"
+    },
+    "23044": {
+        "size": 12,
+        "format": "ii"
+    },
+    "12023": {
+        "size": 8,
+        "format": "i"
+    },
+    "23042": {
+        "format": ""
+    },
+    "23043": {
+        "size": 16,
+        "name": "PhysicsPull",
+        "format": "iii"
+    },
+    "23040": {
+        "size": 12,
+        "format": "ii"
+    },
+    "12010": {
+        "size": 8,
+        "format": "i"
+    },
+    "11050": {
+        "format": "i32s",
+        "size": 40
+    },
+    "11051": {
+        "size": 40
+    },
+    "11052": {
+        "size": 8,
+        "format": "i"
+    },
+    "11053": {
+        "size": 8,
+        "format": "i"
+    },
+    "11054": {
+        "size": 8,
+        "format": "i"
+    },
+    "11055": {
+        "size": 8,
+        "format": "i"
+    },
+    "11056": {
+        "size": 8,
+        "format": "i"
+    },
+    "11057": {
+        "size": 8,
+        "format": "i"
+    },
+    "11058": {
+        "format": "5i",
+        "name": "AttackAttributes",
+        "size": 24
+    },
+    "11059": {
+        "size": 8,
+        "format": "i"
+    },
+    "12012": {
+        "name": "DoubleJumpCount",
+        "format": "i"
+    },
+    "6001": {
+        "size": 8,
+        "format": "i"
+    },
+    "30004": {
+        "size": 16
+    },
+    "23007": {
+        "size": 12,
+        "format": "ii"
+    },
+    "21001": {
+        "size": 8,
+        "format": "i"
+    },
+    "8": {
+        "name": "startSubroutine",
+        "format": "32s"
+    },
+    "9274": {
+        "name": "AttackP1",
+        "format": "i"
+    },
+    "9275": {
+        "format": ""
+    },
+    "9276": {
+        "size": 8,
+        "format": "i"
+    },
+    "9277": {
+        "format": ""
+    },
+    "17018": {
+        "format": ""
+    },
+    "17019": {
+        "name": "ScriptEndGroundBOunce_",
+        "format": ""
+    },
+    "21006": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9179": {
+        "format": ""
+    },
+    "9178": {
+        "size": 8,
+        "format": "i"
+    },
+    "17012": {
+        "size": 16,
+        "format": "iii"
+    },
+    "17013": {
+        "format": ""
+    },
+    "17010": {
+        "format": ""
+    },
+    "17011": {
+        "size": 48,
+        "format": "32siii"
+    },
+    "17016": {
+        "format": ""
+    },
+    "17017": {
+        "name": "AttackDefaults_Astral",
+        "format": ""
+    },
+    "17014": {
+        "format": ""
+    },
+    "9170": {
+        "format": "i",
+        "size": 8
+    },
+    "11025": {
+        "size": 8,
+        "format": "i"
+    },
+    "11024": {
+        "size": 8,
+        "format": "i"
+    },
+    "11026": {
+        "size": 8,
+        "format": "i"
+    },
+    "11023": {
+        "size": 8,
+        "format": "i"
+    },
+    "11029": {
+        "size": 8,
+        "format": "i"
+    },
+    "11028": {
+        "name": "blockstun",
+        "size": 8,
+        "format": "i"
+    },
+    "12013": {
+        "name": "AirDashCount",
+        "format": "i"
+    },
+    "23161": {
+        "size": 8,
+        "format": "i"
+    },
+    "23160": {
+        "size": 8,
+        "format": "i"
+    },
+    "23163": {
+        "size": 8,
+        "format": "i"
+    },
+    "23162": {
+        "size": 8,
+        "format": "i"
+    },
+    "23165": {
+        "format": ""
+    },
+    "23164": {
+        "size": 8,
+        "format": "i"
+    },
+    "23167": {
+        "format": ""
+    },
+    "23166": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "2060": {
+        "name": "Recovery",
+        "format": ""
+    },
+    "2061": {
+        "size": 8,
+        "format": "i"
+    },
+    "2062": {
+        "format": ""
+    },
+    "2063": {
+        "format": ""
+    },
+    "2064": {
+        "size": 8,
+        "format": "i"
+    },
+    "2065": {
+        "size": 8,
+        "format": "i"
+    },
+    "2066": {
+        "size": 8,
+        "format": "i"
+    },
+    "2067": {
+        "size": 12,
+        "format": "ii"
+    },
+    "9155": {
+        "format": ""
+    },
+    "20010": {
+        "size": 16,
+        "format": "iii"
+    },
+    "9094": {
+        "size": 8,
+        "name": "YImpluseBeforeWallbounce",
+        "format": "i"
+    },
+    "9095": {
+        "format": ""
+    },
+    "9096": {
+        "size": 8,
+        "format": "i"
+    },
+    "9097": {
+        "format": ""
+    },
+    "9157": {
+        "format": ""
+    },
+    "9156": {
+        "size": 8,
+        "format": "i"
+    },
+    "30052": {
+        "format": "i",
+        "size": 8
+    },
+    "17003": {
+        "format": ""
+    },
+    "17002": {
+        "name": "AttackDefaults_StandingSpecial",
+        "format": ""
+    },
+    "23096": {
+        "size": 8,
+        "format": "i"
+    },
+    "3": {
+        "name": "loopRest",
+        "format": ""
+    },
+    "17007": {
+        "format": ""
+    },
+    "17006": {
+        "name": "AttackDefaults_CrouchingNormal",
+        "format": ""
+    },
+    "22027": {
+        "size": 8,
+        "format": "i"
+    },
+    "22026": {
+        "size": 8,
+        "format": "i"
+    },
+    "22025": {
+        "size": 16,
+        "format": "iii"
+    },
+    "22024": {
+        "size": 8,
+        "format": "i"
+    },
+    "22023": {
+        "size": 8,
+        "format": "i"
+    },
+    "22022": {
+        "size": 8,
+        "format": "i"
+    },
+    "22021": {
+        "size": 8,
+        "format": "i"
+    },
+    "22020": {
+        "size": 8,
+        "name": "GuardPoint_",
+        "format": "i"
+    },
+    "23153": {
+        "size": 8,
+        "format": "i"
+    },
+    "22029": {
+        "size": 8,
+        "format": "i"
+    },
+    "22028": {
+        "size": 8,
+        "format": "i"
+    },
+    "9007": {
+        "size": 24
+    },
+    "9004": {
+        "format": ""
+    },
+    "9003": {
+        "name": "Damage",
+        "format": "i"
+    },
+    "9002": {
+        "name": "AttackLevel_",
+        "format": "i"
+    },
+    "9001": {
+        "size": 8,
+        "format": "i"
+    },
+    "9000": {
+        "format": ""
+    },
+    "9009": {
+        "size": 88
+    },
+    "9008": {
+        "size": 24
+    },
+    "4055": {
+        "size": 8,
+        "format": "i"
+    },
+    "4054": {
+        "size": 8,
+        "format": "i"
+    },
+    "4053": {
+        "size": 12,
+        "format": "ii"
+    },
+    "4052": {
+        "format": ""
+    },
+    "4051": {
+        "size": 8,
+        "format": "i"
+    },
+    "4050": {
+        "size": 8,
+        "format": "i"
+    },
+    "13038": {
+        "size": 8,
+        "format": "i"
+    },
+    "13039": {
+        "size": 8,
+        "format": "i"
+    },
+    "30009": {
+        "size": 8
+    },
+    "13034": {
+        "size": 8,
+        "format": "i"
+    },
+    "13035": {
+        "size": 8,
+        "format": "i"
+    },
+    "13036": {
+        "size": 8,
+        "format": "i"
+    },
+    "13037": {
+        "size": 8,
+        "format": "i"
+    },
+    "13030": {
+        "size": 8,
+        "format": "i"
+    },
+    "13031": {
+        "size": 8,
+        "format": "i"
+    },
+    "13032": {
+        "size": 8,
+        "format": "i"
+    },
+    "13033": {
+        "size": 8,
+        "format": "i"
+    },
+    "11094": {
+        "size": 8,
+        "format": "i"
+    },
+    "11095": {
+        "size": 8,
+        "format": "i"
+    },
+    "11096": {
+        "size": 12,
+        "format": "ii"
+    },
+    "11097": {
+        "size": 12,
+        "format": "ii"
+    },
+    "11090": {
+        "name": "BonusProrationPct",
+        "size": 8,
+        "format": "i"
+    },
+    "11091": {
+        "name": "MinimumDamagePct",
+        "size": 8,
+        "format": "i"
+    },
+    "11092": {
+        "size": 8,
+        "format": "i"
+    },
+    "11093": {
+        "size": 8,
+        "format": "i"
+    },
+    "11098": {
+        "size": 12,
+        "format": "ii"
+    },
+    "11099": {
+        "size": 8,
+        "format": "i"
+    },
+    "3005": {
+        "size": 8,
+        "format": "i"
+    },
+    "3004": {
+        "size": 8,
+        "format": "i"
+    },
+    "3007": {
+        "size": 8,
+        "format": "i"
+    },
+    "3006": {
+        "size": 8,
+        "format": "i"
+    },
+    "3001": {
+        "size": 8,
+        "format": "i"
+    },
+    "3000": {
+        "size": 8,
+        "format": "i"
+    },
+    "3003": {
+        "size": 8,
+        "format": "i"
+    },
+    "3002": {
+        "size": 8,
+        "format": "i"
+    },
+    "68": {
+        "size": 24
+    },
+    "69": {
+        "name": "PartnerChar",
+        "format": "16s"
+    },
+    "3009": {
+        "size": 8,
+        "format": "i"
+    },
+    "3008": {
+        "size": 8,
+        "format": "i"
+    },
+    "21015": {
+        "format": "32sii",
+        "size": 44
+    },
+    "23012": {
+        "size": 16,
+        "format": "iii"
+    },
+    "12039": {
+        "name": "AirDashBSpeed",
+        "format": "i"
+    },
+    "12038": {
+        "format": "i"
+    },
+    "30035": {
+        "format": "i",
+        "size": 8
+    },
+    "12033": {
+        "size": 8,
+        "format": "i"
+    },
+    "12032": {
+        "size": 28
+    },
+    "12031": {
+        "name": "JumpStartup",
+        "format": "i"
+    },
+    "12030": {
+        "format": "i"
+    },
+    "12037": {
+        "size": 8,
+        "format": "i"
+    },
+    "12036": {
+        "name": "SuperFreezeDuration",
+        "size": 8,
+        "format": "i"
+    },
+    "12035": {
+        "name": "AirBDashDuration",
+        "format": "i"
+    },
+    "12034": {
+        "format": "i"
+    },
+    "23103": {
+        "size": 8,
+        "format": "i"
+    },
+    "1038": {
+        "format": ""
+    },
+    "1039": {
+        "size": 8,
+        "format": "i"
+    },
+    "30085": {
+        "format": "i",
+        "size": 8
+    },
+    "23102": {
+        "size": 8,
+        "format": "i"
+    },
+    "1032": {
+        "format": ""
+    },
+    "1033": {
+        "format": ""
+    },
+    "1030": {
+        "size": 8,
+        "format": "i"
+    },
+    "1031": {
+        "size": 8,
+        "format": "i"
+    },
+    "1036": {
+        "size": 8,
+        "format": "i"
+    },
+    "1037": {
+        "format": ""
+    },
+    "1034": {
+        "size": 8,
+        "format": "i"
+    },
+    "1035": {
+        "name": "setGravity",
+        "format": "i"
+    },
+    "9133": {
+        "format": ""
+    },
+    "9132": {
+        "size": 8,
+        "format": "i"
+    },
+    "9131": {
+        "format": ""
+    },
+    "9130": {
+        "size": 8,
+        "format": "i"
+    },
+    "30002": {
+        "size": 16,
+        "format": "iii"
+    },
+    "30003": {
+        "size": 8,
+        "format": "i"
+    },
+    "30000": {
+        "format": ""
+    },
+    "11002": {
+        "size": 8,
+        "format": "i"
+    },
+    "23132": {
+        "size": 8,
+        "format": "i"
+    },
+    "2044": {
+        "size": 8,
+        "format": "i"
+    },
+    "23130": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23131": {
+        "format": ""
+    },
+    "15010": {
+        "format": ""
+    },
+    "15011": {
+        "size": 8,
+        "format": "i"
+    },
+    "15012": {
+        "size": 8,
+        "format": "i"
+    },
+    "38": {
+        "size": 12,
+        "format": "ii"
+    },
+    "15014": {
+        "size": 8,
+        "format": "i"
+    },
+    "15015": {
+        "size": 12,
+        "format": "ii"
+    },
+    "15016": {
+        "size": 16,
+        "format": "iii"
+    },
+    "15017": {
+        "size": 12,
+        "format": "ii"
+    },
+    "15018": {
+        "size": 8,
+        "format": "i"
+    },
+    "15019": {
+        "size": 8,
+        "format": "i"
+    },
+    "11069": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "11068": {
+        "size": 8,
+        "format": "i"
+    },
+    "11061": {
+        "size": 8,
+        "format": "i"
+    },
+    "11060": {
+        "size": 8,
+        "format": "i"
+    },
+    "11063": {
+        "size": 8,
+        "format": "i"
+    },
+    "11062": {
+        "size": 8,
+        "format": "i"
+    },
+    "11065": {
+        "size": 8,
+        "format": "i"
+    },
+    "11064": {
+        "size": 8,
+        "format": "i"
+    },
+    "11067": {
+        "size": 8,
+        "format": "i"
+    },
+    "11066": {
+        "size": 8,
+        "format": "i"
+    },
+    "23002": {
+        "format": ""
+    },
+    "23003": {
+        "size": 36,
+        "format": "8i"
+    },
+    "1104": {
+        "size": 8,
+        "format": "i"
+    },
+    "1105": {
+        "size": 8,
+        "format": "i"
+    },
+    "1102": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1103": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1100": {
+        "size": 8,
+        "format": "i"
+    },
+    "1101": {
+        "size": 8,
+        "format": "i"
+    },
+    "23008": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23009": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1108": {
+        "size": 8,
+        "format": "i"
+    },
+    "1109": {
+        "size": 12,
+        "format": "ii"
+    },
+    "10000": {
+        "size": 8,
+        "format": "i"
+    },
+    "10001": {
+        "size": 8,
+        "format": "i"
+    },
+    "9346": {
+        "size": 8,
+        "format": "i"
+    },
+    "9347": {
+        "format": ""
+    },
+    "9348": {
+        "size": 8,
+        "format": "i"
+    },
+    "9349": {
+        "format": ""
+    },
+    "14015": {
+        "format": "iiiiii"
+    },
+    "14014": {
+        "size": 8,
+        "format": "i"
+    },
+    "14013": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14012": {
+        "hex": true,
+        "name": "Move_Input_",
+        "format": "i"
+    },
+    "14011": {
+        "size": 8,
+        "format": "i"
+    },
+    "14010": {
+        "size": 8,
+        "format": "i"
+    },
+    "23183": {
+        "format": "32s3i",
+        "size": 48
+    },
+    "23182": {
+        "size": 8,
+        "format": "i"
+    },
+    "23181": {
+        "size": 8,
+        "format": "i"
+    },
+    "23078": {
+        "size": 8,
+        "format": "i"
+    },
+    "30008": {
+        "size": 12
+    },
+    "2048": {
+        "size": 8,
+        "format": "i"
+    },
+    "9180": {
+        "size": 8,
+        "format": "i"
+    },
+    "9181": {
+        "format": ""
+    },
+    "23084": {
+        "size": 8,
+        "format": "i"
+    },
+    "15027": {
+        "size": 8,
+        "format": "i"
+    },
+    "30075": {
+        "format": "i",
+        "size": 8
+    },
+    "23110": {
+        "size": 8,
+        "format": "i"
+    },
+    "2037": {
+        "size": 8,
+        "format": "i"
+    },
+    "2036": {
+        "size": 16,
+        "format": "iii"
+    },
+    "2035": {
+        "size": 8,
+        "format": "i"
+    },
+    "2034": {
+        "size": 8,
+        "format": "i"
+    },
+    "30050": {
+        "size": 28
+    },
+    "9266": {
+        "format": "i",
+        "size": 8
+    },
+    "30043": {
+        "format": "i",
+        "size": 8
+    },
+    "9": {
+        "name": "endSubroutine",
+        "format": ""
+    },
+    "15026": {
+        "size": 16,
+        "format": "iii"
+    },
+    "2039": {
+        "size": 8,
+        "format": "i"
+    },
+    "2038": {
+        "size": 8,
+        "format": "i"
+    },
+    "18011": {
+        "size": 148,
+        "format": "16s64h"
+    },
+    "30041": {
+        "size": 4
+    },
+    "30071": {
+        "size": 4
+    },
+    "23077": {
+        "size": 8,
+        "format": "i"
+    },
+    "30070": {
+        "format": "32s",
+        "size": 36
+    },
+    "23111": {
+        "size": 8,
+        "format": "i"
+    },
+    "23076": {
+        "format": ""
+    },
+    "14080": {
+        "auto": "autostr",
+        "size": 36,
+        "name": "HitCancel",
+        "format": "32s"
+    },
+    "14081": {
+        "size": 8,
+        "name": "HitJumpCancel",
+        "format": "i"
+    },
+    "14082": {
+        "size": 8,
+        "format": "i"
+    },
+    "14083": {
+        "format": "i",
+        "size": 8
+    },
+    "14084": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14085": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "14086": {
+		"format": "32s",
+        "size": 36
+    },
+    "14087": {
+        "size": 8,
+        "format": "i"
+    },
+    "14088": {
+        "format": "i",
+        "size": 8
+    },
+    "30045": {
+        "format": "i",
+        "size": 8
+    },
+    "18010": {
+        "format": ""
+    },
+    "4019": {
+        "size": 8,
+        "format": "i"
+    },
+    "4018": {
+        "size": 52
+    },
+    "30032": {
+        "format": "i",
+        "size": 8
+    },
+    "4013": {
+        "size": 8,
+        "format": "i"
+    },
+    "4012": {
+        "size": 8,
+        "format": "i"
+    },
+    "4011": {
+        "size": 8,
+        "format": "i"
+    },
+    "4010": {
+        "size": 8,
+        "format": "i"
+    },
+    "4017": {
+        "size": 12,
+        "format": "ii"
+    },
+    "4016": {
+        "size": 40
+    },
+    "4015": {
+        "format": ""
+    },
+    "4014": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "12048": {
+        "size": 8,
+        "format": "i"
+    },
+    "11072": {
+        "size": 16,
+        "format": "iii"
+    },
+    "19009": {
+        "size": 8,
+        "format": "i"
+    },
+    "19008": {
+        "format": ""
+    },
+    "30079": {
+        "format": "i",
+        "size": 8
+    },
+    "11073": {
+        "size": 8,
+        "format": "i"
+    },
+    "19003": {
+        "format": ""
+    },
+    "19002": {
+        "format": ""
+    },
+    "19001": {
+        "size": 8,
+        "format": "i"
+    },
+    "19000": {
+        "size": 8,
+        "format": "i"
+    },
+    "19007": {
+        "format": ""
+    },
+    "11070": {
+        "size": 8,
+        "format": "i"
+    },
+    "19005": {
+        "size": 8,
+        "format": "i"
+    },
+    "19004": {
+        "size": 12,
+        "format": "ii"
+    },
+    "21008": {
+        "size": 8,
+        "format": "i"
+    },
+    "21009": {
+        "size": 28
+    },
+    "11071": {
+        "size": 8,
+        "format": "i"
+    },
+    "21000": {
+        "size": 8,
+        "format": "i"
+    },
+    "11076": {
+        "size": 8,
+        "format": "i"
+    },
+    "21002": {
+        "size": 8,
+        "format": "i"
+    },
+    "21003": {
+        "size": 12,
+        "format": "ii"
+    },
+    "21004": {
+        "size": 8,
+        "format": "i"
+    },
+    "21005": {
+        "size": 8,
+        "format": "i"
+    },
+    "12049": {
+        "size": 8,
+        "format": "i"
+    },
+    "11077": {
+        "size": 8,
+        "format": "i"
+    },
+    "30049": {
+        "size": 28
+    },
+    "3048": {
+        "size": 8,
+        "format": "i"
+    },
+    "11074": {
+        "size": 32
+    },
+    "18005": {
+        "size": 12,
+        "format": "ii"
+    },
+    "3041": {
+        "size": 8,
+        "format": "i"
+    },
+    "3040": {
+        "size": 8,
+        "format": "i"
+    },
+    "3043": {
+        "size": 8,
+        "format": "i"
+    },
+    "3042": {
+        "size": 8,
+        "format": "i"
+    },
+    "3045": {
+        "size": 8,
+        "format": "i"
+    },
+    "3044": {
+        "size": 8,
+        "format": "i"
+    },
+    "3047": {
+        "size": 8,
+        "format": "i"
+    },
+    "3046": {
+        "size": 8,
+        "format": "i"
+    },
+    "1078": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1079": {
+        "format": ""
+    },
+    "1076": {
+        "size": 8,
+        "format": "i"
+    },
+    "1077": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1074": {
+        "size": 8,
+        "format": "i"
+    },
+    "1075": {
+        "size": 8,
+        "format": "i"
+    },
+    "1072": {
+        "size": 8,
+        "format": "i"
+    },
+    "1073": {
+        "size": 8,
+        "format": "i"
+    },
+    "1070": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1071": {
+        "size": 12,
+        "format": "ii"
+    },
+    "13005": {
+        "size": 8,
+        "format": "i"
+    },
+    "13004": {
+        "size": 8,
+        "format": "i"
+    },
+    "13007": {
+        "size": 8,
+        "format": "i"
+    },
+    "13006": {
+        "size": 8,
+        "format": "i"
+    },
+    "13001": {
+        "size": 8,
+        "format": "i"
+    },
+    "4": {
+        "startBlock": true,
+        "name": "if",
+        "format": "ii"
+    },
+    "13003": {
+        "size": 8,
+        "format": "i"
+    },
+    "13002": {
+        "size": 8,
+        "format": "i"
+    },
+    "30007": {
+        "size": 8
+    },
+    "13009": {
+        "size": 8,
+        "format": "i"
+    },
+    "13008": {
+        "size": 8,
+        "format": "i"
+    },
+    "1094": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1095": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1096": {
+        "size": 8,
+        "format": "i"
+    },
+    "1097": {
+        "size": 8,
+        "format": "i"
+    },
+    "1090": {
+        "size": 8,
+        "format": "i"
+    },
+    "1091": {
+        "size": 8,
+        "format": "i"
+    },
+    "1092": {
+        "size": 8,
+        "format": "i"
+    },
+    "1093": {
+        "size": 8,
+        "format": "i"
+    },
+    "23073": {
+        "format": ""
+    },
+    "23072": {
+        "format": ""
+    },
+    "23071": {
+        "size": 8,
+        "format": "i"
+    },
+    "23070": {
+        "size": 8,
+        "format": "i"
+    },
+    "1098": {
+        "size": 8,
+        "format": "i"
+    },
+    "1099": {
+        "size": 8,
+        "format": "i"
+    },
+    "23075": {
+        "format": ""
+    },
+    "23074": {
+        "format": ""
+    },
+    "23184": {
+        "size": 36
+    },
+    "18008": {
+        "format": ""
+    },
+    "18009": {
+        "size": 8,
+        "format": "i"
+    },
+    "18004": {
+        "size": 12,
+        "format": "ii"
+    },
+    "59": {
+        "size": 20
+    },
+    "18006": {
+        "size": 12,
+        "format": "ii"
+    },
+    "18007": {
+        "size": 16,
+        "format": "iii"
+    },
+    "14094": {
+        "size": 4
+    },
+    "18001": {
+        "format": ""
+    },
+    "30015": {
+        "size": 4
+    },
+    "18003": {
+        "size": 132
+    },
+    "60": {
+        "size": 20,
+        "format": "16s"
+    },
+    "11110": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "11108": {
+        "format": "i",
+        "size": 8
+    },
+    "11109": {
+        "size": 8
+    },
+    "3038": {
+        "size": 8,
+        "format": "i"
+    },
+    "58": {
+        "size": 44,
+        "format": "32sii"
+    },
+    "61": {
+        "size": 52,
+        "format": "12i"
+    },
+    "55": {
+        "name": "endIfNot",
+        "format": ""
+    },
+    "54": {
+        "size": 12,
+        "name": "ifNot",
+        "format": "ii"
+    },
+    "57": {
+        "name": "endElse",
+        "format": ""
+    },
+    "56": {
+        "name": "else",
+        "format": ""
+    },
+    "3030": {
+        "size": 8,
+        "format": "i"
+    },
+    "50": {
+        "size": 8,
+        "format": "i"
+    },
+    "53": {
+        "size": 8,
+        "format": "i"
+    },
+    "52": {
+        "size": 8,
+        "format": "i"
+    },
+    "3034": {
+        "format": ""
+    },
+    "63": {
+        "size": 20
+    },
+    "30080": {
+        "size": 4
+    },
+    "30087": {
+    	"size": 8,
+    	"format": "i"
+    },
+	"30088": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "3035": {
+        "format": ""
+    },
+    "64": {
+        "size": 8,
+        "format": "i"
+    },
+    "30031": {
+        "format": "i",
+        "size": 8
+    },
+    "30081": {
+        "size": 4
+    },
+    "30014": {
+        "size": 4
+    },
+    "11100": {
+        "size": 8,
+        "format": "i"
+    },
+    "65": {
+        "size": 8,
+        "format": "i"
+    },
+    "9263": {
+        "format": ""
+    },
+    "9262": {
+        "name": "FreezeDuration",
+        "size": 8,
+        "format": "i"
+    },
+    "17025": {
+		"format": "",
+        "size": 4
+    },
+    "11101": {
+        "size": 8,
+        "format": "i"
+    },
+    "17023": {
+        "size": 4
+    },
+    "66": {
+        "size": 28
+    },
+    "9265": {
+        "format": ""
+    },
+    "9264": {
+        "size": 8,
+        "format": "i"
+    },
+    "51": {
+        "size": 8,
+        "format": "i"
+    },
+    "67": {
+        "size": 24
+    },
+    "3031": {
+        "format": ""
+    },
+    "30086": {
+        "format": "i",
+        "size": 8
+    },
+    "3032": {
+        "format": ""
+    },
+    "9142": {
+        "size": 8,
+        "format": "i"
+    },
+    "9143": {
+        "format": ""
+    },
+    "3033": {
+        "format": ""
+    },
+    "9144": {
+        "size": 8,
+        "format": "i"
+    },
+    "9145": {
+        "format": ""
+    },
+    "11036": {
+        "name": "HitOverhead",
+        "format": "i"
+    },
+    "11037": {
+        "name": "HitAirUnblockable",
+        "format": "i"
+    },
+    "11034": {
+        "size": 8,
+        "format": "i"
+    },
+    "11035": {
+        "name": "HitLow",
+        "format": "i"
+    },
+    "11032": {
+        "format": "4i",
+        "size": 20
+    },
+    "11033": {
+        "name": "ProjectileDurabilityLvl",
+        "size": 8,
+        "format": "i"
+    },
+    "11030": {
+        "size": 8,
+        "format": "i"
+    },
+    "11031": {
+        "name": "ChipDamagePct",
+        "size": 8,
+        "format": "i"
+    },
+    "15021": {
+        "format": "i"
+    },
+    "15020": {
+        "size": 20,
+        "format": "4i"
+    },
+    "15023": {
+        "size": 8,
+        "format": "i"
+    },
+    "15022": {
+        "size": 20
+    },
+    "15025": {
+        "size": 24
+    },
+    "15024": {
+        "format": "32s32si"
+    },
+    "11038": {
+        "size": 8,
+        "format": "i"
+    },
+    "11039": {
+        "size": 8,
+        "format": "i"
+    },
+    "23170": {
+        "size": 36,
+        "format": "32s"
+    },
+    "23177": {
+        "format": ""
+    },
+    "14001": {
+        "hex": true,
+        "name": "Move_Register",
+        "format": "32si"
+    },
+    "2073": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "2072": {
+        "size": 24
+    },
+    "2071": {
+        "size": 24
+    },
+    "2070": {
+        "size": 20
+    },
+    "14002": {
+        "name": "Move_EndRegister",
+        "format": ""
+    },
+    "14044": {
+        "size": 44
+    },
+    "14045": {
+        "size": 12,
+        "format": "ii"
+    },
+    "14046": {
+        "size": 8,
+        "format": "i"
+    },
+    "14003": {
+        "hex": true,
+        "name": "Move_AirGround_",
+        "format": "i"
+    },
+    "14043": {
+        "format": ""
+    },
+    "9085": {
+        "format": ""
+    },
+    "9084": {
+        "name": "CounterHitAirPushbackY",
+        "format": "i"
+    },
+    "9083": {
+        "format": ""
+    },
+    "9082": {
+        "name": "AirPushbackY",
+        "format": "i"
+    },
+    "30084": {
+        "format": "i",
+        "size": 8
+    },
+    "23142": {
+        "size": 8,
+        "format": "i"
+    },
+    "9313": {
+        "format": ""
+    },
+    "9312": {
+        "size": 8,
+        "format": "i"
+    },
+    "9311": {
+        "format": ""
+    },
+    "9310": {
+        "size": 8,
+        "format": "i"
+    },
+    "13042": {
+        "format": ""
+    },
+    "30064": {
+        "format": "i",
+        "size": 8
+    },
+    "9218": {
+        "size": 8,
+        "format": "i"
+    },
+    "9219": {
+        "size": 8,
+        "format": "i"
+    },
+    "23143": {
+        "size": 16,
+        "format": "iii"
+    },
+    "22030": {
+        "size": 8,
+        "format": "i"
+    },
+    "22031": {
+        "size": 12,
+        "format": "ii"
+    },
+    "22032": {
+        "size": 8,
+        "format": "i"
+    },
+    "22033": {
+        "size": 8,
+        "format": "i"
+    },
+    "22034": {
+        "size": 8,
+        "format": "i"
+    },
+    "22039": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "12044": {
+        "size": 8,
+        "format": "i"
+    },
+    "22036": {
+        "size": 8,
+        "format": "i"
+    },
+    "22037": {
+        "size": 8,
+        "format": "i"
+    },
+    "22038": {
+        "format": "i",
+        "size": 8
+    },
+    "70": {
+		"format": "16s16s16s16s",
+        "size": 68
+    },
+    "30051": {
+        "format": "i",
+        "size": 8
+    },
+    "20006": {
+        "size": 8,
+        "format": "i"
+    },
+    "17024": {
+		"format": "",
+        "size": 4
+    },
+    "30063": {
+        "format": "i",
+        "size": 8
+    },
+    "7014": {
+        "auto": "autostr",
+        "size": 36,
+        "format": "32s"
+    },
+    "7015": {
+        "format": ""
+    },
+    "7012": {
+        "size": 8,
+        "format": "i"
+    },
+    "7013": {
+        "size": 12,
+        "format": "ii"
+    },
+    "7010": {
+        "format": "i16s"
+    },
+    "7011": {
+        "size": 8,
+        "format": "i"
+    },
+    "4061": {
+        "size": 8,
+        "format": "i"
+    },
+    "17021": {
+        "size": 4
+    },
+    "23185": {
+        "size": 40
+    },
+    "9216": {
+        "size": 8,
+        "format": "i"
+    },
+    "17020": {
+        "name": "ScriptSameAttackComboNoSpecialCancel",
+        "format": ""
+    },
+    "9217": {
+        "format": ""
+    },
+    "16000": {
+        "size": 44
+    },
+    "16001": {
+        "size": 44
+    },
+    "9214": {
+        "name": "PushbackX",
+        "format": "i"
+    },
+    "13041": {
+        "size": 12,
+        "format": "ii"
+    },
+    "13040": {
+        "size": 68
+    },
+    "13043": {
+        "size": 8,
+        "format": "i"
+    },
+    "9215": {
+        "format": ""
+    },
+    "13045": {
+        "format": "i",
+        "size": 8
+    },
+    "13044": {
+        "size": 8,
+        "format": "i"
+    },
+    "3070": {
+        "size": 8,
+        "format": "i"
+    },
+    "3071": {
+        "format": "i",
+        "name": "AfterimageCount",
+        "size": 8
+    },
+    "3072": {
+        "format": "4i",
+        "name": "AfterimageColor_1",
+        "size": 20
+    },
+    "3073": {
+        "format": "4i",
+        "name": "AfterimageColor_2",
+        "size": 20
+    },
+    "3074": {
+        "format": "4i",
+        "name": "AfterimageMask_1",
+        "size": 20
+    },
+    "3075": {
+        "format": "4i",
+        "name": "AfterimageMask_2",
+        "size": 20
+    },
+    "3076": {
+        "format": "i",
+        "name": "AfterimageSize_1",
+        "size": 8
+    },
+    "3077": {
+        "format": "i",
+        "name": "AfterimageSize_2",
+        "size": 8
+    },
+    "3078": {
+        "format": "i",
+        "name": "EnableAfterimagePulse",
+        "size": 8
+    },
+    "3079": {
+        "format": "i",
+        "size": 8
+    },
+    "12028": {
+        "size": 8,
+        "format": "i"
+    },
+    "12029": {
+        "size": 8,
+        "format": "i"
+    },
+    "1025": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1024": {
+        "name": "YAccel",
+        "format": "i"
+    },
+    "1027": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1026": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1021": {
+        "size": 8,
+        "format": "i"
+    },
+    "1020": {
+        "name": "physicsYImpulse",
+        "format": "i"
+    },
+    "1023": {
+        "format": ""
+    },
+    "1022": {
+        "format": ""
+    },
+    "30074": {
+        "format": "i",
+        "size": 8
+    },
+    "1029": {
+        "size": 8,
+        "format": "i"
+    },
+    "1028": {
+        "size": 8,
+        "format": "i"
+    },
+    "22019": {
+        "format": "5i",
+        "size": 24
+    },
+    "30033": {
+        "format": "i",
+        "size": 8
+    },
+    "30006": {
+        "size": 16,
+        "format": "iii"
+    },
+    "23109": {
+        "size": 8,
+        "format": "i"
+    },
+    "23108": {
+        "size": 8,
+        "format": "i"
+    },
+    "30037": {
+        "size": 4
+    },
+    "30036": {
+		"format": "32sii",
+        "size": 40
+    },
+    "9108": {
+        "size": 8,
+        "format": "i"
+    },
+    "9109": {
+        "format": ""
+    },
+    "9106": {
+        "size": 8,
+        "name": "WallbounceReboundTime",
+        "format": "i"
+    },
+    "9107": {
+        "format": ""
+    },
+    "23101": {
+        "size": 8,
+        "format": "i"
+    },
+    "23100": {
+        "size": 8,
+        "format": "i"
+    },
+    "23107": {
+        "size": 8,
+        "format": "i"
+    },
+    "23106": {
+        "size": 8,
+        "format": "i"
+    },
+    "23105": {
+        "size": 8,
+        "format": "i"
+    },
+    "23104": {
+        "size": 8,
+        "format": "i"
+    },
+    "30005": {
+        "size": 8,
+        "format": "i"
+    },
+    "11078": {
+        "size": 8,
+        "format": "i"
+    },
+    "11079": {
+        "size": 8,
+        "format": "i"
+    },
+    "48": {
+		"format": "iiiiii",
+        "size": 28
+    },
+    "49": {
+        "size": 24,
+        "name": "ModifyVar_",
+        "format": "iiiii"
+    },
+    "46": {
+        "size": 8,
+        "format": "i"
+    },
+    "47": {
+        "size": 32
+    },
+    "44": {
+        "size": 8,
+        "format": "i"
+    },
+    "45": {
+        "size": 20
+    },
+    "42": {
+        "size": 20,
+        "format": "16s"
+    },
+    "43": {
+        "hex": true,
+        "name": "CheckInput",
+        "format": "i"
+    },
+    "40": {
+        "size": 24,
+        "name": "op",
+        "format": "iiiii"
+    },
+    "41": {
+        "name": "StoreValue",
+        "format": "iiii"
+    },
+    "1111": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1110": {
+        "size": 12,
+        "format": "ii"
+    },
+    "1112": {
+        "size": 4
+    },
+    "1114": {
+    	"size": 4
+    },
+    "1116": {
+    	"size": 4
+    },
+    "5": {
+        "name": "endIf",
+        "endBlock": true,
+        "format": ""
+    },
+    "23039": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23038": {
+        "size": 12,
+        "format": "ii"
+    },
+    "23037": {
+        "format": ""
+    },
+    "23036": {
+        "format": ""
+    },
+    "23035": {
+        "size": 8,
+        "format": "i"
+    },
+    "23034": {
+        "size": 8,
+        "format": "i"
+    },
+    "23033": {
+        "size": 8,
+        "format": "i"
+    },
+    "23032": {
+        "size": 8,
+        "format": "i"
+    },
+    "23031": {
+        "size": 8,
+        "format": "i"
+    },
+    "23030": {
+        "format": "32s8i",
+        "size": 68
+    },
+    "14008": {
+        "size": 8,
+        "format": "i"
+    },
+    "14009": {
+        "size": 8,
+        "format": "i"
+    },
+    "14000": {
+        "format": ""
+    },
+    "11001": {
+        "size": 16,
+        "format": "iii"
+    },
+    "9359": {
+        "format": ""
+    },
+    "9358": {
+        "size": 8,
+        "name": "AirHitstunAfterWallbounce",
+        "format": "i"
+    },
+    "14004": {
+        "size": 8,
+        "format": "i"
+    },
+    "14005": {
+        "size": 8,
+        "format": "i"
+    },
+    "14006": {
+        "size": 8,
+        "format": "i"
+    },
+    "14007": {
+        "size": 8,
+        "format": "i"
+    },
+    "9191": {
+        "format": ""
+    },
+    "9190": {
+        "size": 8,
+        "format": "i"
+    },
+    "9193": {
+        "format": ""
+    },
+    "9192": {
+        "size": 8,
+        "format": "i"
+    },
+    "8008": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8009": {
+        "size": 8,
+        "format": "i"
+    },
+    "8004": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8005": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8006": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8007": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8000": {
+        "size": 16,
+        "format": "iii"
+    },
+    "8001": {
+        "size": 12,
+        "format": "ii"
+    },
+    "8002": {
+        "format": ""
+    },
+    "8003": {
+        "size": 16,
+        "format": "iii"
+    },
+    "20007": {
+        "size": 8,
+        "format": "i"
+    },
+    "11000": {
+        "name": "Hitstop",
+        "format": "i"
+    },
+    "23041": {
+        "size": 12,
+        "format": "ii"
+    },
+    "13000": {
+        "size": 8,
+        "format": "i"
+    },
+    "2002": {
+        "name": "StartMultihit",
+        "format": ""
+    },
+    "2003": {
+        "size": 8,
+        "format": "i"
+    },
+    "2000": {
+        "name": "RefreshMultihit",
+        "format": ""
+    },
+    "2001": {
+        "format": ""
+    },
+    "2006": {
+        "format": ""
+    },
+    "2007": {
+        "format": ""
+    },
+    "2004": {
+        "size": 12,
+        "format": "ii"
+    },
+    "2005": {
+        "format": ""
+    },
+    "23118": {
+        "size": 8,
+        "format": "i"
+    },
+    "2008": {
+        "format": ""
+    },
+    "2009": {
+        "format": ""
+    },
+    "7500": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "22500": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "23059": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "30088":{
+    	"size": 8,
+    	"format": "i"
+    },
+    "30089":{
+    	"size": 8,
+    	"format": "i"
+    },
+    "30092":{
+    	"size": 36,
+    	"format": "16s16s"
+    },
+    "30093": {
+    	"size": 24,
+    	"format": "iiiii"
+    },
+    "2068": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "9366": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "2074": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "103": {
+    	"size": 12,
+    	"format": "ii"
+    },
+    "12060": {
+    	"size": 8,
+    	"format": "i"
+    },
+    "2075": {
+    	"size": 8,
+    	"format": "i"
+    },
+	"4026": {
+		"size": 8,
+		"format": "i"
+	},
+	"30090": {
+		"size": 36,
+		"format": "16s16s"
+	},
+	"23126": {
+		"size": 8,
+		"format": "i"
+	},
+	"23060": {
+		"size": 8,
+		"format": "i"
+	}
+}

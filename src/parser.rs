@@ -1,20 +1,11 @@
-use serde::{Deserialize, Serialize};
-use serde_json;
+use std::error::Error;
 
-enum Arg {
-    String16,
-    String32,
-    Int,
-    Unknown(usize),
+use crate::command_db::GameDB;
+
+pub fn parse_bbscript(db: GameDB) -> Result<(), Box<dyn Error>> {
+    Ok(())
 }
 
-struct Instruction {
-    name: String,
-    arguments: Vec<Arg>,
-}
-
-pub fn parse_bbscript() {}
-
-fn identify_func() -> Option<Instruction> {
+fn identify_func() {
     unimplemented!()
 }

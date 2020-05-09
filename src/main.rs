@@ -1,8 +1,11 @@
 #[macro_use]
 use clap::{clap_app, AppSettings, ArgMatches};
-use crate::error::BBScriptError;
 use std::error::Error;
 use std::path::Path;
+
+use crate::command_db::GameDB;
+use crate::error::BBScriptError;
+use crate::parser::parse_bbscript;
 
 mod command_db;
 mod error;
@@ -79,7 +82,12 @@ fn confirm_io_files(args: &ArgMatches) -> Result<(), BBScriptError> {
 fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     let db_folder = args.value_of("db_folder");
     let game = args.value_of("GAME").unwrap();
-    let cmd_db = dbg!(command_db::create_db(db_folder, game)?);
+    let db = GameDB::new(db_folder, game)?;
+
+    if let Err(e) = parse_bbscript(db) {
+        return Err(e);
+    }
+
     Ok(())
 }
 
