@@ -1,6 +1,7 @@
 use bimap::BiMap;
 use ron::de::from_reader;
 use serde::Deserialize;
+use crate::error::BBScriptError;
 
 use std::error::Error;
 use std::fs::File;
@@ -22,19 +23,55 @@ impl GameDB {
 
         Ok(db)
     }
+
+    pub fn find_by_id(&self, id_in: u32) -> Result<&Function, BBScriptError> {
+        if let Some(func) = self.functions.iter().find(|x| x.id == id_in) {
+            return Ok(func);
+        } else {
+            return Err(BBScriptError::UnknownFunction(id_in.to_string()));
+        }
+    }
+
+    pub fn find_by_name(&self, name_in: &str) -> Result<&Function, BBScriptError> {
+        if let Some(func) = self.functions.iter().find(|x| x.name == name_in) {
+            return Ok(func)
+        } else {
+            return Err(BBScriptError::UnknownFunction(name_in.into()));
+        }
+    }
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-struct Function {
-    id: u32,
-    size: u32,
+pub struct Function {
+    pub id: u32,
+    pub size: u32,
     args: String,
-    name: String,
-    code_block: Indentation,
+    pub name: String,
+    pub code_block: Indentation,
     named_values: BiMap<(u32, u32), (u32, String)>,
 }
+impl Function {
+    // Not recoverable because name has no inherent value
+    pub fn get_value(&self, name: (u32, String)) -> Result<u32, BBScriptError> {
+        if let Some(value) = self.named_values.get_by_right(&name) {
+            return Ok(value.1)
+        } else {
+            Err(BBScriptError::NoAssociatedValue(name.0.to_string(), name.1))
+        }
+    }
 
+    // Recoverable, will just use raw value if no name associated
+    pub fn get_name(&self, value: (u32, u32)) -> Option<String> {
+        if let Some(value) = self.named_values.get_by_left(&value) {
+            return Some(value.1.clone())
+        } else {
+            return None;
+        }
+    }
+}
+
+// use this later when parsing format strings
 pub enum Arg {
     String16,
     String32,
