@@ -13,3 +13,4 @@ thiserror = "1.0"
 ron = "0.5"
 bimap = { version = "0.4", features = ['serde'] }
 bytes = "0.5.4"
+hex = "0.4.2"

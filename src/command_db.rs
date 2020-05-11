@@ -97,7 +97,7 @@ impl Function {
                 _ => arg_string = &arg_string[1..],
             }
         }
-        if size_of_args < self.size-4 {
+        if size_of_args < self.size - 4 {
             let left_over = self.size - size_of_args - 4;
             arg_accumulator.push(Arg::Unknown(left_over));
         }

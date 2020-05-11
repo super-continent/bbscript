@@ -1,9 +1,10 @@
 use bytes::{Buf, Bytes, BytesMut};
+use hex::encode_upper;
 
 use std::error::Error;
 use std::fmt::Write;
 
-use crate::command_db::{Arg, GameDB, Indentation};
+use crate::command_db::{Arg, GameDB};
 use crate::verbose;
 use crate::BBScriptError;
 
@@ -15,18 +16,17 @@ pub fn parse_bbscript(
     let mut out_buffer = BytesMut::new();
 
     let state_table_entry_count = input_file.get_u32_le() as usize;
-    let advance = state_table_entry_count * 0x24;
+    let advance_amount = state_table_entry_count * 0x24;
 
-    if advance < input_file.len() {
-        verbose!(println!("Jumping to offset `{:#X}`", advance), verbose);
-        input_file.advance(advance);
+    if advance_amount < input_file.len() {
+        verbose!(println!("Jumping to offset `{:#X}`", advance_amount), verbose);
+        input_file.advance(advance_amount);
     } else {
         return Err(Box::new(BBScriptError::IncorrectJumpTableSize(
-            advance.to_string(),
+            advance_amount.to_string(),
         )));
     }
 
-    let mut indentation = 0;
     while input_file.remaining() != 0 {
         let instruction = input_file.get_u32_le();
 
@@ -41,21 +41,7 @@ pub fn parse_bbscript(
 
         let instruction_info = db.find_by_id(instruction)?;
 
-        out_buffer.write_fmt(format_args!(
-            "{:>width$} ",
-            instruction_info.instruction_name(),
-            width = indentation
-        ))?;
-
-        match instruction_info.code_block {
-            Indentation::Begin => indentation += 4,
-            Indentation::End => {
-                if indentation >= 4 {
-                    indentation -= 4
-                };
-            },
-            Indentation::None => {},
-        }
+        out_buffer.write_fmt(format_args!("{} ", instruction_info.instruction_name(),))?;
 
         verbose!(
             println!("Got instruction: {:#?}", instruction_info),
@@ -100,15 +86,11 @@ pub fn parse_bbscript(
                     }
                 }
                 Arg::Unknown(size) => {
-                    let mut buf: Vec<u8> = Vec::with_capacity(*size as usize);
-                    input_file.copy_to_slice(&mut buf);
-                    input_file.advance(*size as usize);
-                    out_buffer.write_fmt(format_args!(
-                        "0x{} ", // FIXME: Fix hex output for unknown arguments
-                        buf.iter()
-                            .map(|x| format!("{:#>2X}", x) )
-                            .collect::<String>()
-                    ))?;
+                    let mut buf = Vec::new();
+                    for i in 0..*size {
+                        buf.push(input_file.get_u8());
+                    };
+                    out_buffer.write_fmt(format_args!("0x{} ", encode_upper(buf)))?;
                 }
             };
         }

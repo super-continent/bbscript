@@ -148,7 +148,7 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     match parse_bbscript(db, in_bytes, verbose) {
         Ok(f) => {
             let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
-            output.write_all(&f.to_vec());
+            output.write_all(&f.to_vec())?;
         }
         Err(e) => return Err(e),
     }
