@@ -3839,10 +3839,10 @@
             name: "guardType",
             codeBlock: None,
             namedValues: {
-                (0, 0) : "ANY",
-                (0, 1) : "HIGH",
-                (0, 2) : "LOW",
-                (0, 3) : "NONE",
+                (0, 0) : (0, "ANY"),
+                (0, 1) : (0, "HIGH"),
+                (0, 2) : (0, "LOW"),
+                (0, 3) : (0, "NONE"),
             },
         ),
         (
