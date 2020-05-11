@@ -109,7 +109,7 @@ fn get_offsets(begin: Option<&str>, end: Option<&str>) -> (Option<usize>, Option
         None => None,
     };
 
-    let end_num = match begin {
+    let end_num = match end {
         Some(end) => {
             let end = end.trim_start_matches("0x");
             if let Ok(n) = usize::from_str_radix(end, 16) {
