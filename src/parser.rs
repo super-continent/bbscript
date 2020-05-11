@@ -4,7 +4,7 @@ use hex::encode_upper;
 use std::error::Error;
 use std::fmt::Write;
 
-use crate::command_db::{Arg, GameDB};
+use crate::command_db::{Arg, GameDB, Indentation};
 use crate::verbose;
 use crate::BBScriptError;
 
@@ -27,6 +27,7 @@ pub fn parse_bbscript(
         )));
     }
 
+    let mut indent = 0;
     while input_file.remaining() != 0 {
         let instruction = input_file.get_u32_le();
 
@@ -41,7 +42,17 @@ pub fn parse_bbscript(
 
         let instruction_info = db.find_by_id(instruction)?;
 
-        out_buffer.write_fmt(format_args!("{} ", instruction_info.instruction_name(),))?;
+        out_buffer.write_fmt(format_args!("{:width$}{} ", "", instruction_info.instruction_name(), width = indent * 4))?;
+
+        match instruction_info.code_block {
+            Indentation::Begin => indent += 1,
+            Indentation::End => {
+                if indent > 0 {
+                    indent -= 1;
+                }
+            },
+            Indentation::None => {},
+        }
 
         verbose!(
             println!("Got instruction: {:#?}", instruction_info),

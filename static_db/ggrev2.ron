@@ -5282,7 +5282,7 @@
             id: 1380,
             size: 36,
             args: "32s",
-            name: "registerMoveFunc",
+            name: "registerFunc",
             codeBlock: None,
             namedValues: {},
         ),
@@ -5299,7 +5299,7 @@
             size: 36,
             args: "32s",
             name: "addMove",
-            codeBlock: None,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
@@ -5307,7 +5307,7 @@
             size: 4,
             args: "",
             name: "endMoveRegister",
-            codeBlock: None,
+            codeBlock: End,
             namedValues: {},
         ),
         (
