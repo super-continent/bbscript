@@ -42,16 +42,28 @@ pub fn parse_bbscript(
 
         let instruction_info = db.find_by_id(instruction)?;
 
-        out_buffer.write_fmt(format_args!("{:width$}{} ", "", instruction_info.instruction_name(), width = indent * 4))?;
+        out_buffer.write_fmt(format_args!("{:width$}{}: ", "", instruction_info.instruction_name(), width = indent * 4))?;
+
+        // Determine if indented block was ended or was already indented 0 spaces, to make sure newlines applied only after indented blocks
+        let mut block_ended = false;
 
         match instruction_info.code_block {
-            Indentation::Begin => indent += 1,
+            Indentation::Begin => {
+                if indent < 6 {
+                    indent += 1
+                }
+            },
             Indentation::End => {
                 if indent > 0 {
                     indent -= 1;
+                    if indent == 0 {
+                        block_ended = true;
+                    }
                 }
             },
-            Indentation::None => {},
+            Indentation::None => {
+                block_ended = false
+            },
         }
 
         verbose!(
@@ -60,17 +72,18 @@ pub fn parse_bbscript(
         );
 
         let args = instruction_info.get_args();
+        let args_length = args.len();
         let args = args.iter();
 
         verbose!(println!("Found Args: {:?}", args), verbose);
-        let arg_index = 0;
-        for arg in args {
+        for (index, arg) in args.enumerate() {
+            let arg_index = index as u32;
             match arg {
                 Arg::String32 => {
                     let mut buf = [0; 32];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "'{}', ",
+                        "'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
@@ -81,7 +94,7 @@ pub fn parse_bbscript(
                     let mut buf = [0; 16];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "'{}', ",
+                        "'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
@@ -91,9 +104,9 @@ pub fn parse_bbscript(
                 Arg::Int => {
                     let num = input_file.get_i32_le();
                     if let Some(name) = instruction_info.get_name((arg_index, num)) {
-                        out_buffer.write_fmt(format_args!("{}, ", name))?;
+                        out_buffer.write_fmt(format_args!("{}", name))?;
                     } else {
-                        out_buffer.write_fmt(format_args!("{}, ", num))?;
+                        out_buffer.write_fmt(format_args!("{}", num))?;
                     }
                 }
                 Arg::Unknown(size) => {
@@ -101,11 +114,19 @@ pub fn parse_bbscript(
                     for i in 0..*size {
                         buf.push(input_file.get_u8());
                     };
-                    out_buffer.write_fmt(format_args!("0x{} ", encode_upper(buf)))?;
+                    out_buffer.write_fmt(format_args!("0x{}", encode_upper(buf)))?;
                 }
             };
+
+            if index != args_length - 1 {
+                out_buffer.write_fmt(format_args!(", "))?;
+            }
         }
-        out_buffer.write_char('\n')?;
+        if !block_ended{
+            out_buffer.write_char('\n')?;
+        } else {
+            out_buffer.write_str("\n\n")?;
+        }
     }
     Ok(out_buffer)
 }
