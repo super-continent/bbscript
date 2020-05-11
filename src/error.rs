@@ -6,8 +6,10 @@ pub enum BBScriptError {
     BadInputFile(String),
     #[error("Output file `{0}` already exists, specify overwrite with -o flag")]
     OutputAlreadyExists(String),
-    #[error("Unknown function with ID/name `{0}`")]
+    #[error("Unknown instruction with ID/name `{0}`")]
     UnknownFunction(String),
     #[error("No value associated with arg `{0}` name `{1}`")]
     NoAssociatedValue(String, String),
+    #[error("Jump table size of `{0}` is too big! Is the program reading from the correct")]
+    IncorrectJumpTableSize(String),
 }

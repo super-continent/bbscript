@@ -125,7 +125,7 @@
             size: 36,
             args: "32s",
             name: "startSubroutine",
-            codeBlock: None,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
@@ -5717,7 +5717,7 @@
         ),
         (
             id: 1488,
-            size: 16,
+            size: 20,
             args: "",
             name: "",
             codeBlock: None,

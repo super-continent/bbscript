@@ -1,11 +1,11 @@
 mod command_db;
 mod error;
+mod log;
 mod parser;
 mod rebuilder;
 
-#[macro_use]
-use clap::{clap_app, AppSettings, ArgMatches};
 use bytes::Bytes;
+use clap::{clap_app, AppSettings, ArgMatches};
 
 use std::error::Error;
 use std::fs::{metadata, File};
@@ -32,6 +32,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         (@subcommand parse =>
             (about: "Parses BBScript files and outputs them to a readable format")
             (version: VERSION)
+            (@arg verbose: -v --verbose "Enables verbose log output")
             (@arg db_folder: -d --dbfolder "Path to folder containing game DB folders")
             (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg begin_offset: +takes_value -b --begin_offset "Takes a hex offset from the start of the file specifying where the actual script begins")
@@ -43,6 +44,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         (@subcommand rebuild =>
             (about: "Rebuilds readable BBScript into BBScript usable by games")
             (version: VERSION)
+            (@arg verbose: -v --verbose "Enables verbose log output")
             (@arg db_folder: -d --dbfolder "Path to folder containing game DB folders")
             (@arg GAME: +required "Subfolder of the game DB path specifying which game to read the commandDB and named value files from")
             (@arg INPUT: +required "Sets input file")
@@ -125,6 +127,12 @@ fn get_offsets(begin: Option<&str>, end: Option<&str>) -> (Option<usize>, Option
 fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     let db_folder = args.value_of("db_folder");
     let game = args.value_of("GAME").unwrap();
+    let verbose = args.is_present("verbose");
+
+    verbose!(
+        println!("Extracting script info from `{}.ron`...", game),
+        verbose
+    );
     let db = GameDB::new(db_folder, game)?;
 
     let in_path = args.value_of("INPUT").unwrap();
@@ -137,8 +145,12 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
 
     let in_bytes = in_bytes.slice(start.unwrap_or(0)..(file_length - end.unwrap_or(0)));
 
-    if let Err(e) = parse_bbscript(db, in_bytes) {
-        return Err(e);
+    match parse_bbscript(db, in_bytes, verbose) {
+        Ok(f) => {
+            let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
+            output.write_all(&f.to_vec());
+        }
+        Err(e) => return Err(e),
     }
 
     Ok(())
