@@ -1,7 +1,7 @@
+use crate::error::BBScriptError;
 use bimap::BiMap;
 use ron::de::from_reader;
 use serde::Deserialize;
-use crate::error::BBScriptError;
 
 use std::error::Error;
 use std::fs::File;
@@ -34,7 +34,7 @@ impl GameDB {
 
     pub fn find_by_name(&self, name_in: &str) -> Result<&Function, BBScriptError> {
         if let Some(func) = self.functions.iter().find(|x| x.name == name_in) {
-            return Ok(func)
+            return Ok(func);
         } else {
             return Err(BBScriptError::UnknownFunction(name_in.into()));
         }
@@ -55,7 +55,7 @@ impl Function {
     // Not recoverable because name has no inherent value
     pub fn get_value(&self, name: (u32, String)) -> Result<u32, BBScriptError> {
         if let Some(value) = self.named_values.get_by_right(&name) {
-            return Ok(value.1)
+            return Ok(value.1);
         } else {
             Err(BBScriptError::NoAssociatedValue(name.0.to_string(), name.1))
         }
@@ -64,7 +64,7 @@ impl Function {
     // Recoverable, will just use raw value if no name associated
     pub fn get_name(&self, value: (u32, u32)) -> Option<String> {
         if let Some(value) = self.named_values.get_by_left(&value) {
-            return Some(value.1.clone())
+            return Some(value.1.clone());
         } else {
             return None;
         }

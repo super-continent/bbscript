@@ -2,8 +2,8 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum BBScriptError {
-    #[error("File `{0}` does not exist")]
-    FileDoesNotExist(String),
+    #[error("Input `{0}` does not exist or is a directory")]
+    BadInputFile(String),
     #[error("Output file `{0}` already exists, specify overwrite with -o flag")]
     OutputAlreadyExists(String),
     #[error("Unknown function with ID/name `{0}`")]
