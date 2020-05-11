@@ -104,14 +104,14 @@ pub fn parse_bbscript(
                 Arg::Int => {
                     let num = input_file.get_i32_le();
                     if let Some(name) = instruction_info.get_name((arg_index, num)) {
-                        out_buffer.write_fmt(format_args!("{}", name))?;
+                        out_buffer.write_fmt(format_args!("({})", name))?;
                     } else {
                         out_buffer.write_fmt(format_args!("{}", num))?;
                     }
                 }
                 Arg::Unknown(size) => {
                     let mut buf = Vec::new();
-                    for i in 0..*size {
+                    for _ in 0..*size {
                         buf.push(input_file.get_u8());
                     };
                     out_buffer.write_fmt(format_args!("0x{}", encode_upper(buf)))?;
