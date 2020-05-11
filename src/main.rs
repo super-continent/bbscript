@@ -84,6 +84,16 @@ fn confirm_io_files(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     }
 }
 
+fn get_byte_vec(name: &str) -> Result<Vec<u8>, Box<dyn Error>> {
+    let mut file = File::open(name)?;
+    let meta = metadata(name)?;
+    let mut file_buf = vec![0; meta.len() as usize];
+
+    file.read(&mut file_buf)?;
+
+    return Ok(file_buf);
+}
+
 fn get_offsets(begin: Option<&str>, end: Option<&str>) -> (Option<usize>, Option<usize>) {
     let begin_num = match begin {
         Some(start) => {
@@ -118,17 +128,14 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     let db = GameDB::new(db_folder, game)?;
 
     let in_path = args.value_of("INPUT").unwrap();
-    let mut in_file = File::open(in_path)?;
-    let mut in_bytes = Vec::<u8>::new();
+    let in_file = get_byte_vec(in_path)?;
 
-    in_file.read_to_end(&mut in_bytes)?;
-
-    let in_bytes = Bytes::from(in_bytes);
+    let mut in_bytes = Bytes::from(in_file);
+    let file_length = in_bytes.len();
 
     let (start, end) = get_offsets(args.value_of("start_offset"), args.value_of("end_offset"));
 
-    let in_bytes =
-        in_bytes.slice(start.unwrap_or(0)..(metadata(in_path)?.len() as usize - end.unwrap_or(0)));
+    let in_bytes = in_bytes.slice(start.unwrap_or(0)..(file_length - end.unwrap_or(0)));
 
     if let Err(e) = parse_bbscript(db, in_bytes) {
         return Err(e);
