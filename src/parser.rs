@@ -83,7 +83,7 @@ pub fn parse_bbscript(
                     let mut buf = [0; 32];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "'{}'",
+                        "32s'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
@@ -94,7 +94,7 @@ pub fn parse_bbscript(
                     let mut buf = [0; 16];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "'{}'",
+                        "16s'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
