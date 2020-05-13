@@ -8,6 +8,8 @@ use crate::command_db::{Arg, GameDB, Indentation};
 use crate::verbose;
 use crate::BBScriptError;
 
+const INDENT_LIMIT: usize = 6;
+
 pub fn parse_bbscript(
     db: GameDB,
     mut input_file: Bytes,
@@ -49,7 +51,12 @@ pub fn parse_bbscript(
 
         match instruction_info.code_block {
             Indentation::Begin => {
-                if indent < 6 {
+                if indent < INDENT_LIMIT {
+                    indent += 1
+                }
+            },
+            Indentation::BeginJumpEntry => {
+                if indent < INDENT_LIMIT {
                     indent += 1
                 }
             },
@@ -83,7 +90,7 @@ pub fn parse_bbscript(
                     let mut buf = [0; 32];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "32s'{}'",
+                        "s32'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
@@ -94,7 +101,7 @@ pub fn parse_bbscript(
                     let mut buf = [0; 16];
                     input_file.copy_to_slice(&mut buf);
                     out_buffer.write_fmt(format_args!(
-                        "16s'{}'",
+                        "s16'{}'",
                         buf.iter()
                             .filter(|x| **x != 0)
                             .map(|x| *x as char)
@@ -114,7 +121,7 @@ pub fn parse_bbscript(
                     for _ in 0..*size {
                         buf.push(input_file.get_u8());
                     };
-                    out_buffer.write_fmt(format_args!("0x{}", encode_upper(buf)))?;
+                    out_buffer.write_fmt(format_args!("'0x{}'", encode_upper(buf)))?;
                 }
             };
 

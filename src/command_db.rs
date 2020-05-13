@@ -125,6 +125,7 @@ pub enum Arg {
 #[derive(Deserialize, Debug)]
 pub enum Indentation {
     Begin,
+    BeginJumpEntry,
     End,
     None,
 }
