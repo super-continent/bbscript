@@ -44,5 +44,4 @@ string_char = {
   (ASCII_ALPHANUMERIC | "_")
 }
 
-COMMENT = _{ "#" ~ ANY+ ~ NEWLINE }
 WHITESPACE = _{ (" " | "\t")+ }
