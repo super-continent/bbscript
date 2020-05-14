@@ -61,7 +61,7 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<
                 },
             };
         }
-        offset += info.size;
+        offset = script_buffer.len() as u32;
     }
     let mut result_vec = Vec::new();
     result_vec.write_u32::<LE>(table_entry_count)?;
