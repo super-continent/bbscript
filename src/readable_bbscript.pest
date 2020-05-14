@@ -1,0 +1,48 @@
+program = {
+	 function ~ (NEWLINE+ ~ function)* ~ NEWLINE* ~ EOI
+}
+
+function = {
+  function_name ~ ":" ~ args?
+}
+
+function_name = @{
+    string_char+
+}
+
+args = { arg ~ ("," ~ arg)* }
+
+arg = {
+  "s16'" ~ string16 ~ "'"
+| "s32'" ~ string32 ~ "'"
+| "(" ~ named_value ~ ")"
+| "'0x" ~ raw_data ~ "'"
+| num
+}
+
+string16 = @{
+	string_char{, 16}
+}
+
+string32 = @{
+  string_char{, 32}
+}
+
+named_value = @{
+  string_char+
+}
+
+raw_data = @{
+  ASCII_HEX_DIGIT+
+}
+
+num = @{
+  ("-" | "+")? ~ ASCII_DIGIT+
+}
+
+string_char = {
+  (ASCII_ALPHANUMERIC | "_")
+}
+
+COMMENT = _{ "#" ~ ANY+ ~ NEWLINE }
+WHITESPACE = _{ (" " | "\t")+ }

@@ -10,6 +10,6 @@ pub enum BBScriptError {
     UnknownFunction(String),
     #[error("No value associated with arg `{0}` name `{1}`")]
     NoAssociatedValue(String, String),
-    #[error("Jump table size of `{0}` is too big! Is the program reading from the correct")]
+    #[error("Jump table size of `{0}` is too big! Is the program reading from the correct offset?")]
     IncorrectJumpTableSize(String),
 }

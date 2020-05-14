@@ -48,7 +48,7 @@ pub struct Function {
     pub size: u32,
     args: String,
     pub name: String,
-    pub code_block: Indentation,
+    pub code_block: CodeBlock,
     named_values: BiMap<(u32, i32), (u32, String)>,
 }
 impl Function {
@@ -111,6 +111,10 @@ impl Function {
             return self.name.to_string();
         }
     }
+
+    pub fn is_jump_entry(&self) -> bool {
+        self.code_block == CodeBlock::BeginJumpEntry
+    }
 }
 
 // use this later when parsing format strings
@@ -122,10 +126,10 @@ pub enum Arg {
     Unknown(u32),
 }
 
-#[derive(Deserialize, Debug)]
-pub enum Indentation {
+#[derive(Deserialize, Debug, PartialEq)]
+pub enum CodeBlock {
     Begin,
     BeginJumpEntry,
     End,
-    None,
+    NoBlock,
 }

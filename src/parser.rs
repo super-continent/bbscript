@@ -4,7 +4,7 @@ use hex::encode_upper;
 use std::error::Error;
 use std::fmt::Write;
 
-use crate::command_db::{Arg, GameDB, Indentation};
+use crate::command_db::{Arg, GameDB, CodeBlock};
 use crate::verbose;
 use crate::BBScriptError;
 
@@ -50,17 +50,17 @@ pub fn parse_bbscript(
         let mut block_ended = false;
 
         match instruction_info.code_block {
-            Indentation::Begin => {
+            CodeBlock::Begin => {
                 if indent < INDENT_LIMIT {
                     indent += 1
                 }
             },
-            Indentation::BeginJumpEntry => {
+            CodeBlock::BeginJumpEntry => {
                 if indent < INDENT_LIMIT {
                     indent += 1
                 }
             },
-            Indentation::End => {
+            CodeBlock::End => {
                 if indent > 0 {
                     indent -= 1;
                     if indent == 0 {
@@ -68,7 +68,7 @@ pub fn parse_bbscript(
                     }
                 }
             },
-            Indentation::None => {
+            CodeBlock::NoBlock => {
                 block_ended = false
             },
         }

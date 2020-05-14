@@ -14,3 +14,6 @@ ron = "0.5"
 bimap = { version = "0.4", features = ['serde'] }
 bytes = "0.5.4"
 hex = "0.4.2"
+pest_derive = "2.1.0"
+pest_consume = "1.0.5"
+pest = "2.1.3"

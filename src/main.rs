@@ -6,6 +6,10 @@ mod rebuilder;
 
 use bytes::Bytes;
 use clap::{clap_app, AppSettings, ArgMatches};
+#[macro_use]
+extern crate pest_consume;
+
+extern crate pest_derive;
 
 use std::error::Error;
 use std::fs::{metadata, File};
@@ -15,6 +19,7 @@ use std::path::Path;
 use crate::command_db::GameDB;
 use crate::error::BBScriptError;
 use crate::parser::parse_bbscript;
+use crate::rebuilder::rebuild_bbscript;
 
 const VERSION: &str = "0.1.0";
 
@@ -44,6 +49,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         (@subcommand rebuild =>
             (about: "Rebuilds readable BBScript into BBScript usable by games")
             (version: VERSION)
+            (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg verbose: -v --verbose "Enables verbose log output")
             (@arg db_folder: -d --dbfolder "Path to folder containing game DB folders")
             (@arg GAME: +required "Subfolder of the game DB path specifying which game to read the commandDB and named value files from")
@@ -138,7 +144,7 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     let in_path = args.value_of("INPUT").unwrap();
     let in_file = get_byte_vec(in_path)?;
 
-    let mut in_bytes = Bytes::from(in_file);
+    let in_bytes = Bytes::from(in_file);
     let file_length = in_bytes.len();
 
     let (start, end) = get_offsets(args.value_of("start_offset"), args.value_of("end_offset"));
@@ -157,5 +163,23 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
 }
 
 fn run_rebuilder(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
-    unimplemented!("not writing this today lol")
+    let db_folder = args.value_of("db_folder");
+    let game = args.value_of("GAME").unwrap();
+    let verbose = args.is_present("verbose");
+
+    verbose!(println!("Extracting script info from `{}.ron`...", game), verbose);
+    let db = GameDB::new(db_folder, game)?;
+    let in_path = args.value_of("INPUT").unwrap();
+
+    let mut script = String::new();
+    File::open(in_path)?.read_to_string(&mut script)?;
+
+    match rebuild_bbscript(db, script, verbose) {
+        Ok(f) => {
+        let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
+        output.write_all(&f.to_vec())?;
+    },
+        Err(e) => return Err(e),
+    }
+    Ok(())
 }
