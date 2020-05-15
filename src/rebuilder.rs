@@ -90,6 +90,7 @@ enum ArgValue {
 
 type Node<'i,> = pest_consume::Node<'i, Rule, ()>;
 type PResult<T> = Result<T, pest_consume::Error<Rule>>;
+
 #[derive(Parser)]
 #[grammar = "readable_bbscript.pest"]
 struct BBSParser;

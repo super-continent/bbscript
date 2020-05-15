@@ -98,8 +98,10 @@ impl Function {
             }
         }
         if size_of_args < self.size - 4 {
-            let left_over = self.size - size_of_args - 4;
-            arg_accumulator.push(Arg::Unknown(left_over));
+            if self.size >= 4 {
+                let left_over = self.size - size_of_args - 4;
+                arg_accumulator.push(Arg::Unknown(left_over));
+            }
         }
         return arg_accumulator;
     }
@@ -117,7 +119,6 @@ impl Function {
     }
 }
 
-// use this later when parsing format strings
 #[derive(Debug)]
 pub enum Arg {
     String16,
