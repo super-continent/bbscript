@@ -17,6 +17,7 @@ BBScript is a script format used by Arc System Works to define functions in thei
 
 ## Credit
 Thanks to Labryz and Dantarion for assembling the original DB info in bbtools and for bbtools as a good reference code base for info about the script format 
+
 Special thanks to the quarantine for providing me with enough free time to waste a whole 2 weeks challenging myself to make something that like 5 people will think is actually cool
 
 ## Character Shortname List
