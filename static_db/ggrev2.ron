@@ -38,7 +38,9 @@
             args: "ii",
             name: "if",
             codeBlock: Begin,
-            namedValues: {},
+            namedValues: {
+                (0, 2) : (0, "NEXT_ARG_IS_VAR")
+            },
         ),
         (
             id: 5,
