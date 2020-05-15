@@ -8,12 +8,18 @@ This program is made to allow anyone to parse BBScript into a readable (and modi
 ## How do I get started with modding Guilty Gear?
 To start modding, you're going to want to get a copy of [this fork of RevelatorFileSwapper](https://github.com/super-continent/RevelatorModKit) that I updated to work with Rev2. Once you have that, you can load mods and rip the character scripts from the game! To rip scripts from memory, launch Guilty Gear, then immediately launch the mod loader. Enter training mode or any game-mode, and then select which players script you want in the mod loader, click "get script" and it should prompt you to write the file.
 
-Once you have the script, simply open up cmd and run `bbscript parse ggrev2 <script file here> <readable output here>` and it should parse the script into a readable format! To rebuild the script into a usable format for the modloader, just run `bbscript rebuild ggrev2 <readeable script name here> <output usable file here>` and then place the script into your modloaders configured scripts folder as CHARACTER_SHORTNAME.ggscript
+Once you have the script, simply open up cmd and run `bbscript parse ggrev2 <script file here> <readable output here>` and it should parse the script into a readable format! To rebuild the script into a usable format for the modloader, just run `bbscript rebuild ggrev2 <readeable script name here> <output usable file here>` and then place the script into your modloaders configured scripts folder as CHARACTER_SHORTNAME.ggscript (shortnames listed below)
+
+Then enable mods in the modloader, and it should work once you start a new match! Mods should work for online play if both players have the modloader and exact same scripts loaded in. Havent tested much but it will probably work.
 
 ## What is BBScript?
 BBScript is a script format used by Arc System Works to define functions in their games such as character moves. It's used in most modern ArcSys games such as Blazblue CentralFiction, Guilty Gear Xrd, Dragon Ball FighterZ, and Granblue Fantasy Versus.
 
-### Character Shortname List
+## Credit
+Thanks to Labryz and Dantarion for assembling the original DB info in bbtools and for bbtools as a good reference code base for info about the script format 
+Special thanks to the quarantine for providing me with enough free time to waste a whole 2 weeks challenging myself to make something that like 5 people will think is actually cool
+
+## Character Shortname List
 * Answer = ANS
 * Axl = AXL
 * Baiken = BKN
