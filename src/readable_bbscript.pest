@@ -44,4 +44,6 @@ string_char = {
   (ASCII_ALPHANUMERIC | "_" | "!" | " ")
 }
 
+COMMENT = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
+
 WHITESPACE = _{ (" " | "\t")+ }
