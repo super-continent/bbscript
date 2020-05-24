@@ -19,30 +19,3 @@ BBScript is a script format used by Arc System Works to define functions in thei
 Thanks to Labryz and Dantarion for assembling the original DB info in bbtools and for bbtools as a good reference code base for info about the script format 
 
 Special thanks to the quarantine for providing me with enough free time to waste a whole 2 weeks challenging myself to make something that like 5 people will think is actually cool
-
-## Character Shortname List
-* Answer = ANS
-* Axl = AXL
-* Baiken = BKN
-* Bedman = BED
-* Chipp = CHP
-* Dizzy = DZY
-* Elphelt = ELP
-* Faust = FAU
-* I-No = INO
-* Jam = JAM
-* Johnny = JHN
-* Jack-O' = JKO
-* Kum Haehyun = KUM
-* Ky = KYK
-* Leo = LEO
-* May = MAY
-* Millia = MLL
-* Potemkin = POT
-* Ramlethal = RAM
-* Raven = RVN
-* Sin = SIN
-* Slayer = SLY
-* Sol = SOL
-* Venom = VEN
-* Zato-1 = ZAT
