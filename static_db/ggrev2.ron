@@ -1754,8 +1754,8 @@
         ),
         (
             id: 298,
-            size: 8,
-            args: "i",
+            size: 4,
+            args: "",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
