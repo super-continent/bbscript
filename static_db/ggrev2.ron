@@ -1753,6 +1753,14 @@
             namedValues: {},
         ),
         (
+            id: 298,
+            size: 8,
+            args: "ii32s",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 337,
             size: 8,
             args: "i",
