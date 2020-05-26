@@ -1755,7 +1755,7 @@
         (
             id: 298,
             size: 8,
-            args: "ii32s",
+            args: "i",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -6744,7 +6744,7 @@
         (
             id: 1793,
             size: 44,
-            args: "",
+            args: "32sii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
