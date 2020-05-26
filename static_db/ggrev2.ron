@@ -9646,6 +9646,14 @@
             namedValues: {},
         ),
         (
+            id: 2272,
+            size: 40,
+            args: "i32s",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 2278,
             size: 68,
             args: "32s",
