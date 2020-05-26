@@ -2490,8 +2490,8 @@
         ),
         (
             id: 618,
-            size: 84,
-            args: "i",
+            size: 80,
+            args: "16si16si16si16si",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
