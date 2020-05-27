@@ -21,7 +21,7 @@ use crate::error::BBScriptError;
 use crate::parser::parse_bbscript;
 use crate::rebuilder::rebuild_bbscript;
 
-const VERSION: &str = "0.5.1";
+const VERSION: &str = "0.5.3";
 
 fn main() {
     if let Err(e) = run() {

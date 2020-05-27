@@ -22,7 +22,7 @@ pub fn rebuild_bbscript(db: GameDB, script: String, verbose: bool) -> Result<Byt
 }
 
 fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<dyn Error>> {
-    let mut offset: u32 = 0x4;
+    let mut offset: u32 = 0x0;
     let mut table_entry_count: u32 = 0;
     let mut jump_table: Vec<u8> = Vec::new();
     let mut script_buffer: Vec<u8> = Vec::new();
