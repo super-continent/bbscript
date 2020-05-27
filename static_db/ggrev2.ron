@@ -9736,7 +9736,7 @@
         (
             id: 2287,
             size: 68,
-            args: "",
+            args: "32s32s",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
