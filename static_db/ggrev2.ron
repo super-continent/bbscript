@@ -5515,7 +5515,9 @@
             args: "i",
             name: "",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (0, 65) : (0, "TENSION_PENALTY")
+            },
         ),
         (
             id: 1397,
