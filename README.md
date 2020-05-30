@@ -8,7 +8,7 @@ This program is made to allow anyone to parse BBScript into a readable (and modi
 ## How do I get started with modding Guilty Gear?
 To start modding, you're going to want to get a copy of [my other tool Rev2ModLoader](https://github.com/super-continent/Rev2ModLoader). Once you have that, you can load mods and rip the character scripts from the game! To rip scripts from memory, launch the mod loader and Guilty Gear, then click enable mods. Enter training mode or any game-mode, and then select which players script you want in the mod loader, click "Extract Script" and it should prompt you to write the file.
 
-Once you have the script, simply open up cmd and run `bbscript parse ggrev2 <script file here> <readable output here>` and it should parse the script into a readable format! To rebuild the script into a usable format for the modloader, just run `bbscript rebuild ggrev2 <readeable script name here> <output usable file here>` and then place the script into your modloaders rev2_mods folder as CHARACTER_SHORTNAME.bbscript (shortnames listed below)
+Once you have the script, simply open up cmd and run `bbscript parse ggrev2 <script file here> <readable output here>` and it should parse the script into a readable format! To rebuild the script into a usable format for the modloader, just run `bbscript rebuild ggrev2 <readeable script name here> <output usable file here>` and then place the script into your modloaders rev2_mods folder as CHARACTER_SHORTNAME.bbscript (shortnames listed at [Rev2ModLoaders README](https://github.com/super-continent/Rev2ModLoader))
 
 As long as mods are enabled, it should work once you start a new match! Mods should work for online play if both players have the modloader and exact same scripts loaded in.
 
