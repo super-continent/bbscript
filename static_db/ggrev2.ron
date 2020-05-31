@@ -4375,8 +4375,8 @@
         ),
         (
             id: 1161,
-            size: 36,
-            args: "",
+            size: 8,
+            args: "i",
             name: "hitOrBlockCancel",
             codeBlock: NoBlock,
             namedValues: {},
