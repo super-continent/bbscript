@@ -79,7 +79,7 @@
             id: 8,
             size: 20,
             args: "16s",
-            name: "",
+            name: "ifOpponentCharacter",
             codeBlock: NoBlock,
             namedValues: {},
         ),
