@@ -6169,7 +6169,7 @@
             id: 1618,
             size: 8,
             args: "i",
-            name: "",
+            name: "enableWhiffCancelOptions",
             codeBlock: NoBlock,
             namedValues: {},
         ),
