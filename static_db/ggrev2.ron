@@ -80,7 +80,7 @@
             size: 20,
             args: "16s",
             name: "ifOpponentCharacter",
-            codeBlock: NoBlock,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
