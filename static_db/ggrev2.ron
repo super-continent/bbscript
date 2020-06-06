@@ -1284,7 +1284,7 @@
             id: 188,
             size: 8,
             args: "i",
-            name: "",
+            name: "setObjectSize",
             codeBlock: NoBlock,
             namedValues: {},
         ),
