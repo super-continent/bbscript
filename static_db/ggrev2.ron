@@ -965,7 +965,7 @@
             id: 148,
             size: 8,
             args: "i",
-            name: "",
+            name: "setObjectWidth",
             codeBlock: NoBlock,
             namedValues: {},
         ),
