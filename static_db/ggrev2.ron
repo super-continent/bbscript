@@ -8098,7 +8098,7 @@
             id: 2044,
             size: 48,
             args: "iiiiiiiiiii",
-            name: "",
+            name: "cameraMotion",
             codeBlock: NoBlock,
             namedValues: {},
         ),
