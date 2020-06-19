@@ -9682,9 +9682,13 @@
             id: 2279,
             size: 8,
             args: "i",
-            name: "",
+            name: "allowHitting",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (0, 0) : (0, "ENEMY"),
+                (0, 1) : (0, "SELF"),
+                (0, 2) : (0, "ALL"),
+            },
         ),
         (
             id: 2280,
