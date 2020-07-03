@@ -2,6 +2,8 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum BBScriptError {
+    #[error("Could not locate game DB file `{0}`")]
+    GameDBNotFound(String),
     #[error("Input `{0}` does not exist or is a directory")]
     BadInputFile(String),
     #[error("Output file `{0}` already exists, specify overwrite with -o flag")]

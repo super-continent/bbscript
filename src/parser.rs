@@ -35,7 +35,8 @@ pub fn parse_bbscript(
 
         verbose!(
             println!(
-                "Finding info for instruction `{:08X}` at offset `{:#X}` from end of file",
+                "Finding info for instruction `{:08X}` (ID: {}) at offset `{:#X}` from end of file",
+                instruction,
                 instruction,
                 input_file.remaining()
             ),

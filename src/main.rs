@@ -21,7 +21,7 @@ use crate::error::BBScriptError;
 use crate::parser::parse_bbscript;
 use crate::rebuilder::rebuild_bbscript;
 
-const VERSION: &str = "0.5.3";
+const VERSION: &str = "0.5.4";
 
 fn main() {
     if let Err(e) = run() {
@@ -38,7 +38,6 @@ fn run() -> Result<(), Box<dyn Error>> {
             (about: "Parses BBScript files and outputs them to a readable format")
             (version: VERSION)
             (@arg verbose: -v --verbose "Enables verbose log output")
-            (@arg db_folder: -d --dbfolder "Path to folder containing game DB folders")
             (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg begin_offset: +takes_value -b --begin_offset "Takes a hex offset from the start of the file specifying where the actual script begins")
             (@arg end_offset: +takes_value -e --end_offset "Takes a hex offset from the end of the file specifying where the script actually ends")
@@ -51,7 +50,6 @@ fn run() -> Result<(), Box<dyn Error>> {
             (version: VERSION)
             (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg verbose: -v --verbose "Enables verbose log output")
-            (@arg db_folder: -d --dbfolder "Path to folder containing game DB files")
             (@arg GAME: +required "RON file name of the game DB specifying which game to read the instructions and named values from")
             (@arg INPUT: +required "Sets input file")
             (@arg OUTPUT: +required "Sets file to write as output")
@@ -131,7 +129,6 @@ fn get_offsets(begin: Option<&str>, end: Option<&str>) -> (Option<usize>, Option
 }
 
 fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
-    let db_folder = args.value_of("db_folder");
     let game = args.value_of("GAME").unwrap();
     let verbose = args.is_present("verbose");
 
@@ -139,7 +136,7 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
         println!("Extracting script info from `{}.ron`...", game),
         verbose
     );
-    let db = GameDB::new(db_folder, game)?;
+    let db = GameDB::new(game)?;
 
     let in_path = args.value_of("INPUT").unwrap();
     let in_file = get_byte_vec(in_path)?;
@@ -163,12 +160,11 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
 }
 
 fn run_rebuilder(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
-    let db_folder = args.value_of("db_folder");
     let game = args.value_of("GAME").unwrap();
     let verbose = args.is_present("verbose");
 
     verbose!(println!("Extracting script info from `{}.ron`...", game), verbose);
-    let db = GameDB::new(db_folder, game)?;
+    let db = GameDB::new(game)?;
     let in_path = args.value_of("INPUT").unwrap();
 
     let mut script = String::new();

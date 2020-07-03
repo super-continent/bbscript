@@ -1,27 +1,34 @@
 use crate::error::BBScriptError;
 use bimap::BiMap;
-use ron::de::from_reader;
+use ron::de;
 use serde::Deserialize;
 
 use std::error::Error;
 use std::fs::File;
+use std::path::PathBuf;
 
-const DIR_SEPARATOR: &str = r"\";
+const DB_FOLDER: &str = "static_db";
 
 #[derive(Deserialize, Debug)]
 pub struct GameDB {
     functions: Vec<Function>,
 }
 impl GameDB {
-    pub fn new(db_path: Option<&str>, game: &str) -> Result<GameDB, Box<dyn Error>> {
-        let cmd_db_path: String =
-            String::from(db_path.unwrap_or("static_db")) + DIR_SEPARATOR + game + ".ron";
+    pub fn new(game: &str) -> Result<GameDB, Box<dyn Error>> {
+        let mut cmd_db_path: PathBuf = PathBuf::from(DB_FOLDER);
+        cmd_db_path.push(game);
+        cmd_db_path.set_extension("ron");
 
-        let cmd_db_file = File::open(cmd_db_path)?;
-
-        let db: GameDB = from_reader(cmd_db_file)?;
-
-        Ok(db)
+        match File::open(&cmd_db_path) {
+            Ok(file) => {
+                let db: GameDB = de::from_reader(file)?;
+                return Ok(db);
+            },
+            Err(_) => {
+                let db_path_err = BBScriptError::GameDBNotFound(format!("{}", cmd_db_path.display()));
+                return Err(Box::new(db_path_err));
+            },
+        }
     }
 
     pub fn find_by_id(&self, id_in: u32) -> Result<&Function, BBScriptError> {
