@@ -12,12 +12,6 @@ Once you have the script, simply open up cmd and run `bbscript parse ggrev2 <scr
 
 As long as mods are enabled, it should work once you start a new match! Mods should work for online play if both players have the modloader and exact same scripts loaded in.
 
-## How do I get started with modding Granblue Fantasy Versus?
-To start with Granblue, you can use my program [GBVS-Hook](https://github.com/super-continent/gbvs-hook/) to extract and load scripts.
-Once you have all the scripts you want extracted, use cmd to enter `bbscript parse gbvs <script file here> <readable output here>` and it should immediately output a parsed script, to rebuild, you can use `bbscript rebuild gbvs <readable script here> <rebuilt script name here>`
-
-for info on loading built scripts, see [GBVS-Hook](https://github.com/super-continent/gbvs-hook/).
-
 ## What is BBScript?
 BBScript is a script format used by Arc System Works to define functions in their games such as character moves. It's used in most modern ArcSys games such as Blazblue CentralFiction, Guilty Gear Xrd, Dragon Ball FighterZ, and Granblue Fantasy Versus.
 
