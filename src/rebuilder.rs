@@ -1,15 +1,19 @@
+#![allow(clippy::upper_case_acronyms)]
+
 use std::error::Error;
 
+use crate::{command_db::GameDB, error::BBScriptError};
 use crate::verbose;
-use crate::command_db::{ GameDB };
 
-use bytes::{ BytesMut, Bytes };
-use byteorder::{LE, WriteBytesExt};
-use hex;
-use pest_consume::Parser;
+use byteorder::{WriteBytesExt, LE};
+use bytes::{Bytes, BytesMut};
+use pest_consume::{match_nodes, Parser};
 
-
-pub fn rebuild_bbscript(db: GameDB, script: String, verbose: bool) -> Result<Bytes, Box<dyn Error>> {
+pub fn rebuild_bbscript(
+    db: GameDB,
+    script: String,
+    verbose: bool,
+) -> Result<Bytes, Box<dyn Error>> {
     let parsed = BBSParser::parse(Rule::program, &script)?;
     let root = parsed.single()?;
 
@@ -21,7 +25,7 @@ pub fn rebuild_bbscript(db: GameDB, script: String, verbose: bool) -> Result<Byt
     Ok(file)
 }
 
-fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<dyn Error>> {
+fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBScriptError> {
     let mut offset: u32 = 0x0;
     let mut table_entry_count: u32 = 0;
     let mut jump_table: Vec<u8> = Vec::new();
@@ -30,22 +34,22 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<
     for func in program {
         let info = match db.find_by_name(&func.function_name) {
             Ok(f) => f,
-            Err(_) => {
+            Err(e) => {
                 let name = func.function_name;
-                let id = name.trim_start_matches("Unknown").parse()?;
-                db.find_by_id(id)?
-            },
+                match name.trim_start_matches("Unknown").parse() {
+                    Ok(id) => db.find_by_id(id)?,
+                    Err(_) => return Err(e)
+                }
+            }
         };
-        
-        script_buffer.write_u32::<LE>(info.id)?;
+
+        script_buffer.write_u32::<LE>(info.id).unwrap();
 
         if info.is_jump_entry() {
-            if let Some(arg) = func.args.get(0) {
-                if let ArgValue::String32(name) = arg {
-                    jump_table.extend_from_slice(&name.to_vec());
-                    jump_table.write_u32::<LE>(offset)?;
-                    table_entry_count += 1;
-                }
+            if let Some(ArgValue::String32(name)) = func.args.get(0) {
+                jump_table.extend_from_slice(&name.to_vec());
+                jump_table.write_u32::<LE>(offset).unwrap();
+                table_entry_count += 1;
             }
         }
 
@@ -54,17 +58,17 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<
                 ArgValue::String32(string) => script_buffer.append(&mut string.to_vec()),
                 ArgValue::String16(string) => script_buffer.append(&mut string.to_vec()),
                 ArgValue::Raw(data) => script_buffer.append(&mut data.to_vec()),
-                ArgValue::Int(num) => script_buffer.write_i32::<LE>(*num)?,
+                ArgValue::Int(num) => script_buffer.write_i32::<LE>(*num).unwrap(),
                 ArgValue::Named(name) => {
-                    let value = info.get_value((index as u32, name.into()))?;
-                    script_buffer.write_i32::<LE>(value.into())?;
-                },
+                    let value = info.get_value((index as u32, name.to_string())).unwrap();
+                    script_buffer.write_i32::<LE>(value).unwrap();
+                }
             };
         }
         offset = script_buffer.len() as u32;
     }
     let mut result_vec = Vec::new();
-    result_vec.write_u32::<LE>(table_entry_count)?;
+    result_vec.write_u32::<LE>(table_entry_count).unwrap();
     result_vec.append(&mut jump_table);
     result_vec.append(&mut script_buffer);
 
@@ -76,7 +80,7 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, Box<
 #[derive(Debug)]
 struct BBSFunction {
     function_name: String,
-    args: Vec<ArgValue>
+    args: Vec<ArgValue>,
 }
 
 #[derive(Debug)]
@@ -88,7 +92,7 @@ enum ArgValue {
     Raw(Bytes),
 }
 
-type Node<'i,> = pest_consume::Node<'i, Rule, ()>;
+type Node<'i> = pest_consume::Node<'i, Rule, ()>;
 type PResult<T> = Result<T, pest_consume::Error<Rule>>;
 
 #[derive(Parser)]
@@ -105,13 +109,11 @@ impl BBSParser {
         Ok(match_nodes!(input.into_children();
             [function(functions)..,EOI(_)] => functions.collect(),
         ))
-        
     }
 
     fn function(input: Node) -> PResult<BBSFunction> {
         let input = input.into_children();
         let none = Vec::new();
-
 
         let func = match_nodes!(input;
             [function_name(function_name), args(args)] => BBSFunction { function_name, args },
@@ -159,8 +161,8 @@ impl BBSParser {
 
     fn raw_data(input: Node) -> PResult<Bytes> {
         match hex::decode(input.as_str()) {
-                Ok(data) => Ok(Bytes::from(data)),
-                Err(e) => Err(input.error(e)),
+            Ok(data) => Ok(Bytes::from(data)),
+            Err(e) => Err(input.error(e)),
         }
     }
 

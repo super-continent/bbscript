@@ -5,9 +5,7 @@ mod parser;
 mod rebuilder;
 
 use bytes::Bytes;
-use clap::{clap_app, AppSettings, ArgMatches};
-#[macro_use]
-extern crate pest_consume;
+use clap::{clap_app, crate_version, AppSettings, ArgMatches};
 
 extern crate pest_derive;
 
@@ -21,8 +19,6 @@ use crate::error::BBScriptError;
 use crate::parser::parse_bbscript;
 use crate::rebuilder::rebuild_bbscript;
 
-const VERSION: &str = "0.6.0";
-
 fn main() {
     if let Err(e) = run() {
         println!("error: {}", e)
@@ -31,12 +27,12 @@ fn main() {
 
 fn run() -> Result<(), Box<dyn Error>> {
     let args = clap_app!( BBScript =>
-        (version: VERSION)
+        (version: crate_version!())
         (author: "Made by Pangaea")
         (about: "Parses BBScript into an easily moddable format that can be rebuilt into usable BBScript")
         (@subcommand parse =>
             (about: "Parses BBScript files and outputs them to a readable format")
-            (version: VERSION)
+            (version: crate_version!())
             (@arg verbose: -v --verbose "Enables verbose log output")
             (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg begin_offset: +takes_value -b --begin_offset "Takes a hex offset from the start of the file specifying where the actual script begins")
@@ -47,7 +43,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         )
         (@subcommand rebuild =>
             (about: "Rebuilds readable BBScript into BBScript usable by games")
-            (version: VERSION)
+            (version: crate_version!())
             (@arg overwrite: -o --overwrite "Enables overwriting the file if a file with the same name as OUTPUT already exists")
             (@arg verbose: -v --verbose "Enables verbose log output")
             (@arg GAME: +required "RON file name of the game DB specifying which game to read the instructions and named values from")
@@ -60,9 +56,8 @@ fn run() -> Result<(), Box<dyn Error>> {
     if let Some(subcmd) = args.subcommand_name() {
         let matches = args.subcommand_matches(subcmd).unwrap();
 
-        if let Err(e) = confirm_io_files(matches) {
-            return Err(e);
-        }
+        confirm_io_files(matches)?;
+        
         if let Err(e) = match subcmd {
             "parse" => run_parser(matches),
             "rebuild" => run_rebuilder(matches),
@@ -74,19 +69,19 @@ fn run() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn confirm_io_files(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
+fn confirm_io_files(args: &ArgMatches) -> Result<(), BBScriptError> {
     let input = args.value_of("INPUT").unwrap();
     let output = args.value_of("OUTPUT").unwrap();
     let overwrite = args.is_present("overwrite");
 
-    if Path::new(input).exists() && !metadata(input)?.is_dir() {
+    if Path::new(input).is_file() {
         if !Path::new(output).exists() || overwrite {
             Ok(())
         } else {
-            Err(Box::new(BBScriptError::OutputAlreadyExists(output.into())))
+            Err(BBScriptError::OutputAlreadyExists(output.into()))
         }
     } else {
-        Err(Box::new(BBScriptError::BadInputFile(input.into())))
+        Err(BBScriptError::BadInputFile(input.into()))
     }
 }
 
@@ -95,9 +90,9 @@ fn get_byte_vec(name: &str) -> Result<Vec<u8>, Box<dyn Error>> {
     let meta = metadata(name)?;
     let mut file_buf = vec![0; meta.len() as usize];
 
-    file.read(&mut file_buf)?;
+    file.read_exact(&mut file_buf)?;
 
-    return Ok(file_buf);
+    Ok(file_buf)
 }
 
 fn get_offsets(begin: Option<&str>, end: Option<&str>) -> (Option<usize>, Option<usize>) {
@@ -153,7 +148,7 @@ fn run_parser(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
             let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
             output.write_all(&f.to_vec())?;
         }
-        Err(e) => return Err(e),
+        Err(e) => return Err(Box::new(e)),
     }
 
     Ok(())
@@ -163,7 +158,10 @@ fn run_rebuilder(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
     let game = args.value_of("GAME").unwrap();
     let verbose = args.is_present("verbose");
 
-    verbose!(println!("Extracting script info from `{}.ron`...", game), verbose);
+    verbose!(
+        println!("Extracting script info from `{}.ron`...", game),
+        verbose
+    );
     let db = GameDB::new(game)?;
     let in_path = args.value_of("INPUT").unwrap();
 
@@ -172,9 +170,9 @@ fn run_rebuilder(args: &ArgMatches) -> Result<(), Box<dyn Error>> {
 
     match rebuild_bbscript(db, script, verbose) {
         Ok(f) => {
-        let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
-        output.write_all(&f.to_vec())?;
-    },
+            let mut output = File::create(args.value_of("OUTPUT").unwrap())?;
+            output.write_all(&f.to_vec())?;
+        }
         Err(e) => return Err(e),
     }
     Ok(())

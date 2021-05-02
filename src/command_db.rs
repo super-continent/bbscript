@@ -3,7 +3,6 @@ use bimap::BiMap;
 use ron::de;
 use serde::Deserialize;
 
-use std::error::Error;
 use std::fs::File;
 use std::path::PathBuf;
 
@@ -14,36 +13,31 @@ pub struct GameDB {
     functions: Vec<Function>,
 }
 impl GameDB {
-    pub fn new(game: &str) -> Result<GameDB, Box<dyn Error>> {
+    pub fn new(game: &str) -> Result<GameDB, BBScriptError> {
         let mut cmd_db_path: PathBuf = PathBuf::from(DB_FOLDER);
         cmd_db_path.push(game);
         cmd_db_path.set_extension("ron");
 
-        match File::open(&cmd_db_path) {
-            Ok(file) => {
-                let db: GameDB = de::from_reader(file)?;
-                return Ok(db);
-            },
-            Err(_) => {
-                let db_path_err = BBScriptError::GameDBNotFound(format!("{}", cmd_db_path.display()));
-                return Err(Box::new(db_path_err));
-            },
-        }
+        let file = File::open(&cmd_db_path).map_err(|e| {
+            BBScriptError::GameDBOpenError(format!("{}", &cmd_db_path.display()), e.to_string())
+        })?;
+
+        de::from_reader(file).map_err(|_| BBScriptError::GameDBInvalid("".into()))
     }
 
     pub fn find_by_id(&self, id_in: u32) -> Result<&Function, BBScriptError> {
         if let Some(func) = self.functions.iter().find(|x| x.id == id_in) {
-            return Ok(func);
+            Ok(func)
         } else {
-            return Err(BBScriptError::UnknownFunction(format!("{:#X}", id_in)));
+            Err(BBScriptError::UnknownFunction(format!("{}", id_in)))
         }
     }
 
     pub fn find_by_name(&self, name_in: &str) -> Result<&Function, BBScriptError> {
         if let Some(func) = self.functions.iter().find(|x| x.name == name_in) {
-            return Ok(func);
+            Ok(func)
         } else {
-            return Err(BBScriptError::UnknownFunction(name_in.into()));
+            Err(BBScriptError::UnknownFunction(name_in.into()))
         }
     }
 }
@@ -58,11 +52,12 @@ pub struct Function {
     pub code_block: CodeBlock,
     named_values: BiMap<(u32, i32), (u32, String)>,
 }
+
 impl Function {
     // Not recoverable because name has no inherent value
     pub fn get_value(&self, name: (u32, String)) -> Result<i32, BBScriptError> {
         if let Some(value) = self.named_values.get_by_right(&name) {
-            return Ok(value.1);
+            Ok(value.1)
         } else {
             Err(BBScriptError::NoAssociatedValue(name.0.to_string(), name.1))
         }
@@ -70,11 +65,7 @@ impl Function {
 
     // Recoverable, will just use raw value if no name associated
     pub fn get_name(&self, value: (u32, i32)) -> Option<String> {
-        if let Some(value) = self.named_values.get_by_left(&value) {
-            return Some(value.1.clone());
-        } else {
-            return None;
-        }
+        self.named_values.get_by_left(&value).map(|v| v.1.clone())
     }
 
     pub fn get_args(&self) -> Vec<Arg> {
@@ -104,20 +95,19 @@ impl Function {
                 _ => arg_string = &arg_string[1..],
             }
         }
-        if size_of_args < self.size - 4 {
-            if self.size >= 4 {
-                let left_over = self.size - size_of_args - 4;
-                arg_accumulator.push(Arg::Unknown(left_over));
-            }
+        if size_of_args < self.size - 4 && self.size >= 4 {
+            let left_over = self.size - size_of_args - 4;
+            arg_accumulator.push(Arg::Unknown(left_over));
         }
-        return arg_accumulator;
+        
+        arg_accumulator
     }
 
     pub fn instruction_name(&self) -> String {
         if self.name.is_empty() {
-            return format!("Unknown{}", &self.id);
+            format!("Unknown{}", &self.id)
         } else {
-            return self.name.to_string();
+            self.name.to_string()
         }
     }
 

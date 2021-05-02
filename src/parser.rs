@@ -1,10 +1,9 @@
 use bytes::{Buf, Bytes, BytesMut};
 use hex::encode_upper;
 
-use std::error::Error;
 use std::fmt::Write;
 
-use crate::command_db::{Arg, GameDB, CodeBlock};
+use crate::command_db::{Arg, CodeBlock, GameDB};
 use crate::verbose;
 use crate::BBScriptError;
 
@@ -14,19 +13,22 @@ pub fn parse_bbscript(
     db: GameDB,
     mut input_file: Bytes,
     verbose: bool,
-) -> Result<BytesMut, Box<dyn Error>> {
+) -> Result<BytesMut, BBScriptError> {
     let mut out_buffer = BytesMut::new();
 
     let state_table_entry_count = input_file.get_u32_le() as usize;
     let advance_amount = state_table_entry_count * 0x24;
 
     if advance_amount < input_file.len() {
-        verbose!(println!("Jumping to offset `{:#X}`", advance_amount), verbose);
+        verbose!(
+            println!("Jumping to offset `{:#X}`", advance_amount),
+            verbose
+        );
         input_file.advance(advance_amount);
     } else {
-        return Err(Box::new(BBScriptError::IncorrectJumpTableSize(
+        return Err(BBScriptError::IncorrectJumpTableSize(
             advance_amount.to_string(),
-        )));
+        ));
     }
 
     let mut indent = 0;
@@ -45,7 +47,14 @@ pub fn parse_bbscript(
 
         let instruction_info = db.find_by_id(instruction)?;
 
-        out_buffer.write_fmt(format_args!("{:width$}{}: ", "", instruction_info.instruction_name(), width = indent * 4))?;
+        out_buffer
+            .write_fmt(format_args!(
+                "{:width$}{}: ",
+                "",
+                instruction_info.instruction_name(),
+                width = indent * 4
+            ))
+            .unwrap();
 
         // Determine if indented block was ended or was already indented 0 spaces, to make sure newlines applied only after indented blocks
         let mut block_ended = false;
@@ -55,12 +64,12 @@ pub fn parse_bbscript(
                 if indent < INDENT_LIMIT {
                     indent += 1
                 }
-            },
+            }
             CodeBlock::BeginJumpEntry => {
                 if indent < INDENT_LIMIT {
                     indent += 1
                 }
-            },
+            }
             CodeBlock::End => {
                 if indent > 0 {
                     indent -= 1;
@@ -68,10 +77,8 @@ pub fn parse_bbscript(
                         block_ended = true;
                     }
                 }
-            },
-            CodeBlock::NoBlock => {
-                block_ended = false
-            },
+            }
+            CodeBlock::NoBlock => block_ended = false,
         }
 
         verbose!(
@@ -90,50 +97,61 @@ pub fn parse_bbscript(
                 Arg::String32 => {
                     let mut buf = [0; 32];
                     input_file.copy_to_slice(&mut buf);
-                    out_buffer.write_fmt(format_args!(
-                        "s32'{}'",
-                        buf.iter()
-                            .filter(|x| **x != 0)
-                            .map(|x| *x as char)
-                            .collect::<String>()
-                    ))?;
+                    out_buffer
+                        .write_fmt(format_args!(
+                            "s32'{}'",
+                            buf.iter()
+                                .filter(|x| **x != 0)
+                                .map(|x| *x as char)
+                                .collect::<String>()
+                        ))
+                        .unwrap();
                 }
                 Arg::String16 => {
                     let mut buf = [0; 16];
                     input_file.copy_to_slice(&mut buf);
-                    out_buffer.write_fmt(format_args!(
-                        "s16'{}'",
-                        buf.iter()
-                            .filter(|x| **x != 0)
-                            .map(|x| *x as char)
-                            .collect::<String>()
-                    ))?;
+                    out_buffer
+                        .write_fmt(format_args!(
+                            "s16'{}'",
+                            buf.iter()
+                                .filter(|x| **x != 0)
+                                .map(|x| *x as char)
+                                .collect::<String>()
+                        ))
+                        .unwrap();
                 }
                 Arg::Int => {
                     let num = input_file.get_i32_le();
                     if let Some(name) = instruction_info.get_name((arg_index, num)) {
-                        out_buffer.write_fmt(format_args!("({})", name))?;
+                        out_buffer
+                            .write_fmt(format_args!("({})", name))
+                            .unwrap();
                     } else {
-                        out_buffer.write_fmt(format_args!("{}", num))?;
+                        out_buffer
+                            .write_fmt(format_args!("{}", num))
+                            .unwrap();
                     }
                 }
                 Arg::Unknown(size) => {
                     let mut buf = Vec::new();
                     for _ in 0..*size {
                         buf.push(input_file.get_u8());
-                    };
-                    out_buffer.write_fmt(format_args!("'0x{}'", encode_upper(buf)))?;
+                    }
+                    out_buffer
+                        .write_fmt(format_args!("'0x{}'", encode_upper(buf)))
+                        .unwrap();
                 }
             };
 
             if index != args_length - 1 {
-                out_buffer.write_fmt(format_args!(", "))?;
+                out_buffer.write_fmt(format_args!(", ")).unwrap();
             }
         }
-        if !block_ended{
-            out_buffer.write_char('\n')?;
+
+        if !block_ended {
+            out_buffer.write_char('\n').unwrap();
         } else {
-            out_buffer.write_str("\n\n")?;
+            out_buffer.write_str("\n\n").unwrap();
         }
     }
     Ok(out_buffer)
