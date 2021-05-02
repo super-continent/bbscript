@@ -6,6 +6,7 @@ mod rebuilder;
 
 use bytes::Bytes;
 use clap::{clap_app, crate_version, AppSettings, ArgMatches};
+use colored::*;
 
 extern crate pest_derive;
 
@@ -21,7 +22,7 @@ use crate::rebuilder::rebuild_bbscript;
 
 fn main() {
     if let Err(e) = run() {
-        println!("error: {}", e)
+        println!("{}: {}", "error".red().bold(), e)
     };
 }
 
@@ -57,7 +58,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         let matches = args.subcommand_matches(subcmd).unwrap();
 
         confirm_io_files(matches)?;
-        
+
         if let Err(e) = match subcmd {
             "parse" => run_parser(matches),
             "rebuild" => run_rebuilder(matches),
