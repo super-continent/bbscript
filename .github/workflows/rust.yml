@@ -23,4 +23,7 @@ jobs:
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
-        path: target/release/bbscript.exe
+        name: BBScript Windows
+        path: |
+          target/release/bbscript.exe
+          static_db
