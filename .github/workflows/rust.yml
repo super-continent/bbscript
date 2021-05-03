@@ -20,3 +20,7 @@ jobs:
       run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        path: target/release/bbscript.exe
