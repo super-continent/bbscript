@@ -34,11 +34,11 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBSc
     for func in program {
         let info = match db.find_by_name(&func.function_name) {
             Ok(f) => f,
-            Err(e) => {
+            Err(name_error) => {
                 let name = func.function_name;
                 match name.trim_start_matches("Unknown").parse() {
                     Ok(id) => db.find_by_id(id)?,
-                    Err(_) => return Err(e)
+                    Err(_) => return Err(name_error)
                 }
             }
         };
