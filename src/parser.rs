@@ -7,7 +7,7 @@ use crate::command_db::{Arg, CodeBlock, GameDB};
 use crate::verbose;
 use crate::BBScriptError;
 
-const INDENT_LIMIT: usize = 6;
+const INDENT_LIMIT: usize = 12;
 
 pub fn parse_bbscript(
     db: GameDB,
@@ -52,7 +52,7 @@ pub fn parse_bbscript(
                 "{:width$}{}: ",
                 "",
                 instruction_info.instruction_name(),
-                width = indent * 4
+                width = indent * 2
             ))
             .unwrap();
 
