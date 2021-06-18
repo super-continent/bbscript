@@ -41,7 +41,7 @@ num = @{
 }
 
 string_char = {
-  (ASCII_ALPHANUMERIC | "_" | "!" | " ")
+  (ASCII_ALPHANUMERIC | "_" | "-" | "!" | " ")
 }
 
 COMMENT = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
