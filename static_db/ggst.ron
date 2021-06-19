@@ -6884,7 +6884,7 @@
             id: 1220,
             size: 8,
             args: "i",
-            name: "JumpHeight",
+            name: "jumpHeight",
             codeBlock: NoBlock,
             namedValues: {},
         ),
