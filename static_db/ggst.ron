@@ -115,7 +115,7 @@
             id: 12,
             size: 36,
             args: "32s",
-            name: "",
+            name: "gotoLabel",
             codeBlock: NoBlock,
             namedValues: {},
         ),
