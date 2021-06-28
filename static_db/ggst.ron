@@ -534,7 +534,7 @@
         (
             id: 62,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -14381,7 +14381,7 @@
         (
             id: 2500,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
