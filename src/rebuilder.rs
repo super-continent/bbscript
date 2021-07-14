@@ -2,7 +2,6 @@
 
 use std::error::Error;
 
-use crate::verbose;
 use crate::{command_db::GameDB, error::BBScriptError};
 
 use byteorder::{WriteBytesExt, LE};
