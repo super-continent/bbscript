@@ -2,7 +2,7 @@
 
 use std::error::Error;
 
-use crate::{command_db::GameDB, error::BBScriptError};
+use crate::{command_db::GameDB, error::BBScriptError, verbose};
 
 use byteorder::{WriteBytesExt, LE};
 use bytes::{Bytes, BytesMut};
@@ -19,17 +19,18 @@ pub fn rebuild_bbscript(
     // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
     let program = BBSParser::program(root)?;
 
-    let file = assemble_script(program, &db)?;
+    let file = assemble_script(program, &db, verbose)?;
 
     Ok(file)
 }
 
-fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBScriptError> {
+fn assemble_script(program: Vec<BBSFunction>, db: &GameDB, verbose: bool) -> Result<Bytes, BBScriptError> {
     let mut offset: u32 = 0x0;
     let mut table_entry_count: u32 = 0;
     let mut jump_table: Vec<u8> = Vec::new();
     let mut script_buffer: Vec<u8> = Vec::new();
 
+    
     for func in program {
         let info = match db.find_by_name(&func.function_name) {
             Ok(f) => f,
@@ -42,6 +43,8 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBSc
             }
         };
 
+        verbose!(println!("building instruction `{}`", func.function_name.as_str()), verbose);
+        
         if func.total_size() as u32 != info.size {
             return Err(BBScriptError::IncorrectFunctionSize(
                 func.function_name.to_string(),
