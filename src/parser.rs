@@ -123,13 +123,9 @@ pub fn parse_bbscript(
                 Arg::Int => {
                     let num = input_file.get_i32_le();
                     if let Some(name) = instruction_info.get_name((arg_index, num)) {
-                        out_buffer
-                            .write_fmt(format_args!("({})", name))
-                            .unwrap();
+                        out_buffer.write_fmt(format_args!("({})", name)).unwrap();
                     } else {
-                        out_buffer
-                            .write_fmt(format_args!("{}", num))
-                            .unwrap();
+                        out_buffer.write_fmt(format_args!("{}", num)).unwrap();
                     }
                 }
                 Arg::Unknown(size) => {

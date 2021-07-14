@@ -99,7 +99,7 @@ impl Function {
             let left_over = self.size - size_of_args - 4;
             arg_accumulator.push(Arg::Unknown(left_over));
         }
-        
+
         arg_accumulator
     }
 

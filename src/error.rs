@@ -18,4 +18,6 @@ pub enum BBScriptError {
         "Jump table size of `{0}` is too big! Is the program reading from the correct offset?"
     )]
     IncorrectJumpTableSize(String),
+    #[error("Got instruction `{0}` mismatched to size {1}. size defined in config is {2}")]
+    IncorrectFunctionSize(String, usize, usize),
 }
