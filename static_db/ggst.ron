@@ -39,6 +39,7 @@
             name: "if",
             codeBlock: Begin,
             namedValues: {
+                (0, 0) : (0, "STATIC"),
                 (0, 2) : (0, "VARIABLE")
             },
         ),
@@ -76,6 +77,7 @@
             name: "ifNot",
             codeBlock: Begin,
             namedValues: {
+                (0, 0) : (0, "STATIC"),
                 (0, 2) : (0, "VARIABLE")
             },
         ),
@@ -384,17 +386,17 @@
             id: 45,
             size: 24,
             args: "iiiii",
-            name: "modifyVar",
+            name: "modifyVar2",
             codeBlock: NoBlock,
             namedValues: {
                 (0, 0) : (0, "ADD"),
                 (0, 1) : (0, "SUB"),
                 (0, 2) : (0, "MUL"),
                 (0, 3) : (0, "DIV"),
-				(0, 4) : (0, "MOD"),
+		        (0, 4) : (0, "MOD"),
                 (1, 0) : (1, "STATIC"),
                 (3, 0) : (3, "STATIC"),
-                (1, 2) : (2, "VARIABLE"),
+                (1, 2) : (1, "VARIABLE"),
                 (3, 2) : (2, "VARIABLE"),
             },
         ),
@@ -522,9 +524,19 @@
             id: 54,
             size: 24,
             args: "iiiii",
-            name: "",
+            name: "modifyVar",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (0, 0) : (0, "ADD"),
+                (0, 1) : (0, "SUB"),
+                (0, 2) : (0, "MUL"),
+                (0, 3) : (0, "DIV"),
+                (0, 4) : (0, "MOD"),
+                (1, 0) : (1, "STATIC"),
+                (3, 0) : (3, "STATIC"),
+                (1, 2) : (1, "VARIABLE"),
+                (3, 2) : (2, "VARIABLE"),
+            },
         ),
         (
             id: 55,
