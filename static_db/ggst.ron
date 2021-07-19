@@ -40,7 +40,7 @@
             codeBlock: Begin,
             namedValues: {
                 (0, 0) : (0, "STATIC"),
-                (0, 2) : (0, "VARIABLE")
+                (0, 2) : (0, "VARIABLE"),
             },
         ),
         (
@@ -78,7 +78,7 @@
             codeBlock: Begin,
             namedValues: {
                 (0, 0) : (0, "STATIC"),
-                (0, 2) : (0, "VARIABLE")
+                (0, 2) : (0, "VARIABLE"),
             },
         ),
         (
@@ -537,7 +537,7 @@
                 (1, 0) : (1, "STATIC"),
                 (3, 0) : (3, "STATIC"),
                 (1, 2) : (1, "VARIABLE"),
-                (3, 2) : (2, "VARIABLE"),
+                (3, 2) : (3, "VARIABLE"),
             },
         ),
         (
