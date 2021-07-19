@@ -1093,10 +1093,13 @@
             namedValues: {},
         ),
         (
+            // physicsXImpulse is executed only if
+            // the current velocity matches the sign of the
+            // argument velocity (inclusive to 0)
             id: 137,
             size: 8,
             args: "i",
-            name: "",
+            name: "physicsXImpulseIfVelocityMatchesSign",
             codeBlock: NoBlock,
             namedValues: {},
         ),
