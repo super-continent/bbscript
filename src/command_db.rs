@@ -6,20 +6,17 @@ use serde::Deserialize;
 use std::fs::File;
 use std::path::PathBuf;
 
-const DB_FOLDER: &str = "static_db";
-
 #[derive(Deserialize, Debug)]
 pub struct GameDB {
     functions: Vec<Function>,
 }
 impl GameDB {
-    pub fn new(game: &str) -> Result<GameDB, BBScriptError> {
-        let mut cmd_db_path: PathBuf = PathBuf::from(DB_FOLDER);
-        cmd_db_path.push(game);
-        cmd_db_path.set_extension("ron");
+    pub fn new<T: Into<String>>(game: T, mut db_folder: PathBuf) -> Result<GameDB, BBScriptError> {
+        db_folder.push(game.into());
+        db_folder.set_extension("ron");
 
-        let file = File::open(&cmd_db_path).map_err(|e| {
-            BBScriptError::GameDBOpenError(format!("{}", &cmd_db_path.display()), e.to_string())
+        let file = File::open(&db_folder).map_err(|e| {
+            BBScriptError::GameDBOpenError(format!("{}", &db_folder.display()), e.to_string())
         })?;
 
         de::from_reader(file).map_err(|_| BBScriptError::GameDBInvalid("".into()))
