@@ -14438,7 +14438,7 @@
             size: 16,
             args: "iii",
             name: "",
-            codeBlock: NoBlock,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
@@ -14446,7 +14446,7 @@
             size: 16,
             args: "iii",
             name: "",
-            codeBlock: NoBlock,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
@@ -14454,7 +14454,7 @@
             size: 28,
             args: "iiiiii",
             name: "",
-            codeBlock: NoBlock,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
