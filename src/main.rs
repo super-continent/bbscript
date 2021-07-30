@@ -165,14 +165,18 @@ fn run_parser(
     out_path: PathBuf,
     start_offset: Option<usize>,
     end_offset: Option<usize>,
-    db_path: PathBuf,
+    db_folder: PathBuf,
     verbose: bool,
 ) -> Result<(), Box<dyn Error>> {
     verbose!(
         println!("Extracting script info from `{}.ron`...", game),
         verbose
     );
-    let db = GameDB::new(game, db_path)?;
+
+    let mut ron_path = db_folder.join(game);
+    ron_path.set_extension("ron");
+
+    let db = GameDB::load(ron_path)?;
 
     let in_file = get_byte_vec(in_path)?;
 
@@ -204,7 +208,11 @@ fn run_rebuilder(
         println!("Extracting script info from `{}.ron`...", game),
         verbose
     );
-    let db = GameDB::new(game, db_folder)?;
+
+    let mut ron_path = db_folder.join(game);
+    ron_path.set_extension("ron");
+
+    let db = GameDB::load(ron_path)?;
 
     let mut script = String::new();
     File::open(input)?.read_to_string(&mut script)?;
