@@ -4,7 +4,6 @@ mod log;
 mod parser;
 mod rebuilder;
 
-use bytes::Bytes;
 use clap::{crate_version, AppSettings, Clap};
 use colored::*;
 
@@ -17,7 +16,6 @@ use std::path::{Path, PathBuf};
 
 use crate::command_db::GameDB;
 use crate::error::BBScriptError;
-use crate::parser::parse_bbscript;
 use crate::rebuilder::rebuild_bbscript;
 
 const DB_FOLDER: &str = "static_db";
@@ -181,16 +179,16 @@ fn run_parser(
 
     let in_file = get_byte_vec(in_path)?;
 
-    let in_bytes = Bytes::from(in_file);
+    let in_bytes = in_file;
     let file_length = in_bytes.len();
 
     let in_bytes =
-        in_bytes.slice(start_offset.unwrap_or(0)..(file_length - end_offset.unwrap_or(0)));
+        in_bytes[start_offset.unwrap_or(0)..(file_length - end_offset.unwrap_or(0))].to_owned();
 
-    match parse_bbscript(db, in_bytes, verbose) {
+    match db.parse_bbscript_to_string(in_bytes, verbose) {
         Ok(f) => {
             let mut output = File::create(out_path)?;
-            output.write_all(&f.to_vec())?;
+            output.write_all(&f.as_bytes())?;
         }
         Err(e) => return Err(Box::new(e)),
     }
