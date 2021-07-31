@@ -24,7 +24,8 @@ const DB_FOLDER: &str = "static_db";
 
 fn main() {
     if let Err(e) = run() {
-        println!("{}: {}", "error".red().bold(), e)
+        println!("{}: {}", "error".red().bold(), e);
+        std::process::exit(1);
     };
 }
 
