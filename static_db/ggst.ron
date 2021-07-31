@@ -210,10 +210,15 @@
             namedValues: {},
         ),
         (
+            // This function will clear all the code added to an events registry
+            // If some code is added for an event, e.g. upon: (FRAME_STEP)
+            // and this function is called with (FRAME_STEP) as an argument,
+            // it will clear the registered code and all code that was added before
+            // in the upon: (FRAME_STEP) block will no longer be run.
             id: 23,
             size: 8,
             args: "i",
-            name: "",
+            name: "clearRegisteredUponCode",
             codeBlock: NoBlock,
             namedValues: {
                 (0, 0)  : (0, "IMMEDIATE"),
