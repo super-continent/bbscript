@@ -46,13 +46,14 @@ pub fn parse_bbscript(
         );
 
         let instruction_info = db.find_by_id(instruction)?;
+        let amount_to_indent = indent.clamp(0, INDENT_LIMIT);
 
         out_buffer
             .write_fmt(format_args!(
                 "{:width$}{}: ",
                 "",
                 instruction_info.instruction_name(),
-                width = indent * 2
+                width = amount_to_indent * 2
             ))
             .unwrap();
 
@@ -61,14 +62,10 @@ pub fn parse_bbscript(
 
         match instruction_info.code_block {
             CodeBlock::Begin => {
-                if indent < INDENT_LIMIT {
-                    indent += 1
-                }
+                indent += 1
             }
             CodeBlock::BeginJumpEntry => {
-                if indent < INDENT_LIMIT {
-                    indent += 1
-                }
+                indent += 1
             }
             CodeBlock::End => {
                 if indent > 0 {
