@@ -592,7 +592,7 @@
         (
             id: 60,
             size: 20,
-            args: "",
+            args: "iiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -13812,10 +13812,21 @@
             namedValues: {},
         ),
         (
+            // This checks the name of the addMove registry used to enter the state.
+            // It isn't very complicated but it definitely requires explanation.
+            // 
+            // EXAMPLE:
+            // In ramlethals script, they have 2 registered versions
+            // of 5C, NmlAtk5C and NmlAtk5CBunri. The Bunri state is
+            // entered only if she does not have access to the swords.
+            // NmlAtk5CBunri just points to the state `NmlAtk5C`,
+            // however the state itself will then use this function to
+            // check if the name used to enter the current state matches
+            // the non-Bunri entry
             id: 2362,
             size: 36,
             args: "32s",
-            name: "",
+            name: "checkCurrentStateEntryName",
             codeBlock: NoBlock,
             namedValues: {},
         ),
