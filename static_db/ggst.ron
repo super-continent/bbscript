@@ -58,6 +58,7 @@
             name: "ifOperation",
             codeBlock: Begin,
             namedValues: {
+                (0, 4)  : (0, "MOD"),
                 (0, 9)  : (0, "IS_EQUAL"),
                 (0, 10) : (0, "IS_GREATER"),
                 (0, 11) : (0, "IS_LESSER"),
@@ -540,12 +541,25 @@
             namedValues: {},
         ),
         (
+            // Stores the result from doing arg1 (OP) arg2 inside argument 3
             id: 52,
             size: 32,
             args: "iiiiiii",
-            name: "",
+            name: "modifyVarAfterOperation",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (0, 0) : (0, "ADD"),
+                (0, 1) : (0, "SUB"),
+                (0, 2) : (0, "MUL"),
+                (0, 3) : (0, "DIV"),
+                (0, 4) : (0, "MOD"),
+                (1, 0) : (1, "STATIC"),
+                (1, 2) : (1, "VARIABLE"),
+                (3, 0) : (3, "STATIC"),
+                (3, 2) : (3, "VARIABLE"),
+                (5, 0) : (5, "STATIC"),
+                (5, 2) : (5, "VARIABLE"),
+            },
         ),
         (
             id: 53,
@@ -2476,7 +2490,7 @@
         (
             id: 364,
             size: 20,
-            args: "",
+            args: "iiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -5309,7 +5323,7 @@
             id: 964,
             size: 8,
             args: "i",
-            name: "",
+            name: "setGuardBreakDuration",
             codeBlock: NoBlock,
             namedValues: {},
         ),
@@ -5815,7 +5829,14 @@
             args: "iiiiiiii",
             name: "",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (0, 0) : (0, "STATIC"),
+                (0, 2) : (0, "VARIABLE"),
+                (2, 0) : (2, "STATIC"),
+                (2, 2) : (2, "VARIABLE"),
+                (6, 0) : (6, "STATIC"),
+                (6, 2) : (6, "VARIABLE"),
+            },
         ),
         (
             id: 1070,
@@ -6586,7 +6607,7 @@
             id: 1167,
             size: 8,
             args: "i",
-            name: "",
+            name: "enableGuardBreak",
             codeBlock: NoBlock,
             namedValues: {},
         ),
@@ -7337,7 +7358,7 @@
         (
             id: 1261,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -7575,14 +7596,17 @@
             namedValues: {},
         ),
         (
+            // Meter drain speed on FD, doesn't affect blocking hits just the constant drain
             id: 1291,
             size: 12,
             args: "ii",
-            name: "",
+            name: "setFDConstantMeterDrain",
             codeBlock: NoBlock,
             namedValues: {},
         ),
         (
+            // First argument is FD pushbackX added in the air
+            // Third argument is FD pushbackY added in the air
             id: 1292,
             size: 16,
             args: "iii",
@@ -7705,7 +7729,7 @@
         (
             id: 1307,
             size: 20,
-            args: "",
+            args: "iiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -9982,7 +10006,7 @@
         (
             id: 1784,
             size: 24,
-            args: "",
+            args: "iiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -10734,7 +10758,7 @@
         (
             id: 1948,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -10742,7 +10766,7 @@
         (
             id: 1949,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -10758,7 +10782,7 @@
         (
             id: 1951,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -10766,7 +10790,7 @@
         (
             id: 1952,
             size: 28,
-            args: "",
+            args: "iiiiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -11870,7 +11894,7 @@
         (
             id: 2100,
             size: 20,
-            args: "",
+            args: "iiii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -14524,7 +14548,12 @@
             args: "iiiiii",
             name: "",
             codeBlock: Begin,
-            namedValues: {},
+            namedValues: {
+                (2, 0) : (2, "STATIC"),
+                (2, 2) : (2, "VARIABLE"),
+                (4, 0) : (4, "STATIC"),
+                (4, 2) : (4, "VARIABLE"),
+            },
         ),
         (
             id: 2501,
