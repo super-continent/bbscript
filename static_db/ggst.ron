@@ -375,7 +375,7 @@
             size: 12,
             args: "ii",
             name: "",
-            codeBlock: NoBlock,
+            codeBlock: Begin,
             namedValues: {},
         ),
         (
@@ -4259,9 +4259,12 @@
             id: 778,
             size: 12,
             args: "ii",
-            name: "",
+            name: "hitGravity",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+              (0, 0) : (0, "STATIC"),
+              (0, 2) : (0, "VARIABLE")
+            },
         ),
         (
             id: 779,
