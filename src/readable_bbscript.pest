@@ -1,5 +1,5 @@
 program = {
-	 function ~ (NEWLINE+ ~ function)* ~ NEWLINE* ~ EOI
+  function ~ (NEWLINE+ ~ function)* ~ NEWLINE* ~ EOI
 }
 
 function = {
@@ -7,7 +7,7 @@ function = {
 }
 
 function_name = @{
-    string_char+
+    ident_char+
 }
 
 args = { arg ~ ("," ~ arg)* }
@@ -29,7 +29,7 @@ string32 = @{
 }
 
 named_value = @{
-  string_char+
+  ident_char+
 }
 
 raw_data = @{
@@ -40,8 +40,12 @@ num = @{
   ("-" | "+")? ~ ASCII_DIGIT+
 }
 
-string_char = {
+ident_char = {
   (ASCII_ALPHANUMERIC | "_" | "-" | "!" | " " | ".")
+}
+
+string_char = {
+  (ASCII_ALPHANUMERIC | "_" | "-" | "!" | " " | "." | ":")
 }
 
 COMMENT = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
