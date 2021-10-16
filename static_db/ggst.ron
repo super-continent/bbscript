@@ -4256,14 +4256,22 @@
             namedValues: {},
         ),
         (
+            id: 774,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 778,
             size: 12,
             args: "ii",
             name: "hitGravity",
             codeBlock: NoBlock,
             namedValues: {
-              (0, 0) : (0, "STATIC"),
-              (0, 2) : (0, "VARIABLE")
+                (0, 0) : (0, "STATIC"),
+                (0, 2) : (0, "VARIABLE")
             },
         ),
         (
@@ -5523,6 +5531,14 @@
             namedValues: {},
         ),
         (
+            id: 1026,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 1027,
             size: 20,
             args: "iiii",
@@ -5572,6 +5588,22 @@
         ),
         (
             id: 1033,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
+            id: 1034,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
+            id: 1035,
             size: 8,
             args: "i",
             name: "",
@@ -8202,6 +8234,14 @@
             namedValues: {},
         ),
         (
+            id: 1370,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 1371,
             size: 8,
             args: "i",
@@ -9159,6 +9199,14 @@
             namedValues: {},
         ),
         (
+            id: 1647,
+            size: 4,
+            args: "",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
             id: 1648,
             size: 8,
             args: "i",
@@ -9480,6 +9528,14 @@
         ),
         (
             id: 1688,
+            size: 8,
+            args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
+            id: 1689,
             size: 8,
             args: "i",
             name: "",
@@ -14037,6 +14093,14 @@
             id: 2379,
             size: 8,
             args: "i",
+            name: "",
+            codeBlock: NoBlock,
+            namedValues: {},
+        ),
+        (
+            id: 2380,
+            size: 40,
+            args: "i32s",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
