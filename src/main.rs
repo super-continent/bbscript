@@ -4,8 +4,7 @@ mod log;
 mod parser;
 mod rebuilder;
 
-use clap::{crate_version, AppSettings, Clap};
-use colored::*;
+use clap::{crate_version, AppSettings, Parser};
 
 extern crate pest_derive;
 
@@ -22,20 +21,19 @@ const DB_FOLDER: &str = "static_db";
 
 fn main() {
     if let Err(e) = run() {
-        println!("{}: {}", "error".red().bold(), e);
+        println!("ERROR: {}", e);
         std::process::exit(1);
     };
 }
 
 // im sorry for the redundancy here, but it makes the subcommands
 // the first thing you enter and i want that structure to be the same
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = crate_version!(), author = "Made by Pangaea")]
-#[clap(setting = AppSettings::ColoredHelp, setting = AppSettings::SubcommandRequiredElseHelp)]
+#[clap(setting = AppSettings::SubcommandRequiredElseHelp, color = clap::ColorChoice::Never)]
 /// Parses BBScript into an easily moddable format that can be rebuilt into usable BBScript
 enum Command {
     /// Parses BBScript files and outputs them to a readable format
-    #[clap(setting = AppSettings::ColoredHelp)]
     Parse {
         /// File name of a config within the game DB folder
         #[clap(name = "GAME")]
@@ -63,7 +61,6 @@ enum Command {
         custom_db_folder: PathBuf,
     },
     /// Rebuilds readable BBScript into BBScript usable by games
-    #[clap(setting = AppSettings::ColoredHelp)]
     Rebuild {
         /// File name of a config within the game DB folder
         #[clap(name = "GAME")]
