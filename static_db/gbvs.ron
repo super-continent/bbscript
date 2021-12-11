@@ -6880,8 +6880,8 @@
 		),
 		(
 			id: 1372,
-			size: 12,
-			args: "ii",
+			size: 8,
+			args: "i",
 			name: "",
 			codeBlock: NoBlock,
 			namedValues: {},
