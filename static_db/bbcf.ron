@@ -39,7 +39,8 @@
             name: "if",
             codeBlock: Begin,
             namedValues: {
-              (0, 2) : (0, "NEXT_ARG_IS_VAR")
+              (0, 0) : (0, "STATIC"),
+              (0, 2) : (0, "VARIABLE")
             },
         ),
         (
