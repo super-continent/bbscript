@@ -3283,10 +3283,12 @@
             namedValues: {},
         ),
         (
+            // Might also be a bool that resets tumble counter?
+            // 1 is the main value for it used everywhere
             id: 906,
             size: 8,
             args: "i",
-            name: "",
+            name: "tumbleCount",
             codeBlock: NoBlock,
             namedValues: {},
         ),
