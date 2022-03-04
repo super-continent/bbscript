@@ -2499,7 +2499,7 @@
         ),
         (
             id: 618,
-            size: 80,
+            size: 84,
             args: "16si16si16si16si",
             name: "",
             codeBlock: NoBlock,
@@ -7208,7 +7208,7 @@
         ),
         (
             id: 1886,
-            size: 64,
+            size: 68,
             args: "32siiiiiiii",
             name: "callSubroutine",
             codeBlock: NoBlock,
