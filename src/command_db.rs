@@ -4,45 +4,44 @@ use ron::de;
 use serde::Deserialize;
 
 use std::fs::File;
-use std::path::PathBuf;
-
-const DB_FOLDER: &str = "static_db";
+use std::io::prelude::*;
+use std::path::Path;
 
 #[derive(Deserialize, Debug)]
 pub struct GameDB {
     functions: Vec<Function>,
 }
 impl GameDB {
-    pub fn new(game: &str) -> Result<GameDB, BBScriptError> {
-        let mut cmd_db_path: PathBuf = PathBuf::from(DB_FOLDER);
-        cmd_db_path.push(game);
-        cmd_db_path.set_extension("ron");
-
-        let file = File::open(&cmd_db_path).map_err(|e| {
-            BBScriptError::GameDBOpenError(format!("{}", &cmd_db_path.display()), e.to_string())
-        })?;
-
-        de::from_reader(file).map_err(|_| BBScriptError::GameDBInvalid("".into()))
+    pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
+        de::from_reader(db_config).map_err(|_| BBScriptError::GameDBInvalid("".into()))
     }
 
-    pub fn find_by_id(&self, id_in: u32) -> Result<&Function, BBScriptError> {
+    pub fn load<T: AsRef<Path>>(config_path: T) -> Result<Self, BBScriptError> {
+        let db_file = File::open(&config_path).map_err(|e| {
+            BBScriptError::GameDBOpenError(format!("{}", config_path.as_ref().display()), e.to_string())
+        })?;
+
+        Self::new(db_file)
+    }
+
+    pub fn find_by_id(&self, id_in: u32) -> Result<Function, BBScriptError> {
         if let Some(func) = self.functions.iter().find(|x| x.id == id_in) {
-            Ok(func)
+            Ok(func.clone())
         } else {
             Err(BBScriptError::UnknownFunction(format!("{}", id_in)))
         }
     }
 
-    pub fn find_by_name(&self, name_in: &str) -> Result<&Function, BBScriptError> {
+    pub fn find_by_name(&self, name_in: &str) -> Result<Function, BBScriptError> {
         if let Some(func) = self.functions.iter().find(|x| x.name == name_in) {
-            Ok(func)
+            Ok(func.clone())
         } else {
             Err(BBScriptError::UnknownFunction(name_in.into()))
         }
     }
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Function {
     pub id: u32,
@@ -99,7 +98,7 @@ impl Function {
             let left_over = self.size - size_of_args - 4;
             arg_accumulator.push(Arg::Unknown(left_over));
         }
-        
+
         arg_accumulator
     }
 
@@ -116,7 +115,7 @@ impl Function {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Arg {
     String16,
     String32,
@@ -124,7 +123,7 @@ pub enum Arg {
     Unknown(u32),
 }
 
-#[derive(Deserialize, Debug, PartialEq)]
+#[derive(Deserialize, Debug, PartialEq, Clone)]
 pub enum CodeBlock {
     Begin,
     BeginJumpEntry,

@@ -2,8 +2,7 @@
 
 use std::error::Error;
 
-use crate::{command_db::GameDB, error::BBScriptError};
-use crate::verbose;
+use crate::{command_db::GameDB, error::BBScriptError, verbose};
 
 use byteorder::{WriteBytesExt, LE};
 use bytes::{Bytes, BytesMut};
@@ -17,31 +16,42 @@ pub fn rebuild_bbscript(
     let parsed = BBSParser::parse(Rule::program, &script)?;
     let root = parsed.single()?;
 
-    verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
+    // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
     let program = BBSParser::program(root)?;
 
-    let file = assemble_script(program, &db)?;
+    let file = assemble_script(program, &db, verbose)?;
 
     Ok(file)
 }
 
-fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBScriptError> {
+fn assemble_script(program: Vec<BBSFunction>, db: &GameDB, verbose: bool) -> Result<Bytes, BBScriptError> {
     let mut offset: u32 = 0x0;
     let mut table_entry_count: u32 = 0;
     let mut jump_table: Vec<u8> = Vec::new();
     let mut script_buffer: Vec<u8> = Vec::new();
 
+    
     for func in program {
         let info = match db.find_by_name(&func.function_name) {
             Ok(f) => f,
             Err(name_error) => {
-                let name = func.function_name;
+                let name = &func.function_name;
                 match name.trim_start_matches("Unknown").parse() {
                     Ok(id) => db.find_by_id(id)?,
-                    Err(_) => return Err(name_error)
+                    Err(_) => return Err(name_error),
                 }
             }
         };
+
+        verbose!(println!("building instruction `{}`", func.function_name.as_str()), verbose);
+        
+        if func.total_size() as u32 != info.size {
+            return Err(BBScriptError::IncorrectFunctionSize(
+                func.function_name.to_string(),
+                func.total_size(),
+                info.size as usize,
+            ));
+        }
 
         script_buffer.write_u32::<LE>(info.id).unwrap();
 
@@ -60,7 +70,9 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBSc
                 ArgValue::Raw(data) => script_buffer.append(&mut data.to_vec()),
                 ArgValue::Int(num) => script_buffer.write_i32::<LE>(*num).unwrap(),
                 ArgValue::Named(name) => {
-                    let value = info.get_value((index as u32, name.to_string())).unwrap();
+                    let value = info
+                        .get_value((index as u32, name.to_string()))
+                        .expect("info.get_value call from named");
                     script_buffer.write_i32::<LE>(value).unwrap();
                 }
             };
@@ -81,6 +93,25 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBSc
 struct BBSFunction {
     function_name: String,
     args: Vec<ArgValue>,
+}
+
+impl BBSFunction {
+    pub fn total_size(&self) -> usize {
+        const BASE_SIZE: usize = 0x4;
+
+        let arg_size_sum: usize = self
+            .args
+            .iter()
+            .map(|arg| match arg {
+                ArgValue::String32(_) => 32,
+                ArgValue::String16(_) => 16,
+                ArgValue::Raw(bytes) => bytes.len(),
+                _ => 4,
+            })
+            .sum();
+
+        BASE_SIZE + arg_size_sum
+    }
 }
 
 #[derive(Debug)]
