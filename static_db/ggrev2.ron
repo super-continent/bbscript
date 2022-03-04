@@ -63,8 +63,10 @@
                 (0, 12) : (0, "IS_GREATER_OR_EQUAL"),
                 (0, 13) : (0, "IS_LESSER_OR_EQUAL"),
                 (0, 15) : (0, "IS_NOT_EQUAL"),
-                (1, 2)  : (1, "NEXT_ARG_IS_VAR"),
-                (3, 2)  : (3, "NEXT_ARG_IS_VAR"),
+                (1, 0)  : (1, "STATIC"),
+                (1, 2)  : (1, "VARIABLE"),
+                (3, 0)  : (3, "STATIC"),
+                (3, 2)  : (3, "VARIABLE"),
             },
         ),
         (
@@ -235,9 +237,12 @@
             id: 26,
             size: 16,
             args: "iii",
-            name: "",
+            name: "overrideSpriteLengthIf",
             codeBlock: NoBlock,
-            namedValues: {},
+            namedValues: {
+                (1, 0)  : (1, "STATIC"),
+                (1, 2)  : (1, "VARIABLE"),
+            },
         ),
         (
             id: 27,
@@ -378,8 +383,10 @@
                 (0, 1) : (0, "SUB"),
                 (0, 2) : (0, "MUL"),
                 (0, 3) : (0, "DIV"),
-                (1, 2) : (2, "NEXT_ARG_IS_VAR"),
-                (3, 2) : (2, "NEXT_ARG_IS_VAR"),
+                (1, 0) : (1, "STATIC"),
+                (1, 2) : (1, "VARIABLE"),
+                (3, 0) : (3, "STATIC"),
+                (3, 2) : (3, "VARIABLE"),
             },
         ),
         (
@@ -389,8 +396,10 @@
             name: "storeValue",
             codeBlock: NoBlock,
             namedValues: {
-                (0, 2) : (0, "NEXT_ARG_IS_VAR"),
-                (2, 2) : (2, "NEXT_ARG_IS_VAR"),
+                (0, 0) : (0, "STATIC"),
+                (0, 2) : (0, "VARIABLE"),
+                (2, 0) : (2, "STATIC"),
+                (2, 2) : (2, "VARIABLE"),
             },
         ),
         (
@@ -3274,10 +3283,12 @@
             namedValues: {},
         ),
         (
+            // Might also be a bool that resets tumble counter?
+            // 1 is the main value for it used everywhere
             id: 906,
             size: 8,
             args: "i",
-            name: "",
+            name: "tumbleCount",
             codeBlock: NoBlock,
             namedValues: {},
         ),
