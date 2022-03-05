@@ -161,7 +161,7 @@
             id: 18,
             size: 4,
             args: "",
-            name: "",
+            name: "exitState",
             codeBlock: NoBlock,
             namedValues: {},
         ),
@@ -638,7 +638,7 @@
             id: 106,
             size: 8,
             args: "i",
-            name: "",
+            name: "physicsXImpulseAbsolute",
             codeBlock: NoBlock,
             namedValues: {},
         ),
@@ -718,7 +718,7 @@
             id: 116,
             size: 8,
             args: "i",
-            name: "",
+            name: "multiplyYVelocityByPercent",
             codeBlock: NoBlock,
             namedValues: {},
         ),
@@ -883,18 +883,25 @@
             namedValues: {},
         ),
         (
+            // physicsXImpulse is executed only if
+            // the current velocity matches the sign of the
+            // argument velocity (inclusive to 0)
             id: 137,
             size: 8,
             args: "i",
-            name: "",
+            name: "physicsXImpulseIfVelocityMatchesSign",
             codeBlock: NoBlock,
             namedValues: {},
         ),
         (
+            // see above, this does the opposite
+            // NOTE: this will take positive values and
+            // apply the velocity that is the opposite of that value.
+            // e.g. "30000" will be applied as -30000 if the characters x velocity is in range -infinity..0
             id: 138,
             size: 8,
             args: "i",
-            name: "",
+            name: "physicsXImpulseIfVelocityOppositeOfSign",
             codeBlock: NoBlock,
             namedValues: {},
         ),
