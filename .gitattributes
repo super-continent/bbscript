@@ -1,3 +1,4 @@
+* text=auto
+
 [core]
-autocrlf = true
-*	text=auto
+    autocrlf=true
