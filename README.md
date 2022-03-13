@@ -8,10 +8,10 @@ Depending on the game, there are some guides:
 - [Guilty Gear Strive Modding Guide](https://pangaea.neocities.org/post/guilty-gear-strive-modding/)
 - [Guilty Gear Xrd](https://github.com/super-continent/bbscript/wiki/Guilty-Gear-Xrd-Modding-Guide)
 
+It's not legally required, but I would greatly appreciate a note giving credit to this project and my other work in any mod READMEs or menus in any mods you make if possible!
+
 ## What is BBScript?
 BBScript is a script format used by Arc System Works to define functions in their games such as character moves. It's used in most modern ArcSys games such as Blazblue CentralFiction, Guilty Gear Xrd, Dragon Ball FighterZ, and Granblue Fantasy Versus.
 
 ## Credit
-Thanks to Labryz and Dantarion for assembling the original DB info in [bbtools](https://github.com/dantarion/bbtools) and for bbtools as a good reference code base for info about the script format 
-
-Special thanks to the quarantine for providing me with enough free time to waste a whole 2 weeks challenging myself to make something that like 5 people will think is actually cool
+Thanks to Labryz and Dantarion for assembling some of the original DB info in [bbtools](https://github.com/dantarion/bbtools) and for bbtools as a good reference codebase for info about the script format 
