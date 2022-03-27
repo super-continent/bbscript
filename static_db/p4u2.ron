@@ -8310,7 +8310,7 @@
         (
             id: 2602,
             size: 16,
-            args: "",
+            args: "iii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -8798,7 +8798,7 @@
         (
             id: 2703,
             size: 16,
-            args: "",
+            args: "iii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -8814,7 +8814,7 @@
         (
             id: 2705,
             size: 16,
-            args: "",
+            args: "iii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -8822,7 +8822,7 @@
         (
             id: 2706,
             size: 16,
-            args: "",
+            args: "iii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -8830,7 +8830,7 @@
         (
             id: 2707,
             size: 16,
-            args: "",
+            args: "iii",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
