@@ -6286,7 +6286,7 @@
         (
             id: 1962,
             size: 72,
-            args: "",
+            args: "32s32si",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -8502,7 +8502,7 @@
         (
             id: 2638,
             size: 40,
-            args: "",
+            args: "i32s",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
