@@ -7063,7 +7063,7 @@
             id: 2392,
             size: 8,
             args: "i",
-            name: "",
+            name: "setInvincibility",
             codeBlock: NoBlock,
             namedValues: {},
         ),
