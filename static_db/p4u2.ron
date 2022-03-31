@@ -241,7 +241,7 @@
         (
             id: 28,
             size: 40,
-            args: "32si",
+            args: "",
             name: "",
             codeBlock: NoBlock,
             namedValues: {},
@@ -6047,7 +6047,7 @@
             id: 1843,
             size: 8,
             args: "i",
-            name: "enableGroundUntechableTimeOnAirHit",
+            name: "SpecialCancelable",
             codeBlock: NoBlock,
             namedValues: {},
         ),
