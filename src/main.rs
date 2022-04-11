@@ -4,7 +4,7 @@ mod log;
 mod parser;
 mod rebuilder;
 
-use clap::{crate_version, AppSettings, Parser};
+use clap::{crate_version, Parser, Subcommand};
 
 extern crate pest_derive;
 
@@ -26,13 +26,24 @@ fn main() {
     };
 }
 
-// im sorry for the redundancy here, but it makes the subcommands
-// the first thing you enter and i want that structure to be the same
 #[derive(Parser)]
 #[clap(version = crate_version!(), author = "Made by Pangaea")]
-#[clap(setting = AppSettings::SubcommandRequiredElseHelp, color = clap::ColorChoice::Never)]
+#[clap(color = clap::ColorChoice::Never)]
+#[clap(arg_required_else_help(true), subcommand_required(true))]
+struct MainCli {
+    /// Enable verbose output
+    #[clap(global = true, short, long)]
+    verbose: bool,
+    /// Specifies a path where <GAME>.ron configs are stored
+    #[clap(global = true, short, long, default_value = DB_FOLDER, env = "BBSCRIPT_DB_DIR")]
+    custom_db_folder: PathBuf,
+    #[clap(subcommand)]
+    command: SubCmd,
+}
+
 /// Parses BBScript into an easily moddable format that can be rebuilt into usable BBScript
-enum Command {
+#[derive(Subcommand)]
+enum SubCmd {
     /// Parses BBScript files and outputs them to a readable format
     Parse {
         /// File name of a config within the game DB folder
@@ -53,12 +64,6 @@ enum Command {
         /// Takes a hex offset from the end of the file specifying where the script actually ends
         #[clap(short, long, parse(try_from_str = parse_hex))]
         end_offset: Option<usize>,
-        /// Enables verbose output
-        #[clap(short, long)]
-        verbose: bool,
-        /// Specifies a path where <GAME>.ron configs are stored
-        #[clap(short, long, default_value = DB_FOLDER)]
-        custom_db_folder: PathBuf,
     },
     /// Rebuilds readable BBScript into BBScript usable by games
     Rebuild {
@@ -74,28 +79,20 @@ enum Command {
         /// Enables overwriting the file if a file with the same name as OUTPUT already exists
         #[clap(short, long)]
         overwrite: bool,
-        /// Enables verbose output
-        #[clap(short, long)]
-        verbose: bool,
-        /// Specifies a path where <GAME>.ron configs are stored
-        #[clap(short, long, default_value = DB_FOLDER)]
-        custom_db_folder: PathBuf,
     },
 }
 
 fn run() -> Result<(), Box<dyn Error>> {
-    let args = Command::parse();
+    let args = MainCli::parse();
 
-    match args {
-        Command::Parse {
+    match args.command {
+        SubCmd::Parse {
             game,
             input,
             output,
             overwrite,
             start_offset,
             end_offset,
-            verbose,
-            custom_db_folder,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
             run_parser(
@@ -104,20 +101,18 @@ fn run() -> Result<(), Box<dyn Error>> {
                 output,
                 start_offset,
                 end_offset,
-                custom_db_folder,
-                verbose,
+                args.custom_db_folder,
+                args.verbose,
             )?;
         }
-        Command::Rebuild {
+        SubCmd::Rebuild {
             game,
             input,
             output,
             overwrite,
-            verbose,
-            custom_db_folder,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
-            run_rebuilder(game, input, output, custom_db_folder, verbose)?;
+            run_rebuilder(game, input, output, args.custom_db_folder, args.verbose)?;
         }
     }
     Ok(())
