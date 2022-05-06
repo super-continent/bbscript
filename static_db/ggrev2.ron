@@ -39,8 +39,8 @@
             name: "if",
             codeBlock: Begin,
             namedValues: {
-                (0, 0) : (0, "STATIC")
-                (0, 2) : (0, "VARIABLE")
+                (0, 0) : (0, "STATIC"),
+                (0, 2) : (0, "VARIABLE"),
             },
         ),
         (
