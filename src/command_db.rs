@@ -13,7 +13,7 @@ pub struct GameDB {
 }
 impl GameDB {
     pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
-        de::from_reader(db_config).map_err(|_| BBScriptError::GameDBInvalid("".into()))
+        de::from_reader(db_config).map_err(|e| BBScriptError::GameDBInvalid(e.to_string()))
     }
 
     pub fn load<T: AsRef<Path>>(config_path: T) -> Result<Self, BBScriptError> {
