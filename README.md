@@ -1,7 +1,7 @@
 # BBScript - [Releases Here](https://github.com/super-continent/bbscript/releases)
 
 ## What does this tool do?
-This program is made to allow anyone to parse BBScript into a readable (and modifiable) format. It functions through game databases in [RON](https://github.com/ron-rs/ron) format, allowing it to be extended to work with any ArcSys game using BBScript regardless of the differences in functions and their corresponding values. This means it should be able to work with Guilty Gear Xrd, DBFZ, Blazblue, and Granblue Fantasy Versus if given the correct data in the form of .ron files.
+This program is made to allow anyone to parse BBScript into a readable (and modifiable) format. It functions through game databases in [RON](https://github.com/ron-rs/ron) format, allowing it to be extended to work with any ArcSys game using BBScript regardless of the differences in functions and their corresponding values. This means it should be able to work with Guilty Gear Xrd and Strive, DBFZ, Blazblue Centralfiction, Granblue Fantasy Versus, and more if given the correct data in the form of .ron files.
 
 ## How Do I Start Modding?
 Depending on the game, there are some guides:
