@@ -8610,7 +8610,7 @@
             id: 1411,
             size: 8,
             args: "i",
-            name: "addMoveFlag",
+            name: "addMoveCondition",
             codeBlock: NoBlock,
             namedValues: {
                 (0, 0) : (0, "NONE"),
