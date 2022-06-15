@@ -136,7 +136,7 @@
                 (0, 8)  : (0, "HIT_OR_GUARD"),
                 (0, 10) : (0, "HIT"),
                 (0, 11) : (0, "RECEIVE_ATTACK"),
-                (0, 23) : (0, "ON_HIT_OR_BLOCK"),
+                (0, 23) : (0, "HIT_OR_GUARD"),
                 (0, 47) : (0, "AFTER_EXIT"),
                 (0, 53) : (0, "START"),
                 (0, 74) : (0, "GUARD"),
