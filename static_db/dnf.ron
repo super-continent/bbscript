@@ -1,7 +1,7 @@
 (
     jump_table_ids: [
         0,
-        2
+        8
     ],
     literal_tag: 0,
     variable_tag: 2,
