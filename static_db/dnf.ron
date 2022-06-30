@@ -6,7 +6,11 @@
     literal_tag: 0,
     variable_tag: 2,
     named_variables: {},
-    named_value_maps: {},
+    named_value_maps: {
+        "Upon": {
+            0: "IMMEDIATE",
+        }
+    },
     instructions: Unsized({
         0: (
             name: "beginState",
@@ -42,6 +46,23 @@
             codeBlock: End,
             args: [],
         ),
+        10: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [String32],
+        ),
+        70: (
+            name: "endUpon",
+            codeBlock: End,
+            args: []
+        ),
+        72: (
+            name: "upon",
+            codeBlock: Begin,
+            args: [
+                Enum("Upon")
+            ]
+        ),
         877: (
             name: "",
             codeBlock: NoBlock,
@@ -50,6 +71,19 @@
                 String32,
                 String32,
             ],
+        ),
+        2081: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [String32]
+        ),
+        2533: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                String32,
+            ]
         ),
     }),
 )
