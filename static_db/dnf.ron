@@ -42,5 +42,14 @@
             codeBlock: End,
             args: [],
         ),
+        877: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                String32,
+                String32,
+            ],
+        ),
     }),
 )

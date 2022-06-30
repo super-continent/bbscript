@@ -10,7 +10,7 @@
         0: (
             size: 36,
             name: "beginState",
-            codeBlock: BeginJumpEntry,
+            codeBlock: Begin,
             args: [
                 String32,
             ],

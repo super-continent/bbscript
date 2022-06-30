@@ -3,7 +3,7 @@
 use crate::{
     error::BBScriptError,
     game_config::{
-        ArgType, GenericInstruction, InstructionInfo, ScriptConfig, TaggedValue, UnsizedInstruction,
+        ArgType, GenericInstruction, ScriptConfig, UnsizedInstruction,
     },
     HashMap,
 };
