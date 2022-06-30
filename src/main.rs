@@ -14,8 +14,9 @@ use std::io::prelude::*;
 use std::path::{Path, PathBuf};
 
 use crate::error::BBScriptError;
-use crate::game_config::GameDB;
 use crate::rebuilder::rebuild_bbscript;
+#[cfg(feature = "old-cfg-converter")]
+use crate::game_config::GameDB;
 
 type HashMap<K, V> = std::collections::HashMap<K, V>;
 
@@ -243,6 +244,7 @@ fn run_rebuilder(game: String, input: PathBuf, output: PathBuf, db_folder: PathB
     Ok(())
 }
 
+#[cfg(feature = "old-cfg-converter")]
 fn run_converter(game: String, out: PathBuf, overwrite: bool) -> AResult<()> {
     let mut ron_path = PathBuf::from(DB_FOLDER).join(game);
     ron_path.set_extension("ron");

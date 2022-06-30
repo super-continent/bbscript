@@ -270,11 +270,13 @@ impl UnsizedInstruction {
     }
 }
 
+#[cfg(feature = "old-cfg-converter")]
 #[derive(Deserialize, Debug)]
 pub struct GameDB {
     functions: Vec<Function>,
 }
 
+#[cfg(feature = "old-cfg-converter")]
 impl GameDB {
     pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
         de::from_reader(db_config).map_err(|e| BBScriptError::GameDBInvalid(e.to_string()))
@@ -308,6 +310,7 @@ impl GameDB {
     }
 }
 
+#[cfg(feature = "old-cfg-converter")]
 impl Into<ScriptConfig> for GameDB {
     fn into(self) -> ScriptConfig {
         let mut value_maps = HashMap::new();
@@ -414,6 +417,7 @@ where
     ordered.serialize(serializer)
 }
 
+#[cfg(feature = "old-cfg-converter")]
 #[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Function {
@@ -425,6 +429,7 @@ pub struct Function {
     named_values: BiMap<(u32, i32), (u32, String)>,
 }
 
+#[cfg(feature = "old-cfg-converter")]
 impl Function {
     // Not recoverable because name has no inherent value
     pub fn get_value(&self, name: (u32, String)) -> Result<i32, BBScriptError> {
@@ -488,6 +493,7 @@ impl Function {
     }
 }
 
+#[cfg(feature = "old-cfg-converter")]
 impl Into<SizedInstruction> for Function {
     fn into(self) -> SizedInstruction {
         let args = self
@@ -525,6 +531,7 @@ pub enum Arg {
 pub enum CodeBlock {
     Begin,
     #[deprecated]
+    #[cfg(feature = "old-cfg-converter")]
     BeginJumpEntry,
     End,
     NoBlock,
