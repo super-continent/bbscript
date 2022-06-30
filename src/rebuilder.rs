@@ -1,8 +1,6 @@
 #![allow(clippy::upper_case_acronyms)]
 
-use std::error::Error;
-
-use crate::{command_db::GameDB, error::BBScriptError, verbose};
+use crate::{game_config::GameDB, error::BBScriptError};
 
 use byteorder::{WriteBytesExt, LE};
 use bytes::{Bytes, BytesMut};
@@ -11,20 +9,19 @@ use pest_consume::{match_nodes, Parser};
 pub fn rebuild_bbscript(
     db: GameDB,
     script: String,
-    verbose: bool,
-) -> Result<Bytes, Box<dyn Error>> {
+) -> Result<Bytes, BBScriptError> {
     let parsed = BBSParser::parse(Rule::program, &script)?;
     let root = parsed.single()?;
 
     // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
     let program = BBSParser::program(root)?;
 
-    let file = assemble_script(program, &db, verbose)?;
+    let file = assemble_script(program, &db)?;
 
     Ok(file)
 }
 
-fn assemble_script(program: Vec<BBSFunction>, db: &GameDB, verbose: bool) -> Result<Bytes, BBScriptError> {
+fn assemble_script(program: Vec<BBSFunction>, db: &GameDB) -> Result<Bytes, BBScriptError> {
     let mut offset: u32 = 0x0;
     let mut table_entry_count: u32 = 0;
     let mut jump_table: Vec<u8> = Vec::new();
@@ -43,7 +40,7 @@ fn assemble_script(program: Vec<BBSFunction>, db: &GameDB, verbose: bool) -> Res
             }
         };
 
-        verbose!(println!("building instruction `{}`", func.function_name.as_str()), verbose);
+        log::trace!("building instruction `{}`", func.function_name.as_str());
         
         if func.total_size() as u32 != info.size {
             return Err(BBScriptError::IncorrectFunctionSize(
@@ -175,15 +172,11 @@ impl BBSParser {
     }
 
     fn string32(input: Node) -> PResult<Bytes> {
-        let mut string_bytes = BytesMut::from(input.as_str());
-        string_bytes.resize(32, 0x0);
-        Ok(string_bytes.freeze())
+        Ok(string_to_bytes_of_size(input.as_str(), 32))
     }
 
     fn string16(input: Node) -> PResult<Bytes> {
-        let mut string_bytes = BytesMut::from(input.as_str());
-        string_bytes.resize(16, 0x0);
-        Ok(string_bytes.freeze())
+        Ok(string_to_bytes_of_size(input.as_str(), 16))
     }
 
     fn named_value(input: Node) -> PResult<String> {
@@ -203,4 +196,17 @@ impl BBSParser {
             Err(e) => Err(input.error(e)),
         }
     }
+}
+
+fn string_to_bytes_of_size<T: AsRef<str>>(input: T, size: usize) -> Bytes {
+    let processed_string = unescaped(input);
+
+    let mut string_bytes = BytesMut::from(processed_string.as_str());
+    string_bytes.resize(size, 0x0);
+
+    string_bytes.freeze()
+}
+
+fn unescaped<T: AsRef<str>>(string: T) -> String {
+    string.as_ref().replace(r"\'", r"'")
 }

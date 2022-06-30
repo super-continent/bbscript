@@ -1,0 +1,46 @@
+(
+    jump_table_ids: [
+        0,
+        2
+    ],
+    literal_tag: 0,
+    variable_tag: 2,
+    named_variables: {},
+    named_value_maps: {},
+    instructions: Unsized({
+        0: (
+            name: "beginState",
+            codeBlock: Begin,
+            args: [
+                String32,
+            ]
+        ),
+        1: (
+            name: "endState",
+            codeBlock: End,
+            args: [
+                
+            ]
+        ),
+        4: (
+            name: "sprite",
+            codeBlock: NoBlock,
+            args: [
+                String32,
+                Number
+            ],
+        ),
+        8: (
+            name: "beginSubroutine",
+            codeBlock: Begin,
+            args: [
+                String32,
+            ],
+        ),
+        9: (
+            name: "endSubroutine",
+            codeBlock: End,
+            args: [],
+        ),
+    }),
+)

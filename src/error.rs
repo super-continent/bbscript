@@ -10,8 +10,10 @@ pub enum BBScriptError {
     BadInputFile(String),
     #[error("Output file `{0}` already exists, specify overwrite with -o flag")]
     OutputAlreadyExists(String),
-    #[error("Unknown instruction with ID/name `{0}`")]
-    UnknownFunction(String),
+    #[error("Unknown instruction with name `{0}`")]
+    UnknownInstructionName(String),
+    #[error("Unknown instruction with ID {0} (hex: {0:#X})")]
+    UnknownInstructionID(u32),
     #[error("No value associated with argument position `{0}` name `{1}`")]
     NoAssociatedValue(String, String),
     #[error(
@@ -20,4 +22,8 @@ pub enum BBScriptError {
     IncorrectJumpTableSize(String),
     #[error("Got instruction `{0}` mismatched to size {1}. size defined in config is {2}")]
     IncorrectFunctionSize(String, usize, usize),
+    #[error(transparent)]
+    PestConsumeError(#[from]pest_consume::Error<crate::rebuilder::Rule>),
+    #[error(transparent)]
+    FormatError(#[from]std::fmt::Error)
 }
