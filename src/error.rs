@@ -14,7 +14,11 @@ pub enum BBScriptError {
     UnknownInstructionName(String),
     #[error("Unknown instruction with ID {0} (hex: {0:#X})")]
     UnknownInstructionID(u32),
-    #[error("No value associated with argument position `{0}` name `{1}`")]
+    #[error("No variable ID associated with `{0}` in config")]
+    NoVariableName(String),
+    #[error("No enum associated with index argument {0} in instruction {1}`")]
+    NoEnum(usize, u32),
+    #[error("No value associated with variant `{0}` in enum `{1}`")]
     NoAssociatedValue(String, String),
     #[error(
         "Jump table size of `{0}` is too big! Is the program reading from the correct offset?"

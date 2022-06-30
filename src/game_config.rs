@@ -69,6 +69,51 @@ pub enum InstructionInfo {
     Unsized(HashMap<u32, UnsizedInstruction>),
 }
 
+#[derive(Debug, Clone)]
+pub enum GenericInstruction {
+    Sized(u32, SizedInstruction),
+    Unsized(u32, UnsizedInstruction),
+}
+
+impl GenericInstruction {
+    #[inline]
+    pub fn name(&self) -> Option<String> {
+        let name = match self {
+            Self::Sized(_, a) => a.name.clone(),
+            Self::Unsized(_, a) => a.name.clone(),
+        };
+
+        if name.is_empty() {
+            None
+        } else {
+            Some(name)
+        }
+    }
+
+    #[inline]
+    pub fn id(&self) -> u32 {
+        match self {
+            Self::Sized(id, _) => *id,
+            Self::Unsized(id, _) => *id,
+        }
+    }
+
+    #[inline]
+    pub fn size(&self) -> Option<usize> {
+        match self {
+            Self::Sized(_, a) => Some(a.size),
+            _ => None,
+        }
+    }
+
+    pub fn args(&self) -> SmallVec<[ArgType; 16]> {
+        match self {
+            Self::Sized(_, i) => i.args(),
+            Self::Unsized(_, i) => i.args(),
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptConfig {
     pub jump_table_ids: Vec<u32>,
@@ -85,6 +130,7 @@ pub struct ScriptConfig {
 }
 
 impl ScriptConfig {
+    #[inline]
     pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
         de::from_reader(db_config).map_err(|e| BBScriptError::GameDBInvalid(e.to_string()))
     }
@@ -99,6 +145,52 @@ impl ScriptConfig {
 
         Self::new(db_file)
     }
+
+    #[inline]
+    pub fn get_by_name(&self, name: String) -> Option<GenericInstruction> {
+        match self.instructions {
+            InstructionInfo::Sized(ref a) => a
+                .iter()
+                .find(|(_, x)| x.name == name)
+                .map(|(id, x)| GenericInstruction::Sized(*id, x.clone())),
+            InstructionInfo::Unsized(ref a) => a
+                .iter()
+                .find(|(_, x)| x.name == name)
+                .map(|(id, x)| GenericInstruction::Unsized(*id, x.clone())),
+        }
+    }
+
+    #[inline]
+    pub fn get_by_id(&self, id: u32) -> Option<GenericInstruction> {
+        match self.instructions {
+            InstructionInfo::Sized(ref map) => map
+                .get(&id)
+                .map(|x| GenericInstruction::Sized(id, x.clone())),
+            InstructionInfo::Unsized(ref map) => map
+                .get(&id)
+                .map(|x| GenericInstruction::Unsized(id, x.clone())),
+        }
+    }
+
+    pub fn get_enum_value(&self, enum_name: String, variant: String) -> Option<BBSNumber> {
+        self.named_value_maps
+            .get(&enum_name)
+            .map(|e| e.get_by_right(&variant).map(|v| *v))
+            .flatten()
+    }
+
+    pub fn get_variable_by_name(&self, variable_name: String) -> Option<BBSNumber> {
+        self.named_variables
+            .get_by_right(&variable_name)
+            .map(|x| *x)
+    }
+
+    pub fn is_unsized(&self) -> bool {
+        match self.instructions {
+            InstructionInfo::Unsized(_) => true,
+            _ => false,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -111,11 +203,11 @@ pub struct SizedInstruction {
 }
 
 impl SizedInstruction {
-    pub fn args(&self) -> Vec<ArgType> {
+    pub fn args(&self) -> SmallVec<[ArgType; 16]> {
         const INSTRUCTION_SIZE: usize = 0x4;
         let known_args_size: usize = self.args.iter().map(|a| a.size()).sum();
 
-        let mut args = self.args.to_vec();
+        let mut args = self.args.clone();
 
         if known_args_size != (self.size - INSTRUCTION_SIZE) {
             // size typically has an extra 4 bytes because of the ID being a u32
@@ -132,7 +224,7 @@ impl SizedInstruction {
 pub struct UnsizedInstruction {
     pub name: String,
     pub code_block: CodeBlock,
-    args: SmallVec<[ArgType; 16]>,
+    pub args: SmallVec<[ArgType; 16]>,
 }
 
 impl UnsizedInstruction {
@@ -144,13 +236,21 @@ impl UnsizedInstruction {
         }
     }
 
-    pub fn args(&self, dynamic_size: usize) -> Vec<ArgType> {
+    pub fn from_parsed(args: Vec<ArgType>) -> Self {
+        Self {
+            name: "".into(),
+            code_block: CodeBlock::NoBlock,
+            args: args.into(),
+        }
+    }
+
+    pub fn args_with_known_size(&self, dynamic_size: usize) -> SmallVec<[ArgType; 16]> {
         const INSTRUCTION_SIZE: usize = 0x8;
         let known_args_size: usize = self.args.iter().map(|a| a.size()).sum();
 
         log::debug!("dynamic instruction size: {dynamic_size}");
 
-        let mut args = self.args.to_vec();
+        let mut args = self.args.clone();
 
         if known_args_size > (dynamic_size - INSTRUCTION_SIZE) {
             panic!("dynamic argument size smaller than argument size in config!")
@@ -163,6 +263,10 @@ impl UnsizedInstruction {
         }
 
         args
+    }
+
+    pub fn args(&self) -> SmallVec<[ArgType; 16]> {
+        self.args.clone()
     }
 }
 
@@ -243,7 +347,7 @@ impl Into<ScriptConfig> for GameDB {
 
                         let mut enum_name = func.name.clone();
                         enum_name.push_str(format!("{i}_{}", func.id).as_str());
-                        
+
                         // only insert new enum if there are no exact duplicates
                         if !value_maps.values().any(|x| *x == map) && !map.is_empty() {
                             value_maps.insert(enum_name, map.clone());

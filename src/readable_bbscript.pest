@@ -16,7 +16,7 @@ arg = {
   "s16'" ~ string16 ~ "'"
 | "s32'" ~ string32 ~ "'"
 | "Mem(" ~ (named_var | var_id) ~ ")"
-| "Val(" ~ tagged_num ~ ")"
+| "Val(" ~ tagged_value ~ ")"
 | "(" ~ named_value ~ ")"
 | "0x" ~ raw_data
 | num
@@ -38,7 +38,7 @@ var_id = @{
 	num
 }
 
-tagged_num = @{
+tagged_value = @{
   num
 }
 

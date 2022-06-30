@@ -228,7 +228,7 @@ fn run_rebuilder(game: String, input: PathBuf, output: PathBuf, db_folder: PathB
     let mut ron_path = db_folder.join(game);
     ron_path.set_extension("ron");
 
-    let db = GameDB::load(ron_path)?;
+    let db = ScriptConfig::load(ron_path)?;
 
     let mut script = String::new();
     File::open(input)?.read_to_string(&mut script)?;
