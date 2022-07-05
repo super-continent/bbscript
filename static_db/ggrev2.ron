@@ -4,7 +4,11 @@
     ],
     literal_tag: 0,
     variable_tag: 2,
-    named_variables: {},
+    named_variables: {
+        0: "ACCUMULATOR",
+        25: "RESOURCE_AMOUNT",
+        35: "OPPONENT_Y_OFFSET",
+    },
     named_value_maps: {
         "Entity": {
             1: "PREVIOUS",
