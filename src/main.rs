@@ -237,7 +237,7 @@ fn run_rebuilder(game: String, input: PathBuf, output: PathBuf, db_folder: PathB
     match rebuild_bbscript(db, script) {
         Ok(f) => {
             let mut output = File::create(output)?;
-            output.write_all(&f.to_vec())?;
+            output.write_all(&f)?;
         }
         Err(e) => return Err(e.into()),
     }
