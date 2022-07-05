@@ -4,8 +4,7 @@ use smallvec::SmallVec;
 use std::fmt::Write;
 
 use crate::game_config::{
-    ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, TaggedValue,
-    UnsizedInstruction,
+    ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, TaggedValue, UnsizedInstruction,
 };
 use crate::BBScriptError;
 use crate::HashMap;
@@ -29,27 +28,30 @@ pub struct InstructionValue {
     pub code_block: CodeBlock,
 }
 
-fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> String {
+fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> Result<String, BBScriptError> {
     match arg {
-        ArgValue::Unknown(data) => format!("0x{}", hex::encode_upper(data)),
-        ArgValue::Number(num) => format!("{num}"),
-        ArgValue::String16(s) => format!("s16'{s}'"),
-        ArgValue::String32(s) => format!("s32'{s}'"),
+        ArgValue::Unknown(data) => Ok(format!("0x{}", hex::encode_upper(data))),
+        ArgValue::Number(num) => Ok(format!("{num}")),
+        ArgValue::String16(s) => Ok(format!("s16'{s}'")),
+        ArgValue::String32(s) => Ok(format!("s32'{s}'")),
         ArgValue::AccessedValue(_tagged @ TaggedValue::Improper { tag, value }) => {
-            format!("BadTag({tag}, {value})")
+            Ok(format!("BadTag({tag}, {value})"))
         }
         // get named value
-        ArgValue::AccessedValue(_tagged @ TaggedValue::Variable(val)) => format!(
+        ArgValue::AccessedValue(_tagged @ TaggedValue::Variable(val)) => Ok(format!(
             "Mem({})",
             config
                 .named_variables
                 .get_by_left(val)
                 .unwrap_or(&format!("{val}"))
-        ),
-        ArgValue::AccessedValue(_tagged @ TaggedValue::Literal(val)) => format!("Val({val})"),
-        ArgValue::Enum(name, val) => config.named_value_maps[name]
-            .get_by_left(val)
-            .map_or(format!("{val}"), |name| format!("({name})")),
+        )),
+        ArgValue::AccessedValue(_tagged @ TaggedValue::Literal(val)) => Ok(format!("Val({val})")),
+        ArgValue::Enum(name, val) => match config.named_value_maps.get(name) {
+            Some(map) => map
+                .get_by_left(val)
+                .map_or(Ok(format!("{val}")), |name| Ok(format!("({name})"))),
+            None => return Err(BBScriptError::BadEnumReference(name.clone())),
+        },
     }
 }
 
@@ -81,7 +83,7 @@ impl ScriptConfig {
 
             let mut args = instruction.args.iter().peekable();
             while let Some(arg) = args.next() {
-                out.write_fmt(format_args!("{}", arg_to_string(self, arg)))?;
+                out.write_fmt(format_args!("{}", arg_to_string(self, arg)?))?;
 
                 if args.peek().is_some() {
                     out.write_fmt(format_args!(", "))?;
@@ -143,7 +145,7 @@ impl ScriptConfig {
         use crate::game_config::InstructionInfo;
         match &self.instructions {
             InstructionInfo::Sized(id_map) => {
-                let mut program = Vec::new();
+                let mut program = Vec::with_capacity(input.len() / 2);
 
                 while input.remaining() != 0 {
                     program.push(self.parse_sized(id_map, input)?);
@@ -152,7 +154,7 @@ impl ScriptConfig {
                 Ok(program)
             }
             InstructionInfo::Unsized(id_map) => {
-                let mut program = Vec::new();
+                let mut program = Vec::with_capacity(input.len() / 2);
 
                 while input.remaining() != 0 {
                     program.push(self.parse_unsized(id_map, input)?);
