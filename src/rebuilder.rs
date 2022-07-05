@@ -30,6 +30,7 @@ struct JumpTable {
 }
 
 impl JumpTable {
+    #[inline]
     pub fn new(id_list: Vec<u32>) -> Self {
         Self {
             id_list,
@@ -42,6 +43,7 @@ impl JumpTable {
         self.id_list.contains(&id)
     }
 
+    #[inline]
     pub fn add_table_entry(&mut self, id: u32, offset: u32, jump_name: &Bytes) {
         assert!(self.is_entry_id(id));
         assert!(jump_name.len() == ArgType::STRING32_SIZE);
