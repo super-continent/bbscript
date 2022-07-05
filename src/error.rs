@@ -18,6 +18,8 @@ pub enum BBScriptError {
     NoVariableName(String),
     #[error("No enum associated with index argument {0} in instruction {1}`")]
     NoEnum(usize, u32),
+    #[error("Argument tried to access nonexistant enum `{0}`")]
+    BadEnumReference(String),
     #[error("No value associated with variant `{0}` in enum `{1}`")]
     NoAssociatedValue(String, String),
     #[error(
