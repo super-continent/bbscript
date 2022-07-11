@@ -17,6 +17,7 @@ arg = {
 | "s32'" ~ string32 ~ "'"
 | "Mem(" ~ (named_var | var_id) ~ ")"
 | "Val(" ~ tagged_value ~ ")"
+| "BadTag(" ~ unknown_tag ~ "," ~ tagged_value ~ ")"
 | "(" ~ named_value ~ ")"
 | "0x" ~ raw_data
 | num
@@ -39,6 +40,10 @@ var_id = @{
 }
 
 tagged_value = @{
+  num
+}
+
+unknown_tag = @{
   num
 }
 

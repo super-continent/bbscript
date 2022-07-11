@@ -133,6 +133,8 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
         }
 
         for (index, arg) in instruction.args.iter().enumerate() {
+            log::trace!("writing arg {} of value `{:?}` from instruction `{}`", index, arg, &instruction.name);
+
             match arg {
                 ParserValue::String32(string) | ParserValue::String16(string) => {
                     script_buffer.append(&mut string.to_vec())
@@ -175,6 +177,11 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                     script_buffer.write_i32::<LE>(db.literal_tag).unwrap();
                     script_buffer.write_i32::<LE>(val).unwrap();
                 }
+                &ParserValue::BadTag(tag, val) => {
+                    log::trace!("Got bad tag {tag} with value {val} at offset {}", script_buffer.len());
+                    script_buffer.write_i32::<LE>(tag).unwrap();
+                    script_buffer.write_i32::<LE>(val).unwrap();
+                }
             };
         }
         offset = script_buffer.len() as u32;
@@ -210,6 +217,7 @@ impl BBSFunction {
                 ParserValue::Mem(_) => 8,
                 ParserValue::NamedMem(_) => 8,
                 ParserValue::Val(_) => 8,
+                ParserValue::BadTag(_, _) => 8,
                 ParserValue::Named(_) => 4,
                 ParserValue::Number(_) => 4,
             })
@@ -229,6 +237,7 @@ enum ParserValue {
     NamedMem(String),
     Mem(i32),
     Val(i32),
+    BadTag(i32, i32),
 }
 
 impl ParserValue {
@@ -243,6 +252,7 @@ impl ParserValue {
             ParserValue::NamedMem(_) => AccessedValue,
             ParserValue::Mem(_) => AccessedValue,
             ParserValue::Val(_) => AccessedValue,
+            ParserValue::BadTag(_, _) => AccessedValue,
         }
     }
 }
@@ -296,6 +306,7 @@ impl BBSParser {
             [var_id(val)] => ParserValue::Mem(val),
             [tagged_value(val)] => ParserValue::Val(val),
             [named_value(name)] => ParserValue::Named(name),
+            [unknown_tag(tag), tagged_value(val)] => ParserValue::BadTag(tag, val),
             [raw_data(data)] => ParserValue::Raw(data),
             [num(val)] => ParserValue::Number(val),
         ))
@@ -329,6 +340,13 @@ impl BBSParser {
 
     fn named_value(input: Node) -> PResult<String> {
         Ok(input.as_str().into())
+    }
+
+    fn unknown_tag(input: Node) -> PResult<i32> {
+        match input.as_str().parse::<i32>() {
+            Ok(num) => Ok(num),
+            Err(e) => Err(input.error(e)),
+        }
     }
 
     fn raw_data(input: Node) -> PResult<Bytes> {
