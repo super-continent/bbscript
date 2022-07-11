@@ -262,7 +262,7 @@
     instructions: Sized({
         0: (
             size: 36,
-            name: "startState",
+            name: "beginState",
             codeBlock: Begin,
             args: [
                 String32,
