@@ -8,7 +8,9 @@ use crate::game_config::{
 };
 use crate::BBScriptError;
 use crate::HashMap;
+
 const INDENT_LIMIT: usize = 12;
+const INDENT_SPACES: usize = 2;
 
 #[derive(Debug, Clone)]
 pub enum ArgValue {
@@ -57,9 +59,6 @@ fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> Result<String, BBScri
 
 impl ScriptConfig {
     pub fn parse_to_string<T: Into<Bytes>>(&self, input: T) -> Result<String, BBScriptError> {
-        const INDENT_LIMIT: usize = 12;
-        const INDENT_SPACES: usize = 2;
-
         let program = self.parse(input)?;
         let mut out = String::new();
 

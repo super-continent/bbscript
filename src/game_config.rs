@@ -132,12 +132,49 @@ pub struct ScriptConfig {
 impl ScriptConfig {
     #[inline]
     pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
-        de::from_reader(db_config).map_err(|e| BBScriptError::GameDBInvalid(e.to_string()))
+        use std::collections::HashSet;
+        let config: Self =
+            de::from_reader(db_config).map_err(|e| BBScriptError::ConfigInvalid(e.to_string()))?;
+
+        // ensure config contains no duplicate names
+        // otherwise it will return an error with the name
+        match config.instructions {
+            InstructionInfo::Sized(ref map) => {
+                let mut set = HashSet::new();
+                let mut duplicate_name = None;
+
+                map.values().for_each(|i| {
+                    if !i.name.is_empty() && !set.insert(&i.name) {
+                        duplicate_name = Some(i.name.clone());
+                    }
+                });
+
+                if let Some(name) = duplicate_name {
+                    return Err(BBScriptError::ConfigDuplicateName(name));
+                }
+            }
+            InstructionInfo::Unsized(ref map) => {
+                let mut set = HashSet::new();
+                let mut duplicate_name = None;
+
+                map.values().for_each(|i| {
+                    if !i.name.is_empty() && !set.insert(&i.name) {
+                        duplicate_name = Some(i.name.clone());
+                    }
+                });
+
+                if let Some(name) = duplicate_name {
+                    return Err(BBScriptError::ConfigDuplicateName(name));
+                }
+            }
+        }
+
+        Ok(config)
     }
 
     pub fn load<T: AsRef<Path>>(config_path: T) -> Result<Self, BBScriptError> {
         let db_file = File::open(&config_path).map_err(|e| {
-            BBScriptError::GameDBOpenError(
+            BBScriptError::ConfigOpenError(
                 format!("{}", config_path.as_ref().display()),
                 e.to_string(),
             )
@@ -279,12 +316,12 @@ pub struct GameDB {
 #[cfg(feature = "old-cfg-converter")]
 impl GameDB {
     pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
-        de::from_reader(db_config).map_err(|e| BBScriptError::GameDBInvalid(e.to_string()))
+        de::from_reader(db_config).map_err(|e| BBScriptError::ConfigInvalid(e.to_string()))
     }
 
     pub fn load<T: AsRef<Path>>(config_path: T) -> Result<Self, BBScriptError> {
         let db_file = File::open(&config_path).map_err(|e| {
-            BBScriptError::GameDBOpenError(
+            BBScriptError::ConfigOpenError(
                 format!("{}", config_path.as_ref().display()),
                 e.to_string(),
             )
@@ -495,7 +532,7 @@ impl Function {
 
 #[cfg(feature = "old-cfg-converter")]
 impl Into<SizedInstruction> for Function {
-    fn into(self) -> SizedInstruction {
+    fn into(mut self) -> SizedInstruction {
         let args = self
             .get_args()
             .into_iter()
@@ -510,6 +547,10 @@ impl Into<SizedInstruction> for Function {
             })
             .collect();
 
+        if self.code_block == CodeBlock::BeginJumpEntry {
+            self.code_block = CodeBlock::Begin
+        }
+
         SizedInstruction {
             size: self.size as usize,
             name: self.name,
@@ -519,6 +560,7 @@ impl Into<SizedInstruction> for Function {
     }
 }
 
+#[cfg(feature = "old-cfg-converter")]
 #[derive(Debug, Clone)]
 pub enum Arg {
     String16,
