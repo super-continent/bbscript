@@ -356,7 +356,7 @@
             2: "ANDROID",
             3: "SPECIAL",
         },
-        "InitCharPhysique0_1288": {
+        "CharacterPhysique": {
             0: "SMALL",
             1: "MIDDLE",
             2: "LARGE",
@@ -807,14 +807,14 @@
             21: "SET_DIR",
             22: "PERCENT",
         },
-        "killType0_1059": {
+        "KillProperty": {
             0: "CAN_KILL",
             1: "CANNOT_KILL",
             2: "DISABLE_KILL_UNTIL_COMBO_ENDS",
             3: "INSTANT_KILL",
             4: "KillForMOMJibaku",
         },
-        "moveSubType0_1414": {
+        "MoveSubtype": {
             0: "DEFAULT",
             1: "TAUNT",
             2: "RESPECT",
@@ -824,7 +824,7 @@
             6: "BAIKEN_BLOCKING",
             7: "NORMAL_THROW",
         },
-        "moveType0_1405": {
+        "MoveType": {
             0: "NEUTRAL",
             1: "FORWARD_WALK",
             2: "BACKWARD_WALK",
@@ -883,7 +883,7 @@
             56: "INSTANT_KILL_PREPARATION",
             57: "BLITZ_SHIELD",
         },
-        "removeMoveFlag0_1417": {
+        "MoveFlag": {
             0: "NONE",
             1: "LAND",
             2: "AIR",
@@ -1707,7 +1707,6 @@
         ),
         79: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1715,7 +1714,6 @@
         ),
         80: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -2355,6 +2353,7 @@
             args: [
                 Number,
             ],
+            description: "Hello"
         ),
         177: (
             size: 16,
@@ -3089,7 +3088,6 @@
         ),
         307: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -4104,7 +4102,6 @@
         ),
         552: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4635,7 +4632,6 @@
         ),
         719: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4842,7 +4838,8 @@
             name: "hitGravity",
             codeBlock: NoBlock,
             args: [
-                AccessedValue,
+                Number,
+                Number,
             ],
         ),
         779: (
@@ -5350,7 +5347,6 @@
         ),
         893: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -5891,7 +5887,6 @@
         ),
         1029: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -6056,7 +6051,7 @@
             name: "killType",
             codeBlock: NoBlock,
             args: [
-                Enum("killType0_1059"),
+                Enum("KillProperty"),
             ],
         ),
         1060: (
@@ -7894,7 +7889,7 @@
             name: "InitCharPhysique",
             codeBlock: NoBlock,
             args: [
-                Enum("InitCharPhysique0_1288"),
+                Enum("CharacterPhysique"),
             ],
         ),
         1289: (
@@ -8414,7 +8409,7 @@
             name: "moveType",
             codeBlock: NoBlock,
             args: [
-                Enum("moveType0_1405"),
+                Enum("MoveType"),
             ],
         ),
         1406: (
@@ -8484,7 +8479,7 @@
             name: "moveSubType",
             codeBlock: NoBlock,
             args: [
-                Enum("moveSubType0_1414"),
+                Enum("MoveSubtype"),
             ],
         ),
         1415: (
@@ -8508,7 +8503,7 @@
             name: "removeMoveFlag",
             codeBlock: NoBlock,
             args: [
-                Enum("removeMoveFlag0_1417"),
+                Enum("MoveFlag"),
             ],
         ),
         1418: (
@@ -8654,7 +8649,6 @@
         ),
         1436: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9126,7 +9120,6 @@
         ),
         1635: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -9805,7 +9798,6 @@
         ),
         1765: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -10024,13 +10016,11 @@
         ),
         1818: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
         1819: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -10316,7 +10306,6 @@
         ),
         1869: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10658,7 +10647,6 @@
         ),
         1928: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -11144,7 +11132,6 @@
         ),
         2024: (
             size: 4,
-            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -13200,7 +13187,6 @@
         ),
         2297: (
             size: 8,
-            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
