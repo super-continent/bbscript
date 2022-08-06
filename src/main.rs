@@ -162,7 +162,8 @@ fn confirm_io_files(
     }
 }
 
-fn get_byte_vec(name: PathBuf) -> AResult<Vec<u8>> {
+/// Attempts to return a `Vec<u8>` of a files contents
+fn load_file(name: PathBuf) -> AResult<Vec<u8>> {
     let mut file = File::open(&name)?;
     let meta = metadata(name)?;
     let mut file_buf = Vec::with_capacity(meta.len() as usize);
@@ -176,15 +177,16 @@ fn parse_hex(input: &str) -> Result<usize, std::num::ParseIntError> {
     usize::from_str_radix(input, 16)
 }
 
+/// Get a LevelFilter from -v occurences
+/// `Error` is excluded as the program doesn't call `log::error!()`
 fn log_level_from_verbosity(verbosity: usize) -> log::LevelFilter {
     use log::LevelFilter::*;
 
     match verbosity {
         0 => Off,
-        1 => Error,
-        2 => Warn,
-        3 => Info,
-        4 => Debug,
+        1 => Warn,
+        2 => Info,
+        3 => Debug,
         _ => Trace,
     }
 }
@@ -204,7 +206,7 @@ fn run_parser(
 
     let db = ScriptConfig::load(ron_path)?;
 
-    let in_file = get_byte_vec(in_path)?;
+    let in_file = load_file(in_path)?;
 
     let in_bytes = in_file;
     let file_length = in_bytes.len();
