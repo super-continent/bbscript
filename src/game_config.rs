@@ -234,9 +234,14 @@ impl ScriptConfig {
 #[serde(rename_all = "camelCase")]
 pub struct SizedInstruction {
     pub size: usize,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
     pub code_block: CodeBlock,
     args: SmallVec<[ArgType; 16]>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub description: String,
 }
 
 impl SizedInstruction {
@@ -259,25 +264,32 @@ impl SizedInstruction {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct UnsizedInstruction {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
     pub code_block: CodeBlock,
     pub args: SmallVec<[ArgType; 16]>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub description: String,
 }
 
 impl UnsizedInstruction {
     pub fn new() -> Self {
         Self {
-            name: "".to_string(),
+            name: String::new(),
             code_block: CodeBlock::NoBlock,
             args: SmallVec::new(),
+            description: String::new(),
         }
     }
 
     pub fn from_parsed(args: Vec<ArgType>) -> Self {
         Self {
-            name: "".into(),
+            name: String::new(),
             code_block: CodeBlock::NoBlock,
             args: args.into(),
+            description: String::new(),
         }
     }
 
@@ -556,6 +568,7 @@ impl Into<SizedInstruction> for Function {
             name: self.name,
             code_block: self.code_block,
             args,
+            description: String::new(),
         }
     }
 }
