@@ -6,10 +6,6 @@
     variable_tag: 2,
     named_variables: {},
     named_value_maps: {
-        "if0_4": {
-            0: "STATIC",
-            2: "VARIABLE",
-        },
         "moveInput0_1775": {
             1: "INPUT_HOLD_A",
             3: "INPUT_RELEASE_A",
@@ -95,8 +91,7 @@
             name: "if",
             codeBlock: Begin,
             args: [
-                Enum("if0_4"),
-                Number,
+                AccessedValue
             ],
         ),
         5: (
