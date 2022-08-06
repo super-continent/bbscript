@@ -1,5 +1,5 @@
 program = {
-  function ~ (NEWLINE+ ~ function)* ~ NEWLINE* ~ EOI
+  NEWLINE* ~ function ~ (NEWLINE+ ~ function)* ~ NEWLINE* ~ EOI
 }
 
 function = {
@@ -10,13 +10,16 @@ function_name = @{
     ident_char+
 }
 
-args = { arg ~ ("," ~ arg)* }
+args = { arg ~ ("," ~ arg)* ~ ","? }
 
 arg = {
   "s16'" ~ string16 ~ "'"
 | "s32'" ~ string32 ~ "'"
+| "Mem(" ~ (named_var | var_id) ~ ")"
+| "Val(" ~ tagged_value ~ ")"
+| "BadTag(" ~ unknown_tag ~ "," ~ tagged_value ~ ")"
 | "(" ~ named_value ~ ")"
-| "'0x" ~ raw_data ~ "'"
+| "0x" ~ raw_data
 | num
 }
 
@@ -28,8 +31,24 @@ string32 = @{
   string_char{, 32}
 }
 
+named_var = @{
+  ident
+}
+
+var_id = @{
+	num
+}
+
+tagged_value = @{
+  num
+}
+
+unknown_tag = @{
+  num
+}
+
 named_value = @{
-  ident_char+
+  ident
 }
 
 raw_data = @{
@@ -40,14 +59,27 @@ num = @{
   ("-" | "+")? ~ ASCII_DIGIT+
 }
 
+ident = {
+	!NUMBER ~ ident_char+
+}
+
 ident_char = {
   (ASCII_ALPHANUMERIC | "_" | "-" | "!" | " " | ".")
 }
 
 string_char = {
-  (ASCII_ALPHANUMERIC | "_" | "-" | "!" | " " | "." | ":")
+  ( "\\'" | (!"'" ~ ANY) )
 }
 
-COMMENT = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
+COMMENT = _{
+  (
+    (
+      "//" ~ (!NEWLINE ~ ANY)*
+    )
+  | (
+      "/*" ~ (!"*/" ~ ANY)* ~ "*/"
+    )
+  )
+}
 
 WHITESPACE = _{ (" " | "\t")+ }
