@@ -14,9 +14,9 @@ use std::io::prelude::*;
 use std::path::{Path, PathBuf};
 
 use crate::error::BBScriptError;
-use crate::rebuilder::rebuild_bbscript;
 #[cfg(feature = "old-cfg-converter")]
 use crate::game_config::GameDB;
+use crate::rebuilder::rebuild_bbscript;
 
 type HashMap<K, V> = std::collections::HashMap<K, V>;
 

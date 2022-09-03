@@ -2,9 +2,7 @@
 
 use crate::{
     error::BBScriptError,
-    game_config::{
-        ArgType, GenericInstruction, ScriptConfig, UnsizedInstruction,
-    },
+    game_config::{ArgType, GenericInstruction, ScriptConfig, UnsizedInstruction},
     HashMap,
 };
 
@@ -133,7 +131,12 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
         }
 
         for (index, arg) in instruction.args.iter().enumerate() {
-            log::trace!("writing arg {} of value `{:?}` from instruction `{}`", index, arg, &instruction.name);
+            log::trace!(
+                "writing arg {} of value `{:?}` from instruction `{}`",
+                index,
+                arg,
+                &instruction.name
+            );
 
             match arg {
                 ParserValue::String32(string) | ParserValue::String16(string) => {
@@ -178,7 +181,10 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                     script_buffer.write_i32::<LE>(val).unwrap();
                 }
                 &ParserValue::BadTag(tag, val) => {
-                    log::trace!("Got bad tag {tag} with value {val} at offset {}", script_buffer.len());
+                    log::trace!(
+                        "Got bad tag {tag} with value {val} at offset {}",
+                        script_buffer.len()
+                    );
                     script_buffer.write_i32::<LE>(tag).unwrap();
                     script_buffer.write_i32::<LE>(val).unwrap();
                 }

@@ -24,7 +24,7 @@ arg = {
 }
 
 string16 = @{
-	string_char{, 16}
+  string_char{, 16}
 }
 
 string32 = @{
@@ -36,7 +36,7 @@ named_var = @{
 }
 
 var_id = @{
-	num
+  num
 }
 
 tagged_value = @{
@@ -60,7 +60,7 @@ num = @{
 }
 
 ident = {
-	!NUMBER ~ ident_char+
+  !NUMBER ~ ident_char+
 }
 
 ident_char = {

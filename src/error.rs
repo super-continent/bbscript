@@ -31,7 +31,7 @@ pub enum BBScriptError {
     #[error("Got instruction `{0}` mismatched to size {1}. size defined in config is {2}")]
     IncorrectFunctionSize(String, usize, usize),
     #[error(transparent)]
-    PestConsumeError(#[from]pest_consume::Error<crate::rebuilder::Rule>),
+    PestConsumeError(#[from] pest_consume::Error<crate::rebuilder::Rule>),
     #[error(transparent)]
-    FormatError(#[from]std::fmt::Error)
+    FormatError(#[from] std::fmt::Error),
 }
