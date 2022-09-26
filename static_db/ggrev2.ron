@@ -353,7 +353,7 @@
         0: (
             size: 36,
             name: "startState",
-            codeBlock: BeginJumpEntry,
+            codeBlock: Begin,
             args: [
                 String32,
             ],
@@ -5204,7 +5204,7 @@
         ),
         1273: (
             size: 8,
-            name: "",
+            name: "cpuWeakenRate",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5212,7 +5212,7 @@
         ),
         1274: (
             size: 8,
-            name: "",
+            name: "cpuTokuiKyori",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5220,7 +5220,7 @@
         ),
         1275: (
             size: 8,
-            name: "",
+            name: "cpuTokuiKyoriKodawari",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9727,7 +9727,7 @@
         ),
         2246: (
             size: 40,
-            name: "",
+            name: "createArgSocket",
             codeBlock: NoBlock,
             args: [
                 String32,
