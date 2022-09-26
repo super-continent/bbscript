@@ -573,7 +573,6 @@
                 String16,
             ],
         ),
-        ),
         29: (
             size: 68,
             name: "jumpToStateIfNot",
@@ -665,7 +664,7 @@
             name: "runOnObject",
             codeBlock: NoBlock,
             args: [
-                Entity,
+                Enum("Entity"),
             ],
         ),
         42: (
@@ -848,7 +847,7 @@
             name: "posTypeToVar",
             codeBlock: NoBlock,
             args: [
-				Enum(Entity),
+				Enum("Entity"),
                 Enum("POS_TYPE"),
                 AccessedValue,
                 AccessedValue,
@@ -1541,6 +1540,7 @@
                 Enum("Entity"),
                 Number,
                 Enum("Entity"),
+			],
         ),
         180: (
             size: 8,
@@ -1742,7 +1742,7 @@
         ),
         238: (
             size: 12,
-            name: "useCenterOffset,
+            name: "useCenterOffset",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2875,7 +2875,7 @@
         ),
         630: (
             size: 20,
-            name: tutorialVoice"",
+            name: "tutorialVoice",
             codeBlock: NoBlock,
             args: [
                 String16,
@@ -5141,6 +5141,14 @@
         1262: (
             size: 8,
             name: "shoesType",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        1263: (
+            size: 8,
+            name: "health",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10477,7 +10485,7 @@
         ),
         2377: (
             size: 8,
-            name: "guardEffectObject",
+            name: "objectSortPriority",
             codeBlock: NoBlock,
             args: [
                 Number,
