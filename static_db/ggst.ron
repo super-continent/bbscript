@@ -7646,7 +7646,7 @@
         ),
         1236: (
             size: 8,
-            name: "defence",
+            name: "defense",
             codeBlock: NoBlock,
             args: [
                 Number,
