@@ -60,7 +60,7 @@
     instructions: Sized({
         0: (
             size: 36,
-            name: "startState",
+            name: "beginState",
             codeBlock: Begin,
             args: [
                 String32,
@@ -118,7 +118,7 @@
         ),
         8: (
             size: 36,
-            name: "startSubroutine",
+            name: "beginSubroutine",
             codeBlock: Begin,
             args: [
                 String32,

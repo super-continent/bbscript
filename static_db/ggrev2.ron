@@ -356,7 +356,7 @@
     instructions: Sized({
         0: (
             size: 36,
-            name: "startState",
+            name: "beginState",
             codeBlock: Begin,
             args: [
                 String32,
@@ -472,7 +472,7 @@
         ),
         15: (
             size: 36,
-            name: "startSubroutine",
+            name: "beginSubroutine",
             codeBlock: Begin,
             args: [
                 String32,
@@ -592,6 +592,18 @@
             codeBlock: Begin,
             args: [
                 String16,
+            ],
+        ),
+        31: (
+            size: 56,
+            codeBlock: NoBlock,
+            args: [
+                String32,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
             ],
         ),
         32: (
@@ -4931,7 +4943,7 @@
         ),
         1236: (
             size: 8,
-            name: "defence",
+            name: "defense",
             codeBlock: NoBlock,
             args: [
                 Number,
