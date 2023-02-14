@@ -4,7 +4,403 @@
     ],
     literal_tag: 0,
     variable_tag: 2,
-    named_variables: {},
+    named_variables: {
+        0: "Tmp",
+        1: "Angle",
+        2: "CommonActionMark",
+        3: "PlayerVal0",
+        4: "PlayerVal1",
+        5: "PlayerVal2",
+        6: "PlayerVal3",
+        7: "SpeedX",
+        8: "SpeedY",
+        9: "VJumpCheck",
+        10: "BJumpCheck",
+        11: "FJumpCheck",
+        12: "EntryWait",
+        13: "ActionTime",
+        14: "EnemyDistanceX",
+        15: "EnemyDistanceY",
+        16: "BattleDoing",
+        17: "PosX",
+        18: "PosY",
+        19: "ScriptDebug",
+        20: "FrontWallDistance",
+        21: "BackWallDistance",
+        22: "CheckPlayerPrivatePoint0Exist",
+        23: "EnemyDistance",
+        24: "PlayerDamage",
+        25: "ExGage0",
+        26: "ExGage1",
+        27: "ExGage2",
+        28: "ExGage3",
+        29: "ExGage4",
+        30: "IsAir",
+        31: "IsLand",
+        32: "Dir",
+        33: "CtrlDir",
+        34: "EnemyDiffX",
+        35: "EnemyDiffY",
+        36: "PlayerDamageOrGuard",
+        37: "IsVoiceTypeA",
+        38: "IsVoiceTypeB",
+        39: "IsVoiceTypeC",
+        40: "IsVoiceTypeD",
+        41: "SkillConditionReturn",
+        42: "SignalID",
+        43: "SignalParam",
+        44: "PlayerCenterDistance",
+        45: "ActReg0",
+        46: "ActReg1",
+        47: "ActReg2",
+        48: "ActReg3",
+        49: "ActReg4",
+        50: "ActReg5",
+        51: "ActReg6",
+        52: "ActReg7",
+        53: "ObjReg0",
+        54: "ObjReg1",
+        55: "ObjReg2",
+        56: "ObjReg3",
+        57: "ObjReg4",
+        58: "ObjReg5",
+        59: "ObjReg6",
+        60: "ObjReg7",
+        61: "GTmpReg0",
+        62: "GTmpReg1",
+        63: "GTmpReg2",
+        64: "GTmpReg3",
+        65: "GTmpReg4",
+        66: "GTmpReg5",
+        67: "GTmpReg6",
+        68: "GTmpReg7",
+        69: "PgActReg0",
+        70: "PgActReg1",
+        71: "PgActReg2",
+        72: "PgActReg3",
+        73: "PgObjReg0",
+        74: "PgObjReg1",
+        75: "PgObjReg2",
+        76: "PgObjReg3",
+        77: "HitPoint",
+        78: "HitPointMax",
+        79: "PlayerAttackRate",
+        80: "PlayerDefenceRate",
+        81: "CheckStop",
+        82: "PlayerCrushRate",
+        83: "PosXRaw",
+        84: "Boss",
+        85: "LocationTest",
+        86: "IsReactionReady",
+        87: "ReactionWait",
+        88: "ShotDamageRate",
+        89: "IsRecoverableTypeA",
+        90: "IsTrainingMode",
+        91: "DBM_Chousei0",
+        92: "IsNamaDashiSkill",
+        93: "SideID",
+        94: "FriendID",
+        95: "IsMouthDoing",
+        96: "EnemyCenterDistance",
+        97: "AngleWithLink",
+        98: "IsStorySpecialType",
+        99: "Scale",
+        100: "ScaleSpeed",
+        101: "ExKizetsu",
+        102: "ExPointFX",
+        103: "ExPointFY",
+        104: "EnemyFrontDistance",
+        105: "OnIdlingTime",
+        106: "EnemyPushDistance",
+        107: "IchigekiState",
+        108: "IchigekiGage",
+        109: "Tension",
+        110: "EntryReady__",
+        111: "MatchEnd",
+        112: "HeliumTime",
+        113: "BackStepInvalidTime",
+        114: "ScreenTouch",
+        115: "Hikitsugi0",
+        116: "Hikitsugi1",
+        117: "LandingStiffTimeForKy",
+        118: "Chousei0_",
+        119: "BurstYomi",
+        120: "BurstVal",
+        121: "MOM_ItemLevel",
+        122: "MOM_ItemMotion",
+        123: "MatchStaticValue0",
+        124: "MatchStaticValue1",
+        125: "MOMEnemyNormal",
+        126: "MOMEnemyBoss",
+        127: "MOMEnemyBossAndBerserk",
+        128: "AttackHitUniqID",
+        129: "DamageHitUniqID",
+        130: "IsPlayer",
+        131: "LoopAnimeEnd",
+        132: "FinishUIEnd",
+        133: "IsEnemyFinalRound",
+        134: "DebugSkillEx",
+        135: "IchigekiStateTmp",
+        136: "Timeup",
+        137: "IchigekiKuratta",
+        138: "MatchResultVoice",
+        139: "IsSomebodysCutScene",
+        140: "IsFriendsCutScene",
+        141: "IsEnemysCutScene",
+        142: "IsSomebodysCutSceneOrSelfHide",
+        143: "IsVoiceDoing",
+        144: "Medal",
+        145: "MOM_damage",
+        146: "MOM_merit",
+        147: "MOM_demerit",
+        148: "MOM_efftime",
+        149: "MOM_zentai",
+        150: "MOM_hassei",
+        151: "MOM_suki",
+        152: "IsPinchHP",
+        153: "WinActionButton",
+        154: "IsCPU",
+        155: "IsCPU_butRecipe",
+        156: "IsEnableNormalAttack",
+        157: "TrainingValue",
+        158: "IsLastDamageDustAttack",
+        159: "IsStylishMode",
+        160: "IsStylishComboSlot",
+        161: "IsStylishOneButtonInput",
+        162: "KowareCountMax",
+        163: "KowareCountCur",
+        164: "BurstUltimate",
+        165: "HomingDashTsuigekiTime",
+        166: "StunTime",
+        167: "KorogariTime",
+        168: "EnvStylishDefence",
+        169: "EnvStylishTension",
+        170: "EnvStylishBurst",
+        171: "EnvR02",
+        172: "EnvDokiDokiStop",
+        173: "EnvDokiDokiStopHikitsuke",
+        174: "EnvDokiDokiStopXRangeMin",
+        175: "EnvDokiDokiStopXRangeMax",
+        176: "EnvDokiDokiStopYRangeMax",
+        177: "EnvDokiDokiStopHassei",
+        178: "EnvDokiDokiStopFinishStop",
+        179: "EnvR10",
+        180: "EnvR11",
+        181: "EnvR12",
+        182: "EnvR13",
+        183: "EnvR14",
+        184: "EnvR15",
+        185: "EnvR16",
+        186: "EnvR17",
+        187: "EnvR18",
+        188: "EnvR19",
+        189: "EnvR20",
+        190: "EnvR21",
+        191: "EnvR22",
+        192: "EnvR23",
+        193: "EnvR24",
+        194: "EnvR25",
+        195: "EnvR26",
+        196: "EnvR27",
+        197: "Dmy",
+        198: "DokiDokiStopByDokiDokiKill",
+        199: "DokiDokiStopIgnoreTime",
+        200: "ObjTimer",
+        201: "PlayerVal4",
+        202: "PlayerVal5",
+        203: "PlayerVal6",
+        204: "PlayerVal7",
+        205: "ChouseiForScript0",
+        206: "ChouseiForScript1",
+        207: "ChouseiForScript2",
+        208: "ChouseiForScript3",
+        209: "NeoBlitzHitDone",
+        210: "DustHomingDash2HoseiBase",
+        211: "DustHomingDash2HoseiUntilBound",
+        212: "IsStylishModeOrCPU",
+        213: "IsNeutral",
+        214: "IsEnemyDamage",
+        215: "DarkCharacter",
+        216: "IsLastDamageTsuujounage",
+        217: "IsLastDamageKakusei",
+        218: "TrialTentouNum",
+        219: "TrialBossHP",
+        220: "TrialBossHPMax",
+        221: "TrialBossBarrier",
+        222: "TrialExVal0",
+        223: "TrialExVal1",
+        224: "TrialExVal2",
+        225: "TrialExVal3",
+        226: "Alpha",
+        227: "TrialBeginPopUpNum",
+        228: "FaultlessDefenceDisableTime",
+        229: "SlowRate",
+        230: "TrialMiss",
+        231: "TrialTutorialClear",
+        232: "TrialTutorialHighScore",
+        233: "TrialTutorialScore",
+        234: "MOMSpecialValue",
+        235: "AliveSubMember1",
+        236: "AliveSubMember2",
+        237: "AliveEnemySubMember1",
+        238: "AliveEnemySubMember2",
+        239: "ForceX",
+        240: "ForceY",
+        241: "ForceXisHigh",
+        242: "ForceYisHigh",
+        243: "IsWorldSideSelf",
+        244: "IsWorldSideEnemy",
+        245: "ChargeShotVal0",
+        246: "ChargeShotVal1",
+        247: "ChargeShotVal2",
+        248: "ChargeShotVal3",
+        249: "ARendaChain",
+        250: "BRendaChain",
+        251: "CRendaChain",
+        252: "RemainingHomingDashCount",
+        253: "CameraComboOnce",
+        254: "ARendaStartType",
+        255: "BRendaStartType",
+        256: "CRendaStartType",
+        257: "ARendaChainAir",
+        258: "BRendaChainAir",
+        259: "CRendaChainAir",
+        260: "BodyChange",
+        261: "Tokusentai",
+        262: "TokusentaiReady",
+        263: "IsMainPlayerSelf",
+        264: "IsMainPlayerEnemy",
+        265: "CameraCombo0",
+        266: "CameraCombo1",
+        267: "CameraCombo2",
+        268: "CameraCombo3",
+        269: "CameraCombo4",
+        270: "CameraCombo5",
+        271: "CameraCombo6",
+        272: "CameraCombo7",
+        273: "CameraCombo8",
+        274: "CameraCombo9",
+        275: "IsMainPlayerAttackedEnemy",
+        276: "IsMainPlayerAttackingEnemy",
+        277: "BattleResutPoseStart",
+        278: "IsSparking",
+        279: "AliveMemberNum",
+        280: "DestructionFinishType",
+        281: "PosZ",
+        282: "Physique",
+        283: "CameraComboOnce0",
+        284: "CameraComboOnce1",
+        285: "CameraComboOnce2",
+        286: "CameraComboOnce3",
+        287: "CameraComboOnce4",
+        288: "CameraComboOnce5",
+        289: "CameraComboOnce6",
+        290: "CameraComboOnce7",
+        291: "CameraComboOnce8",
+        292: "CameraComboOnce9",
+        293: "CharType",
+        294: "AltInputUltimateChange",
+        295: "IsSubMember1Self",
+        296: "IsSubMember2Self",
+        297: "IsSubObject",
+        298: "IsAttackedSubObject",
+        299: "IsAttackingSubObject",
+        300: "DownFromSlideDown",
+        301: "BlueHitPoint",
+        302: "IsClone",
+        303: "SwapBody",
+        304: "CostumeID",
+        305: "PlayerArmorHit",
+        306: "WSBPoint",
+        307: "WSBPattern",
+        308: "WSBNextHeight",
+        309: "WSBMoveDir",
+        310: "IsWorldStopperOther",
+        311: "Gravity",
+        312: "CmnCharaReg0",
+        313: "CmnCharaReg1",
+        314: "CmnCharaReg2",
+        315: "CmnCharaReg3",
+        316: "CmnCharaReg4",
+        317: "CmnCharaReg5",
+        318: "CmnCharaReg6",
+        319: "CmnCharaReg7",
+        320: "IsFloatDmgHead",
+        321: "IsFloatDmgBody",
+        322: "StageSplitCount",
+        323: "StageOffsetRadius",
+        324: "Afro",
+        325: "DmgAtkAngle",
+        326: "DmgAtkAngleGuardForce",
+        327: "IsFuwafuwaDown",
+        328: "TensionBalance",
+        329: "IsRoundTimerStop",
+        330: "FuncArg0",
+        331: "FuncArg1",
+        332: "FuncArg2",
+        333: "FuncArg3",
+        334: "PlayerStance",
+        335: "CmnCharaReg8",
+        336: "CmnCharaReg9",
+        337: "CmnCharaReg10",
+        338: "CmnCharaReg11",
+        339: "CmnCharaReg12",
+        340: "CmnCharaReg13",
+        341: "CmnCharaReg14",
+        342: "CmnCharaReg15",
+        343: "CmnCharaActReg0",
+        344: "CmnCharaActReg1",
+        345: "CmnCharaActReg2",
+        346: "CmnCharaActReg3",
+        347: "CmnCharaActReg4",
+        348: "CmnCharaActReg5",
+        349: "CmnCharaActReg6",
+        350: "CmnCharaActReg7",
+        351: "BlowOffLabel",
+        352: "IsRISCCounterHit",
+        353: "SpeedZ",
+        354: "AngleX",
+        355: "AngleY",
+        356: "DmgFire",
+        357: "DmgElectric",
+        358: "DmgIce",
+        359: "DamageEffectCount",
+        360: "SoundActReg0",
+        361: "SoundActReg1",
+        362: "SoundActReg2",
+        363: "SoundActReg3",
+        364: "SoundObjReg0",
+        365: "SoundObjReg1",
+        366: "SoundObjReg2",
+        367: "SoundObjReg3",
+        368: "IsEnemyPlayerDown",
+        369: "EnemyDmgActCount",
+        370: "AtkDamage",
+        371: "IsTutorialMode",
+        372: "CPUVal0",
+        373: "CPUVal1",
+        374: "CPUVal2",
+        375: "CPUVal3",
+        376: "CPUVal4",
+        377: "CPUVal5",
+        378: "CPUVal6",
+        379: "CPUVal7",
+        380: "CharacterAddAttackRate",
+        381: "CharacterAddDefenceRate",
+        382: "TutorialPhase",
+        383: "TrialReadyGo",
+        384: "EXBoss",
+        385: "IsEnemyWSDamageFloat",
+        386: "IsDeadWSBEstimateDmg",
+        387: "CmnCharaReg16",
+        388: "CmnCharaReg17",
+        389: "CmnCharaReg18",
+        390: "CmnCharaReg19",
+        391: "CmnCharaReg20",
+        392: "CmnCharaReg21",
+        393: "CmnCharaReg22",
+        394: "CmnCharaReg23",
+    },
     named_value_maps: {
         "MOVE_FLAG": {
             0: "NONE",
@@ -271,6 +667,14 @@
             1: "PREVIOUS",
             2: "PARENT",
             3: "PLAYER",
+            4: "STACK0",
+            5: "STACK1",
+            6: "STACK2",
+            7: "STACK3",
+            8: "STACK4",
+            9: "STACK5",
+            10: "STACK6",
+            11: "STACK7",
             13: "WINNER",
             14: "LOSER",
             22: "ENEMY",
@@ -279,6 +683,9 @@
             25: "DEFENDER",
             27: "PLAYER_1",
             28: "PLAYER_2",
+            37: "MAIN_PLAYER_1",
+            38: "MAIN_PLAYER_2",
+            39: "DAMAGE_EFFECT",
         },
         "groundHitEffect0_882": {
             0: "NORMAL_UPPER",
@@ -756,6 +1163,7 @@
         ),
         31: (
             size: 56,
+            name: "gotoForLoop",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -814,9 +1222,10 @@
         ),
         37: (
             size: 12,
+            name: "setEventTrigger2",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("UPON"),
                 Number,
             ],
         ),
@@ -872,6 +1281,7 @@
         ),
         44: (
             size: 16,
+            name: "operation1",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -997,6 +1407,7 @@
         ),
         58: (
             size: 8,
+            name: "worldOutToEliminate",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1150,6 +1561,7 @@
         ),
         76: (
             size: 36,
+            name: "jumpToStateKeepDamage",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -1157,11 +1569,15 @@
         ),
         77: (
             size: 36,
+            name: "preSubroutineBegin",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         78: (
             size: 36,
+            name: "postSubroutineBegin",
             codeBlock: Begin,
             args: [
                 String32,
@@ -1169,6 +1585,7 @@
         ),
         79: (
             size: 12,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1288,6 +1705,7 @@
         ),
         106: (
             size: 12,
+            name: "physicsXImpulseRaw",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1305,6 +1723,7 @@
         ),
         108: (
             size: 12,
+            name: "addVelocityXRaw",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2041,6 +2460,7 @@
         ),
         199: (
             size: 12,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2120,6 +2540,7 @@
         ),
         208: (
             size: 8,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2127,7 +2548,7 @@
         ),
         210: (
             size: 8,
-            name: "setRawPositionXInBattle",
+            name: "setPositionXInBattle",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2135,6 +2556,7 @@
         ),
         211: (
             size: 8,
+            name: "setRawPositionXInBattle",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2374,6 +2796,7 @@
         ),
         263: (
             size: 8,
+            name: "setVariableZPosition",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2381,6 +2804,7 @@
         ),
         264: (
             size: 8,
+            name: "setZOffset",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2431,6 +2855,7 @@
         ),
         272: (
             size: 8,
+            name: "forceBackPosition",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2604,36 +3029,43 @@
         ),
         300: (
             size: 4,
+            name: "startupDestructiveFinishBG",
             codeBlock: NoBlock,
             args: [],
         ),
         301: (
             size: 4,
+            name: "startDestructiveFinish",
             codeBlock: NoBlock,
             args: [],
         ),
         302: (
             size: 4,
+            name: "endDestructiveFinish",
             codeBlock: NoBlock,
             args: [],
         ),
         303: (
             size: 4,
+            name: "forceStopAssistAttack",
             codeBlock: NoBlock,
             args: [],
         ),
         304: (
             size: 4,
+            name: "forceStopEnemyAssistAttack",
             codeBlock: NoBlock,
             args: [],
         ),
         305: (
             size: 4,
+            name: "forceStopAllAssistAttack",
             codeBlock: NoBlock,
             args: [],
         ),
         306: (
             size: 4,
+            name: "dmgGuardStopCount",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -3059,16 +3491,19 @@
         ),
         397: (
             size: 4,
+            name: "startShenronSystem",
             codeBlock: NoBlock,
             args: [],
         ),
         398: (
             size: 4,
+            name: "finishShenronSystem",
             codeBlock: NoBlock,
             args: [],
         ),
         399: (
             size: 8,
+            name: "openShenronUI",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3076,16 +3511,19 @@
         ),
         400: (
             size: 4,
+            name: "closeShenronUI",
             codeBlock: NoBlock,
             args: [],
         ),
         401: (
             size: 4,
+            name: "decideShenronWish",
             codeBlock: NoBlock,
             args: [],
         ),
         402: (
             size: 4,
+            name: "executeShenronWish",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -3099,6 +3537,7 @@
         ),
         404: (
             size: 8,
+            name: "displayShenron",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3106,11 +3545,13 @@
         ),
         405: (
             size: 4,
+            name: "startShenronCountdown",
             codeBlock: NoBlock,
             args: [],
         ),
         406: (
             size: 84,
+            name: "shenronVoice",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -3345,6 +3786,7 @@
         ),
         447: (
             size: 36,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -3519,46 +3961,61 @@
         ),
         469: (
             size: 40,
+            name: "createBGParticle",
             codeBlock: NoBlock,
             args: [],
         ),
         470: (
             size: 40,
+            name: "createBGParticleArg",
             codeBlock: NoBlock,
             args: [],
         ),
         471: (
             size: 36,
+            name: "linkBGParticle",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         472: (
             size: 36,
+            name: "linkBGParticleArg",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         473: (
             size: 40,
+            name: "linkBGParticleEX",
             codeBlock: NoBlock,
             args: [],
         ),
         474: (
             size: 40,
+            name: "createBGObject",
             codeBlock: NoBlock,
             args: [],
         ),
         475: (
             size: 40,
+            name: "createBGObjectArg",
             codeBlock: NoBlock,
             args: [],
         ),
         476: (
             size: 36,
+            name: "linkCollisionObject",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         477: (
             size: 20,
+            name: "destructionCollision",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -3706,6 +4163,7 @@
         ),
         551: (
             size: 8,
+            name: "setSparkingBurstTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3721,11 +4179,13 @@
         ),
         582: (
             size: 4,
+            name: "displaySorbetHUD",
             codeBlock: NoBlock,
             args: [],
         ),
         593: (
             size: 8,
+            name: "optionVoiceLipSync",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3733,6 +4193,7 @@
         ),
         594: (
             size: 8,
+            name: "optionVoiceRandomChannel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3740,6 +4201,7 @@
         ),
         595: (
             size: 24,
+            name: "priorityVoice",
             codeBlock: NoBlock,
             args: [
                 String16,
@@ -3748,6 +4210,7 @@
         ),
         596: (
             size: 8,
+            name: "optionVoicePriority",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3755,6 +4218,7 @@
         ),
         597: (
             size: 12,
+            name: "setVoiceConditionVar",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3763,6 +4227,7 @@
         ),
         598: (
             size: 12,
+            name: "setVoiceConditionHealth",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3771,6 +4236,7 @@
         ),
         599: (
             size: 12,
+            name: "setVoiceConditionEnemyHealth",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3779,6 +4245,7 @@
         ),
         600: (
             size: 40,
+            name: "setVoiceConditionChara",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3851,6 +4318,7 @@
         ),
         608: (
             size: 36,
+            name: "voiceToTeamMember",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -3879,6 +4347,7 @@
         ),
         611: (
             size: 44,
+            name: "cycleCmnSfx",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -4197,6 +4666,7 @@
         ),
         645: (
             size: 8,
+            name: "enableVoice",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4274,11 +4744,13 @@
         ),
         670: (
             size: 20,
+            name: "landBreakEffect",
             codeBlock: NoBlock,
             args: [],
         ),
         671: (
             size: 8,
+            name: "auraEffect",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4408,6 +4880,7 @@
         ),
         714: (
             size: 8,
+            name: "clashLevel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4415,6 +4888,7 @@
         ),
         715: (
             size: 12,
+            name: "damageFace",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4423,6 +4897,7 @@
         ),
         716: (
             size: 8,
+            name: "clashSevereCheck",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4430,6 +4905,7 @@
         ),
         717: (
             size: 52,
+            name: "atkCameraShake",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -4521,6 +4997,7 @@
         ),
         733: (
             size: 8,
+            name: "hitEffectBeamClash",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4528,6 +5005,7 @@
         ),
         734: (
             size: 8,
+            name: "ignoreClashSameLEvel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4535,6 +5013,7 @@
         ),
         735: (
             size: 8,
+            name: "clashOnlyCommand",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4542,6 +5021,7 @@
         ),
         736: (
             size: 8,
+            name: "damageToRecovery",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4563,6 +5043,7 @@
         ),
         739: (
             size: 8,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4600,6 +5081,7 @@
         ),
         758: (
             size: 12,
+            name: "hitVectorAngle",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4608,6 +5090,7 @@
         ),
         759: (
             size: 12,
+            name: "hitVectorAngleCounter",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5413,6 +5896,7 @@
         ),
         910: (
             size: 8,
+            name: "damageRecoverRate",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5420,6 +5904,7 @@
         ),
         911: (
             size: 8,
+            name: "attackEasyGuard",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5487,6 +5972,7 @@
         ),
         923: (
             size: 8,
+            name: "standOnlyHitLow",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5615,6 +6101,7 @@
         ),
         941: (
             size: 8,
+            name: "slideDownTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5622,11 +6109,13 @@
         ),
         942: (
             size: 4,
+            name: "resetSlideDownTime",
             codeBlock: NoBlock,
             args: [],
         ),
         943: (
             size: 8,
+            name: "counterSlideDownTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5634,11 +6123,13 @@
         ),
         944: (
             size: 4,
+            name: "resetCounterSlideDownTime",
             codeBlock: NoBlock,
             args: [],
         ),
         945: (
             size: 8,
+            name: "atkHitOtg",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5646,6 +6137,7 @@
         ),
         946: (
             size: 8,
+            name: "atkHitOtgAvailable",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5823,7 +6315,7 @@
         ),
         1000: (
             size: 12,
-            name: "pushbackAndGravityScaling",
+            name: "initialComboScaleCount",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5832,7 +6324,7 @@
         ),
         1001: (
             size: 8,
-            name: "forcedPushbackAndGravityScaling",
+            name: "forcedComboScaleCount",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5840,6 +6332,7 @@
         ),
         1002: (
             size: 8,
+            name: "ignorePushbackYScaling",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5847,6 +6340,7 @@
         ),
         1003: (
             size: 8,
+            name: "ignorePushbackXScaling",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5854,6 +6348,7 @@
         ),
         1004: (
             size: 8,
+            name: "pushbackYPerComboScaleCount",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5861,6 +6356,7 @@
         ),
         1005: (
             size: 8,
+            name: "pushbackXPerComboScaleCount",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -5868,6 +6364,7 @@
         ),
         1015: (
             size: 40,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7197,6 +7694,7 @@
         ),
         1182: (
             size: 8,
+            name: "zReversal",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7204,6 +7702,7 @@
         ),
         1183: (
             size: 8,
+            name: "projectileIignoreZReversal",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7211,6 +7710,7 @@
         ),
         1184: (
             size: 16,
+            name: "magnetism",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7220,7 +7720,7 @@
         ),
         1185: (
             size: 24,
-            name: "suikomiX",
+            name: "magnetismX",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7232,7 +7732,7 @@
         ),
         1186: (
             size: 24,
-            name: "suikomiY",
+            name: "magnetismY",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7244,6 +7744,7 @@
         ),
         1187: (
             size: 8,
+            name: "groundTech",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7251,6 +7752,7 @@
         ),
         1188: (
             size: 4,
+            name: "dragonRushClashEnd",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -7320,6 +7822,7 @@
         ),
         1196: (
             size: 8,
+            name: "dragonRushClashFrame",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7327,6 +7830,7 @@
         ),
         1197: (
             size: 8,
+            name: "destructiveFinish",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7334,6 +7838,7 @@
         ),
         1198: (
             size: 12,
+            name: "destructiveFinishExplode",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7342,6 +7847,7 @@
         ),
         1199: (
             size: 12,
+            name: "destructiveFinishBeam",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7350,6 +7856,7 @@
         ),
         1200: (
             size: 8,
+            name: "attackSnapback",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7357,7 +7864,7 @@
         ),
         1201: (
             size: 8,
-            name: "throwNozekori",
+            name: "throwHitReaction",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7405,7 +7912,7 @@
         ),
         1207: (
             size: 28,
-            name: "suikomiXActPosBase",
+            name: "atkMagnetismXActPosBase",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7418,7 +7925,7 @@
         ),
         1208: (
             size: 28,
-            name: "suikomiYActPosBase",
+            name: "atkMagnetismYActPosBase",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7431,6 +7938,7 @@
         ),
         1209: (
             size: 8,
+            name: "hitOnceInComboTeam",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7646,7 +8154,7 @@
         ),
         1236: (
             size: 8,
-            name: "defense",
+            name: "defence",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7670,7 +8178,7 @@
         ),
         1239: (
             size: 8,
-            name: "weight",
+            name: "damageWeight",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7971,6 +8479,7 @@
         ),
         1276: (
             size: 8,
+            name: "cooldownTimeAssist",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7978,6 +8487,7 @@
         ),
         1277: (
             size: 8,
+            name: "cooldownProrationTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7985,6 +8495,7 @@
         ),
         1278: (
             size: 8,
+            name: "cooldowinTimeSwitch",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7992,6 +8503,7 @@
         ),
         1279: (
             size: 8,
+            name: "cooldownTimeDhc",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7999,6 +8511,7 @@
         ),
         1280: (
             size: 8,
+            name: "cooldownTimeGuardCancel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8006,6 +8519,7 @@
         ),
         1281: (
             size: 8,
+            name: "cooldownTimeSnapback",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8013,6 +8527,7 @@
         ),
         1282: (
             size: 8,
+            name: "recoverHealth",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8020,6 +8535,7 @@
         ),
         1283: (
             size: 92,
+            name: "auraEffectCharge",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -8034,6 +8550,7 @@
         ),
         1284: (
             size: 92,
+            name: "auraEffectSuperDash",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -8048,16 +8565,19 @@
         ),
         1285: (
             size: 48,
+            name: "auraEffectSuperDashEnd",
             codeBlock: NoBlock,
             args: [],
         ),
         1286: (
             size: 92,
+            name: "auraEffectSuperDashStart",
             codeBlock: NoBlock,
             args: [],
         ),
         1287: (
             size: 68,
+            name: "auraEffectDragonRush",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -8123,6 +8643,7 @@
         ),
         1294: (
             size: 8,
+            name: "maxAirControlSpeedBackX",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8130,6 +8651,7 @@
         ),
         1295: (
             size: 8,
+            name: "charAttributeType",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8137,6 +8659,7 @@
         ),
         1296: (
             size: 8,
+            name: "weight",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8160,6 +8683,7 @@
         ),
         1299: (
             size: 12,
+            name: "cpuGuardLevelBonus",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8192,6 +8716,7 @@
         ),
         1303: (
             size: 8,
+            name: "changeWeight",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8199,11 +8724,13 @@
         ),
         1304: (
             size: 4,
+            name: "resetWeightDefault",
             codeBlock: NoBlock,
             args: [],
         ),
         1305: (
             size: 8,
+            name: "landStunDecreaseTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8211,6 +8738,7 @@
         ),
         1306: (
             size: 8,
+            name: "airStunDecreaseTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8422,7 +8950,7 @@
         ),
         1325: (
             size: 40,
-            name: "setDamageCell",
+            name: "setDamageSprite",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8451,7 +8979,7 @@
         ),
         1328: (
             size: 68,
-            name: "setDamageCellEx",
+            name: "setDamageSpriteEx",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -8620,6 +9148,7 @@
         ),
         1353: (
             size: 12,
+            name: "enableTagAndAssist",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8628,6 +9157,7 @@
         ),
         1354: (
             size: 8,
+            name: "enableDhc",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8643,6 +9173,7 @@
         ),
         1356: (
             size: 8,
+            name: "enableTag",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8658,6 +9189,7 @@
         ),
         1358: (
             size: 8,
+            name: "enableAssist",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8713,6 +9245,7 @@
         ),
         1365: (
             size: 8,
+            name: "enableZReflect",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8720,6 +9253,7 @@
         ),
         1366: (
             size: 8,
+            name: "enableKiCharge",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8735,7 +9269,7 @@
         ),
         1368: (
             size: 8,
-            name: "enableNamaFAult",
+            name: "enableNamaFault",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -8743,6 +9277,7 @@
         ),
         1369: (
             size: 8,
+            name: "enableVanish",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9543,26 +10078,39 @@
         ),
         1641: (
             size: 36,
+            name: "addKickAutoCombo",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         1642: (
             size: 36,
+            name: "addKickWhiffAutoCombo",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         1643: (
             size: 36,
+            name: "addSlashAutoCombo",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         1644: (
             size: 36,
+            name: "addSlashWhiffAutoCombo",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32,
+            ],
         ),
         1645: (
             size: 8,
+            name: "enableOverdriveCancel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9570,6 +10118,7 @@
         ),
         1646: (
             size: 8,
+            name: "enableOverdriveCancelPD",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9577,11 +10126,13 @@
         ),
         1647: (
             size: 4,
+            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
         1648: (
             size: 8,
+            name: "whiffCancelNext",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9778,6 +10329,7 @@
         ),
         1674: (
             size: 36,
+            name: "addPunchAutoComboPD",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -9785,6 +10337,7 @@
         ),
         1675: (
             size: 36,
+            name: "addKickAutoComboPD",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -9792,6 +10345,7 @@
         ),
         1676: (
             size: 36,
+            name: "addSlashAutoComboPD",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -9799,6 +10353,7 @@
         ),
         1677: (
             size: 8,
+            name: "removePunchAutoCombo",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9806,6 +10361,7 @@
         ),
         1678: (
             size: 8,
+            name: "removeKickAutoCombo",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9813,6 +10369,7 @@
         ),
         1679: (
             size: 8,
+            name: "removeSlashAutoCombo",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9820,6 +10377,7 @@
         ),
         1680: (
             size: 8,
+            name: "enableVanishCancel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9827,6 +10385,7 @@
         ),
         1681: (
             size: 8,
+            name: "enableVanishCancelPD",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9834,6 +10393,7 @@
         ),
         1682: (
             size: 8,
+            name: "enableDhcCancel",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9841,6 +10401,7 @@
         ),
         1683: (
             size: 8,
+            name: "enableDhcCancelPD",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9848,6 +10409,7 @@
         ),
         1684: (
             size: 8,
+            name: "disableCancelBurstOnly",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9863,11 +10425,13 @@
         ),
         1686: (
             size: 4,
+            name: "resetInputCommand",
             codeBlock: NoBlock,
             args: [],
         ),
         1687: (
             size: 8,
+            name: "senkoInputNormal",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9891,6 +10455,7 @@
         ),
         1691: (
             size: 8,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10015,6 +10580,7 @@
         ),
         1705: (
             size: 8,
+            name: "cutSceneFaceId",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10068,11 +10634,13 @@
         ),
         1712: (
             size: 164,
+            name: "vsCharaMouthTable",
             codeBlock: NoBlock,
             args: [],
         ),
         1713: (
             size: 4,
+            name: "addVsCharaMouthTableIndex",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -10195,6 +10763,7 @@
         ),
         1729: (
             size: 36,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10374,18 +10943,32 @@
         ),
         1751: (
             size: 36,
+            name: "initSuperDash",
             codeBlock: NoBlock,
             args: [],
         ),
         1752: (
             size: 8,
+            name: "setSuperDashBrake",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
+        1753: (
+            size: 20,
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+                Number,
+                Number,
+            ],
+        ),
         1761: (
             size: 4,
+            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -10492,6 +11075,7 @@
         ),
         1787: (
             size: 12,
+            name: "recoverBlueHealth",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10500,6 +11084,7 @@
         ),
         1788: (
             size: 12,
+            name: "addHealthSenzu",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -11207,6 +11792,7 @@
         ),
         1926: (
             size: 8,
+            name: "setSubObject",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -11214,6 +11800,7 @@
         ),
         1927: (
             size: 8,
+            name: "setSubObjectSelfZLine",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -11804,6 +12391,7 @@
         ),
         2022: (
             size: 36,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -11811,6 +12399,7 @@
         ),
         2023: (
             size: 36,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -11818,6 +12407,7 @@
         ),
         2024: (
             size: 4,
+            name: "",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -13860,6 +14450,7 @@
         ),
         2271: (
             size: 12,
+            name: "createArgDelayStart",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -13868,6 +14459,7 @@
         ),
         2272: (
             size: 8,
+            name: "createArgPointLightSide",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -13919,6 +14511,7 @@
         ),
         2278: (
             size: 44,
+            name: "createArgFromSocket",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -14028,6 +14621,7 @@
         ),
         2290: (
             size: 8,
+            name: "createArgLinkMaterialParticle",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -14144,11 +14738,13 @@
         ),
         2306: (
             size: 72,
+            name: "spriteDarkArea",
             codeBlock: NoBlock,
             args: [],
         ),
         2307: (
             size: 72,
+            name: "spriteDarkAreaW",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -14301,7 +14897,7 @@
         ),
         2324: (
             size: 40,
-            name: "meshSetCellTable",
+            name: "meshSetSpriteTable",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -14709,7 +15305,7 @@
         ),
         2373: (
             size: 40,
-            name: "cellNoStop",
+            name: "spriteNoStop",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -14747,6 +15343,7 @@
         ),
         2378: (
             size: 32,
+            name: "setMatchResultOffset",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -14985,6 +15582,7 @@
         ),
         2421: (
             size: 4,
+            name: "sfxSetEnd",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15007,6 +15605,7 @@
         ),
         2424: (
             size: 4,
+            name: "effectForZReflectNiku",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15047,6 +15646,7 @@
         ),
         2465: (
             size: 36,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -15054,6 +15654,7 @@
         ),
         2466: (
             size: 20,
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15093,6 +15694,7 @@
         ),
         2474: (
             size: 8,
+            name: "initializeForTagEnterActionBase",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15100,21 +15702,25 @@
         ),
         2475: (
             size: 4,
+            name: "initializeForTagEnterAction",
             codeBlock: NoBlock,
             args: [],
         ),
         2476: (
             size: 4,
+            name: "initializeForTagAttackAction",
             codeBlock: NoBlock,
             args: [],
         ),
         2477: (
             size: 4,
+            name: "initializeForAttackAttackAction",
             codeBlock: NoBlock,
             args: [],
         ),
         2478: (
             size: 16,
+            name: "requestTagMember",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15124,6 +15730,7 @@
         ),
         2479: (
             size: 8,
+            name: "setCooldownTime",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15131,6 +15738,7 @@
         ),
         2480: (
             size: 12,
+            name: "forceEffect",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15139,6 +15747,7 @@
         ),
         2481: (
             size: 12,
+            name: "forceEffectMove",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15147,6 +15756,7 @@
         ),
         2482: (
             size: 12,
+            name: "forceEffectRate",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15155,6 +15765,7 @@
         ),
         2483: (
             size: 8,
+            name: "requestAssist",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15162,6 +15773,7 @@
         ),
         2484: (
             size: 8,
+            name: "requestAssistUltimate",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15169,6 +15781,7 @@
         ),
         2485: (
             size: 20,
+            name: "initializeVanish",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15182,16 +15795,19 @@
         ),
         2487: (
             size: 4,
+            name: "bodyChange",
             codeBlock: NoBlock,
             args: [],
         ),
         2488: (
             size: 20,
+            name: "operationCopyValueFromParent",
             codeBlock: NoBlock,
             args: [],
         ),
         2489: (
             size: 20,
+            name: "operationCopyValueFromPlayer",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15215,6 +15831,7 @@
         ),
         2491: (
             size: 4,
+            name: "requestAssistCutIn",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15246,11 +15863,13 @@
         ),
         2495: (
             size: 40,
+            name: "linkPawnTeamMember",
             codeBlock: NoBlock,
             args: [],
         ),
         2496: (
             size: 20,
+            name: "entrySubMemberPosition",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15285,8 +15904,8 @@
             name: "ifOperationInObject",
             codeBlock: Begin,
             args: [
-                Enum("deactivateObjectById0_19"),
                 Enum("OPERATION"),
+                Enum("deactivateObjectById0_19"),
                 AccessedValue,
                 AccessedValue,
             ],
@@ -15301,6 +15920,7 @@
         ),
         2502: (
             size: 12,
+            name: "roundStartBgTransition",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15309,48 +15929,63 @@
         ),
         2503: (
             size: 8,
-            codeBlock: NoBlock,
+            name: "dramaticSetBegin",
+            codeBlock: Begin,
             args: [
                 Number,
             ],
         ),
         2504: (
             size: 4,
-            codeBlock: NoBlock,
+            name: "dramaticSetEnd",
+            codeBlock: End,
             args: [],
         ),
         2505: (
             size: 36,
+            name: "dramaticActionSelf",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32
+            ],
         ),
         2506: (
             size: 36,
+            name: "dramaticActionEnemy",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32
+            ],
         ),
         2507: (
             size: 36,
+            name: "dramaticActionRoundStart",
             codeBlock: NoBlock,
-            args: [],
+            args: [
+                String32
+            ],
         ),
         2508: (
             size: 40,
+            name: "dramaticCondition",
             codeBlock: NoBlock,
             args: [],
         ),
         2509: (
             size: 4,
+            name: "dramaticSetClear",
             codeBlock: NoBlock,
             args: [],
         ),
         2510: (
             size: 4,
+            name: "dispDramaticFinish",
             codeBlock: NoBlock,
             args: [],
         ),
         2511: (
             size: 4,
+            name: "startHudTutorial",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15384,6 +16019,7 @@
         ),
         2516: (
             size: 8,
+            name: "setOverdriveMoveOffset",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15391,6 +16027,7 @@
         ),
         2517: (
             size: 8,
+            name: "requestOverdriveBattleLive",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15398,6 +16035,7 @@
         ),
         2518: (
             size: 8,
+            name: "playAnimFaceIndex",
             codeBlock: NoBlock,
             args: [
                 Number,
