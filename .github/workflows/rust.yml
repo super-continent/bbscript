@@ -2,9 +2,10 @@ name: Rust
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    # Pattern matched against refs/tags
+    tags:        
+      - '*-?v[0-9]+*'
+
 
 env:
   CARGO_TERM_COLOR: always
