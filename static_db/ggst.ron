@@ -662,7 +662,7 @@
             1: "NO_COUNTER",
             2: "FORCE_COUNTER",
         },
-        "deactivateObjectById0_19": {
+        "OBJECT_ID": {
             0: "NULL",
             1: "PREVIOUS",
             2: "PARENT",
@@ -889,15 +889,16 @@
             0: "IMMEDIATE",
             1: "BEFORE_EXIT",
             2: "TOUCH_GROUND",
-            3: "FRAME_STEP",
+            3: "IDLING",
             4: "FALL_SPEED",
-            5: "LANDING_INFINITY",
+            5: "TOUCH_GROUND_INFINITY",
             6: "SCREEN_COLLISION",
             7: "ACTION_END",
-            8: "HIT_OR_GUARD_ANY",
+            8: "HIT_OR_GUARD_ANY_OBJECT",
             9: "HIT_OR_GUARD",
             10: "HIT",
             11: "RECEIVE_ATTACK",
+            12: "NO_STOP_IDLING",
             13: "TIMER",
             14: "DIE",
             15: "STOP_HOLDING_P",
@@ -908,16 +909,87 @@
             20: "NEAR_PARENT_PLAYER",
             21: "ON_DELETE",
             22: "ON_DRAW",
+            23: "SIGNAL0",
+            24: "SIGNAL1",
+            25: "SIGNAL2",
+            26: "SIGNAL3",
+            27: "SIGNAL4",
+            28: "SIGNAL5",
+            29: "SIGNAL6",
+            30: "SIGNAL7",
+            31: "SIGNAL8",
+            32: "SIGNAL9",
+            33: "INVULN",
+            34: "SIGNAL_EX",
+            35: "PLAYER_RECEIVE_ATTACK",
+            36: "FRAME_STEP",
+            37: "PROJECTILE_CLASH",
+            38: "PLAYER_GUARD",
+            39: "PRE_DRAW",
+            40: "GUARD",
+            41: "ARMOR",
+            42: "PRE_FRAME_STEP",
+            43: "INVULN_PRE_HITSTOP",
+            44: "SIGNAL_NULL",
             45: "ON_DESTROY",
+            46: "WALL",
             47: "AFTER_EXIT",
+            48: "NEXT_STATE_ENTRY",
+            49: "SIGNAL_NAME",
             50: "SUPERFREEZE",
+            51: "TOUCH_GROUND_NEXT_FRAME",
+            52: "PLAYER_RECEIVE_ATTACK_LAND",
             53: "INTRO_END",
-            57: "HIT_BY_INSTANT_KILL",
+            54: "ATTACK_HIT_PRE_CONTROL",
+            55: "ATTACK_HIT_PRE_CONTROL_FOR_TEAMMATE",
+            56: "AFTER_FRAME_STEP",
+            57: "RECEIVE_INSTANT_KILL",
             58: "HIT_INSTANT_KILL",
             59: "ANY_HIT_BY_INSTANT_KILL",
-            74: "GUARD",
+            60: "PLAYER_RECEIVE_ATTACK_OR_ARMOR",
+            61: "FAULTLESS_DEFENCE_HIT",
+            62: "PLAYER_RECEIVE_ATTACK_PRIVATE",
+            63: "TAG",
+            64: "INVULN_PRE_HITSTOP_FOR_PROJECTILE",
+            65: "REFLECT",
+            66: "REFLECTED",
+            67: "PRE_HIT_COLLISION",
+            68: "DESTROY_ASSARI_EX_COUNT_DOWN",
+            69: "RECEIVE_ATTACK_2",
+            70: "MISSION_FAIL",
+            71: "PLAYER_RECEIVE_ATTACK_AFTER_FIX_PARAM",
+            72: "PLAYER_GUARD_AFTER_FIX_PARAM",
+            73: "ENEMY_RECEIVE_ATTACK_AFTER_FIX_PARAM",
+            74: "ENEMY_GUARD_AFTER_FIX_PARAM",
+            75: "MISSION_BEGIN",
+            76: "AFTER_RECEIVE_HIT",
+            77: "AFTER_FRAME_STEP_EX",
+            78: "PLAYER_RECEIVE_ATTACK_PRE_CONTROL",
+            79: "FORCE_X",
+            80: "FORCE_Y",
+            81: "FORCE_LEFT",
+            82: "FORCE_RIGHT",
+            83: "FORCE_UP",
+            84: "FORCE_DOWN",
+            85: "MAIN_PLAYER_RECEIVE_HIT",
+            86: "ALLY_GUARD",
+            87: "Z_REVERSAL",
+            88: "DRAGON_RUSH_CLASH",
+            89: "MAIN_PLAYER_RECEIVE_ATTACK_PRE_CONTROL",
+            90: "MAIN_PLAYER_RECEIVE_ATTACK",
+            91: "MAIN_PLAYER_RECEIVE_ATTACK_AFTER_FIX_PARAM",
+            92: "ATTACK_COLLISION_MAIN_PLAYER",
+            93: "CLASH",
+            94: "ATTACK_COLLISION_MAIN_INTERRUPT_ENEMYSUB",
+            95: "PLAYER_AFTER_EXECUTE_DAMAGE",
+            96: "SUPER_DASH_CLASH",
+            97: "PROJECTILE_HIT_Z_REVERSAL",
+            98: "PLAYER_ARMOR_RECEIVE_HIT",
             99: "WALL_BREAK",
             100: "COUNTER_HIT",
+            101: "PARRY",
+            102: "NAGURU",
+            103: "BG_CLASH_EVENT",
         },
     },
     instructions: Sized({
@@ -1070,7 +1142,7 @@
             name: "deactivateObjectById",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         20: (
@@ -1198,7 +1270,7 @@
             name: "interruptAction",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("UPON"),
                 String32,
             ],
         ),
@@ -1207,7 +1279,7 @@
             name: "gotoLabelUpon",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("UPON"),
                 String32,
             ],
         ),
@@ -1256,7 +1328,7 @@
             name: "runOnObject",
             codeBlock: Begin,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         42: (
@@ -1264,7 +1336,7 @@
             name: "stackObjectEx",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Number,
                 Number,
                 Number,
@@ -1275,8 +1347,8 @@
             name: "stackObject",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
+                Enum("OBJECT_ID"),
             ],
         ),
         44: (
@@ -1346,7 +1418,7 @@
             name: "isObjectActive",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         52: (
@@ -1365,9 +1437,9 @@
             name: "storeValueFromObject",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
             ],
         ),
@@ -1447,7 +1519,7 @@
             name: "posTypeToVar",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Enum("posTypeToVar1_62"),
                 AccessedValue,
                 AccessedValue,
@@ -2267,7 +2339,7 @@
             name: "moveObjectToCollisionPoint",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Number,
                 Number,
             ],
@@ -2277,7 +2349,7 @@
             name: "moveToObject",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         179: (
@@ -2285,8 +2357,8 @@
             name: "moveObjectToOtherObject",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
+                Enum("OBJECT_ID"),
             ],
         ),
         180: (
@@ -2426,7 +2498,7 @@
             name: "warp",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Enum("posTypeToVar1_62"),
                 AccessedValue,
                 AccessedValue,
@@ -2438,7 +2510,7 @@
             name: "warpToOffset",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Enum("posTypeToVar1_62"),
                 AccessedValue,
                 AccessedValue,
@@ -2450,8 +2522,8 @@
             name: "warpWithArg",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
                 AccessedValue,
                 AccessedValue,
@@ -3066,6 +3138,12 @@
         306: (
             size: 4,
             name: "dmgGuardStopCount",
+            codeBlock: NoBlock,
+            args: [],
+        ),
+        307: (
+            size: 4,
+            name: "removeAllRisc",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -6803,7 +6881,7 @@
                 Number,
                 Number,
                 Number,
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
             ],
         ),
@@ -7554,7 +7632,7 @@
         ),
         1165: (
             size: 36,
-            name: "trialName",
+            name: "missionName",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -8942,7 +9020,7 @@
         ),
         1324: (
             size: 36,
-            name: "attackTrialDrawName",
+            name: "attackMissionDrawName",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -9729,7 +9807,7 @@
         ),
         1512: (
             size: 8,
-            name: "moveTrialOnly",
+            name: "moveMissionOnly",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -9745,7 +9823,7 @@
         ),
         1514: (
             size: 8,
-            name: "moveTrialOnlyEx",
+            name: "moveMissionOnlyEx",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -10925,7 +11003,7 @@
             name: "homingJumpTarget",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Number,
                 Number,
                 Number,
@@ -11042,7 +11120,7 @@
             name: "wallBreakDamageNoKill",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         1784: (
@@ -11050,7 +11128,7 @@
             name: "estimateWallBreakDamage",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
                 AccessedValue,
             ],
@@ -11060,7 +11138,7 @@
             name: "wallBreakDamage",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         1786: (
@@ -11068,7 +11146,7 @@
             name: "hpDamage",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
                 AccessedValue,
             ],
@@ -11164,8 +11242,8 @@
             name: "sendSignal",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
+                Enum("OBJECT_ID"),
             ],
         ),
         1799: (
@@ -11173,7 +11251,7 @@
             name: "colorParent",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         1800: (
@@ -11723,7 +11801,7 @@
             name: "sendSignalEx",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Number,
                 Number,
             ],
@@ -12489,7 +12567,7 @@
             name: "checkCurrentStateName",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 String32,
             ],
         ),
@@ -12498,7 +12576,7 @@
             name: "checkDisplayedMesh",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 String32,
             ],
         ),
@@ -13885,7 +13963,7 @@
             name: "exPointFResetObject",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 Enum("posTypeToVar1_62"),
                 Number,
                 Number,
@@ -13993,7 +14071,7 @@
             name: "requestDestroy",
             codeBlock: NoBlock,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
             ],
         ),
         2209: (
@@ -15138,7 +15216,7 @@
         ),
         2352: (
             size: 36,
-            name: "trialTentou",
+            name: "missionFail",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -15162,7 +15240,7 @@
         ),
         2355: (
             size: 36,
-            name: "trialMissName",
+            name: "missionMissName",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -15178,7 +15256,7 @@
         ),
         2357: (
             size: 8,
-            name: "trialKeyStart",
+            name: "missionKeyStart",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15366,7 +15444,7 @@
         ),
         2382: (
             size: 8,
-            name: "trialSealLeverAll",
+            name: "missionSealAll",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15374,7 +15452,7 @@
         ),
         2383: (
             size: 8,
-            name: "trialSealLeverFDash",
+            name: "missionSealFDash",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15382,7 +15460,7 @@
         ),
         2384: (
             size: 8,
-            name: "trialSealLeverGuard",
+            name: "missionSealGuard",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15390,7 +15468,7 @@
         ),
         2385: (
             size: 8,
-            name: "trialSealLeverCrouch",
+            name: "missionSealCrouch",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15398,7 +15476,7 @@
         ),
         2386: (
             size: 8,
-            name: "trialSealLeverJump",
+            name: "missionSealJump",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15406,7 +15484,7 @@
         ),
         2391: (
             size: 8,
-            name: "trialSealLeverAttack",
+            name: "missionSealAttack",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15414,13 +15492,13 @@
         ),
         2399: (
             size: 4,
-            name: "trialMiss",
+            name: "missionMiss",
             codeBlock: NoBlock,
             args: [],
         ),
         2400: (
             size: 8,
-            name: "trialEnemyCpuStop",
+            name: "missionEnemyCpuStop",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15428,7 +15506,7 @@
         ),
         2401: (
             size: 8,
-            name: "trialForceStandGuard",
+            name: "missionForceStandGuard",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15436,7 +15514,7 @@
         ),
         2402: (
             size: 8,
-            name: "trialForceCrouchGuard",
+            name: "missionForceCrouchGuard",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15444,7 +15522,7 @@
         ),
         2403: (
             size: 40,
-            name: "trialCheckAttackName",
+            name: "missionCheckAttackName",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15513,7 +15591,7 @@
         ),
         2412: (
             size: 44,
-            name: "trialAdvice",
+            name: "missionAdvice",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -15551,13 +15629,13 @@
         ),
         2417: (
             size: 44,
-            name: "trialPopUp",
+            name: "missionPopUp",
             codeBlock: NoBlock,
             args: [],
         ),
         2418: (
             size: 8,
-            name: "trialForceJump",
+            name: "missionForceJump",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -15886,7 +15964,7 @@
             name: "ifTrueInObject",
             codeBlock: Begin,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
             ],
         ),
@@ -15895,7 +15973,7 @@
             name: "ifNotInObject",
             codeBlock: Begin,
             args: [
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
             ],
         ),
@@ -15905,7 +15983,7 @@
             codeBlock: Begin,
             args: [
                 Enum("OPERATION"),
-                Enum("deactivateObjectById0_19"),
+                Enum("OBJECT_ID"),
                 AccessedValue,
                 AccessedValue,
             ],
@@ -16146,7 +16224,7 @@
             name: "moveCameraBasePosObject",
             codeBlock: NoBlock,
             args: [
-                Number,
+                (OBJECT_ID),
             ],
         ),
         2530: (
@@ -16154,7 +16232,7 @@
             name: "moveCameraTargetPosObject",
             codeBlock: NoBlock,
             args: [
-                Number,
+                (OBJECT_ID),
             ],
         ),
         2531: (

@@ -5,8 +5,76 @@
     ],
     literal_tag: 0,
     variable_tag: 2,
-    named_variables: {},
+    named_variables: {
+		0: "Tmp",
+		2: "PosY",
+		4: "SpeedX",
+		15: "ActionTime",
+		16: "OnIdlingTime",
+		24: "EnemyDistanceX",
+		25: "EnemyDistanceY",
+		29: "FrontWallDistance",
+		51: "ActReg0",
+		52: "ActReg1",
+		53: "ActReg2",
+		54: "ActReg3",
+		55: "ActReg4",
+		56: "ActReg5",
+		57: "ActReg6",
+		58: "ActReg7",
+		59: "ObjReg0",
+		60: "ObjReg1",
+		61: "ObjReg2",
+		62: "ObjReg3",
+		63: "ObjReg4",
+		64: "ObjReg5",
+		65: "ObjReg6",
+		66: "ObjReg7",
+		67: "GTmpReg0",
+		68: "GTmpReg1",
+		69: "GTmpReg2",
+		70: "GTmpReg3",
+		71: "GTmpReg4",
+		72: "GTmpReg5",
+		73: "GTmpReg6",
+		74: "GTmpReg7",
+		75: "PgActReg0",
+		76: "PgActReg1",
+		77: "PgActReg2",
+		78: "PgActReg3",
+		79: "PgObjReg0",
+		80: "PgObjReg1",
+		81: "PgObjReg2",
+		81: "PgObjReg3",
+		103: "CheckStop",
+		104: "PosXRaw",
+		145: "BurstVal",
+		199: "NeoBlitzHitDone",
+	},
     named_value_maps: {
+        "MOVE_FLAG": {
+            0: "NONE",
+            2: "LAND",
+            3: "AIR",
+            4: "CAN_JUMP",
+            5: "CAN_AIR_DASH",
+            69: "HEIGHT_ABOVE_50000",
+            70: "HEIGHT_ABOVE_100000",
+            71: "HEIGHT_ABOVE_150000",
+            72: "HEIGHT_ABOVE_200000",
+            73: "AIR_JUMP_HEIGHT_LIMIT",
+            74: "AIR_DASH_HEIGHT_LIMIT",
+            80: "BATTLING",
+            82: "NOT_IN_FAULTLESS_DEFENSE",
+            110: "CAN_BURST",
+            139: "TENSION_NOT_EMPTY",
+            140: "REQUIRES_25_TENSION",
+            141: "REQUIRES_50_TENSION",
+            142: "REQUIRES_100_TENSION",
+            143: "REQUIRES_200_TENSION",
+            144: "REQUIRES_300_TENSION",
+            144: "TENSION_NOT_FULL",
+        },
         "CHARACTER_STATE": {
             0: "NONE",
             1: "STANDING",
@@ -60,7 +128,9 @@
             229: "INPUT_SUPER_JUMP",
             230: "INPUT_JUMP",
             236: "INPUT_66",
+			238: "INPUT_EASY_GUARD_BACK",
             243: "INPUT_BURST",
+			302: "INPUT_HOLD_2_BUTTONS",
             306: "INPUT_44",
         },
         "UPON": {
@@ -68,6 +138,7 @@
             1: "FRAME_STEP",
             8: "BEFORE_EXIT",
             27: "TOUCH_GROUND",
+            31: "HIT_OR_GUARD_ANY",
             38: "RECEIVE_ATTACK",
             55: "HIT",
         },
@@ -127,12 +198,21 @@
             27: "SUPER",
         },
         "OBJECT_TYPE": {
-            0: "NULL",
             1: "PREVIOUS",
             2: "PARENT",
             3: "PLAYER",
+            4: "STACK_0",
+            5: "STACK_1",
+            6: "STACK_2",
+            7: "STACK_3",
+            8: "STACK_4",
+            9: "STACK_5",
+            10: "STACK_6",
+            11: "STACK_7",
+            12: "STACK_FOR_CMN_ACT",
             13: "WINNER",
             14: "LOSER",
+            21: "LOCKED",
             22: "ENEMY",
             23: "SELF",
             24: "ATTACKER",
@@ -144,6 +224,12 @@
             0: "DODGE",
             1: "ARMOR",
             2: "PARRY",
+        },
+        "ROMAN_CANCEL_ALLOWED": {
+            0: "DISALLOWED",
+            1: "ALLOWED",
+            2: "DISALLOWED_WITH_X_MARK",
+            3: "DISALLOWED_ON_WHIFF_WITH_X_MARK",
         },
     },
     instructions: Unsized({
@@ -161,6 +247,7 @@
             ],
         ),
         2: (
+            name: "exitState",
             codeBlock: NoBlock,
             args: [
             ],
@@ -180,11 +267,11 @@
             ],
         ),
         7: (
+            name: "spriteTimeVariable",
             codeBlock: NoBlock,
             args: [
                 String32,
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         8: (
@@ -223,6 +310,7 @@
             ],
         ),
         12: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
@@ -243,8 +331,7 @@
             name: "if",
             codeBlock: Begin,
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         21: (
@@ -260,8 +347,7 @@
             name: "ifNot",
             codeBlock: Begin,
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         23: (
@@ -272,12 +358,14 @@
             ],
         ),
         24: (
+            name: "",
             codeBlock: Begin,
             args: [
                 String16,
             ],
         ),
         30: (
+            name: "",
             codeBlock: Begin,
             args: [
                 Number,
@@ -286,6 +374,7 @@
             ],
         ),
         31: (
+            name: "",
             codeBlock: Begin,
             args: [
                 Number,
@@ -349,6 +438,7 @@
             ],
         ),
         50: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -360,6 +450,7 @@
             ],
         ),
         52: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -373,12 +464,14 @@
             ],
         ),
         54: (
+            name: "jumpToStateIfNotSame",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         57: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -419,9 +512,10 @@
             ],
         ),
         73: (
+            name: "jumpToStateUpon",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("UPON"),
                 String32,
             ],
         ),
@@ -443,7 +537,7 @@
             name: "runOnObject",
             codeBlock: Begin,
             args: [
-                Number,
+                Enum("OBJECT_TYPE"),
             ],
         ),
         83: (
@@ -465,6 +559,7 @@
             ],
         ),
         90: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -481,6 +576,7 @@
             ],
         ),
         93: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -512,6 +608,7 @@
             ],
         ),
         102: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -525,36 +622,38 @@
             ],
         ),
         107: (
-            name: "checkSubFlag",
+            name: "checkMoveFlag",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         108: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
-        112: (
-            codeBlock: NoBlock,
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        121: (
-            name: "sendSignal",
+        109: (
+            name: "isObjectActive",
             codeBlock: NoBlock,
             args: [
                 Enum("OBJECT_TYPE"),
+            ],
+        ),
+        112: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+                Number,
                 Number,
             ],
         ),
         125: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -569,7 +668,24 @@
                 Number,
             ],
         ),
+        127: (
+            name: "sendSignalToOldestAction",
+            codeBlock: NoBlock,
+            args: [
+                String32,
+                Number,
+            ],
+        ),
+        134: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
         138: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -595,6 +711,7 @@
             ],
         ),
         151: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
@@ -609,6 +726,14 @@
         ),
         160: (
             name: "createObject",
+            codeBlock: NoBlock,
+            args: [
+                String32,
+                Number,
+            ],
+        ),
+        161: (
+            name: "createObjectWithArg2",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -632,6 +757,7 @@
             ],
         ),
         178: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -697,6 +823,7 @@
             ],
         ),
         197: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -715,11 +842,13 @@
             ],
         ),
         206: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         215: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -727,6 +856,7 @@
             ],
         ),
         222: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
@@ -767,12 +897,14 @@
             ],
         ),
         234: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         242: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -783,12 +915,14 @@
             ],
         ),
         245: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         246: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -801,13 +935,15 @@
             ],
         ),
         250: (
+            name: "createParticleWithArg2",
             codeBlock: NoBlock,
             args: [
                 String32,
                 Number,
             ],
         ),
-        251: (
+		251: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -815,6 +951,7 @@
             ],
         ),
         252: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -871,6 +1008,7 @@
             ],
         ),
         302: (
+            name: "physicsXImpulseRaw",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -879,6 +1017,14 @@
         ),
         303: (
             name: "addVelocityX",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        304: (
+            name: "addVelocityXRaw",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -978,6 +1124,7 @@
             ],
         ),
         332: (
+            name: "defaultGravity",
             codeBlock: NoBlock,
             args: [
             ],
@@ -1103,7 +1250,7 @@
             ],
         ),
         388: (
-            name: "addObjectSize",
+            name: "objectSizePercent",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1123,10 +1270,52 @@
                 Number,
             ],
         ),
+        394: (
+            name: "warp",
+            codeBlock: NoBlock,
+            args: [
+                Enum("OBJECT_TYPE"),
+                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
+			],
+        ),
+        395: (
+            name: "warpToOffset",
+            codeBlock: NoBlock,
+            args: [
+                Enum("OBJECT_TYPE"),
+                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
+			],
+        ),
+        396: (
+            name: "warpWithArg",
+            codeBlock: NoBlock,
+            args: [
+                Enum("OBJECT_TYPE"),
+                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
+                Number,
+			],
+        ),
         397: (
             name: "setAngleBySpeed",
             codeBlock: NoBlock,
             args: [
+                Number,
+            ],
+        ),
+        398: (
+            name: "setSpeedByCPC",
+            codeBlock: NoBlock,
+            args: [
+                Number,
                 Number,
             ],
         ),
@@ -1139,15 +1328,16 @@
             ],
         ),
         405: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         407: (
+            name: "setDepth",
             codeBlock: NoBlock,
             args: [
-                Number,
                 Number,
             ],
         ),
@@ -1159,7 +1349,33 @@
                 Number,
             ],
         ),
+        409: (
+            name: "pushDepth",
+            codeBlock: NoBlock,
+            args: [],
+        ),
+        410: (
+            name: "popDepth",
+            codeBlock: NoBlock,
+            args: [],
+        ),
+        411: (
+            name: "randomAddDepth",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
         412: (
+            name: "setDepthSpeed",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        413: (
+            name: "addDepthSpeed",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1201,6 +1417,7 @@
             ],
         ),
         436: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1213,11 +1430,13 @@
             ],
         ),
         445: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         446: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1225,13 +1444,22 @@
             ],
         ),
         447: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
                 Number,
             ],
         ),
+        448: (
+            name: "setPositionXByScreenPercentage",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
         449: (
+            name: "setPositionYByScreenPercentage",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1245,6 +1473,7 @@
             ],
         ),
         451: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1256,6 +1485,7 @@
             ],
         ),
         452: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1275,18 +1505,21 @@
             ],
         ),
         458: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         462: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         464: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1294,6 +1527,7 @@
             ],
         ),
         465: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1301,6 +1535,7 @@
             ],
         ),
         466: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1308,6 +1543,7 @@
             ],
         ),
         467: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1315,6 +1551,7 @@
             ],
         ),
         470: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1329,6 +1566,13 @@
                 Number,
                 Number,
                 Number,
+            ],
+        ),
+        543: (
+            name: "setAngleY",
+            codeBlock: NoBlock,
+            args: [
+			    Number,
             ],
         ),
         544: (
@@ -1349,11 +1593,31 @@
             args: [
             ],
         ),
+        547: (
+            name: "disableHitForSprite",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
         548: (
             name: "disableHitForState",
             codeBlock: NoBlock,
             args: [
                 Number,
+            ],
+        ),
+        549: (
+            name: "useCenterOffset",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        550: (
+            name: "flipDirection",
+            codeBlock: NoBlock,
+            args: [
             ],
         ),
         551: (
@@ -1363,16 +1627,19 @@
             ],
         ),
         552: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         553: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         559: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1386,6 +1653,7 @@
             ],
         ),
         561: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1409,11 +1677,13 @@
             ],
         ),
         593: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         605: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1441,13 +1711,14 @@
             ],
         ),
         638: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         639: (
-            name: "addTension",
+            name: "addMeter",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1470,12 +1741,14 @@
             ],
         ),
         645: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         646: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1603,6 +1876,7 @@
             ],
         ),
         766: (
+            name: "contrastEffect",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1612,6 +1886,7 @@
             ],
         ),
         787: (
+            name: "blurStart",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1625,6 +1900,7 @@
             ],
         ),
         789: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1643,6 +1919,7 @@
             ],
         ),
         790: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1654,6 +1931,7 @@
             ],
         ),
         792: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1668,6 +1946,7 @@
             ],
         ),
         793: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1705,9 +1984,11 @@
             name: "setAnimationFrame",
             codeBlock: NoBlock,
             args: [
+				Number,
             ],
         ),
         849: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1734,19 +2015,40 @@
             ],
         ),
         854: (
+            name: "swapMeshSet",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
+        855: (
+            name: "clearMeshSet",
+            codeBlock: NoBlock,
+            args: [
+                String32,
+            ],
+        ),
+        856: (
+            name: "setSavedMeshSetName",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        857: (
+            name: "switchMeshSet",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
         858: (
+            name: "setDefaultMeshSet",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         859: (
-            name: "resetMaterialSet",
+            name: "resetDefaultMeshSet",
             codeBlock: NoBlock,
             args: [
             ],
@@ -1757,7 +2059,50 @@
             args: [
             ],
         ),
+        861: (
+            name: "resetMaterialSet",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        862: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        863: (
+            name: "startLip",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        864: (
+            name: "startLipEx",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+                Number,
+                Number,
+                Number,
+            ],
+        ),
+        865: (
+            name: "stopLip",
+            codeBlock: NoBlock,
+            args: [],
+        ),
+        866: (
+            name: "startEyeBlink",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
         867: (
+            name: "startEyeBlinkEx",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1765,7 +2110,13 @@
                 Number,
             ],
         ),
+        868: (
+            name: "stopEyeBlink",
+            codeBlock: NoBlock,
+            args: [],
+        ),
         874: (
+            name: "mouthTable",
             codeBlock: NoBlock,
             args: [
                 String16,
@@ -1780,6 +2131,7 @@
             ],
         ),
         877: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1788,19 +2140,21 @@
             ],
         ),
         878: (
-            name: "swapMeshSet",
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         880: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         886: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1810,11 +2164,13 @@
             ],
         ),
         896: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         897: (
+            name: "postProcessEffect",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1822,18 +2178,21 @@
             ],
         ),
         898: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         901: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         908: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1845,6 +2204,7 @@
             ],
         ),
         909: (
+            name: "fadeOutStart",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1852,12 +2212,14 @@
             ],
         ),
         910: (
+            name: "fadeInStart",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         930: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1865,6 +2227,7 @@
             ],
         ),
         933: (
+            name: "eventBGMVolume",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1938,12 +2301,14 @@
             ],
         ),
         973: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         974: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1966,6 +2331,7 @@
             ],
         ),
         984: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -1990,12 +2356,14 @@
             ],
         ),
         1024: (
+            name: "romanCancelAvailability",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("ROMAN_CANCEL_ALLOWED"),
             ],
         ),
         1034: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -2003,12 +2371,14 @@
             ],
         ),
         1035: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1036: (
+            name: "entryAction",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -2043,30 +2413,35 @@
             ],
         ),
         1050: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1059: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         1065: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         1073: (
+            name: "setHitstop",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1074: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2108,18 +2483,21 @@
             ],
         ),
         1097: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1098: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1099: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2134,6 +2512,7 @@
             ],
         ),
         1107: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2144,6 +2523,7 @@
             ],
         ),
         1108: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2159,6 +2539,7 @@
             ],
         ),
         1126: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2187,12 +2568,14 @@
             ],
         ),
         1193: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1201: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2200,12 +2583,14 @@
             ],
         ),
         1202: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1252: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2215,6 +2600,7 @@
             ],
         ),
         1253: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2224,6 +2610,7 @@
             ],
         ),
         1283: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2232,6 +2619,24 @@
         ),
         1344: (
             name: "initializeAttackCategoryByCurrent",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        1345: (
+            name: "initializeAttackCategory",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        1346: (
+            name: "attackAllDefault",
+            codeBlock: NoBlock,
+            args: [
+            ],
+        ),
+        1347: (
+            name: "attackType",
             codeBlock: NoBlock,
             args: [
             ],
@@ -2293,6 +2698,7 @@
             ],
         ),
         1377: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2335,6 +2741,20 @@
         ),
         1422: (
             name: "wallBounceCount",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        1448: (
+            name: "hitstunAmount",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        1450: (
+            name: "counterHitstunAmount",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2404,6 +2824,7 @@
             ],
         ),
         1517: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2492,6 +2913,7 @@
             ],
         ),
         1588: (
+            name: "onlyHitAirborne",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2505,18 +2927,21 @@
             ],
         ),
         1598: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1599: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         1602: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2530,30 +2955,35 @@
             ],
         ),
         1606: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
             ],
         ),
         1607: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1612: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1615: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1616: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2672,6 +3102,7 @@
             ],
         ),
         1674: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2804,6 +3235,7 @@
             ],
         ),
         1733: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2838,6 +3270,7 @@
             ],
         ),
         1744: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2858,18 +3291,21 @@
             ],
         ),
         1754: (
+            name: "neoBlitz",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1755: (
+            name: "blitzHajiki",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         1767: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2883,12 +3319,14 @@
             ],
         ),
         1964: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2017: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2923,12 +3361,14 @@
             ],
         ),
         2055: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2057: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2942,6 +3382,7 @@
             ],
         ),
         2069: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -2985,10 +3426,11 @@
             name: "addMoveFlag",
             codeBlock: NoBlock,
             args: [
-                Number,
+                Enum("MOVE_FLAG"),
             ],
         ),
         2084: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3002,6 +3444,7 @@
             ],
         ),
         2086: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3036,29 +3479,34 @@
             ],
         ),
         2108: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2111: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2123: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         2125: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2126: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3072,6 +3520,7 @@
             ],
         ),
         2144: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3106,6 +3555,7 @@
             ],
         ),
         2180: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3126,6 +3576,7 @@
             ],
         ),
         2190: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3138,16 +3589,19 @@
             ],
         ),
         2204: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         2205: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         2239: (
+            name: "demoEnd",
             codeBlock: NoBlock,
             args: [
             ],
@@ -3214,6 +3668,7 @@
             ],
         ),
         2297: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3227,6 +3682,7 @@
             ],
         ),
         2311: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
@@ -3240,6 +3696,7 @@
             ],
         ),
         2325: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3274,6 +3731,7 @@
             ],
         ),
         2379: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3281,30 +3739,35 @@
             ],
         ),
         2415: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2416: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2419: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2420: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2421: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3326,6 +3789,7 @@
             ],
         ),
         2431: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3333,6 +3797,7 @@
             ],
         ),
         2500: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3350,6 +3815,7 @@
             ],
         ),
         2533: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3357,6 +3823,7 @@
             ],
         ),
         2546: (
+            name: "moveEstChusenMorePercent",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3370,12 +3837,14 @@
             ],
         ),
         2549: (
+            name: "cpuEstimateInterval",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2550: (
+            name: "cpuEstimateStrengthLimit",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3406,16 +3875,19 @@
             ],
         ),
         2570: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         2571: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
         ),
         2572: (
+            name: "",
             codeBlock: NoBlock,
             args: [
             ],
@@ -3439,6 +3911,7 @@
             ],
         ),
         2596: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3488,6 +3961,7 @@
             ],
         ),
         2708: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3495,12 +3969,14 @@
             ],
         ),
         2726: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2732: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3527,6 +4003,7 @@
             ],
         ),
         2816: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3535,6 +4012,7 @@
             ],
         ),
         2817: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3542,6 +4020,7 @@
             ],
         ),
         2836: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -3563,12 +4042,14 @@
             ],
         ),
         2861: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 String16,
             ],
         ),
         2862: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3633,6 +4114,7 @@
             ],
         ),
         2893: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -3668,16 +4150,39 @@
             ],
         ),
         2904: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        2909: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
+                Number,
+            ],
+        ),
+        2910: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
             ],
         ),
         2945: (
+            name: "",
             codeBlock: NoBlock,
             args: [
                 Number,
                 Number,
+                Number,
+            ],
+        ),
+        2951: (
+            name: "",
+            codeBlock: NoBlock,
+            args: [
                 Number,
             ],
         ),
