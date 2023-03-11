@@ -136,6 +136,8 @@ impl ScriptConfig {
         let config: Self =
             de::from_reader(db_config).map_err(|e| BBScriptError::ConfigInvalid(e.to_string()))?;
 
+        // initial sanity checks for the config
+
         // ensure config contains no duplicate names
         // otherwise it will return an error with the name
         match config.instructions {
@@ -167,6 +169,17 @@ impl ScriptConfig {
                     return Err(BBScriptError::ConfigDuplicateName(name));
                 }
             }
+        }
+
+        if let InstructionInfo::Sized(ref map) = config.instructions {
+            map.iter().for_each(|(id, instruction)| {
+                let arg_list_size = instruction.args.iter().fold(0, |size, arg| size + arg.size());
+
+                if instruction.size < arg_list_size {
+                    let min_size = arg_list_size + 4;
+                    log::warn!("Instruction ID {id} size too small for known args! Size should be at least {min_size} to support arguments");
+                }
+            })
         }
 
         Ok(config)
@@ -252,8 +265,11 @@ impl SizedInstruction {
         let mut args = self.args.clone();
 
         if known_args_size != (self.size - INSTRUCTION_SIZE) {
-            // size typically has an extra 4 bytes because of the ID being a u32
-            let left_over = (self.size.saturating_sub(INSTRUCTION_SIZE)) - known_args_size;
+            // size has an extra 4 bytes because of the ID being a u32
+            // we use saturating_sub to allow known args to be larger than labeled size.
+            // but still warn for it in some earlier initial sanity checks
+            let left_over =
+                (self.size.saturating_sub(INSTRUCTION_SIZE)).saturating_sub(known_args_size);
             args.push(ArgType::Unknown(left_over))
         }
 
