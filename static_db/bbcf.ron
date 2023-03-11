@@ -2994,12 +2994,12 @@
             ],
         ),
         7010: (
-            size: 12,
+            size: 24,
             name: "attackVoiceLine",
             codeBlock: NoBlock,
             args: [
                 Number,
-                Number,
+                String16,
             ],
         ),
         7011: (
@@ -4244,7 +4244,7 @@
         ),
         11061: (
             size: 8,
-            name: "ignoreCrouchHit"
+            name: "ignoreCrouchHit",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4259,7 +4259,7 @@
         ),
         11063: (
             size: 8,
-            name: "preventPreGuard"
+            name: "preventPreGuard",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4267,7 +4267,7 @@
         ),
         11064: (
             size: 8,
-            name: "killType"
+            name: "killType",
             codeBlock: NoBlock,
             args: [
                 Enum("KILL_TYPE"),
@@ -4275,7 +4275,7 @@
         ),
         11065: (
             size: 8,
-            name: "allowEmergencyTech"
+            name: "allowEmergencyTech",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4283,7 +4283,7 @@
         ),
         11066: (
             size: 8,
-            name: "removeOpponentGravityOnHt"
+            name: "removeOpponentGravityOnHt",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4349,7 +4349,7 @@
         ),
         11075: (
             size: 12,
-            name: "poison"
+            name: "poison",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -4580,7 +4580,7 @@
         ),
         11106: (
             size: 8,
-            name: "opponentHeatGainMultiplier"
+            name: "opponentHeatGainMultiplier",
             codeBlock: NoBlock,
             args: [
                 Number,
@@ -7788,7 +7788,7 @@
         ),
         23166: (
             size: 36,
-            name: "checkOpponentStateName"
+            name: "checkOpponentStateName",
             codeBlock: NoBlock,
             args: [
                 String32,
@@ -7957,7 +7957,7 @@
         ),
         30013: (
             size: 4,
-            name: "enableIzanamiTimeStop"
+            name: "enableIzanamiTimeStop",
             codeBlock: NoBlock,
             args: [],
         ),
@@ -7968,7 +7968,7 @@
         ),
         30015: (
             size: 4,
-            name: "disableIzanamiTimeStop"
+            name: "disableIzanamiTimeStop",
             codeBlock: NoBlock,
             args: [],
         ),
