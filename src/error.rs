@@ -2,9 +2,9 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum BBScriptError {
-    #[error("Failed to open game DB file `{0}` with error `{1}`")]
+    #[error("Failed to open game config file `{0}` with error `{1}`")]
     ConfigOpenError(String, String),
-    #[error("Could not decode game DB file `{0}`")]
+    #[error("Could not decode game config file `{0}`")]
     ConfigInvalid(String),
     #[error("Config contains multiple instances of an instruction named `{0}`")]
     ConfigDuplicateName(String),
