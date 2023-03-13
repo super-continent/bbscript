@@ -3202,10 +3202,15 @@
             size: 88,
             codeBlock: NoBlock,
             args: [
+                Number,
+                String16,
+                Number,
                 String16,
                 Number,
                 String16,
                 Number,
+                String16,
+                Number
             ],
         ),
         9011: (
