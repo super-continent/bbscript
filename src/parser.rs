@@ -1,7 +1,9 @@
-use bytes::{Buf, Bytes};
+use byteorder::{ByteOrder, ReadBytesExt};
+use bytes::Buf;
 use smallvec::SmallVec;
 
 use std::fmt::Write;
+use std::io::Cursor;
 
 use crate::game_config::{
     ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, TaggedValue, UnsizedInstruction,
@@ -58,8 +60,11 @@ fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> Result<String, BBScri
 }
 
 impl ScriptConfig {
-    pub fn parse_to_string<T: Into<Bytes>>(&self, input: T) -> Result<String, BBScriptError> {
-        let program = self.parse(input)?;
+    pub fn parse_to_string<B: ByteOrder>(
+        &self,
+        input: impl AsRef<[u8]>,
+    ) -> Result<String, BBScriptError> {
+        let program = self.parse::<B>(input.as_ref())?;
         let mut out = String::new();
 
         let mut indent = 0;
@@ -113,17 +118,20 @@ impl ScriptConfig {
         Ok(out)
     }
 
-    pub fn parse<T: Into<Bytes>>(&self, input: T) -> Result<Vec<InstructionValue>, BBScriptError> {
+    pub fn parse<B: ByteOrder>(
+        &self,
+        input: impl AsRef<[u8]>,
+    ) -> Result<Vec<InstructionValue>, BBScriptError> {
         const JUMP_ENTRY_LENGTH: usize = 0x24;
 
-        let mut input: Bytes = input.into();
+        let mut input = input.as_ref();
 
         // get jump table size in bytes
         let jump_table_size: usize = JUMP_ENTRY_LENGTH
             * self
                 .jump_table_ids
                 .iter()
-                .map(|_| input.get_u32_le() as usize)
+                .map(|_| input.read_u32::<B>().unwrap() as usize)
                 .sum::<usize>();
 
         log::debug!("jump table size: {jump_table_size}");
@@ -137,26 +145,29 @@ impl ScriptConfig {
         input.advance(jump_table_size as usize);
 
         // parse the actual scripts
-        self.parse_script(&mut input)
+        self.parse_script::<B>(input)
     }
 
-    fn parse_script(&self, input: &mut Bytes) -> Result<Vec<InstructionValue>, BBScriptError> {
+    fn parse_script<B: ByteOrder>(
+        &self,
+        bytes: impl AsRef<[u8]>,
+    ) -> Result<Vec<InstructionValue>, BBScriptError> {
         use crate::game_config::InstructionInfo;
+
+        let mut input = Cursor::new(bytes.as_ref());
+        let mut program = Vec::with_capacity(bytes.as_ref().len() / 2);
+
         match &self.instructions {
             InstructionInfo::Sized(id_map) => {
-                let mut program = Vec::with_capacity(input.len() / 2);
-
                 while input.remaining() != 0 {
-                    program.push(self.parse_sized(id_map, input)?);
+                    program.push(self.parse_sized::<B>(id_map, &mut input)?);
                 }
 
                 Ok(program)
             }
             InstructionInfo::Unsized(id_map) => {
-                let mut program = Vec::with_capacity(input.len() / 2);
-
                 while input.remaining() != 0 {
-                    program.push(self.parse_unsized(id_map, input)?);
+                    program.push(self.parse_unsized::<B>(id_map, &mut input)?);
                 }
 
                 Ok(program)
@@ -164,12 +175,12 @@ impl ScriptConfig {
         }
     }
 
-    fn parse_sized(
+    fn parse_sized<B: ByteOrder>(
         &self,
         id_map: &HashMap<u32, SizedInstruction>,
-        input: &mut Bytes,
+        input: &mut Cursor<&[u8]>,
     ) -> Result<InstructionValue, BBScriptError> {
-        let instruction_id = input.get_u32_le();
+        let instruction_id = input.read_u32::<B>()?;
 
         let instruction = if let Some(instruction) = id_map.get(&instruction_id) {
             instruction
@@ -186,7 +197,7 @@ impl ScriptConfig {
         let args = instruction
             .args()
             .into_iter()
-            .map(|arg_type| self.parse_argument(arg_type, input))
+            .map(|arg_type| self.parse_argument::<B>(arg_type, input))
             .collect();
 
         let instruction = InstructionValue {
@@ -200,15 +211,15 @@ impl ScriptConfig {
         Ok(instruction)
     }
 
-    fn parse_unsized(
+    fn parse_unsized<B: ByteOrder>(
         &self,
         id_map: &HashMap<u32, UnsizedInstruction>,
-        input: &mut Bytes,
+        input: &mut Cursor<&[u8]>,
     ) -> Result<InstructionValue, BBScriptError> {
         log::debug!("offset {:#X} from end of file", input.remaining());
 
-        let instruction_id = input.get_u32_le();
-        let instruction_size = input.get_u32_le();
+        let instruction_id = input.read_u32::<B>().unwrap();
+        let instruction_size = input.read_u32::<B>().unwrap();
 
         log::info!(
             "finding info for instruction with ID {instruction_id} and size {instruction_size}"
@@ -230,7 +241,7 @@ impl ScriptConfig {
         let args = instruction
             .args_with_known_size(instruction_size as usize)
             .into_iter()
-            .map(|arg_type| self.parse_argument(arg_type, input))
+            .map(|arg_type| self.parse_argument::<B>(arg_type, input))
             .collect();
 
         let instruction = InstructionValue {
@@ -244,10 +255,16 @@ impl ScriptConfig {
         Ok(instruction)
     }
 
-    fn parse_argument(&self, arg_type: ArgType, input: &mut Bytes) -> ArgValue {
+    fn parse_argument<B: ByteOrder>(
+        &self,
+        arg_type: ArgType,
+        input: &mut Cursor<&[u8]>,
+    ) -> ArgValue {
         match arg_type {
             // get SmallVec of bytes
-            ArgType::Unknown(n) => ArgValue::Unknown((0..n).map(|_| input.get_u8()).collect()),
+            ArgType::Unknown(n) => {
+                ArgValue::Unknown((0..n).map(|_| input.read_u8().unwrap()).collect())
+            }
             ArgType::String16 => {
                 let mut buf = [0; ArgType::STRING16_SIZE];
                 input.copy_to_slice(&mut buf);
@@ -260,22 +277,22 @@ impl ScriptConfig {
 
                 ArgValue::String32(process_string_buf(&buf))
             }
-            ArgType::Number => ArgValue::Number(input.get_i32_le()),
-            ArgType::Enum(s) => ArgValue::Enum(s.clone(), input.get_i32_le()),
+            ArgType::Number => ArgValue::Number(input.read_i32::<B>().unwrap()),
+            ArgType::Enum(s) => ArgValue::Enum(s.clone(), input.read_i32::<B>().unwrap()),
             ArgType::AccessedValue => {
-                let tag = input.get_i32_le();
+                let tag = input.read_i32::<B>().unwrap();
 
                 if tag == self.literal_tag {
-                    ArgValue::AccessedValue(TaggedValue::Literal(input.get_i32_le()))
+                    ArgValue::AccessedValue(TaggedValue::Literal(input.read_i32::<B>().unwrap()))
                 } else if tag == self.variable_tag {
-                    ArgValue::AccessedValue(TaggedValue::Variable(input.get_i32_le()))
+                    ArgValue::AccessedValue(TaggedValue::Variable(input.read_i32::<B>().unwrap()))
                 } else {
                     log::warn!(
                         "found improperly tagged AccessedValue, most likely just two Numbers"
                     );
                     ArgValue::AccessedValue(TaggedValue::Improper {
                         tag,
-                        value: input.get_i32_le(),
+                        value: input.read_i32::<B>().unwrap(),
                     })
                 }
             }

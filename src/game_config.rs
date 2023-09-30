@@ -69,48 +69,86 @@ pub enum InstructionInfo {
     Unsized(HashMap<u32, UnsizedInstruction>),
 }
 
-#[derive(Debug, Clone)]
-pub enum GenericInstruction {
-    Sized(u32, SizedInstruction),
-    Unsized(u32, UnsizedInstruction),
+pub struct InstructionIter<'a> {
+    data: std::vec::IntoIter<(u32, &'a dyn Instruction)>,
 }
 
-impl GenericInstruction {
-    #[inline]
-    pub fn name(&self) -> Option<String> {
-        let name = match self {
-            Self::Sized(_, a) => a.name.clone(),
-            Self::Unsized(_, a) => a.name.clone(),
-        };
+impl<'a> Iterator for InstructionIter<'a> {
+    type Item = (u32, &'a dyn Instruction);
 
-        if name.is_empty() {
+    fn next(&mut self) -> Option<Self::Item> {
+        self.data.next()
+    }
+}
+
+impl InstructionInfo {
+    /// Creates a generic iterator of type `(u32, &dyn Instruction)`
+    /// where the 0 field is the instruction ID
+    pub fn iter_generic(&self) -> InstructionIter {
+        let a: std::vec::IntoIter<(u32, &dyn Instruction)> = match self {
+            InstructionInfo::Sized(ref map) => map
+                .iter()
+                .map(|(k, v)| (*k, v as &dyn Instruction))
+                .collect::<Vec<(u32, &dyn Instruction)>>()
+                .into_iter(),
+            InstructionInfo::Unsized(ref map) => map
+                .iter()
+                .map(|(k, v)| (*k, v as &dyn Instruction))
+                .collect::<Vec<(u32, &dyn Instruction)>>()
+                .into_iter(),
+        };
+        InstructionIter { data: a }
+    }
+}
+
+pub trait Instruction {
+    fn name(&self) -> Option<String>;
+    fn size(&self) -> Option<usize>;
+    fn block_type(&self) -> CodeBlock;
+    fn args(&self) -> &[ArgType];
+}
+
+impl Instruction for SizedInstruction {
+    fn name(&self) -> Option<String> {
+        if self.name.is_empty() {
             None
         } else {
-            Some(name)
+            Some(self.name.clone())
         }
     }
 
-    #[inline]
-    pub fn id(&self) -> u32 {
-        match self {
-            Self::Sized(id, _) => *id,
-            Self::Unsized(id, _) => *id,
+    fn size(&self) -> Option<usize> {
+        Some(self.size)
+    }
+
+    fn block_type(&self) -> CodeBlock {
+        self.code_block
+    }
+
+    fn args(&self) -> &[ArgType] {
+        self.args.as_slice()
+    }
+}
+
+impl Instruction for UnsizedInstruction {
+    fn name(&self) -> Option<String> {
+        if self.name.is_empty() {
+            None
+        } else {
+            Some(self.name.clone())
         }
     }
 
-    #[inline]
-    pub fn size(&self) -> Option<usize> {
-        match self {
-            Self::Sized(_, a) => Some(a.size),
-            _ => None,
-        }
+    fn size(&self) -> Option<usize> {
+        None
     }
 
-    pub fn args(&self) -> SmallVec<[ArgType; 16]> {
-        match self {
-            Self::Sized(_, i) => i.args(),
-            Self::Unsized(_, i) => i.args(),
-        }
+    fn block_type(&self) -> CodeBlock {
+        self.code_block
+    }
+
+    fn args(&self) -> &[ArgType] {
+        self.args.as_slice()
     }
 }
 
@@ -140,37 +178,26 @@ impl ScriptConfig {
 
         // ensure config contains no duplicate names
         // otherwise it will return an error with the name
-        match config.instructions {
-            InstructionInfo::Sized(ref map) => {
-                let mut set = HashSet::new();
-                let mut duplicate_name = None;
+        let mut set = HashSet::new();
+        let duplicate_names: Vec<String> = config
+            .instructions
+            .iter_generic()
+            .filter_map(|(_, i)| {
+                if let Some(name) = i.name() {
+                    if !set.insert(name.clone()) {
+                        return Some(name.clone());
+                    };
+                };
 
-                map.values().for_each(|i| {
-                    if !i.name.is_empty() && !set.insert(&i.name) {
-                        duplicate_name = Some(i.name.clone());
-                    }
-                });
+                None
+            })
+            .collect();
 
-                if let Some(name) = duplicate_name {
-                    return Err(BBScriptError::ConfigDuplicateName(name));
-                }
-            }
-            InstructionInfo::Unsized(ref map) => {
-                let mut set = HashSet::new();
-                let mut duplicate_name = None;
-
-                map.values().for_each(|i| {
-                    if !i.name.is_empty() && !set.insert(&i.name) {
-                        duplicate_name = Some(i.name.clone());
-                    }
-                });
-
-                if let Some(name) = duplicate_name {
-                    return Err(BBScriptError::ConfigDuplicateName(name));
-                }
-            }
+        if !duplicate_names.is_empty() {
+            return Err(BBScriptError::ConfigDuplicateName(duplicate_names));
         }
 
+        // warn if args greater than specified size
         if let InstructionInfo::Sized(ref map) = config.instructions {
             map.iter().for_each(|(id, instruction)| {
                 let arg_list_size = instruction.args.iter().fold(0, |size, arg| size + arg.size());
@@ -197,7 +224,8 @@ impl ScriptConfig {
     }
 
     #[inline]
-    pub fn get_by_name(&self, name: String) -> Option<GenericInstruction> {
+    pub fn get_by_name(&self, name: impl AsRef<str>) -> Option<GenericInstruction> {
+        let name = name.as_ref();
         match self.instructions {
             InstructionInfo::Sized(ref a) => a
                 .iter()
@@ -241,6 +269,11 @@ impl ScriptConfig {
             _ => false,
         }
     }
+
+    /// Returns `true` if this instruction ID is one that should be included in the jump table
+    pub fn is_jump_entry_id(&self, id: u32) -> bool {
+        self.jump_table_ids.contains(&id)
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -274,6 +307,32 @@ impl SizedInstruction {
         }
 
         args
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum GenericInstruction {
+    Sized(u32, SizedInstruction),
+    Unsized(u32, UnsizedInstruction),
+}
+
+impl GenericInstruction {
+    pub fn id(&self) -> u32 {
+        match self {
+            GenericInstruction::Sized(id, _) => *id,
+            GenericInstruction::Unsized(id, _) => *id,
+        }
+    }
+}
+
+impl std::ops::Deref for GenericInstruction {
+    type Target = dyn Instruction;
+
+    fn deref(&self) -> &Self::Target {
+        match self {
+            GenericInstruction::Sized(_, i) => i,
+            GenericInstruction::Unsized(_, i) => i,
+        }
     }
 }
 
@@ -329,10 +388,6 @@ impl UnsizedInstruction {
 
         args
     }
-
-    pub fn args(&self) -> SmallVec<[ArgType; 16]> {
-        self.args.clone()
-    }
 }
 
 #[cfg(feature = "old-cfg-converter")]
@@ -356,22 +411,6 @@ impl GameDB {
         })?;
 
         Self::new(db_file)
-    }
-
-    pub fn find_by_id(&self, id_in: u32) -> Result<Function, BBScriptError> {
-        if let Some(func) = self.functions.iter().find(|x| x.id == id_in) {
-            Ok(func.clone())
-        } else {
-            Err(BBScriptError::UnknownInstructionName(format!("{}", id_in)))
-        }
-    }
-
-    pub fn find_by_name(&self, name_in: &str) -> Result<Function, BBScriptError> {
-        if let Some(func) = self.functions.iter().find(|x| x.name == name_in) {
-            Ok(func.clone())
-        } else {
-            Err(BBScriptError::UnknownInstructionName(name_in.into()))
-        }
     }
 }
 
@@ -496,20 +535,6 @@ pub struct Function {
 
 #[cfg(feature = "old-cfg-converter")]
 impl Function {
-    // Not recoverable because name has no inherent value
-    pub fn get_value(&self, name: (u32, String)) -> Result<i32, BBScriptError> {
-        if let Some(value) = self.named_values.get_by_right(&name) {
-            Ok(value.1)
-        } else {
-            Err(BBScriptError::NoAssociatedValue(name.0.to_string(), name.1))
-        }
-    }
-
-    // Recoverable, will just use raw value if no name associated
-    pub fn get_name(&self, value: (u32, i32)) -> Option<String> {
-        self.named_values.get_by_left(&value).map(|v| v.1.clone())
-    }
-
     pub fn get_args(&self) -> Vec<Arg> {
         let arg_string = &self.args;
 
@@ -543,14 +568,6 @@ impl Function {
         }
 
         arg_accumulator
-    }
-
-    pub fn instruction_name(&self) -> String {
-        if self.name.is_empty() {
-            format!("Unknown{}", &self.id)
-        } else {
-            self.name.to_string()
-        }
     }
 
     pub fn is_jump_entry(&self) -> bool {
