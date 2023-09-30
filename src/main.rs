@@ -40,6 +40,9 @@ struct MainCli {
     /// Specifies a path where <GAME>.ron configs are stored
     #[clap(global = true, short, long, default_value = DB_FOLDER, env = "BBSCRIPT_DB_DIR")]
     custom_db_folder: PathBuf,
+    /// Enables reading all numbers in big-endian format, used by PS3 games
+    #[clap(global = true, short, long)]
+    big_endian: bool,
     #[clap(subcommand)]
     command: SubCmd,
 }
@@ -121,6 +124,7 @@ fn run() -> AResult<()> {
                 start_offset,
                 end_offset,
                 args.custom_db_folder,
+                args.big_endian,
             )?;
         }
         SubCmd::Rebuild {
@@ -130,7 +134,7 @@ fn run() -> AResult<()> {
             overwrite,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
-            run_rebuilder(game, input, output, args.custom_db_folder)?;
+            run_rebuilder(game, input, output, args.custom_db_folder, args.big_endian)?;
         }
         #[cfg(feature = "old-cfg-converter")]
         SubCmd::Convert {
@@ -198,6 +202,7 @@ fn run_parser(
     start_offset: Option<usize>,
     end_offset: Option<usize>,
     db_folder: PathBuf,
+    big_endian: bool,
 ) -> AResult<()> {
     log::info!("Extracting script info from `{}.ron`...", game);
 
@@ -214,7 +219,13 @@ fn run_parser(
     let in_bytes =
         in_bytes[start_offset.unwrap_or(0)..(file_length - end_offset.unwrap_or(0))].to_owned();
 
-    match db.parse_to_string(in_bytes) {
+    let result = if big_endian {
+        db.parse_to_string::<byteorder::BigEndian>(in_bytes)
+    } else {
+        db.parse_to_string::<byteorder::LittleEndian>(in_bytes)
+    };
+
+    match result {
         Ok(f) => {
             let mut output = File::create(out_path)?;
             output.write_all(&f.as_bytes())?;
@@ -225,7 +236,13 @@ fn run_parser(
     Ok(())
 }
 
-fn run_rebuilder(game: String, input: PathBuf, output: PathBuf, db_folder: PathBuf) -> AResult<()> {
+fn run_rebuilder(
+    game: String,
+    input: PathBuf,
+    output: PathBuf,
+    db_folder: PathBuf,
+    big_endian: bool,
+) -> AResult<()> {
     log::info!("Extracting script info from `{}.ron`...", game);
 
     let mut ron_path = db_folder.join(game);
@@ -236,7 +253,13 @@ fn run_rebuilder(game: String, input: PathBuf, output: PathBuf, db_folder: PathB
     let mut script = String::new();
     File::open(input)?.read_to_string(&mut script)?;
 
-    match rebuild_bbscript(db, script) {
+    let result = if big_endian {
+        rebuild_bbscript::<byteorder::BigEndian>(db, script)
+    } else {
+        rebuild_bbscript::<byteorder::LittleEndian>(db, script)
+    };
+
+    match result {
         Ok(f) => {
             let mut output = File::create(output)?;
             output.write_all(&f)?;

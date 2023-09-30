@@ -6,8 +6,8 @@ pub enum BBScriptError {
     ConfigOpenError(String, String),
     #[error("Could not decode game config file `{0}`")]
     ConfigInvalid(String),
-    #[error("Config contains multiple instances of an instruction named `{0}`")]
-    ConfigDuplicateName(String),
+    #[error("Config contains one or more duplicate names: {0:?}")]
+    ConfigDuplicateName(Vec<String>),
     #[error("Input `{0}` does not exist or is a directory")]
     BadInputFile(String),
     #[error("Output file `{0}` already exists, specify overwrite with -o flag")]
@@ -30,6 +30,8 @@ pub enum BBScriptError {
     IncorrectJumpTableSize(String),
     #[error("Got instruction `{0}` mismatched to size {1}. size defined in config is {2}")]
     IncorrectFunctionSize(String, usize, usize),
+    #[error(transparent)]
+    IoError(#[from] std::io::Error),
     #[error(transparent)]
     PestConsumeError(#[from] pest_consume::Error<crate::rebuilder::Rule>),
     #[error(transparent)]

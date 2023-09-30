@@ -1,86 +1,48 @@
 #![allow(clippy::upper_case_acronyms)]
 
+use std::io::Write;
+
 use crate::{
     error::BBScriptError,
     game_config::{ArgType, GenericInstruction, ScriptConfig, UnsizedInstruction},
-    HashMap,
 };
 
-use byteorder::{WriteBytesExt, LE};
+use byteorder::{ByteOrder, WriteBytesExt};
 use bytes::{Bytes, BytesMut};
 use pest_consume::{match_nodes, Parser};
 
-pub fn rebuild_bbscript(db: ScriptConfig, script: String) -> Result<Bytes, BBScriptError> {
+pub fn rebuild_bbscript<B: ByteOrder>(
+    db: ScriptConfig,
+    script: String,
+) -> Result<Vec<u8>, BBScriptError> {
     let parsed = BBSParser::parse(Rule::program, &script)?;
     let root = parsed.single()?;
 
     // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
     let program = BBSParser::program(root)?;
 
-    let file = assemble_script(program, &db)?;
+    let file = assemble_script::<B>(program, &db)?;
 
     Ok(file)
 }
 
-struct JumpTable {
-    id_list: Vec<u32>,
-    entries: HashMap<u32, Vec<u8>>,
-}
-
-impl JumpTable {
-    #[inline]
-    pub fn new(id_list: Vec<u32>) -> Self {
-        Self {
-            id_list,
-            entries: HashMap::new(),
-        }
-    }
-
-    #[inline]
-    pub fn is_entry_id(&self, id: u32) -> bool {
-        self.id_list.contains(&id)
-    }
-
-    #[inline]
-    pub fn add_table_entry(&mut self, id: u32, offset: u32, jump_name: &Bytes) {
-        assert!(self.is_entry_id(id));
-        assert!(jump_name.len() == ArgType::STRING32_SIZE);
-
-        let table = self.entries.entry(id).or_default();
-
-        table.extend_from_slice(&jump_name);
-        table.write_u32::<LE>(offset).unwrap();
-    }
-
-    pub fn to_table_bytes(mut self) -> Vec<u8> {
-        const JUMP_ENTRY_LENGTH: usize = 0x24;
-        let mut result = Vec::new();
-
-        for id in &self.id_list {
-            let entry = self.entries.entry(*id).or_default();
-
-            let entry_count = entry.len() / JUMP_ENTRY_LENGTH;
-            result.write_u32::<LE>(entry_count as u32).unwrap();
-        }
-
-        for id in self.id_list {
-            let entry = self.entries.entry(id).or_default();
-
-            result.append(entry);
-        }
-
-        result
-    }
-}
-
-fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes, BBScriptError> {
+fn assemble_script<B: ByteOrder>(
+    program: Vec<BBSFunction>,
+    db: &ScriptConfig,
+) -> Result<Vec<u8>, BBScriptError> {
+    // current position of the reader
     let mut offset: u32 = 0x0;
     let mut script_buffer: Vec<u8> = Vec::new();
-    let mut jump_tables = JumpTable::new(db.jump_table_ids.clone());
+
+    // TODO: figure out behavior around eliminating duplicate state jump entries
+    // let mut previous_jump_entries = std::collections::HashSet::new();
+
+    let mut jump_entry_count = 0;
+    let mut jump_table_buffer: Vec<u8> = Vec::new();
 
     for instruction in program {
         log::debug!("finding info for {}", instruction.name);
-        let instruction_info = if let Some(i) = db.get_by_name(instruction.name.clone()) {
+        let instruction_info = if let Some(i) = db.get_by_name(&instruction.name) {
             i
         } else {
             log::trace!("could not locate instruction by name, trying by ID");
@@ -112,21 +74,25 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
             }
         }
 
-        script_buffer
-            .write_u32::<LE>(instruction_info.id())
-            .unwrap();
+        script_buffer.write_u32::<B>(instruction_info.id()).unwrap();
 
         // if dynamically sized, the function size is written after the ID
         if db.is_unsized() {
             let instruction_dynamic_size = instruction.total_size() + 0x4;
             script_buffer
-                .write_u32::<LE>(instruction_dynamic_size as u32)
+                .write_u32::<B>(instruction_dynamic_size as u32)
                 .unwrap();
         }
 
-        if jump_tables.is_entry_id(instruction_info.id()) {
+        // build state jump table
+        if db.is_jump_entry_id(instruction_info.id()) {
             if let Some(ParserValue::String32(name)) = instruction.args.get(0) {
-                jump_tables.add_table_entry(instruction_info.id(), offset, name);
+                // this check deduplicates jump table entries
+                // if previous_jump_entries.insert(name.clone())
+
+                jump_table_buffer.write_all(name).unwrap();
+                jump_table_buffer.write_u32::<B>(offset).unwrap();
+                jump_entry_count += 1;
             }
         }
 
@@ -143,7 +109,7 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                     script_buffer.append(&mut string.to_vec())
                 }
                 ParserValue::Raw(data) => script_buffer.append(&mut data.to_vec()),
-                &ParserValue::Number(num) => script_buffer.write_i32::<LE>(num).unwrap(),
+                &ParserValue::Number(num) => script_buffer.write_i32::<B>(num).unwrap(),
                 ParserValue::Named(variant) => {
                     let enum_name =
                         if let Some(ArgType::Enum(name)) = instruction_info.args().get(index) {
@@ -153,7 +119,7 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                         };
 
                     if let Some(value) = db.get_enum_value(enum_name.clone(), variant.to_string()) {
-                        script_buffer.write_i32::<LE>(value).unwrap();
+                        script_buffer.write_i32::<B>(value).unwrap();
                     } else {
                         return Err(BBScriptError::NoAssociatedValue(
                             variant.to_string(),
@@ -162,8 +128,8 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                     }
                 }
                 &ParserValue::Mem(var_id) => {
-                    script_buffer.write_i32::<LE>(db.variable_tag).unwrap();
-                    script_buffer.write_i32::<LE>(var_id).unwrap();
+                    script_buffer.write_i32::<B>(db.variable_tag).unwrap();
+                    script_buffer.write_i32::<B>(var_id).unwrap();
                 }
                 ParserValue::NamedMem(var_name) => {
                     let var_id = if let Some(var_id) = db.get_variable_by_name(var_name.to_string())
@@ -173,32 +139,32 @@ fn assemble_script(program: Vec<BBSFunction>, db: &ScriptConfig) -> Result<Bytes
                         return Err(BBScriptError::NoVariableName(var_name.to_string()));
                     };
 
-                    script_buffer.write_i32::<LE>(db.variable_tag).unwrap();
-                    script_buffer.write_i32::<LE>(var_id).unwrap();
+                    script_buffer.write_i32::<B>(db.variable_tag).unwrap();
+                    script_buffer.write_i32::<B>(var_id).unwrap();
                 }
                 &ParserValue::Val(val) => {
-                    script_buffer.write_i32::<LE>(db.literal_tag).unwrap();
-                    script_buffer.write_i32::<LE>(val).unwrap();
+                    script_buffer.write_i32::<B>(db.literal_tag).unwrap();
+                    script_buffer.write_i32::<B>(val).unwrap();
                 }
                 &ParserValue::BadTag(tag, val) => {
                     log::trace!(
                         "Got bad tag {tag} with value {val} at offset {}",
                         script_buffer.len()
                     );
-                    script_buffer.write_i32::<LE>(tag).unwrap();
-                    script_buffer.write_i32::<LE>(val).unwrap();
+                    script_buffer.write_i32::<B>(tag).unwrap();
+                    script_buffer.write_i32::<B>(val).unwrap();
                 }
             };
         }
         offset = script_buffer.len() as u32;
     }
-    let mut result_vec = Vec::new();
+    let mut result = Vec::new();
 
-    result_vec.append(&mut jump_tables.to_table_bytes());
+    result.write_u32::<B>(jump_entry_count as u32).unwrap();
+    result.append(&mut jump_table_buffer);
+    result.append(&mut script_buffer);
 
-    result_vec.append(&mut script_buffer);
-
-    let result = Bytes::from(result_vec);
+    let result = result;
 
     Ok(result)
 }
