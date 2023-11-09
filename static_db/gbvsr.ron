@@ -1895,7 +1895,9 @@
         ),
         444: (
             size: 36,
-            args: [],
+            args: [
+                String32
+            ],
             codeBlock: NoBlock,
         ),
         445: (
