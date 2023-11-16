@@ -283,6 +283,7 @@ pub struct SizedInstruction {
     #[serde(default)]
     #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
+    #[serde(default)]
     pub code_block: CodeBlock,
     args: SmallVec<[ArgType; 16]>,
     #[serde(default)]
@@ -310,38 +311,13 @@ impl SizedInstruction {
     }
 }
 
-#[derive(Debug, Clone)]
-pub enum GenericInstruction {
-    Sized(u32, SizedInstruction),
-    Unsized(u32, UnsizedInstruction),
-}
-
-impl GenericInstruction {
-    pub fn id(&self) -> u32 {
-        match self {
-            GenericInstruction::Sized(id, _) => *id,
-            GenericInstruction::Unsized(id, _) => *id,
-        }
-    }
-}
-
-impl std::ops::Deref for GenericInstruction {
-    type Target = dyn Instruction;
-
-    fn deref(&self) -> &Self::Target {
-        match self {
-            GenericInstruction::Sized(_, i) => i,
-            GenericInstruction::Unsized(_, i) => i,
-        }
-    }
-}
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct UnsizedInstruction {
     #[serde(default)]
     #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
+    #[serde(default)]
     pub code_block: CodeBlock,
     pub args: SmallVec<[ArgType; 16]>,
     #[serde(default)]
@@ -387,6 +363,32 @@ impl UnsizedInstruction {
         }
 
         args
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum GenericInstruction {
+    Sized(u32, SizedInstruction),
+    Unsized(u32, UnsizedInstruction),
+}
+
+impl GenericInstruction {
+    pub fn id(&self) -> u32 {
+        match self {
+            GenericInstruction::Sized(id, _) => *id,
+            GenericInstruction::Unsized(id, _) => *id,
+        }
+    }
+}
+
+impl std::ops::Deref for GenericInstruction {
+    type Target = dyn Instruction;
+
+    fn deref(&self) -> &Self::Target {
+        match self {
+            GenericInstruction::Sized(_, i) => i,
+            GenericInstruction::Unsized(_, i) => i,
+        }
     }
 }
 
@@ -623,4 +625,10 @@ pub enum CodeBlock {
     BeginJumpEntry,
     End,
     NoBlock,
+}
+
+impl Default for CodeBlock {
+    fn default() -> Self {
+        Self::NoBlock
+    }
 }
