@@ -35,8 +35,8 @@ fn main() {
 #[clap(arg_required_else_help(true), subcommand_required(true))]
 struct MainCli {
     /// Verbose output level, ranges from 0 to 5
-    #[clap(global = true, short, long, parse(from_occurrences))]
-    verbosity: usize,
+    #[clap(global = true, short, long, action = clap::ArgAction::Count)]
+    verbosity: u8,
     /// Specifies a path where <GAME>.ron configs are stored
     #[clap(global = true, short, long, default_value = DB_FOLDER, env = "BBSCRIPT_DB_DIR")]
     custom_db_folder: PathBuf,
@@ -56,19 +56,19 @@ enum SubCmd {
         #[clap(name = "GAME")]
         game: String,
         /// BBScript file to parse into readable format
-        #[clap(name = "INPUT", parse(from_os_str))]
+        #[clap(name = "INPUT")]
         input: PathBuf,
         /// File to write readable script to as output
-        #[clap(name = "OUTPUT", parse(from_os_str))]
+        #[clap(name = "OUTPUT")]
         output: PathBuf,
         /// Enables overwriting the file if a file with the same name as OUTPUT already exists
         #[clap(short, long)]
         overwrite: bool,
         /// Takes a hex offset from the start of the file specifying where the script actually begins
-        #[clap(short, long, parse(try_from_str = parse_hex))]
+        #[arg(short, long, value_parser(parse_hex))]
         start_offset: Option<usize>,
         /// Takes a hex offset from the end of the file specifying where the script actually ends
-        #[clap(short, long, parse(try_from_str = parse_hex))]
+        #[clap(short, long, value_parser(parse_hex))]
         end_offset: Option<usize>,
     },
     /// Rebuilds readable BBScript into BBScript usable by games
@@ -77,10 +77,10 @@ enum SubCmd {
         #[clap(name = "GAME")]
         game: String,
         /// Readable script to use as input
-        #[clap(name = "INPUT", parse(from_os_str))]
+        #[clap(name = "INPUT")]
         input: PathBuf,
         /// File to write rebuilt script to as output
-        #[clap(name = "OUTPUT", parse(from_os_str))]
+        #[clap(name = "OUTPUT")]
         output: PathBuf,
         /// Enables overwriting the file if a file with the same name as OUTPUT already exists
         #[clap(short, long)]
@@ -183,7 +183,7 @@ fn parse_hex(input: &str) -> Result<usize, std::num::ParseIntError> {
 
 /// Get a LevelFilter from -v occurences
 /// `Error` is excluded as the program doesn't call `log::error!()`
-fn log_level_from_verbosity(verbosity: usize) -> log::LevelFilter {
+fn log_level_from_verbosity(verbosity: u8) -> log::LevelFilter {
     use log::LevelFilter::*;
 
     match verbosity {
