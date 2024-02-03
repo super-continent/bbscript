@@ -70,7 +70,7 @@ pub enum InstructionInfo {
 }
 
 pub struct InstructionIter<'a> {
-    data: std::vec::IntoIter<(u32, &'a dyn Instruction)>,
+    data: Box<dyn Iterator<Item = (u32, &'a dyn Instruction)> + 'a>,
 }
 
 impl<'a> Iterator for InstructionIter<'a> {
@@ -84,20 +84,16 @@ impl<'a> Iterator for InstructionIter<'a> {
 impl InstructionInfo {
     /// Creates a generic iterator of type `(u32, &dyn Instruction)`
     /// where the 0 field is the instruction ID
-    pub fn iter_generic(&self) -> InstructionIter {
-        let a: std::vec::IntoIter<(u32, &dyn Instruction)> = match self {
-            InstructionInfo::Sized(ref map) => map
-                .iter()
-                .map(|(k, v)| (*k, v as &dyn Instruction))
-                .collect::<Vec<(u32, &dyn Instruction)>>()
-                .into_iter(),
-            InstructionInfo::Unsized(ref map) => map
-                .iter()
-                .map(|(k, v)| (*k, v as &dyn Instruction))
-                .collect::<Vec<(u32, &dyn Instruction)>>()
-                .into_iter(),
+    pub fn iter_generic<'a>(&'a self) -> InstructionIter<'a> {
+        let iter: Box<dyn Iterator<Item = (u32, &'a dyn Instruction)>> = match self {
+            InstructionInfo::Sized(ref map) => {
+                Box::new(map.iter().map(|(k, v)| (*k, v as &dyn Instruction)))
+            }
+            InstructionInfo::Unsized(ref map) => {
+                Box::new(map.iter().map(|(k, v)| (*k, v as &dyn Instruction)))
+            }
         };
-        InstructionIter { data: a }
+        InstructionIter { data: iter }
     }
 }
 
