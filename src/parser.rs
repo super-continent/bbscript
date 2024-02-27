@@ -47,14 +47,14 @@ fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> Result<String, BBScri
             config
                 .named_variables
                 .get_by_left(val)
-                .unwrap_or(&format!("{val}"))
+                .unwrap_or(&val.to_string())
         )),
         ArgValue::AccessedValue(_tagged @ TaggedValue::Literal(val)) => Ok(format!("Val({val})")),
         ArgValue::Enum(name, val) => match config.named_value_maps.get(name) {
             Some(map) => map
                 .get_by_left(val)
                 .map_or(Ok(format!("{val}")), |name| Ok(format!("({name})"))),
-            None => return Err(BBScriptError::BadEnumReference(name.clone())),
+            None => Err(BBScriptError::BadEnumReference(name.clone())),
         },
     }
 }
@@ -136,13 +136,13 @@ impl ScriptConfig {
 
         log::debug!("jump table size: {jump_table_size}");
 
-        if jump_table_size as usize >= input.len() {
+        if jump_table_size >= input.len() {
             return Err(BBScriptError::IncorrectJumpTableSize(
                 jump_table_size.to_string(),
             ));
         }
 
-        input.advance(jump_table_size as usize);
+        input.advance(jump_table_size);
 
         // parse the actual scripts
         self.parse_script::<B>(input)
@@ -305,5 +305,5 @@ fn process_string_buf(buf: &[u8]) -> String {
         .filter(|x| **x != 0)
         .map(|x| *x as char)
         .collect::<String>()
-        .replace(r"'", r"\'")
+        .replace('\'', r"\'")
 }

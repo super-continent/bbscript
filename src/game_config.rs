@@ -249,21 +249,15 @@ impl ScriptConfig {
     pub fn get_enum_value(&self, enum_name: String, variant: String) -> Option<BBSNumber> {
         self.named_value_maps
             .get(&enum_name)
-            .map(|e| e.get_by_right(&variant).map(|v| *v))
-            .flatten()
+            .and_then(|e| e.get_by_right(&variant).copied())
     }
 
     pub fn get_variable_by_name(&self, variable_name: String) -> Option<BBSNumber> {
-        self.named_variables
-            .get_by_right(&variable_name)
-            .map(|x| *x)
+        self.named_variables.get_by_right(&variable_name).copied()
     }
 
     pub fn is_unsized(&self) -> bool {
-        match self.instructions {
-            InstructionInfo::Unsized(_) => true,
-            _ => false,
-        }
+        matches!(self.instructions, InstructionInfo::Unsized(_))
     }
 
     /// Returns `true` if this instruction ID is one that should be included in the jump table
@@ -501,7 +495,7 @@ where
     let ordered: std::collections::BTreeMap<_, _> = value
         .iter()
         .map(|(x, y)| {
-            let sorted = bimap::BiBTreeMap::from_iter(y.into_iter());
+            let sorted = bimap::BiBTreeMap::from_iter(y);
             (x, sorted)
         })
         .collect();

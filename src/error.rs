@@ -33,7 +33,7 @@ pub enum BBScriptError {
     #[error(transparent)]
     IoError(#[from] std::io::Error),
     #[error(transparent)]
-    PestConsumeError(#[from] pest_consume::Error<crate::rebuilder::Rule>),
+    PestConsumeError(#[from] Box<pest_consume::Error<crate::rebuilder::Rule>>),
     #[error(transparent)]
     FormatError(#[from] std::fmt::Error),
 }

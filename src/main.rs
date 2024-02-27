@@ -228,7 +228,7 @@ fn run_parser(
     match result {
         Ok(f) => {
             let mut output = File::create(out_path)?;
-            output.write_all(&f.as_bytes())?;
+            output.write_all(f.as_bytes())?;
         }
         Err(e) => return Err(e.into()),
     }

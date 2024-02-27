@@ -15,11 +15,12 @@ pub fn rebuild_bbscript<B: ByteOrder>(
     db: ScriptConfig,
     script: String,
 ) -> Result<Vec<u8>, BBScriptError> {
-    let parsed = BBSParser::parse(Rule::program, &script)?;
-    let root = parsed.single()?;
+    let root = BBSParser::parse(Rule::program, &script)
+        .and_then(|p| p.single())
+        .map_err(Box::new)?;
 
     // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
-    let program = BBSParser::program(root)?;
+    let program = BBSParser::program(root).map_err(Box::new)?;
 
     let file = assemble_script::<B>(program, &db)?;
 
@@ -69,7 +70,7 @@ fn assemble_script<B: ByteOrder>(
                 return Err(BBScriptError::IncorrectFunctionSize(
                     instruction.name.to_string(),
                     instruction.total_size(),
-                    instruction_size as usize,
+                    instruction_size,
                 ));
             }
         }
