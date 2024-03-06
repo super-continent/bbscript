@@ -14406,14 +14406,14 @@
             size: 8,
             name: "moveCameraBasePosObject",
             args: [
-                (OBJECT_ID),
+                Enum("OBJECT_ID"),
             ],
         ),
         2530: (
             size: 8,
             name: "moveCameraTargetPosObject",
             args: [
-                (OBJECT_ID),
+                Enum("OBJECT_ID"),
             ],
         ),
         2531: (
