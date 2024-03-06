@@ -124,8 +124,7 @@ fn run() -> AResult<()> {
                 game,
                 input,
                 output,
-                start_offset,
-                end_offset,
+                (start_offset, end_offset),
                 args.custom_db_folder,
                 args.big_endian,
                 indent_limit,
@@ -203,8 +202,7 @@ fn run_parser(
     game: String,
     in_path: PathBuf,
     out_path: PathBuf,
-    start_offset: Option<usize>,
-    end_offset: Option<usize>,
+    byte_range: (Option<usize>, Option<usize>),
     db_folder: PathBuf,
     big_endian: bool,
     indent_limit: usize,
@@ -222,7 +220,7 @@ fn run_parser(
     let file_length = in_bytes.len();
 
     let in_bytes =
-        in_bytes[start_offset.unwrap_or(0)..(file_length - end_offset.unwrap_or(0))].to_owned();
+        in_bytes[byte_range.0.unwrap_or(0)..(file_length - byte_range.1.unwrap_or(0))].to_owned();
 
     let result = if big_endian {
         db.parse_to_string::<byteorder::BigEndian>(in_bytes, indent_limit)
