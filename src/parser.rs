@@ -11,7 +11,6 @@ use crate::game_config::{
 use crate::BBScriptError;
 use crate::HashMap;
 
-const INDENT_LIMIT: usize = 12;
 const INDENT_SPACES: usize = 2;
 
 #[derive(Debug, Clone)]
