@@ -23,3 +23,6 @@ colored = "2.0"
 log = "0.4"
 anyhow = "1.0"
 simple_logger = "4.3"
+
+[dev-dependencies]
+walkdir = "2"

@@ -513,6 +513,31 @@ where
     ordered.serialize(serializer)
 }
 
+#[cfg(test)]
+mod test {
+    use crate::game_config::ScriptConfig;
+    use walkdir::WalkDir;
+
+    #[test]
+    fn deserialize_configs() {
+        for entry in WalkDir::new("./static_db")
+            .into_iter()
+            .filter_map(|e| e.ok())
+        {
+            let entry_path = entry.path();
+
+            if entry_path.is_file() && entry_path.extension().unwrap() == "ron" {
+                let config = ScriptConfig::load(entry_path);
+
+                if let Err(e) = config {
+                    let file_name = entry.file_name().to_string_lossy();
+                    panic!("Error deserializing config {file_name}: {e}");
+                }
+            }
+        }
+    }
+}
+
 #[cfg(feature = "old-cfg-converter")]
 #[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
