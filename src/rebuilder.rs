@@ -19,7 +19,7 @@ pub fn rebuild_bbscript<B: ByteOrder>(
         .and_then(|p| p.single())
         .map_err(Box::new)?;
 
-    // verbose!(println!("Parsed program:\n{:#?}", &root), verbose);
+    log::trace!("Parsed program AST:\n{:#?}", &root);
     let program = BBSParser::program(root).map_err(Box::new)?;
 
     let file = assemble_script::<B>(program, &db)?;
