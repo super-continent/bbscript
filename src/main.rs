@@ -70,6 +70,8 @@ enum SubCmd {
         /// Takes a hex offset from the end of the file specifying where the script actually ends
         #[clap(short, long, value_parser(parse_hex))]
         end_offset: Option<usize>,
+        #[arg(short, long, default_value_t = 12)]
+        indent_limit: usize,
     },
     /// Rebuilds readable BBScript into BBScript usable by games
     Rebuild {
@@ -115,6 +117,7 @@ fn run() -> AResult<()> {
             overwrite,
             start_offset,
             end_offset,
+            indent_limit,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
             run_parser(
@@ -125,6 +128,7 @@ fn run() -> AResult<()> {
                 end_offset,
                 args.custom_db_folder,
                 args.big_endian,
+                indent_limit,
             )?;
         }
         SubCmd::Rebuild {
@@ -203,6 +207,7 @@ fn run_parser(
     end_offset: Option<usize>,
     db_folder: PathBuf,
     big_endian: bool,
+    indent_limit: usize,
 ) -> AResult<()> {
     log::info!("Extracting script info from `{}.ron`...", game);
 
@@ -220,9 +225,9 @@ fn run_parser(
         in_bytes[start_offset.unwrap_or(0)..(file_length - end_offset.unwrap_or(0))].to_owned();
 
     let result = if big_endian {
-        db.parse_to_string::<byteorder::BigEndian>(in_bytes)
+        db.parse_to_string::<byteorder::BigEndian>(in_bytes, indent_limit)
     } else {
-        db.parse_to_string::<byteorder::LittleEndian>(in_bytes)
+        db.parse_to_string::<byteorder::LittleEndian>(in_bytes, indent_limit)
     };
 
     match result {

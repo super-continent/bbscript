@@ -63,6 +63,7 @@ impl ScriptConfig {
     pub fn parse_to_string<B: ByteOrder>(
         &self,
         input: impl AsRef<[u8]>,
+        indent_limit: usize,
     ) -> Result<String, BBScriptError> {
         let program = self.parse::<B>(input.as_ref())?;
         let mut out = String::new();
@@ -74,7 +75,7 @@ impl ScriptConfig {
             out.write_fmt(format_args!(
                 "{:indent$}",
                 "",
-                indent = (indent.clamp(0, INDENT_LIMIT) * (INDENT_SPACES))
+                indent = (indent.clamp(0, indent_limit) * (INDENT_SPACES))
             ))?;
 
             let instruction_name = if let Some(name) = instruction.name {
