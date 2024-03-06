@@ -15,7 +15,7 @@ const INDENT_SPACES: usize = 2;
 
 #[derive(Debug, Clone)]
 pub enum ArgValue {
-    Unknown(SmallVec<[u8; 128]>),
+    Unknown(SmallVec<[u8; 16]>),
     Number(BBSNumber),
     String16(String),
     String32(String),
