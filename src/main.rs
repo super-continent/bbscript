@@ -4,7 +4,7 @@ mod parser;
 mod rebuilder;
 
 use anyhow::Result as AResult;
-use clap::{crate_version, Parser, Subcommand};
+use clap::{crate_version, Args, Parser, Subcommand, ValueEnum};
 use game_config::ScriptConfig;
 
 extern crate pest_derive;
@@ -20,7 +20,52 @@ use crate::rebuilder::rebuild_bbscript;
 
 type HashMap<K, V> = std::collections::HashMap<K, V>;
 
-const DB_FOLDER: &str = "static_db";
+const BBCF_CONFIG: &str = include_str!("../static_db/bbcf.ron");
+const DBFZ_CONFIG: &str = include_str!("../static_db/dbfz.ron");
+const DNF_CONFIG: &str = include_str!("../static_db/dnf.ron");
+const GBVS_CONFIG: &str = include_str!("../static_db/gbvs.ron");
+const GBVSR_CONFIG: &str = include_str!("../static_db/gbvsr.ron");
+const GGREV2_CONFIG: &str = include_str!("../static_db/ggrev2.ron");
+const GGST_CONFIG: &str = include_str!("../static_db/ggst.ron");
+const P4U2_CONFIG: &str = include_str!("../static_db/p4u2.ron");
+
+#[derive(Debug, Clone, Copy, ValueEnum)]
+enum SupportedGame {
+    /// Blazblue: Centralfiction
+    Bbcf,
+    /// Dragon Ball FighterZ
+    Dbfz,
+    /// DNF Duel
+    Dnf,
+    /// Granblue Fantasy Versus
+    Gbvs,
+    /// Granblue Fantasy Versus: Rising
+    Gbvsr,
+    /// Guilty Gear Xrd Rev2
+    Ggrev2,
+    /// Guilty Gear Strive
+    Ggst,
+    /// Persona 4 Arena Ultimax
+    P4u2,
+}
+
+impl SupportedGame {
+    pub fn into_config(self) -> ScriptConfig {
+        let result = match self {
+            SupportedGame::Bbcf => ScriptConfig::new(BBCF_CONFIG.as_bytes()),
+            SupportedGame::Dbfz => ScriptConfig::new(DBFZ_CONFIG.as_bytes()),
+            SupportedGame::Dnf => ScriptConfig::new(DNF_CONFIG.as_bytes()),
+            SupportedGame::Gbvs => ScriptConfig::new(GBVS_CONFIG.as_bytes()),
+            SupportedGame::Gbvsr => ScriptConfig::new(GBVSR_CONFIG.as_bytes()),
+            SupportedGame::Ggrev2 => ScriptConfig::new(GGREV2_CONFIG.as_bytes()),
+            SupportedGame::Ggst => ScriptConfig::new(GGST_CONFIG.as_bytes()),
+            SupportedGame::P4u2 => ScriptConfig::new(P4U2_CONFIG.as_bytes()),
+        };
+
+        // all embedded configs should parse correctly so this should be infallible
+        result.unwrap()
+    }
+}
 
 fn main() {
     if let Err(e) = run() {
@@ -37,14 +82,22 @@ struct MainCli {
     /// Verbose output level, ranges from 0 to 5
     #[clap(global = true, short, long, action = clap::ArgAction::Count)]
     verbosity: u8,
-    /// Specifies a path where <GAME>.ron configs are stored
-    #[clap(global = true, short, long, default_value = DB_FOLDER, env = "BBSCRIPT_DB_DIR")]
-    custom_db_folder: PathBuf,
     /// Enables reading all numbers in big-endian format, used by PS3 games
     #[clap(global = true, short, long)]
     big_endian: bool,
     #[clap(subcommand)]
     command: SubCmd,
+}
+
+#[derive(Args, Debug, Clone)]
+#[group(required = true, multiple = false)]
+struct ConfigArgs {
+    /// A game supported by BBScript internally
+    #[arg(short, long, group = "game-config")]
+    game: Option<SupportedGame>,
+    /// A custom config file stored externally
+    #[arg(short, long, group = "game-config")]
+    config_file: Option<PathBuf>,
 }
 
 /// Parses BBScript into an easily moddable format that can be rebuilt into usable BBScript
@@ -53,8 +106,8 @@ enum SubCmd {
     /// Parses BBScript files and outputs them to a readable format
     Parse {
         /// File name of a config within the game DB folder
-        #[clap(name = "GAME")]
-        game: String,
+        #[clap(name = "GAME", flatten)]
+        game: ConfigArgs,
         /// BBScript file to parse into readable format
         #[clap(name = "INPUT")]
         input: PathBuf,
@@ -76,26 +129,16 @@ enum SubCmd {
     /// Rebuilds readable BBScript into BBScript usable by games
     Rebuild {
         /// File name of a config within the game DB folder
-        #[clap(name = "GAME")]
-        game: String,
+        #[clap(flatten)]
+        game: ConfigArgs,
         /// Readable script to use as input
-        #[clap(name = "INPUT")]
+        #[arg(name = "INPUT")]
         input: PathBuf,
         /// File to write rebuilt script to as output
-        #[clap(name = "OUTPUT")]
+        #[arg(name = "OUTPUT")]
         output: PathBuf,
         /// Enables overwriting the file if a file with the same name as OUTPUT already exists
-        #[clap(short, long)]
-        overwrite: bool,
-    },
-    /// Convert old configs from past BBScript versions into the newer (>v1.0.0) format
-    #[cfg(feature = "old-cfg-converter")]
-    Convert {
-        #[clap(name = "GAME")]
-        game: String,
-        #[clap(name = "OUTPUT")]
-        output: PathBuf,
-        #[clap(short, long)]
+        #[arg(short, long)]
         overwrite: bool,
     },
 }
@@ -120,12 +163,12 @@ fn run() -> AResult<()> {
             indent_limit,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
+            let game = get_config(game)?;
             run_parser(
                 game,
                 input,
                 output,
                 (start_offset, end_offset),
-                args.custom_db_folder,
                 args.big_endian,
                 indent_limit,
             )?;
@@ -137,15 +180,8 @@ fn run() -> AResult<()> {
             overwrite,
         } => {
             confirm_io_files(&input, &output, overwrite)?;
-            run_rebuilder(game, input, output, args.custom_db_folder, args.big_endian)?;
-        }
-        #[cfg(feature = "old-cfg-converter")]
-        SubCmd::Convert {
-            game,
-            output,
-            overwrite,
-        } => {
-            run_converter(game, output, overwrite)?;
+            let game = get_config(game)?;
+            run_rebuilder(game, input, output, args.big_endian)?;
         }
     }
     Ok(())
@@ -166,6 +202,14 @@ fn confirm_io_files(
         }
     } else {
         Err(BBScriptError::BadInputFile(input.to_string_lossy().into()))
+    }
+}
+
+fn get_config(config_args: ConfigArgs) -> AResult<ScriptConfig> {
+    match (config_args.game, config_args.config_file) {
+        (Some(game), None) => Ok(game.into_config()),
+        (None, Some(path)) => Ok(ScriptConfig::load(path)?),
+        _ => panic!("this should never happen")
     }
 }
 
@@ -199,20 +243,14 @@ fn log_level_from_verbosity(verbosity: u8) -> log::LevelFilter {
 }
 
 fn run_parser(
-    game: String,
+    game: ScriptConfig,
     in_path: PathBuf,
     out_path: PathBuf,
     byte_range: (Option<usize>, Option<usize>),
-    db_folder: PathBuf,
     big_endian: bool,
     indent_limit: usize,
 ) -> AResult<()> {
-    log::info!("Extracting script info from `{}.ron`...", game);
-
-    let mut ron_path = db_folder.join(game);
-    ron_path.set_extension("ron");
-
-    let db = ScriptConfig::load(ron_path)?;
+    let db = game;
 
     let in_file = load_file(in_path)?;
 
@@ -240,18 +278,12 @@ fn run_parser(
 }
 
 fn run_rebuilder(
-    game: String,
+    game: ScriptConfig,
     input: PathBuf,
     output: PathBuf,
-    db_folder: PathBuf,
     big_endian: bool,
 ) -> AResult<()> {
-    log::info!("Extracting script info from `{}.ron`...", game);
-
-    let mut ron_path = db_folder.join(game);
-    ron_path.set_extension("ron");
-
-    let db = ScriptConfig::load(ron_path)?;
+    let db = game;
 
     let mut script = String::new();
     File::open(input)?.read_to_string(&mut script)?;
@@ -269,21 +301,5 @@ fn run_rebuilder(
         }
         Err(e) => return Err(e.into()),
     }
-    Ok(())
-}
-
-#[cfg(feature = "old-cfg-converter")]
-fn run_converter(game: String, out: PathBuf, overwrite: bool) -> AResult<()> {
-    let mut ron_path = PathBuf::from(DB_FOLDER).join(game);
-    ron_path.set_extension("ron");
-
-    confirm_io_files(&ron_path, &out, overwrite)?;
-
-    let new_db: ScriptConfig = GameDB::load(ron_path)?.into();
-
-    let string = ron::ser::to_string_pretty(&new_db, ron::ser::PrettyConfig::new())?;
-
-    File::create(out)?.write_all(string.as_bytes())?;
-
     Ok(())
 }

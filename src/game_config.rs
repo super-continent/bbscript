@@ -165,10 +165,10 @@ pub struct ScriptConfig {
 
 impl ScriptConfig {
     #[inline]
-    pub fn new<T: Read>(db_config: T) -> Result<Self, BBScriptError> {
+    pub fn new<T: Read>(config: T) -> Result<Self, BBScriptError> {
         use std::collections::HashSet;
         let config: Self =
-            de::from_reader(db_config).map_err(|e| BBScriptError::ConfigInvalid(e.to_string()))?;
+            de::from_reader(config).map_err(|e| BBScriptError::ConfigInvalid(e.to_string()))?;
 
         // initial sanity checks for the config
 
