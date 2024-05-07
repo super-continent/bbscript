@@ -1,24 +1,26 @@
 use byteorder::{ByteOrder, ReadBytesExt};
 use bytes::Buf;
+use serde::Serialize;
 use smallvec::SmallVec;
 
 use std::fmt::Write;
 use std::io::Cursor;
 
 use crate::game_config::{
-    ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, TaggedValue, UnsizedInstruction,
+    ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, SizedString, TaggedValue,
+    UnsizedInstruction,
 };
 use crate::BBScriptError;
 use crate::HashMap;
 
 const INDENT_SPACES: usize = 2;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub enum ArgValue {
     Unknown(SmallVec<[u8; 16]>),
     Number(BBSNumber),
-    String16(String),
-    String32(String),
+    String16(SizedString<16>),
+    String32(SizedString<32>),
     AccessedValue(TaggedValue),
     Enum(String, BBSNumber),
 }
@@ -269,13 +271,13 @@ impl ScriptConfig {
                 let mut buf = [0; ArgType::STRING16_SIZE];
                 input.copy_to_slice(&mut buf);
 
-                ArgValue::String16(process_string_buf(&buf))
+                ArgValue::String16(SizedString(process_string_buf(&buf)))
             }
             ArgType::String32 => {
                 let mut buf = [0; ArgType::STRING32_SIZE];
                 input.copy_to_slice(&mut buf);
 
-                ArgValue::String32(process_string_buf(&buf))
+                ArgValue::String32(SizedString(process_string_buf(&buf)))
             }
             ArgType::Number => ArgValue::Number(input.read_i32::<B>().unwrap()),
             ArgType::Enum(s) => ArgValue::Enum(s.clone(), input.read_i32::<B>().unwrap()),

@@ -2,11 +2,10 @@ use std::io::Write;
 
 use crate::{
     error::BBScriptError,
-    game_config::{ArgType, GenericInstruction, ScriptConfig, UnsizedInstruction},
+    game_config::{ArgType, GenericInstruction, ScriptConfig, SizedString, UnsizedInstruction},
 };
 
 use byteorder::{ByteOrder, WriteBytesExt};
-use bytes::{Bytes, BytesMut};
 use pest_consume::{match_nodes, Parser};
 
 pub fn rebuild_bbscript<B: ByteOrder>(
@@ -89,7 +88,7 @@ fn assemble_script<B: ByteOrder>(
                 // this check deduplicates jump table entries
                 // if previous_jump_entries.insert(name.clone())
 
-                jump_table_buffer.write_all(name).unwrap();
+                jump_table_buffer.write_all(&name.to_vec()).unwrap();
                 jump_table_buffer.write_u32::<B>(offset).unwrap();
                 jump_entry_count += 1;
             }
@@ -104,7 +103,10 @@ fn assemble_script<B: ByteOrder>(
             );
 
             match arg {
-                ParserValue::String32(string) | ParserValue::String16(string) => {
+                ParserValue::String32(string) => {
+                    script_buffer.append(&mut string.to_vec())
+                },
+                ParserValue::String16(string) => {
                     script_buffer.append(&mut string.to_vec())
                 }
                 ParserValue::Raw(data) => script_buffer.append(&mut data.to_vec()),
@@ -200,11 +202,11 @@ impl BBSFunction {
 
 #[derive(Debug)]
 enum ParserValue {
-    String32(Bytes),
-    String16(Bytes),
+    String32(SizedString<32>),
+    String16(SizedString<16>),
     Named(String),
     Number(i32),
-    Raw(Bytes),
+    Raw(Vec<u8>),
     NamedMem(String),
     Mem(i32),
     Val(i32),
@@ -283,12 +285,12 @@ impl BBSParser {
         ))
     }
 
-    fn string32(input: Node) -> PResult<Bytes> {
-        Ok(string_to_bytes_of_size(input.as_str(), 32))
+    fn string32(input: Node) -> PResult<SizedString<32>> {
+        Ok(SizedString(unescaped(input.to_string())))
     }
 
-    fn string16(input: Node) -> PResult<Bytes> {
-        Ok(string_to_bytes_of_size(input.as_str(), 16))
+    fn string16(input: Node) -> PResult<SizedString<16>> {
+        Ok(SizedString(unescaped(input.to_string())))
     }
 
     fn named_var(input: Node) -> PResult<String> {
@@ -320,9 +322,9 @@ impl BBSParser {
         }
     }
 
-    fn raw_data(input: Node) -> PResult<Bytes> {
+    fn raw_data(input: Node) -> PResult<Vec<u8>> {
         match hex::decode(input.as_str()) {
-            Ok(data) => Ok(Bytes::from(data)),
+            Ok(data) => Ok(data),
             Err(e) => Err(input.error(e)),
         }
     }
@@ -333,15 +335,6 @@ impl BBSParser {
             Err(e) => Err(input.error(e)),
         }
     }
-}
-
-fn string_to_bytes_of_size<T: AsRef<str>>(input: T, size: usize) -> Bytes {
-    let processed_string = unescaped(input);
-
-    let mut string_bytes = BytesMut::from(processed_string.as_str());
-    string_bytes.resize(size, 0x0);
-
-    string_bytes.freeze()
 }
 
 fn unescaped<T: AsRef<str>>(string: T) -> String {

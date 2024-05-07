@@ -11,6 +11,27 @@ use std::path::Path;
 
 pub type BBSNumber = i32;
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SizedString<const N: usize>(pub String);
+
+impl<const N: usize> std::fmt::Display for SizedString<N> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+impl<const N: usize> SizedString<N> {
+    pub fn to_vec(&self) -> Vec<u8> {
+        let mut result = self.0.clone().into_bytes();
+        
+        // resize buffer and ensure the last byte is 0
+        result.resize(N, 0);
+        result[N-1] = 0;
+
+        result
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub enum ArgType {
     /// Unknown argument data.
@@ -50,7 +71,7 @@ impl ArgType {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum TaggedValue {
     Literal(BBSNumber),
     Variable(BBSNumber),
