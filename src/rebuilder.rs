@@ -286,11 +286,11 @@ impl BBSParser {
     }
 
     fn string32(input: Node) -> PResult<SizedString<32>> {
-        Ok(SizedString(unescaped(input.to_string())))
+        Ok(SizedString(unescaped(input.as_str())))
     }
 
     fn string16(input: Node) -> PResult<SizedString<16>> {
-        Ok(SizedString(unescaped(input.to_string())))
+        Ok(SizedString(unescaped(input.as_str())))
     }
 
     fn named_var(input: Node) -> PResult<String> {
