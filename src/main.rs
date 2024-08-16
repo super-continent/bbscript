@@ -141,6 +141,21 @@ enum SubCmd {
         #[arg(short, long)]
         overwrite: bool,
     },
+    /// Parse a script to machine-readable JSON
+    ParseJson {
+        /// File name of a config within the game DB folder
+        #[clap(name = "GAME", flatten)]
+        game: ConfigArgs,
+        /// BBScript file to parse into readable format
+        #[clap(name = "INPUT")]
+        input: PathBuf,
+        /// File to write readable script to as output
+        #[clap(name = "OUTPUT")]
+        output: PathBuf,
+        /// Enables overwriting the file if a file with the same name as OUTPUT already exists
+        #[clap(short, long)]
+        overwrite: bool,
+    },
 }
 
 fn run() -> AResult<()> {
@@ -183,6 +198,16 @@ fn run() -> AResult<()> {
             let game = get_config(game)?;
             run_rebuilder(game, input, output, args.big_endian)?;
         }
+        SubCmd::ParseJson {
+            game,
+            input,
+            output,
+            overwrite,
+        } => {
+            confirm_io_files(&input, &output, overwrite)?;
+            let game = get_config(game)?;
+            run_structured_parser(game, input, output, args.big_endian)?;
+        }
     }
     Ok(())
 }
@@ -209,7 +234,7 @@ fn get_config(config_args: ConfigArgs) -> AResult<ScriptConfig> {
     match (config_args.game, config_args.config_file) {
         (Some(game), None) => Ok(game.into_config()),
         (None, Some(path)) => Ok(ScriptConfig::load(path)?),
-        _ => panic!("this should never happen")
+        _ => panic!("this should never happen"),
     }
 }
 
@@ -301,5 +326,29 @@ fn run_rebuilder(
         }
         Err(e) => return Err(e.into()),
     }
+    Ok(())
+}
+
+fn run_structured_parser(
+    game: ScriptConfig,
+    in_path: PathBuf,
+    out_path: PathBuf,
+    big_endian: bool,
+) -> AResult<()> {
+    let db = game;
+
+    let in_bytes = load_file(in_path)?;
+
+    let result = if big_endian {
+        db.parse::<byteorder::BigEndian>(in_bytes)
+    } else {
+        db.parse::<byteorder::LittleEndian>(in_bytes)
+    }?;
+
+    let mut output = File::create(out_path)?;
+
+    let f = serde_json::to_string_pretty(&result)?;
+    output.write_all(f.as_bytes())?;
+
     Ok(())
 }

@@ -1,21 +1,21 @@
 use byteorder::{ByteOrder, ReadBytesExt};
 use bytes::Buf;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use smallvec::SmallVec;
 
 use std::fmt::Write;
 use std::io::Cursor;
 
 use crate::game_config::{
-    ArgType, BBSNumber, CodeBlock, ScriptConfig, SizedInstruction, SizedString, TaggedValue,
-    UnsizedInstruction,
+    ArgType, BBSNumber, CodeBlock, Instruction, ScriptConfig, SizedInstruction, SizedString,
+    TaggedValue, UnsizedInstruction,
 };
 use crate::BBScriptError;
 use crate::HashMap;
 
 const INDENT_SPACES: usize = 2;
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ArgValue {
     Unknown(SmallVec<[u8; 16]>),
     Number(BBSNumber),
@@ -25,12 +25,16 @@ pub enum ArgValue {
     Enum(String, BBSNumber),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum InstructionIdentifier {
+    Name(String),
+    Id(u32),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstructionValue {
-    pub id: u32,
-    pub name: Option<String>,
-    pub args: SmallVec<[ArgValue; 16]>,
-    pub code_block: CodeBlock,
+    pub identifier: InstructionIdentifier,
+    pub args: SmallVec<[ArgValue; 8]>,
 }
 
 fn arg_to_string(config: &ScriptConfig, arg: &ArgValue) -> Result<String, BBScriptError> {
@@ -72,6 +76,15 @@ impl ScriptConfig {
         let mut indent = 0;
         let mut block_ended = false;
         for instruction in program {
+            let instruction_info = match instruction.identifier {
+                InstructionIdentifier::Name(name) => self
+                    .get_by_name(&name)
+                    .ok_or(BBScriptError::UnknownInstructionName(name)),
+                InstructionIdentifier::Id(id) => self
+                    .get_by_id(id)
+                    .ok_or(BBScriptError::UnknownInstructionID(id)),
+            }?;
+
             // indent the text
             out.write_fmt(format_args!(
                 "{:indent$}",
@@ -79,10 +92,10 @@ impl ScriptConfig {
                 indent = (indent.clamp(0, indent_limit) * (INDENT_SPACES))
             ))?;
 
-            let instruction_name = if let Some(name) = instruction.name {
+            let instruction_name = if let Some(name) = instruction_info.name() {
                 name
             } else {
-                format!("Unknown{}", instruction.id)
+                format!("Unknown{}", instruction_info.id())
             };
 
             out.write_fmt(format_args!("{}: ", instruction_name))?;
@@ -98,7 +111,7 @@ impl ScriptConfig {
 
             out.write_char('\n')?;
 
-            match instruction.code_block {
+            match instruction_info.block_type() {
                 CodeBlock::Begin => indent += 1,
                 CodeBlock::End => {
                     if indent > 0 {
@@ -184,16 +197,14 @@ impl ScriptConfig {
     ) -> Result<InstructionValue, BBScriptError> {
         let instruction_id = input.read_u32::<B>()?;
 
-        let instruction = if let Some(instruction) = id_map.get(&instruction_id) {
-            instruction
-        } else {
-            return Err(BBScriptError::UnknownInstructionID(instruction_id));
-        };
+        let instruction = id_map
+            .get(&instruction_id)
+            .ok_or(BBScriptError::UnknownInstructionID(instruction_id))?;
 
-        let instruction_name = if instruction.name.is_empty() {
-            None
+        let instruction_identifier = if let Some(name) = instruction.name() {
+            InstructionIdentifier::Name(name)
         } else {
-            Some(instruction.name.clone())
+            InstructionIdentifier::Id(instruction_id)
         };
 
         let args = instruction
@@ -203,11 +214,10 @@ impl ScriptConfig {
             .collect();
 
         let instruction = InstructionValue {
-            id: instruction_id,
-            name: instruction_name,
+            identifier: instruction_identifier,
             args,
-            code_block: instruction.code_block,
         };
+
         log::trace!("instruction: {:#?}", instruction);
 
         Ok(instruction)
@@ -234,10 +244,10 @@ impl ScriptConfig {
             UnsizedInstruction::new()
         };
 
-        let instruction_name = if instruction.name.is_empty() {
-            None
+        let instruction_identifier = if let Some(name) = instruction.name() {
+            InstructionIdentifier::Name(name)
         } else {
-            Some(instruction.name.clone())
+            InstructionIdentifier::Id(instruction_id)
         };
 
         let args = instruction
@@ -247,10 +257,8 @@ impl ScriptConfig {
             .collect();
 
         let instruction = InstructionValue {
-            id: instruction_id,
-            name: instruction_name,
+            identifier: instruction_identifier,
             args,
-            code_block: instruction.code_block,
         };
         log::trace!("instruction: {:#?}", instruction);
 
