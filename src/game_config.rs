@@ -660,6 +660,7 @@ pub enum CodeBlock {
     BeginJumpEntry,
     End,
     NoBlock,
+    BeginNonrecursive,
 }
 
 impl Default for CodeBlock {

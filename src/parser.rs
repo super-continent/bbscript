@@ -73,6 +73,8 @@ impl ScriptConfig {
         let program = self.parse::<B>(input.as_ref())?;
         let mut out = String::new();
 
+        let mut last_block_type: Option<String> = None;
+        let mut last_block_type_valid = false;
         let mut indent = 0;
         let mut block_ended = false;
         for instruction in program {
@@ -84,6 +86,25 @@ impl ScriptConfig {
                     .get_by_id(id)
                     .ok_or(BBScriptError::UnknownInstructionID(id)),
             }?;
+
+            match instruction_info.block_type() {
+                CodeBlock::BeginNonrecursive => {
+                    if last_block_type_valid && last_block_type == instruction_info.name() && indent > 0 {
+                        indent -= 1;
+                        last_block_type_valid = false;
+                    }
+                },
+                CodeBlock::End => {
+                    if indent > 0 {
+                        last_block_type_valid = false;
+                        indent -= 1;
+                        if indent == 0 {
+                            block_ended = true;
+                        }
+                    }
+                }
+                _ => {}
+            }
 
             // indent the text
             out.write_fmt(format_args!(
@@ -112,15 +133,11 @@ impl ScriptConfig {
             out.write_char('\n')?;
 
             match instruction_info.block_type() {
-                CodeBlock::Begin => indent += 1,
-                CodeBlock::End => {
-                    if indent > 0 {
-                        indent -= 1;
-                        if indent == 0 {
-                            block_ended = true;
-                        }
-                    }
-                }
+                CodeBlock::BeginNonrecursive | CodeBlock::Begin => {
+                    indent += 1;
+                    last_block_type = instruction_info.name();
+                    last_block_type_valid = true;
+                },
                 _ => {}
             }
 
