@@ -1,4 +1,4 @@
-use std::io::Write;
+use std::{collections::HashSet, io::Write};
 
 use crate::{
     error::BBScriptError,
@@ -33,7 +33,7 @@ fn assemble_script<B: ByteOrder>(
     let mut script_buffer: Vec<u8> = Vec::new();
 
     // TODO: figure out behavior around eliminating duplicate state jump entries
-    // let mut previous_jump_entries = std::collections::HashSet::new();
+    let mut previous_jump_entries = std::collections::HashSet::new();
 
     let mut jump_entry_count = 0;
     let mut jump_table_buffer: Vec<u8> = Vec::new();
@@ -86,11 +86,11 @@ fn assemble_script<B: ByteOrder>(
         if db.is_jump_entry_id(instruction_info.id()) {
             if let Some(ParserValue::String32(name)) = instruction.args.get(0) {
                 // this check deduplicates jump table entries
-                // if previous_jump_entries.insert(name.clone())
-
-                jump_table_buffer.write_all(&name.to_vec()).unwrap();
-                jump_table_buffer.write_u32::<B>(offset).unwrap();
-                jump_entry_count += 1;
+                if previous_jump_entries.insert(name.0.clone()) {
+                    jump_table_buffer.write_all(&name.to_vec()).unwrap();
+                    jump_table_buffer.write_u32::<B>(offset).unwrap();
+                    jump_entry_count += 1;
+                }
             }
         }
 
@@ -103,12 +103,8 @@ fn assemble_script<B: ByteOrder>(
             );
 
             match arg {
-                ParserValue::String32(string) => {
-                    script_buffer.append(&mut string.to_vec())
-                },
-                ParserValue::String16(string) => {
-                    script_buffer.append(&mut string.to_vec())
-                }
+                ParserValue::String32(string) => script_buffer.append(&mut string.to_vec()),
+                ParserValue::String16(string) => script_buffer.append(&mut string.to_vec()),
                 ParserValue::Raw(data) => script_buffer.append(&mut data.to_vec()),
                 &ParserValue::Number(num) => script_buffer.write_i32::<B>(num).unwrap(),
                 ParserValue::Named(variant) => {
