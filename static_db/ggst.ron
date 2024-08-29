@@ -1599,7 +1599,6 @@
         ),
         79: (
             size: 12,
-            name: "",
             args: [
                 Number,
                 Number,
@@ -2366,7 +2365,6 @@
         ),
         199: (
             size: 12,
-            name: "",
             args: [
                 Number,
                 Number,
@@ -2437,7 +2435,6 @@
         ),
         208: (
             size: 8,
-            name: "",
             args: [
                 Number,
             ],
@@ -2453,6 +2450,13 @@
             size: 8,
             name: "setRawPositionXInBattle",
             args: [
+                Number,
+            ],
+        ),
+        212: (
+            size: 12,
+            args: [
+                Number,
                 Number,
             ],
         ),
@@ -2721,6 +2725,10 @@
             args: [
                 Number,
             ],
+        ),
+        274: (
+            size: 4,
+            args: [],
         ),
         276: (
             size: 8,
@@ -3212,6 +3220,12 @@
                 Number,
             ],
         ),
+        381: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         389: (
             size: 12,
             name: "setBgmVolume",
@@ -3534,7 +3548,6 @@
         ),
         447: (
             size: 36,
-            name: "",
             args: [
                 String32,
             ],
@@ -3772,6 +3785,14 @@
                 Number,
             ],
         ),
+        483: (
+            size: 72,
+            args: [
+                Number,
+                String32,
+                String32,
+            ],
+        ),
         485: (
             size: 40,
             name: "createParticleWithArg",
@@ -3787,6 +3808,10 @@
                 String32,
                 Number,
             ],
+        ),
+        487: (
+            size: 4,
+            args: [],
         ),
         513: (
             size: 8,
@@ -4316,6 +4341,23 @@
                 Number,
             ],
         ),
+        648: (
+            size: 20,
+            args: [
+                String16,
+            ],
+        ),
+        649: (
+            size: 40,
+            args: [
+                String16,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+            ],
+        ),
         658: (
             size: 16,
             name: "landingEffect",
@@ -4452,6 +4494,19 @@
                 String32,
                 Number,
                 Number,
+            ],
+        ),
+        679: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        681: (
+            size: 20,
+            args: [
+                String16,
             ],
         ),
         707: (
@@ -4644,7 +4699,6 @@
         ),
         739: (
             size: 8,
-            name: "",
             args: [
                 Number,
             ],
@@ -5678,6 +5732,12 @@
                 Number,
             ],
         ),
+        958: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         963: (
             size: 8,
             name: "damagePercent",
@@ -5793,9 +5853,16 @@
                 Number,
             ],
         ),
+        1014: (
+            size: 16,
+            args: [
+                Number,
+                Number,
+                Number,
+            ],
+        ),
         1015: (
             size: 40,
-            name: "",
             args: [
                 Number,
                 Number,
@@ -9099,7 +9166,6 @@
         ),
         1647: (
             size: 4,
-            name: "",
             args: [],
         ),
         1648: (
@@ -9385,7 +9451,6 @@
         ),
         1691: (
             size: 8,
-            name: "",
             args: [
                 Number,
             ],
@@ -9655,9 +9720,23 @@
                 Number,
             ],
         ),
+        1728: (
+            size: 44,
+            args: [
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+                Number,
+            ],
+        ),
         1729: (
             size: 36,
-            name: "",
             args: [
                 Number,
                 Number,
@@ -9828,7 +9907,6 @@
         ),
         1753: (
             size: 20,
-            name: "",
             args: [
                 Number,
                 Number,
@@ -9838,7 +9916,6 @@
         ),
         1761: (
             size: 4,
-            name: "",
             args: [],
         ),
         1766: (
@@ -10800,6 +10877,12 @@
                 Number,
             ],
         ),
+        1977: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         1978: (
             size: 8,
             name: "setLightAlpha",
@@ -11089,21 +11172,18 @@
         ),
         2022: (
             size: 36,
-            name: "",
             args: [
                 String32,
             ],
         ),
         2023: (
             size: 36,
-            name: "",
             args: [
                 String32,
             ],
         ),
         2024: (
             size: 4,
-            name: "",
             args: [],
         ),
         2025: (
@@ -12457,12 +12537,9 @@
             size: 28,
             name: "setRandom",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         2203: (
@@ -13960,16 +14037,41 @@
                 Number,
             ],
         ),
+        2461: (
+            size: 84,
+            args: [
+                Number,
+                String32,
+                String32,
+                Number,
+                Number,
+                Number,
+            ],
+        ),
+        2462: (
+            size: 4,
+            args: [],
+        ),
+        2463: (
+            size: 100,
+            args: [
+                String32,
+                String32,
+                String32,
+            ],
+        ),
+        2464: (
+            size: 4,
+            args: [],
+        ),
         2465: (
             size: 36,
-            name: "",
             args: [
                 String32,
             ],
         ),
         2466: (
             size: 20,
-            name: "",
             args: [
                 Number,
                 Number,
