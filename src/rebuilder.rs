@@ -86,6 +86,7 @@ fn assemble_script<B: ByteOrder>(
         if db.is_jump_entry_id(instruction_info.id()) {
             if let Some(ParserValue::String32(name)) = instruction.args.get(0) {
                 // this check deduplicates jump table entries
+                // TODO: make game-specific config option, seems to be needed
                 if previous_jump_entries.insert(name.0.clone()) {
                     jump_table_buffer.write_all(&name.to_vec()).unwrap();
                     jump_table_buffer.write_u32::<B>(offset).unwrap();
