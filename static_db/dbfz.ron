@@ -8,6 +8,10 @@
             0: "Result",
             1: "Angle",
             2: "CommonActionMark",
+			3: "plr0",
+			4: "plr1",
+			5: "plr2",
+			6: "plr3",
             7: "SpeedX",
             8: "SpeedY",
             9: "VJumpCheck",
@@ -46,6 +50,38 @@
             42: "SignalID",
             43: "SignalParam",
             44: "PlayerCenterDistance",
+			45: "act0",
+			46: "act1",
+			47: "act2",
+			48: "act3",
+			49: "act4",
+			50: "act5",
+			51: "act6",
+			52: "act7",
+			53: "obj0",
+			54: "obj1",
+			55: "obj2",
+			56: "obj3",
+			57: "obj4",
+			58: "obj5",
+			59: "obj6",
+			60: "obj7",
+			61: "GTmpReg0",
+			62: "GTmpReg1",
+			63: "GTmpReg2",
+			64: "GTmpReg3",
+			65: "GTmpReg4",
+			66: "GTmpReg5",
+			67: "GTmpReg6",
+			68: "GTmpReg7",
+			69: "PgActReg0",
+			70: "PgActReg1",
+			71: "PgActReg2",
+			72: "PgActReg3",
+			73: "PgObjReg0",
+			74: "PgObjReg1",
+			75: "PgObjReg2",
+			76: "PgObjReg3",
             77: "Health",
             78: "HealthMax",
             79: "PlayerAttackRate",
@@ -170,6 +206,10 @@
             198: "DokiDokiStopByDokiDokiKill",
             199: "DokiDokiStopIgnoreTime",
             200: "ObjTimer",
+			201: "plr4",
+			202: "plr5",
+			203: "plr6",
+			204: "plr7",
             205: "ChouseiForScript0",
             206: "ChouseiForScript1",
             207: "ChouseiForScript2",
@@ -348,6 +388,9 @@
             392: "CmnCharaReg21",
             393: "CmnCharaReg22",
             394: "CmnCharaReg23",
+			395: "RoundPassedTime",
+			396: "IsEnemySlow",
+			397: "BoxIndex",
     },
     named_value_maps: {
         "CheckEnemyCharAttrType0_73": {
@@ -975,7 +1018,7 @@
             1: "ARMOR",
             2: "PARRY",
         },
-        "uiBattleText0_2310": {
+		"uiBattleText0_2310": {
             0: "Counter!",
             1: "Assist!",
             2: "Change!",
@@ -1648,16 +1691,6 @@
                 String32,
             ],
         ),
-        79: (
-            size: 8,
-            args: [
-                Number,
-            ],
-        ),
-        80: (
-            size: 4,
-            args: [],
-        ),
         92: (
             size: 8,
             name: "SetPosX",
@@ -1678,6 +1711,10 @@
             args: [
                 Number,
             ],
+        ),
+        95: (
+            size: 8,
+            args: [],
         ),
         96: (
             size: 4,
@@ -1744,9 +1781,21 @@
                 Number,
             ],
         ),
+        106: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         107: (
             size: 8,
             name: "addVelocityX",
+            args: [
+                Number,
+            ],
+        ),
+        108: (
+            size: 8,
             args: [
                 Number,
             ],
@@ -2514,14 +2563,6 @@
             name: "instantkillAttack",
             args: [],
         ),
-        248: (
-            size: 12,
-            name: "PushCollisionWidthFront",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
         249: (
             size: 8,
             name: "PushCollisionWidth",
@@ -2539,13 +2580,6 @@
         251: (
             size: 8,
             name: "setNoCollision",
-            args: [
-                Number,
-            ],
-        ),
-        252: (
-            size: 8,
-            name: "PushCollisionInterferenceSameSide",
             args: [
                 Number,
             ],
@@ -3115,89 +3149,6 @@
                 Number,
             ],
         ),
-        376: (
-            size: 20,
-            name: "overrideAddColor",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        377: (
-            size: 20,
-            name: "overrideMulColor",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        378: (
-            size: 20,
-            name: "overrideLightColor",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        379: (
-            size: 20,
-            name: "overrideAmbientColor",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        380: (
-            size: 8,
-            name: "ResetSceneColorFrame",
-            args: [
-                Number,
-            ],
-        ),
-        389: (
-            size: 12,
-            name: "setBgmVolume",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        390: (
-            size: 12,
-            name: "setSfxVolume",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        391: (
-            size: 12,
-            name: "setWorldSaturation",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        392: (
-            size: 8,
-            name: "setMotionBlurAmount",
-            args: [
-                Number,
-            ],
-        ),
-        393: (
-            size: 4,
-            name: "resetMotionBlurAmount",
-            args: [],
-        ),
         394: (
             size: 8,
             name: "DistortionTexture",
@@ -3279,164 +3230,6 @@
             size: 4,
             name: "addDragonBall",
             args: [],
-        ),
-        410: (
-            size: 16,
-            name: "SetPostProcessSaturation",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        411: (
-            size: 32,
-            name: "SetPostProcessDOF",
-            args: [],
-        ),
-        412: (
-            size: 16,
-            name: "SetPostProcessDOFFocalDistance",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        413: (
-            size: 16,
-            name: "SetPostProcessDOFFocalRegion",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        414: (
-            size: 16,
-            name: "SetPostProcessDOFNearTransition",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        415: (
-            size: 16,
-            name: "SetPostProcessDOFFarTransition",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        416: (
-            size: 16,
-            name: "SetPostProcessDOFNearBlurSize",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        417: (
-            size: 16,
-            name: "SetPostProcessDOFFarBlurSize",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        418: (
-            size: 8,
-            name: "Glare2Create",
-            args: [
-                Number,
-            ],
-        ),
-        419: (
-            size: 12,
-            name: "Glare2Delete",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        420: (
-            size: 16,
-            name: "Glare2Disp",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        421: (
-            size: 44,
-            name: "Glare2Color",
-            args: [],
-        ),
-        422: (
-            size: 28,
-            name: "Glare2Size",
-            args: [],
-        ),
-        423: (
-            size: 28,
-            name: "Glare2Offset",
-            args: [],
-        ),
-        424: (
-            size: 16,
-            name: "SetPostProcessDiffusion",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        425: (
-            size: 16,
-            name: "SetPostProcessDiffusionLuminance",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        426: (
-            size: 16,
-            name: "SetPostProcessDiffusionThreshold",
-            args: [
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        427: (
-            size: 12,
-            name: "SetPostProcessSaturation_Default",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        428: (
-            size: 12,
-            name: "SetPostProcessDOF_Default",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        429: (
-            size: 12,
-            name: "SetPostProcessDiffusion_Default",
-            args: [
-                Number,
-                Number,
-            ],
         ),
         445: (
             size: 40,
@@ -4372,19 +4165,10 @@
             name: "AtkVectorYCounterHitReset",
             args: [],
         ),
-        774: (
-            size: 12,
-            name: "AtkPreGuardRangeDotY",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
         778: (
-            size: 12,
+            size: 8,
             name: "hitGravity",
             args: [
-                Number,
                 Number,
             ],
         ),
@@ -4394,10 +4178,9 @@
             args: [],
         ),
         780: (
-            size: 12,
+            size: 8,
             name: "counterhitGravity",
             args: [
-                Number,
                 Number,
             ],
         ),
@@ -4405,65 +4188,6 @@
             size: 4,
             name: "AtkGravityCounterHitReset",
             args: [],
-        ),
-        782: (
-            size: 8,
-            name: "AtkGuardGravity",
-            args: [
-                Number,
-            ],
-        ),
-        783: (
-            size: 28,
-            name: "hitGravityOverTime",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        784: (
-            size: 28,
-            name: "counterHitGravityOverTime",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        785: (
-            size: 8,
-            name: "AtkVectorXAirGuard",
-            args: [
-                Number,
-            ],
-        ),
-        786: (
-            size: 8,
-            name: "AtkVectorYAirGuard",
-            args: [
-                Number,
-            ],
-        ),
-        788: (
-            size: 8,
-            name: "forceWallBreak",
-            args: [
-                Number,
-            ],
-        ),
-        789: (
-            size: 8,
-            name: "AtkWallBoundVectorParamReset",
-            args: [
-                Number,
-            ],
         ),
         790: (
             size: 8,
@@ -4488,48 +4212,6 @@
             size: 4,
             name: "AtkWallBoundRateCounterHitReset",
             args: [],
-        ),
-        794: (
-            size: 8,
-            name: "wallBounceGravity",
-            args: [
-                Number,
-            ],
-        ),
-        795: (
-            size: 8,
-            name: "counterHitWallBounceGravity",
-            args: [
-                Number,
-            ],
-        ),
-        796: (
-            size: 8,
-            name: "wallBounceUntechTime",
-            args: [
-                Number,
-            ],
-        ),
-        797: (
-            size: 8,
-            name: "counterHitWallBounceUntechTime",
-            args: [
-                Number,
-            ],
-        ),
-        798: (
-            size: 8,
-            name: "wallBounceUntechTimeAddition",
-            args: [
-                Number,
-            ],
-        ),
-        799: (
-            size: 8,
-            name: "counterHitWallBounceUntechTimeAddition",
-            args: [
-                Number,
-            ],
         ),
         802: (
             size: 8,
@@ -4575,11 +4257,8 @@
             ],
         ),
         809: (
-            size: 8,
-            name: "counterHitGroundBounceGravity",
-            args: [
-                Number,
-            ],
+            size: 4,
+            args: [],
         ),
         810: (
             size: 8,
@@ -4589,36 +4268,7 @@
             ],
         ),
         811: (
-            size: 8,
-            name: "counterHitGroundBounceUntechTime",
-            args: [
-                Number,
-            ],
-        ),
-        812: (
-            size: 8,
-            name: "AtkLandBoundStunTimeAddition",
-            args: [
-                Number,
-            ],
-        ),
-        813: (
-            size: 8,
-            name: "AtkLandBoundStunTimeAdditionCounterHit",
-            args: [
-                Number,
-            ],
-        ),
-        814: (
-            size: 8,
-            name: "groundBounceXVelocity",
-            args: [
-                Number,
-            ],
-        ),
-        815: (
             size: 4,
-            name: "AtkLandBoundSpeedXReset",
             args: [],
         ),
         818: (
@@ -4669,30 +4319,6 @@
             name: "AtkAirStunTimeCounterHitReset",
             args: [],
         ),
-        838: (
-            size: 8,
-            name: "AtkWallBoundSpeedX",
-            args: [
-                Number,
-            ],
-        ),
-        839: (
-            size: 4,
-            name: "AtkWallBoundSpeedXReset",
-            args: [],
-        ),
-        840: (
-            size: 8,
-            name: "wallBounceYVelocity",
-            args: [
-                Number,
-            ],
-        ),
-        841: (
-            size: 4,
-            name: "AtkWallBoundSpeedYReset",
-            args: [],
-        ),
         842: (
             size: 8,
             name: "wallBounceCount",
@@ -4717,23 +4343,6 @@
             name: "AtkWallBoundCountCounterHitReset",
             args: [],
         ),
-        848: (
-            size: 4,
-            name: "AtkWallBoundRateYReset",
-            args: [],
-        ),
-        849: (
-            size: 8,
-            name: "AtkWallBoundRateYCounterHit",
-            args: [
-                Number,
-            ],
-        ),
-        850: (
-            size: 4,
-            name: "AtkWallBoundRateYCounterHitReset",
-            args: [],
-        ),
         854: (
             size: 8,
             name: "groundBounceCount",
@@ -4756,23 +4365,6 @@
         857: (
             size: 4,
             name: "AtkLandBoundCountCounterHitReset",
-            args: [],
-        ),
-        860: (
-            size: 4,
-            name: "AtkLandBoundRateXReset",
-            args: [],
-        ),
-        861: (
-            size: 8,
-            name: "AtkLandBoundRateXCounterHit",
-            args: [
-                Number,
-            ],
-        ),
-        862: (
-            size: 4,
-            name: "AtkLandBoundRateXCounterHitReset",
             args: [],
         ),
         870: (
@@ -4963,98 +4555,6 @@
                 Number,
             ],
         ),
-        919: (
-            size: 8,
-            name: "hitSoftKnockdown",
-            args: [
-                Number,
-            ],
-        ),
-        920: (
-            size: 8,
-            name: "counterHitSoftKnockdown",
-            args: [
-                Number,
-            ],
-        ),
-        921: (
-            size: 8,
-            name: "floatHead",
-            args: [
-                Number,
-            ],
-        ),
-        922: (
-            size: 8,
-            name: "floatBody",
-            args: [
-                Number,
-            ],
-        ),
-        923: (
-            size: 8,
-            name: "AtkStandOnlyNokezoriBottom",
-            args: [
-                Number,
-            ],
-        ),
-        924: (
-            size: 8,
-            name: "fuwafuwa",
-            args: [
-                Number,
-            ],
-        ),
-        925: (
-            size: 8,
-            name: "counterHitFuwafuwa",
-            args: [
-                Number,
-            ],
-        ),
-        926: (
-            size: 8,
-            name: "blowoff",
-            args: [
-                Number,
-            ],
-        ),
-        927: (
-            size: 8,
-            name: "counterHitBlowoff",
-            args: [
-                Number,
-            ],
-        ),
-        928: (
-            size: 8,
-            name: "AtkGuardLandingAction",
-            args: [
-                Number,
-            ],
-        ),
-        929: (
-            size: 12,
-            name: "slowHitstop",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        930: (
-            size: 8,
-            name: "AtkNotShakeXByAttackAction",
-            args: [
-                Number,
-            ],
-        ),
-        931: (
-            size: 8,
-            name: "AtkNotCameraShakeLockAttackAction",
-            args: [
-                Number,
-            ],
-        ),
         933: (
             size: 8,
             name: "rollDuration",
@@ -5156,11 +4656,8 @@
             ],
         ),
         949: (
-            size: 8,
-            name: "AtkWSBPoint",
-            args: [
-                Number,
-            ],
+            size: 4,
+            args: [],
         ),
         957: (
             size: 4,
@@ -5174,6 +4671,10 @@
                 Number,
             ],
         ),
+        964: (
+            size: 12,
+            args: [],
+        ),
         965: (
             size: 12,
             name: "AtkGBDecPerOff",
@@ -5181,6 +4682,10 @@
                 Number,
                 Number,
             ],
+        ),
+        966: (
+            size: 8,
+            args: [],
         ),
         995: (
             size: 8,
@@ -7198,6 +6703,10 @@
                 Number,
             ],
         ),
+        1311: (
+            size: 8,
+            args: [],
+        ),
         1313: (
             size: 40,
             name: "grabbedFrames",
@@ -7205,6 +6714,10 @@
                 Number,
                 String32,
             ],
+        ),
+        1314: (
+            size: 4,
+            args: [],
         ),
         1333: (
             size: 8,
@@ -8120,7 +7633,11 @@
             ],
         ),
         1635: (
-            size: 4,
+            size: 8,
+            args: [],
+        ),
+        1636: (
+            size: 8,
             args: [],
         ),
         1637: (
@@ -8494,6 +8011,10 @@
             name: "ClearCommonActionControl",
             args: [],
         ),
+        1703: (
+            size: 132,
+            args: [],
+        ),
         1704: (
             size: 4,
             name: "MouthStop",
@@ -8551,8 +8072,10 @@
             size: 164,
             name: "VsCharMouthTable",
             args: [
-                String32,
-                String32,
+                String16,
+                String16,
+                String16,
+                String16,
                 Number,
                 Number,
                 Number,
@@ -9856,12 +9379,8 @@
             ],
         ),
         2016: (
-            size: 12,
-            name: "StopDestColor",
-            args: [
-                Number,
-                Number,
-            ],
+            size: 4,
+            args: [],
         ),
         2017: (
             size: 8,
@@ -10291,6 +9810,10 @@
         2080: (
             size: 72,
             name: "TargetCamera",
+            args: [],
+        ),
+        2081: (
+            size: 68,
             args: [],
         ),
         2082: (
@@ -11553,6 +11076,10 @@
                 Number,
             ],
         ),
+        2278: (
+            size: 40,
+            args: [],
+        ),
         2279: (
             size: 20,
             name: "CreateArg_HikitsugiVal",
@@ -12763,343 +12290,13 @@
                 String16,
             ],
         ),
+        2528: (
+            size: 68,
+            args: [],
+        ),
         2529: (
             size: 36,
-            name: "MoveCamera_BasePosObject",
-            args: [
-                String32,
-            ],
-        ),
-        2560: (
-            size: 8,
-            name: "Cinesco",
-            args: [
-                Number,
-            ],
-        ),
-        2561: (
-            size: 8,
-            name: "MoveCamera_TargetCameraOn",
-            args: [
-                Number,
-            ],
-        ),
-        2562: (
-            size: 4,
-            name: "MoveCamera_TargetCameraOff",
             args: [],
-        ),
-        2563: (
-            size: 44,
-            name: "MoveCamera_TargetCameraOn_Blend",
-            args: [
-                Number,
-                Number,
-                String32,
-            ],
-        ),
-        2564: (
-            size: 40,
-            name: "MoveCamera_TargetCameraOff_Blend",
-            args: [
-                Number,
-                String32,
-            ],
-        ),
-        2565: (
-            size: 40,
-            name: "MoveCamera_Stop",
-            args: [
-                Number,
-                String32,
-            ],
-        ),
-        2566: (
-            size: 108,
-            name: "MoveCamera_TargetRotRoll",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2567: (
-            size: 52,
-            name: "MoveCamera_Anime",
-            args: [
-                String32,
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        2568: (
-            size: 108,
-            name: "MoveCamera_AnimePosRate",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2569: (
-            size: 108,
-            name: "MoveCamera_AnimeRotRate",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2570: (
-            size: 108,
-            name: "MoveCamera_AnimeFOVRate",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2571: (
-            size: 20,
-            name: "CenterScreenPosition",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        2572: (
-            size: 92,
-            name: "MoveCamera_Spline",
-            args: [
-                String32,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-            ],
-        ),
-        2573: (
-            size: 108,
-            name: "MoveCamera_SplinePosRate",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2574: (
-            size: 108,
-            name: "MoveCamera_TrackUp",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                String32,
-                String32,
-            ],
-        ),
-        2575: (
-            size: 76,
-            name: "MoveCamera_OrthoCurve",
-            args: [
-                String32,
-                Number,
-                Number,
-                String32,
-            ],
-        ),
-        2576: (
-            size: 12,
-            name: "SetCmnMaterialDefaultVal",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2577: (
-            size: 12,
-            name: "PauseCmnMaterialParam",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2578: (
-            size: 12,
-            name: "SetCmnMaterialResetOnActionChange",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2579: (
-            size: 12,
-            name: "SetStatusIcon",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2580: (
-            size: 12,
-            name: "DispWithoutMove",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2581: (
-            size: 132,
-            name: "OverwriteLinkBone",
-            args: [
-                String32,
-                String32,
-                String32,
-                String32,
-            ],
-        ),
-        2582: (
-            size: 4,
-            name: "ResetOverwriteLinkBone",
-            args: [],
-        ),
-        2583: (
-            size: 100,
-            name: "LockMesh",
-            args: [
-                String32,
-                String32,
-                String32,
-            ],
-        ),
-        2584: (
-            size: 4,
-            name: "UnlockMesh",
-            args: [],
-        ),
-        2585: (
-            size: 68,
-            name: "AttachPawn",
-            args: [
-                String32,
-                String32,
-            ],
-        ),
-        2586: (
-            size: 4,
-            name: "DetachPawn",
-            args: [],
-        ),
-        2587: (
-            size: 12,
-            name: "ParticleSlow",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2588: (
-            size: 12,
-            name: "ColorAreaBlend",
-            args: [
-                Number,
-                Number,
-            ],
-        ),
-        2589: (
-            size: 44,
-            name: "PostProcessEffect",
-            args: [
-                String32,
-                Number,
-                Number,
-            ],
-        ),
-        2590: (
-            size: 8,
-            name: "SceneLightDir",
-            args: [
-                Number,
-            ],
-        ),
-        2591: (
-            size: 28,
-            name: "CellSlowParamFinishStop",
-            args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-            ],
-        ),
-        2592: (
-            size: 12,
-            name: "CameraLightDirBlend",
-            args: [
-                Number,
-                Number,
-            ],
         ),
     }),
 )
