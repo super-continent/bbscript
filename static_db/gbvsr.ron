@@ -2682,6 +2682,12 @@
                 Number,
             ],
         ),
+        395: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         397: (
             size: 36,
             args: [],
@@ -4005,6 +4011,18 @@
             name: "resetGroundCounterHitEffect",
             args: [],
         ),
+        883: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        884: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         885: (
             size: 8,
             args: [
@@ -4248,6 +4266,24 @@
             ],
         ),
         940: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        954: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        955: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        956: (
             size: 8,
             args: [
                 Number,
@@ -6147,6 +6183,24 @@
 				Number,
 			],
         ),
+        1298: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1299: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1300: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         1308: (
             size: 40,
             name: "setDamageSprite",
@@ -6793,6 +6847,18 @@
             ],
         ),
         1514: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1515: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1516: (
             size: 8,
             args: [
                 Number,
@@ -8681,6 +8747,14 @@
         ),
         2016: (
             size: 4,
+            args: [],
+        ),
+        2017: (
+            size: 36,
+            args: [],
+        ),
+        2018: (
+            size: 40,
             args: [],
         ),
         2019: (
@@ -11002,6 +11076,12 @@
             size: 20,
             args: [],
         ),
+        2422: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         2461: (
             size: 36,
             args: [],
@@ -11716,6 +11796,12 @@
             size: 12,
             args: [
                 Number,
+                Number,
+            ],
+        ),
+        2643: (
+            size: 8,
+            args: [
                 Number,
             ],
         ),
