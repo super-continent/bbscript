@@ -22,7 +22,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
     - name: Archive build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BBScript Windows
         path: |

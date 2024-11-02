@@ -2908,6 +2908,13 @@
             name: "removeAllRisc",
             args: [],
         ),
+        308: (
+            size: 8,
+            name: "",
+            args: [
+                Number,
+            ],
+        ),
         337: (
             size: 8,
             name: "setPaletteId",
@@ -4358,6 +4365,16 @@
                 Number,
             ],
         ),
+        650: (
+            size: 24,
+            name: "",
+            args: [],
+        ),
+        651: (
+            size: 24,
+            name: "",
+            args: [],
+        ),
         658: (
             size: 16,
             name: "landingEffect",
@@ -5473,6 +5490,27 @@
         914: (
             size: 8,
             name: "attackPositiveBonus",
+            args: [
+                Number,
+            ],
+        ),
+        916: (
+            size: 12,
+            name: "",
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        917: (
+            size: 8,
+            name: "",
+            args: [
+                Number,
+            ],
+        ),
+        918: (
+            size: 8,
             args: [
                 Number,
             ],
@@ -10378,6 +10416,13 @@
                 Number,
             ],
         ),
+        1869: (
+            size: 8,
+            name: "",
+            args: [
+                Number,
+            ],
+        ),
         1883: (
             size: 8,
             name: "resetExGauge",
@@ -12894,6 +12939,20 @@
             name: "ignoreHiddenByDisplayOnlySelf",
             args: [
                 Number,
+                Number,
+            ],
+        ),
+        2255: (
+            size: 8,
+            name: "",
+            args: [
+                Number
+            ],
+        ),
+        2256: (
+            size: 8,
+            name: "",
+            args: [
                 Number,
             ],
         ),
