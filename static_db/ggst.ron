@@ -2911,7 +2911,9 @@
         308: (
             size: 8,
             name: "",
-            args: [],
+            args: [
+                Number,
+            ],
         ),
         337: (
             size: 8,
@@ -4363,11 +4365,15 @@
                 Number,
             ],
         ),
+        650: (
+            size: 24,
+            name: "",
+            args: [],
+        ),
         651: (
             size: 24,
             name: "",
-            args: [
-            ],
+            args: [],
         ),
         658: (
             size: 16,
@@ -5497,12 +5503,15 @@
             ],
         ),
         917: (
-            size: 20,
+            size: 8,
             name: "",
             args: [
                 Number,
-                Number,
-                Number,
+            ],
+        ),
+        918: (
+            size: 8,
+            args: [
                 Number,
             ],
         ),
@@ -10408,11 +10417,9 @@
             ],
         ),
         1869: (
-            size: 16,
+            size: 8,
             name: "",
             args: [
-                Number,
-                Number,
                 Number,
             ],
         ),
@@ -12936,9 +12943,10 @@
             ],
         ),
         2255: (
-            size: 32,
+            size: 8,
             name: "",
             args: [
+                Number
             ],
         ),
         2256: (
