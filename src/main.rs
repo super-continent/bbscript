@@ -3,7 +3,7 @@ mod game_config;
 mod parser;
 mod rebuilder;
 
-use anyhow::Result as AResult;
+use anyhow::{anyhow, Result as AResult};
 use clap::{crate_version, Args, Parser, Subcommand, ValueEnum};
 use game_config::ScriptConfig;
 
@@ -156,6 +156,20 @@ enum SubCmd {
         #[clap(short, long)]
         overwrite: bool,
     },
+    ConfigSizeUpdate {
+        /// The new config that has correct size information
+        #[clap(name = "NEW_SIZES")]
+        new_sizes: PathBuf,
+        /// The old game config that will recieve the new sizes
+        #[clap(name = "CONFIG", flatten)]
+        old_config: ConfigArgs,
+        /// New config file to output with updated sizes
+        #[clap(name = "OUTPUT")]
+        output: PathBuf,
+        /// Enables overwriting the file if a file with the same name as OUTPUT already exists
+        #[clap(short, long)]
+        overwrite: bool,
+    },
 }
 
 fn run() -> AResult<()> {
@@ -207,6 +221,18 @@ fn run() -> AResult<()> {
             confirm_io_files(&input, &output, overwrite)?;
             let game = get_config(game)?;
             run_structured_parser(game, input, output, args.big_endian)?;
+        }
+        SubCmd::ConfigSizeUpdate {
+            new_sizes,
+            old_config,
+            output,
+            overwrite,
+        } => {
+            confirm_io_files(&new_sizes, &output, overwrite)?;
+            let new_sizes = ScriptConfig::load(new_sizes)?;
+            let config = get_config(old_config)?;
+
+            update_sizes(new_sizes, config, output)?;
         }
     }
     Ok(())
@@ -349,6 +375,60 @@ fn run_structured_parser(
 
     let f = serde_json::to_string_pretty(&result)?;
     output.write_all(f.as_bytes())?;
+
+    Ok(())
+}
+
+fn update_sizes(
+    new_sizes: ScriptConfig,
+    mut config: ScriptConfig,
+    out_path: PathBuf,
+) -> AResult<()> {
+    let new_sizes = match new_sizes.instructions {
+        game_config::InstructionInfo::Sized(instructions) => instructions,
+        game_config::InstructionInfo::Unsized(_) => {
+            return Err(anyhow!("Cannot use unsized config for size diffing"))
+        }
+    };
+
+    let main_config_instructions = match config.instructions {
+        game_config::InstructionInfo::Sized(ref mut instructions) => instructions,
+        game_config::InstructionInfo::Unsized(_) => {
+            return Err(anyhow!("Config must use sized instructions"))
+        }
+    };
+
+    for (id, mut new_info) in new_sizes.into_iter() {
+        if let Some(instruction) = main_config_instructions.get_mut(&id) {
+            log::trace!("checking id {}", id);
+            if instruction.size != new_info.size {
+                log::info!("updating id {}", id);
+                instruction.size = new_info.size;
+
+                if instruction.size < 20 {
+                    log::debug!("args are small enough to fill with Number");
+                    instruction.set_args(&vec![
+                        crate::game_config::ArgType::Number;
+                        (instruction.size - 4) / 4
+                    ]);
+                } else {
+                    log::debug!("clearing args");
+                    instruction.set_args(&[]);
+                }
+            }
+        } else {
+            log::info!("adding new instruction {} with size {}", id, new_info.size);
+            if new_info.size < 20 {
+                new_info.set_args(&vec![game_config::ArgType::Number; (new_info.size - 4) / 4]);
+            }
+            main_config_instructions.insert(id, new_info);
+        }
+    }
+
+    let new_config = ron::ser::to_string_pretty(&config, ron::ser::PrettyConfig::default())?;
+    let mut output = File::create(out_path)?;
+
+    output.write_all(new_config.as_bytes())?;
 
     Ok(())
 }

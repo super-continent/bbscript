@@ -319,6 +319,10 @@ impl SizedInstruction {
 
         args
     }
+
+    pub fn set_args(&mut self, args: &[ArgType]) {
+        self.args = SmallVec::from(args);
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
