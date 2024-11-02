@@ -176,6 +176,7 @@ pub struct ScriptConfig {
     /// The value used for identifying [`TaggedValue::Variable`]s in the scripts
     pub variable_tag: BBSNumber,
     /// A map that allows associating names with specific values of a [`TaggedValue::Variable`]
+    #[serde(serialize_with = "ordered_bimap")]
     pub named_variables: BiMap<BBSNumber, String>,
     /// A map of [`BBSArgType::Enum`] maps for naming specific values
     #[serde(serialize_with = "ordered_enums")]
@@ -294,6 +295,7 @@ pub struct SizedInstruction {
     #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
     #[serde(default)]
+    #[serde(skip_serializing_if = "is_noblock")]
     pub code_block: CodeBlock,
     args: SmallVec<[ArgType; 16]>,
     #[serde(default)]
@@ -535,6 +537,24 @@ where
 {
     let ordered: std::collections::BTreeMap<_, _> = value.iter().collect();
     ordered.serialize(serializer)
+}
+
+/// Serialize bihashmap as BTreeMap for ordered keys
+fn ordered_bimap<S, K, V>(value: &bimap::BiHashMap<K, V>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+    K: std::hash::Hash + Ord + Serialize,
+    V: Serialize + std::hash::Hash + Eq + Ord,
+{
+    let ordered: bimap::BiBTreeMap<_, _> = value.iter().collect();
+    ordered.serialize(serializer)
+}
+
+fn is_noblock(codeblock: &CodeBlock) -> bool {
+    match codeblock {
+        CodeBlock::NoBlock => true,
+        _ => false
+    }
 }
 
 #[cfg(test)]
