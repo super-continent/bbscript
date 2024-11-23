@@ -3917,6 +3917,12 @@
             name: "displaySorbetHUD",
             args: [],
         ),
+        592: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         593: (
             size: 8,
             name: "optionVoiceLipSync",
@@ -4732,6 +4738,25 @@
         739: (
             size: 8,
             args: [
+                Number,
+            ],
+        ),
+        740: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        741: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        742: (
+            size: 12,
+            args: [
+                Number,
                 Number,
             ],
         ),
@@ -9121,6 +9146,12 @@
             size: 4,
             name: "cpuEstimateTagNamepu",
             args: [],
+        ),
+        1590: (
+            size: 8,
+            args: [
+                Number,
+            ],
         ),
         1608: (
             size: 36,
@@ -14125,12 +14156,42 @@
                 Number,
             ],
         ),
+        2435: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        2436: (
+            size: 4,
+            args: [],
+        ),
+        2437: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         2438: (
             size: 8,
             name: "forceEnableBlueRomanCancel",
             args: [
                 Number,
             ],
+        ),
+        2439: (
+            size: 40,
+            args: [],
+        ),
+        2440: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        2441: (
+            size: 4,
+            args: [],
         ),
         2461: (
             size: 84,
