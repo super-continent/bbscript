@@ -3599,70 +3599,70 @@
             size: 8,
             name: "linkObjectPushCollision",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         453: (
             size: 8,
             name: "linkObjectAngle",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         454: (
             size: 8,
             name: "linkObjPosition",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         455: (
             size: 8,
             name: "linkObjectDirection",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         456: (
             size: 8,
             name: "stopLinkObject",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         457: (
             size: 8,
             name: "setLinkObjectDestroyOnStateChange",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         458: (
             size: 8,
             name: "setLinkObjectDestroyOnDamage",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         459: (
             size: 8,
             name: "linkObjectPositionCenter",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         460: (
             size: 8,
             name: "linkObjectSize",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         461: (
             size: 8,
             name: "linkObjectColor",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         462: (
@@ -3695,14 +3695,14 @@
             size: 8,
             name: "linkObjectZ",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         467: (
             size: 8,
             name: "linkObjectCollision",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         468: (
@@ -3787,14 +3787,14 @@
             size: 8,
             name: "linkObjectMaterialSet",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         482: (
             size: 8,
             name: "linkObjectCommonMaterialParam",
             args: [
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         483: (
