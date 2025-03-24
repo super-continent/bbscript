@@ -12673,9 +12673,11 @@
             ],
         ),
         2205: (
-            size: 16,
+            size: 24,
             name: "venomBall",
             args: [
+                Number,
+                Number,
                 Number,
                 Number,
                 Number,
