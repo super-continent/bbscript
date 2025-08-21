@@ -5,29 +5,211 @@
     literal_tag: 0,
     variable_tag: 2,
     named_variables: {
-        0:  "ACCUMULATOR",
-        25: "RESOURCE_AMOUNT",
-        35: "OPPONENT_Y_OFFSET",
+    	// You can only write to variables that are marked as "writable". Writing to non-writable variables will have no effect.
+    	// Variables marked as "per player" allow access from effect scripts, but they access that value through their corresponding player.
+    	// Variables marked as "global" are stored in the game engine as a single variable, and both players and their effect scripts access the same variable.
+        0:  "ACCUMULATOR",  // writable. Is used to obtain values from 'calcDistance', some if functions, checks, and other common functions
+        1:  "ROTATION",  // writable. In 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing left. Same as PITCH. Pitch is the angle of rotation around the axis perpendicular to the screen
+        2: "IS_CMN_ACT",  // returns 1 if the current action is a CmnAct..., otherwise returns 0
+        3:  "PLAYERVAL_0",  // writable, per player. Gets reset to 0 on stage reset or new round. Survives state (animation) change
+        4:  "PLAYERVAL_1",  // writable, per player. Gets reset to 0 on stage reset or new round. Survives state (animation) change
+        5:  "PLAYERVAL_2",  // writable, per player. Gets reset to 0 on stage reset or new round. Survives state (animation) change
+        6:  "PLAYERVAL_3",  // writable, per player. Gets reset to 0 on stage reset or new round. Survives state (animation) change
+        7:  "PHYSICS_X_IMPULSE",  // writable. Your current X speed. If you set this, this sets your speed towards your current facing, so, providing a positive value while facing to the left would assign you negative speed. If you get this value, it gets multiplied by your facing before you see the result, so, if your speed is negative while facing to the left you get read a positive speed.
+        8:  "PHYSICS_Y_IMPULSE",  // writable. Your current Y speed. Positive speed Y means going up, negative going down
+        // 9, 10, 11, 12
+        13: "FRAMES_PLAYED_IN_STATE",  // restarts from 1 on each state. Only advances forward when a sprite frame advances
+        14: "OPPONENT_X_DISTANCE",  // the absolute value of opponent x - your x
+        15: "OPPONENT_Y_DISTANCE",  // the absolute value of opponent y - your y
+        16: "MATCH_RUNNING",  // global
+        17: "POS_X",  // writable. Your current origin point's X coordinate, sometimes (read on) multiplied by your facing. Origin point is the point between your feet. When you try to set this value, what you set first gets multiplied by your facing, so if you set a negative X while facing left, you would set a positive value due to this. However, the same does not apply when reading this value: you read a negative position if it's negative, and a positive if positive, regardless of which direction you're facing.
+        18: "POS_Y",  // writable. Your current origin point's Y coordinate. Origin point is the point between your feet
+        19: "THIS_IS_ALWAYS_ZERO",  // always returns 0, no matter what
+        20: "DISTANCE_TO_WALL_IN_FRONT",  // means the wall, not screen edge. Equal to abs( X of wall - your X )
+        21: "DISTANCE_TO_WALL_IN_FRONT_AGAIN",  // same as DISTANCE_TO_WALL_IN_FRONT
+        22: "PRIVATE_0_HITBOXES_COUNT",  // per player. Returns the number of PRIVATE_0 hitboxes of your corresponding player
+        23: "DISTANCE_FROM_THIS_CENTER_TO_ENEMY_CENTER",  // center means center of body, it's lifted off the ground a bit. Is equal to sqrt((enemy center X - your center X)^2 + (enemy center Y - your center Y)^2)
+        24: "PLAYER_IN_HITSTUN",  // per player. Does not include the frame when your player enter hitstun, unless they were already in hitstun on that frame
+        25: "RESOURCE_AMOUNT",  // writable, per player. This is RESOURCE_AMOUNT_0. You have 5 slots to store different amounts of resources in. Resources get reset to 0 each round and stage reset
+        26: "RESOURCE_AMOUNT_1",  // writable, per player. Resources get reset to 0 each round and stage reset
+        27: "RESOURCE_AMOUNT_2",  // writable, per player. Resources get reset to 0 each round and stage reset
+        28: "RESOURCE_AMOUNT_3",  // writable, per player. Resources get reset to 0 each round and stage reset
+        29: "RESOURCE_AMOUNT_4",  // writable, per player. Resources get reset to 0 each round and stage reset
+        30: "AIRBORNE",  // this check if based on your Y coordinate being > 0 and a flag which is not fully understood
+        31: "NOT_IN_AIR",  // the opposite of AIRBORNE
+        32: "FACING_LEFT",  // writable. This is the facing used to draw your sprite. This value is 0 if the graphical sprite is facing right and 1 if left
+        33: "PLAYER_INPUTS_FACING_LEFT",  // writable, per player. This is the facing that is used when parsing inputs. It's 0 if right, 1 if left
+        34: "OPPONENT_X_OFFSET",  // = opponent x - your x. Can be negative
+        35: "OPPONENT_Y_OFFSET",  // = opponent y - your y. Can be negative
+        36: "PLAYER_IN_HITSTUN_OR_BLOCKSTUN",  // per player. Does not include the frame when you enter hitstun or blockstun, unless you were already in hitstun or blockstun on that frame
+        37: "VOICE_ID_IS_0",  // per player. At the start of a match each character gets assigned a random VoiceID from 0 to 2, maybe except I-No in some situations, where she gets 0 or 1
+        38: "VOICE_ID_IS_1",  // per player
+        39: "VOICE_ID_IS_2",  // per player
+        40: "VOICE_ID_IS_3",  // per player. Voice ID can never be 3
+        42: "SEND_SIGNAL_EX_PARAM2",  // writable, global. This allows you to write the second parameter of the next sendSignalEx call or read the second parameter of the last sendSignalEx call. Careful: this variable is global, meaning you must use it immediately after setting
+        43: "SEND_SIGNAL_EX_PARAM3",  // writable, global. This allows you to write the third parameter of the next sendSignalEx call or read the third parameter of the last sendSignalEx call. Careful: this variable is global, meaning you must use it immediately after setting
+        44: "DISTANCE_FROM_THIS_CENTER_TO_PLAYER_CENTER",  // center means center of body, it's lifted off the ground a bit. Is equal to sqrt((this center X - your player center X)^2 + (this center Y - your player Y)^2)
+        // 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60: writable
+        61: "GTMP_X",  // writable, per player. Gets reset to 0 on stage reset. This value participates in forming the POS_TYPE(GTMP). You can use this as just a variable
+        62: "GTMP_Y",  // writable, per player. Gets reset to 0 on stage reset. This value participates in forming the POS_TYPE(GTMP). You can use this as just a variable
+        // 63, 64, 65, 66, 67, 68: writable, per player
+        // The following values survive state (animation) switch
+        69: "STORAGE1",  // writable. Reset on stage reset or new round
+        70: "STORAGE2",  // writable. Reset on stage reset or new round
+        71: "STORAGE3",  // writable. Reset on stage reset or new round
+        72: "STORAGE4",  // writable. Reset on stage reset or new round
+        73: "STORAGE5",  // writable. Does not get reset on stage reset
+        74: "STORAGE6",  // writable. Does not get reset on stage reset
+        75: "STORAGE7",  // writable. Does not get reset on stage reset
+        76: "STORAGE8",  // writable. Does not get reset on stage reset
+        77: "HEALTH",  // writable
+        78: "MAX_HEALTH",  // writable. Standard value is 420 for all characters. They do differ in effective HP though due to guts, but that is not reflected here
+        79: "DAMAGE_SCALE",  // writable, per player. Percentage that alters all dealt damage by you or your projectiles
+        80: "EXTRA_PRORATION",  // writable, per player. All incoming damage gets divided by this percentage. Gets reset to 100 on stage reset
+        81: "ANIMATION_DIDNT_ADVANCE",  // is true during hitstop, superfreeze and on every second frame of an RC slowdown period. Actually, this returns an enum: 0 for when time flow is normal, 1 for when in hitstop, 2 for when skipping the frame due to RC slowdown, 3 for when in superfreeze
+        // 82: writable, per player
+        83: "POS_X_RAW",  // writable. Your current origin point's X coordinate. Origin point is the point between your feet. This position is never multiplied by your facing, neither when reading, nor when setting
+        84: "IS_BOSS",  // per player. You're the boss if you're the last opponent in the Story/Arcade mode
+        85: "IS_LOCATION_TEST",  // per player. This probably refers to the location test of Xrd Rev 2.1
+        86: "STANDING_COUNTER_IS_ZERO",  // per player. Reports if STANDING_COUNTER is 0. Always returns false in combo trials mode, mission mode and tutorial mode
+        87: "STANDING_COUNTER",  // writable, per player. Decremenets by 1 each frame, including during hitstop and superfreeze. It is called this way because it is used primarily by standing animations
+        88: "PROJECTILE_DAMAGE_SCALE",  // writable. Percentage that affects damage of incoming attacks that have > 0 projectile durability/level. Projectiles that attack you set their level using setProjectileDurability beforehand
+        89: "TRAINING_MODE_AND_NO_ONE_IN_XSTUN_OR_THROW_INVUL_FROM_XSTUN_OR_AIRBORNE_OR_ATTACKING",  // per player. By X-Stun I mean hitstun or blockstun
+        90: "IS_TRAINING_MODE",  // global
+        91: "ALWAYS_ZERO",  // this always returns 0, no matter what
+        92: "IS_PERFORMED_RAW",  // this means that the move was not cancelled into from another move
+        93: "PLAYER_SIDE",  // 0 for P1 effects and player, 1 for P2 effects and player
+        // 95: per player
+        96: "DISTANCE_FROM_THIS_CENTER_TO_ENEMY_CENTER_DUPLICATE",  // same as DISTANCE_FROM_THIS_CENTER_TO_ENEMY_CENTER
+        97: "PITCH",  // writable. In 1/1000'th of a degree. So 1000 means 1 degree. Means same thing as ROTATION. 0 is unrotated and positive angle rotates you counter-clockwise when facing right, or clockwise when facing left. Pitch is the angle of rotation around the axis perpendicular to the screen
+        // 98
+        99: "SCALE_X",  // writable. 1000 means unscaled. Scales horizontally
+        100: "SCALE_X_GROWTH",  // writable. SCALE_X will increase by this amount each frame until you reset it to 0
+        101: "EX_KIZETSU",  // writable, per player. Setting this to true will make it so that the next time you recover from a move you will enter "ExKizetsu" state. This value does not automatically get cleared to 0
+        102: "EXPOINT_X",  // writable. These two variables are set by exPointFReset, exPointFResetObject, and can also be written to directly. They get reset to 0 on stage reset. When Venom hits a ball, for the ball this is set to the middle point between Venom and ball. POS_TYPE EX_POINT_F refers to these variables
+        103: "EXPOINT_Y",  // writable. See EXPOINT_X
+        104: "OPPONENT_X_OFFSET_TOWARDS_FACING",  // this is X distance to the opponent except if you're facing away from them, then it is negative
+        105: "FRAMES_SINCE_REGISTERING_FOR_THE_ANIMATION_FRAME_ADVANCED_SIGNAL",  // upon0_21 has an ANIMATION_FRAME_ADVANCED event. When first registering for that event, this value gets reset to 0. It advances each frame by 1 after ANIMATION_FRAME_ADVANCED event is fired and onIdling procedure is called. It is only incremented when not in hitstop, not in superfreeze, and increments at half the rate during RC slowdown.
+        106: "MIN_HORIZ_DIST_BETWEEN_PUSHBOXES",  // gets distance from your pushbox to enemy player's pushbox. If you're a projectile, it takes the projectile's pushbox
+        107: "PLAYER_TENSION_MODE",  // writable, per player. Value 0 means IK_NOT_ACTIVE, 1: RED_IK_ACTIVE, 2: GOLD_IK_ACTIVE, 3: TENSION_DISABLED_UNTIL_END_OF_ROUND
+        // 108: writable, per player
+        109: "PLAYER_TENSION",  // writable, per player. 0 to 10000. When IK is active or tension is disabled until end of round, returns 0
+        111: "MATCH_FINISHED",  // global. Is not the same as negated MATCH_RUNNING
+        112: "HIGHER_PITCH_VOICE_TIMER",  // writable, per player. If you're a projectile, returns your player's timer. Decreases by 1 each frame, including frozen frames
+        113: "CANT_BACKDASH_TIMER", // writable, per player. While this timer is not 0, you can't backdash. Decrements each frame
+        114: "IS_TOUCHING_WALL_OR_SCREEN_EDGE",
+        115: "CREATE_ARG_HIKITSUKI_VAL_1",  // writable. This can be used to read the first argument of the createArgHikitsukiVal call that was used before creating this projectile. Setting this variable is not the same as calling createArgHikitsukiVal with the same argument. The argument that you receive from createArgHikitsukiVal when you're created and the argument that you send via createArgHikitsukiVal are two separate variables. This is the argument you receive
+        116: "CREATE_ARG_HIKITSUKI_VAL_2",  // writable. This can be used to read the second argument of the createArgHikitsukiVal call that was used before creating this projectile. Setting this variable is not the same as calling createArgHikitsukiVal with the same argument. The argument that you receive from createArgHikitsukiVal when you're created and the argument that you send via createArgHikitsukiVal are two separate variables. This is the argument you receive
+        117: "LANDING_STIFF_FIELD_2",  // writable, per player. If the second argument of landingStiffTime had 0x2 flag, then this is equal to the first argument of landingStiffTime - the landing recovery, otherwise this is 0. This seems to be written only, but never read by the game engine
+        // 119: writable, per player
+        120: "BURST_METER",  // writable, per player. Capped at 15000
+        // 121: only returns non-0 in MOM mode
+        // 122
+        123: "INTERROUND_VALUE_STORAGE1",  // writable, per player. Allows to store values between rounds
+        124: "INTERROUND_VALUE_STORAGE2",  // writable, per player. Allows to store values between rounds
+        126: "SUPERS_ARE_UNBLOCKABLE",  // per player. This flag changes the behavior of one super for each Sign character
+        // 127
+        128: "LAST_DEALT_COLLISION_ID", // this is a unique ID assigned to the last attack you connected on anything. When this ID is generated, the victim is given the same ID in their LAST_RECEIVED_COLLISION_ID
+        129: "LAST_RECEIVED_COLLISION_ID", // this is a unique ID assigned to the last attack that connected on you. When this ID is generated, the attacker is given the same ID in their LAST_DEALT_COLLISION_ID
+        130: "IS_PLAYER",  // false (0) for projectiles, true (1) for players
+        131: "IS_PLAYING_CUTSCENE_ANIME",  // does not go to your corresponding player if accessed from effect. So effects will always read 0 here
+        // 132: global
+        // 133: global, per player
+        134: "ALWAYS_ZERO3",  // this variable always returns 0, no matter what
+        // 135: writable, per player
+        // 136: global
+        137: "INSTANT_KILLED",  // per player. The type of the received attack is Instant Kill
+        // 138: writable, global
+        139: "PLAYER_OR_ENEMY_ACTOR_PLAYING_CUTSCENE_ANIME",  // per player
+        140: "PLAYER_ACTOR_PLAYS_CUTSCENE_ANIME",  // per player
+        141: "ENEMY_ACTOR_PLAYS_CUTSCENE_ANIME",  // per player
+        // 142: related to playing cutscene anime
+        143: "IS_PLAYING_SOUND",
+        // 144: global
+        // 145, 146, 148, 149, 150, 151: per player
+        152: "HELLFIRE",  // per player. Hellfire is a state when you have < 10% health while being combo'd or < 20% in neutral
+        153: "LOWEST_HELD_BUTTON",  // per player. Possible values: 0: none, 1: PUNCH, 2: KICK, 3: SLASH, 4: HEAVY SLASH, 5: DUST, 6: TAUNT
+        154: "IS_CPU",  // per player
+        155: "IS_A_CPU_WHO_IS_NOT_PERFORMING_AN_EMOVE",  // per player
+        156: "NORMALS_ENABLED",  // per player. Ability to perform normals is commonly regarded as the state of being "idle" or not performing any move
+        // 157: writable, per player
+        158: "HIT_BY_DUST",  // is hit by a dust (5D) attack
+        159: "STYLISH",  // per player. Is the player using Stylish mode
+        // 160
+        161: "WAS_INPUT_USING_STYLISH",  // the move was performed using the Special button
+        162: "NUMBER_OF_HITS_MAX",  // writable. Does not decrease with each hit taken. Specifies the maximum number of hits the projectile can take before getting destroyed (see requestDestroy). Is set using numberOfHits function or directly. When setting a value < 0, 0 is set instead.
+        163: "NUMBER_OF_HITS_TAKEN",  // increments each hit taken. If destroyAssariEx is set to 1 (default is 0) or if destroyAiuchi is not set to 1 (default is 0), you get destroyed when you reach NUMBER_OF_HITS_MAX 
+        164: "IS_BURST_SUPER",  // per player
+        165: "DUST_GATLING_TIMER", // writable, per player. During this timer, any non-follow-up, non-super, non-IK move can be cancelled into from any normal. Decrements by 1 each frame
+        166: "HITSTUN",  // writable, per player. Returns the current remaining number of frames of hitstun of your player
+        167: "TUMBLE_DURATION", // writable, per player. The duration of the received tumble. Does not decrement over time. Instead, CmnActKorogari (tumble animation) has an internal counter that counts up to this value.
+        168: "STYLISH_DAMAGE_DIVISOR",  // writable, global. All incoming damage is divided by this percentage for players who are using the Stylish mode
+        169: "STYLISH_TENSION_MODIFIER",  // writable, global. A percentage. All incoming tension is multiplied by it for players who are using the Stylish mode
+        170: "STYLISH_BURST_GAIN_MODIFIER",  // writable, global. A percentage. All incoming burst gauge values are multiplied by it for players who are using the Stylish mode
+        172: "DOKI_DOKI_STOP_HASSEI_ENABLED",  // writable, global. Specify 0 or 1. If 1, Dramatic Finale is allowed to happen. If 0, it can never happen. This variable is global. The default value is 1.
+        173: "DOKI_DOKI_STOP_HASSEI_PRE_TIME",  // writable, global. Specify the amount of time, in frames, that Dramatic Finale happens before the killing blow attacks become active. This variable is global. The default value is 6.
+        174: "DOKI_DOKI_X_DIST_MIN",  // writable, global. The minimum distance between players' X position to trigger Dramatic Finale. This is just one of the checks that must be satisfied to trigger Dramatic Finale. This variable is global. Default value is 100000, which is the distance at which players' pushboxes are touching
+        175: "DOKI_DOKI_X_DIST_MAX",  // writable, global. The maximum distance between players' X position to trigger Dramatic Finale. This is just one of the checks that must be satisfied to trigger Dramatic Finale. This variable is global. Default value is 500000
+        176: "DOKI_DOKI_MAX_DIST_Y",  // writable, global. The maximum distance between players' Y position to trigger Dramatic Finale. This is just one of the checks that must be satisfied to trigger Dramatic Finale. This variable is global. Default value is 360000
+        177: "STANDARD_DOKI_DOKI_STOP_HASSEI",  // writable, global. Default value is 7. This provides the standard value for moves that have not set a timing using the dokiDokiStopHassei function. This variable is global.
+        // 178: writable, global
+        197: "ALWAYS_MINUS_ONE",  // this always returns -1, no matter what
+        // 198: writable, global
+        199: "DOKI_DOKI_COOLDOWN_TIMER",  // writable, global. A timer that is stored in the game engine, which decrements by 1 each frame, including superfreeze. While it is above 0, Dramatic Finale cannot happen
+        200: "TIME_SINCE_CREATION",  // starts from 0 and counts time, including frozen frames, since creation, and never gets reset until the object is destroyed
+        // 201, 202, 203, 204: writable, per player. These variables can be used in move conditions
+        205: "ALWAYS_ZERO_205",  // this always returns 0, no matter what
+        206: "ALWAYS_ZERO_206",  // this always returns 0, no matter what
+        207: "ALWAYS_ZERO_207",  // this always returns 0, no matter what
+        208: "ALWAYS_ZERO_208",  // this always returns 0, no matter what
+        209: "OPPONENT_ALREADY_HIT_BY_NEOBLITZ",  // per player. Neo blitz means blitz shield attack
+        210: "DUST_PRORATION1",  // writable, per player. This proration percentage is unconditionally applied to all incoming damage. Set this on the one who is going to take the damage
+        211: "DUST_PRORATION2",  // writable, per player. This proration percentage is unconditionally applied to all incoming damage. Set this on the one who is going to take the damage
+        212: "IS_STYLISH_OR_CPU",  // per player
+        213: "ENABLE_NORMALS",  // per player. Same as NORMALS_ENABLED
+        214: "OPPONENT_IN_HITSTUN",  // per player. Includes the frame when hitstun is entered into. Returns 0 or 1
+        215: "IS_DARK_COLOR",  // per player. This is something that can be set in Arcade (Story) mode per opponent, but no one has dark color set to true. When this is true, if your (assuming you're the AI opponent) color is the same as that of the human player, and both use the same character, the you (the AI) don't change your color to mirror color. When this is false, if both players use the same character and color, the AI (you) are changed to the mirror (dark) color. This value does not by itself reflect whether you (the AI) currently have the dark color. It merely means whether the check for resolving a color collision with dark color was enabled for the AI opponent. When this value is accessed by human player or their effects, it should always return 0, because there is no way to set IS_DARK_COLOR to true for the human player in arcade mode. This should be always false even for the AI opponent, because there are no arcade missions that have set this value to true.
+        216: "HIT_BY_NORMAL_THROW", // checks whether you were hit by an attack that has either kuuchuutuujounageTsukami (normal airthrow) or chijoutuujounageTsukami (normal ground throw) flags. These flags are only ever set on normal ground and air throws and disappear as soon as the non-throw portion of the H/OS move starts in case the throw whiffed. Meaning that if you got hit by an attack that was 4H/6H or a throw OS, but the attack itself was not a throw, then HIT_BY_NORMAL_THROW would be false on this hit. But if you get hit by the throw portion of that attack, then HIT_BY_NORMAL_THROW would return true.
+        217: "HIT_BY_OVERDRIVE",
+        // 218: global
+        // 219, 220, 221, 222, 223, 224, 225: writable, global
+        226: "ALPHA",  // writable. This is the alpha (transparency) of the color. From 0 to 255. Setting this to 0 makes you fully transparent
+        // 227: global
+        // 228: writable, per player
+        229: "SLOW_SPEED_PERCENTAGE",  // writable, per player. Percentage that multiplies your movement speed, making it slower if < 100 or faster if > 100
+        // 230: global
+        231: "IS_TRIAL_COMPLETED",  // global, per trial
+        232: "TRIAL_BEST_TIME",  // writable, global, per trial
+        233: "TRIAL_TIME",  // writable, global
+        234: "MOM_INFINITE_DRAGON_INSTALL",  // apparently, some item in MOM causes Sol to enter DI indefinitely
+        235: "COSTUME",  // used by Elphelt to determine selected outfit
+        236: "ARMORED_HITS_ON_THIS_FRAME",  // per player
     },
     named_value_maps: {
         "Entity": {
-            1: "PREVIOUS",
-            2: "PARENT",
-            3: "PLAYER",
-            4: "STACK_0",
-            5: "STACK_1",
-            6: "STACK_2",
-            7: "STACK_3",
-            8: "STACK_4",
-            9: "STACK_5",
-            10: "STACK_6",
-            11: "STACK_7",
-            12: "STACK_FOR_CMN_ACT",
+        	// all entity slots that can be used to store entities are stored directly inside of the projectile or player that is accessing the entity
+            1: "PREVIOUS",  // the last created entity using createObject, createObjectWithArg
+            2: "PARENT",  // the entity that created this object
+            3: "PLAYER",  // the corresponding player of this projectile, or the player themselves
+            4: "STACK_0",  // you can store entities in these slots
+            5: "STACK_1",  // you can store entities in these slots
+            6: "STACK_2",  // you can store entities in these slots
+            7: "STACK_3",  // you can store entities in these slots
+            8: "STACK_4",  // you can store entities in these slots
+            9: "STACK_5",  // you can store entities in these slots
+            10: "STACK_6",  // you can store entities in these slots
+            11: "STACK_7",  // you can store entities in these slots
+            12: "STACK_FOR_CMN_ACT",  // you can store entities in this slot. This slot is used by some MOM item scripts, but other than that, it should be free to use
             13: "WINNER",
             14: "LOSER",
-            21: "LOCKED",
-            22: "ENEMY",
+            21: "LOCKED", // when performing a grab, this is the opponent you're grabbing
+            22: "ENEMY",  // the opponent player
             23: "SELF",
+            24: "LAST_ATTACKER",  // the player or effect that hit you last
+            25: "LAST_DEFENDER",  // the player or effect that you hit last
+            26: "STACK_9",  // you can store entities in this slot
+            27: "PLAYER_0",  // this means Player 1
+            28: "PLAYER_1",  // this means Player 2
         },
         "counterHitType0_1037": {
             0: "DEFAULT",
@@ -35,24 +217,100 @@
             2: "FORCE_COUNTER",
         },
         "MoveCondition": {
+            0: "NONE",  // this move condition is always fulfilled
+            1: "LAND",
             2: "AIR",
             3: "REQUIRES_50_TENSION",
             4: "REQUIRES_100_TENSION",
             5: "REQUIRES_25_TENSION",
             6: "JUMP_COUNT_OK",
             7: "AIRDASH_COUNT_OK",
-            12: "PLAYERVAL_0_TRUE",
-            13: "PLAYERVAL_1_TRUE",
-            14: "PLAYERVAL_2_TRUE",
-            15: "PLAYERVAL_3_TRUE",
-            16: "PLAYERVAL_0_FALSE",
-            17: "PLAYERVAL_1_FALSE",
-            18: "PLAYERVAL_2_FALSE",
-            19: "PLAYERVAL_3_FALSE",
-            98: "CPU",
-            102: "CLOSE_SLASH",
-            103: "FAR_SLASH",
-            106: "INSTANT_KILL_READY",
+            11: "ENEMY_IN_OTG_STATE",
+            12: "PLAYERVAL_0_TRUE",  // is true if contains any value other than 0
+            13: "PLAYERVAL_1_TRUE",  // is true if contains any value other than 0
+            14: "PLAYERVAL_2_TRUE",  // is true if contains any value other than 0
+            15: "PLAYERVAL_3_TRUE",  // is true if contains any value other than 0
+            16: "PLAYERVAL_0_FALSE",  // is false if contains 0
+            17: "PLAYERVAL_1_FALSE",  // is false if contains 0
+            18: "PLAYERVAL_2_FALSE",  // is false if contains 0
+            19: "PLAYERVAL_3_FALSE",  // is false if contains 0
+            40: "REQUIRES_50_TENSION_DEADANGLE",  // made for Dead Angle. Is separate from REQUIRES_50_TENSION, because it includes some MOM checks
+            50: "EX_GAUGE_0_FULL",  // EX_GAUGE is same as RESOURCE
+            51: "EX_GAUGE_1_FULL",
+            52: "EX_GAUGE_2_FULL",
+            53: "EX_GAUGE_3_FULL",
+            54: "EX_GAUGE_4_FULL",
+            56: "Y_BELOW_50000",
+            57: "Y_BELOW_100000",
+            58: "Y_BELOW_150000",
+            59: "Y_BELOW_200000",
+            60: "IS_TOUCHING_WALL",
+            61: "IS_TOUCHING_SCREEN_EDGE",
+            62: "EX_GAUGE_0_EMPTY",  // EX_GAUGE is same as RESOURCE
+            63: "EX_GAUGE_1_EMPTY",
+            64: "EX_GAUGE_2_EMPTY",
+            65: "EX_GAUGE_3_EMPTY",
+            66: "EX_GAUGE_4_EMPTY",
+            68: "IS_TOUCHING_LEFT_SCREEN_EDGE",
+            69: "IS_TOUCHING_RIGHT_SCREEN_EDGE",
+            70: "ALWAYS_FALSE",  // this move condition is never fulfilled
+            71: "NOT_DASHING",  // you're considered not dashing as soon as CmnActFDashStop animation starts, which is as soon as you release 6/3 if you were running for more than 9 frames or after frame 9 of CmnActFDash if you held 6/3 for 9 frames or less. Or as soon as you press a button or do any other action than running
+            72: "EX_GAUGE_0_NOT_EMPTY",
+            73: "EX_GAUGE_1_NOT_EMPTY",
+            74: "EX_GAUGE_2_NOT_EMPTY",
+            75: "EX_GAUGE_3_NOT_EMPTY",
+            76: "EX_GAUGE_4_NOT_EMPTY",
+            77: "HEIGHT_OK_FOR_AIRDASH",
+            78: "MOVE_CHECK_BIT_0",  // these conditions can be used to check for move bits, which get reset to 0 before every skill check. You can set bits using setMoveCheckBit function inside an OnPreSkillCheck handler and use these conditions to check for them
+            79: "MOVE_CHECK_BIT_1",
+            80: "MOVE_CHECK_BIT_2",
+            81: "MOVE_CHECK_BIT_3",
+            82: "MOVE_CHECK_BIT_4",
+            83: "MOVE_CHECK_BIT_5",
+            84: "MOVE_CHECK_BIT_6",
+            85: "MOVE_CHECK_BIT_7",
+            86: "MOVE_CHECK_BIT_8",
+            87: "MOVE_CHECK_BIT_9",
+            88: "MOVE_CHECK_BIT_10",
+            89: "MOVE_CHECK_BIT_11",
+            90: "MOVE_CHECK_BIT_12",
+            91: "MOVE_CHECK_BIT_13",
+            92: "MOVE_CHECK_BIT_14",
+            93: "MOVE_CHECK_BIT_15",
+            94: "IS_BOSS",  // you're the boss if you're the last opponent in the Story/Arcade mode
+            95: "IS_NOT_BOSS",
+            96: "MATCH_RUNNING",
+            97: "NOT_HOLDING_FD",
+            98: "IS_CPU",
+            99: "OPPONENT_IN_AIR_HITSTUN",  // this returns 1 if opponent is in animations CmnActBDownUpper, CmnActBDownUpperEnd, CmnActBDownDown, CmnActBDownBound, CmnActFDownUpper, CmnActFDownUpperEnd, CmnActFDownDown, CmnActFDownBound, CmnActVDownUpper, CmnActVDownUpperEnd, CmnActVDownDown, CmnActVDownBound, CmnActBlowoff, CmnActKirimomiUpper, CmnActWallBound, CmnActWallBoundDown, CmnActZSpin, CmnActExDamage, CmnActKorogari, CmnActWallHaritsuki. Does not include animation of being grabbed in the air. Does not include the first frame - the one when the hit connects
+            100: "ALWAYS_FALSE_TOO",  // this move condition is never fulfilled
+            101: "ALWAYS_TRUE",  // this move condition is always fulfilled
+            102: "CLOSE_SLASH",  // the distance is appropriate for close slash. The range for the close slash is set by the closeSlashRange function
+            103: "FAR_SLASH",  // the opposite of CLOSE_SLASH, except this is additionally limited by the enableFarSlash flag
+            104: "CAN_BURST",  // you can burst if your burst gauge is full and your burst is not currently disabled, like from a throw or super
+            105: "HAS_TENSION",  // returns 1 if you have more than zero tension, otherwise returns 0
+            106: "CAN_ACTIVATE_OR_DEACTIVATE_IK",  // returns 1 if you have not sent an IK attack yet (so your tension bar is not completely disabled)
+            107: "CAN_SEND_IK",  // returns 1 if you have activated red or gold IK and are ready to send it
+            108: "GAME_MODE_IS_NOT_SPARRING",  // I'm not sure what sparring mode is
+            109: "GAME_MODE_IS_NOT_SPARRING_ALSO",  // same as GAME_MODE_IS_NOT_SPARRING
+            110: "HEIGHT_OK_FOR_DOUBLE_JUMP",
+            111: "ALWAYS_FALSE_2",  // this move condition is never fulfilled
+            114: "OPPONENT_IN_BLOCKSTUN",
+            115: "OPPONENT_CROUCHING",
+            116: "FULL_BURST_GAUGE",
+            117: "OPPONENT_IN_HITSTUN",  // includes the frame the first hit connected. However, the skill check takes place before hits connect, so does it?
+            118: "OPPONENT_IN_COUNTERHIT_HITSTUN",  // includes the frame the first hit connected. However, the skill check takes place before hits connect, so does it?
+            119: "OPPONENT_NOT_CROUCHING",
+            120: "MEM201",  // checks if Mem(201) is not 0
+            121: "MEM202",  // checks if Mem(202) is not 0
+            122: "MEM203",  // checks if Mem(203) is not 0
+            123: "MEM204",  // checks if Mem(204) is not 0
+            124: "NOT_MEM201",  // checks if Mem(201) is 0
+            125: "NOT_MEM202",  // checks if Mem(202) is 0
+            126: "NOT_MEM203",  // checks if Mem(203) is 0
+            127: "NOT_MEM204",  // checks if Mem(204) is 0
+            128: "IS_CPU_AGAIN",
+            129: "CAN_GATLING",  // you can gatling if enableGatlings is 1 and [your attack hit something and it is hitstop] or until you call recoveryState or attackOff does not terminate the gatling window
         },
         "allowHitting0_2279": {
             0: "ENEMY",
@@ -66,148 +324,242 @@
             3: "JUMPING",
         },
         "checkInput0_48": {
-            1: "INPUT_HOLD_P",
-            3: "INPUT_RELEASE_P",
-            4: "INPUT_PRESS_P",
+            0: "INPUT_ALWAYS_TRUE",  // this input is always successfully "parsed" and found to be present no matter what the actual inputs are
+            1: "INPUT_HOLD_P",  // hold has no buffer window and simply checkes if a button is being held on the current frame
+            2: "INPUT_P_STRICT_PRESS",  // strict presses have no buffer window and simply check if a button was pressed on the current frame, meaning it was not being held on the previous frame and is being held now
+            3: "INPUT_P_STRICT_RELEASE",  // strict releases are like strict presses, but for releases
+            4: "INPUT_PRESS_P",  // a press has a 3f buffer window, including current frame (so this frame, previous frame and the frame before that)
+            5: "INPUT_NOT_HOLD_P",  // the negated check for INPUT_HOLD_P
+            6: "INPUT_RELEASE_P",  // a release has a 3f buffer window, just like a press
             10: "INPUT_HOLD_K",
-            12: "INPUT_RELEASE_K",
+            11: "INPUT_K_STRICT_PRESS",
+            12: "INPUT_K_STRICT_RELEASE",
             13: "INPUT_PRESS_K",
+            14: "INPUT_NOT_HOLD_K",
+            15: "INPUT_RELEASE_K",
             19: "INPUT_HOLD_S",
             20: "INPUT_S_STRICT_PRESS",
-            21: "INPUT_RELEASE_S",
+            21: "INPUT_S_STRICT_RELEASE",
             22: "INPUT_PRESS_S",
+            23: "INPUT_NOT_HOLD_S",
+            24: "INPUT_RELEASE_S",
             28: "INPUT_HOLD_H",
-            30: "INPUT_RELEASE_H",
+            29: "INPUT_H_STRICT_PRESS",
+            30: "INPUT_H_STRICT_RELEASE",
             31: "INPUT_PRESS_H",
+            32: "INPUT_NOT_HOLD_H",
+            33: "INPUT_RELEASE_H",
             37: "INPUT_HOLD_D",
-            39: "INPUT_RELEASE_D",
+            38: "INPUT_D_STRICT_PRESS",
+            39: "INPUT_D_STRICT_RELEASE",
             40: "INPUT_PRESS_D",
-            47: "INPUT_F_TRG_ON",
-            48: "INPUT_F_TRG_OFF",
-            55: "INPUT_1",
+            41: "INPUT_NOT_HOLD_D",
+            42: "INPUT_RELEASE_D",
+            46: "INPUT_HOLD_TAUNT",
+            47: "INPUT_TAUNT_STRICT_PRESS",
+            48: "INPUT_TAUNT_STRICT_RELEASE",
+            49: "INPUT_PRESS_TAUNT",
+            50: "INPUT_NOT_HOLD_TAUNT",
+            51: "INPUT_RELEASE_TAUNT",
+            55: "INPUT_1",  // directions, or single-direction motions, do not have a buffer window. They simply check the direction on the current frame. We're using the numpad notation where 1 is downleft, 2 is down, 3 is downright, 4 is left, 5 is neutral, 6 is right, 7 is upleft, 8 is up, 9 is upright. The directions get mirrored left/right if you're facing left
+            56: "INPUT_4_OR_1_OR_2",
+            63: "INPUT_NOT_1",  // direction must be any but 1
+            64: "INPUT_NOT_4_OR_1_OR_2",  // so not (4 or 1 or 2)
             68: "INPUT_2",
-            69: "INPUT_ANY_DOWN",
-            77: "INPUT_NOT_UP",
+            69: "INPUT_ANYDOWN",  // anydown means 1, 2 or 3
+            71: "INPUT_ANYDOWN_STRICT_PRESS",  // the direction must have been pressed on this frame exactly. This has no buffer window
+            76: "INPUT_NOT_2",
+            77: "INPUT_NOTANYDOWN",
             81: "INPUT_3",
+            82: "INPUT_6_OR_3_OR_2",
+            89: "INPUT_NOT_3",
+            90: "INPUT_NOT_6_OR_3_OR_2",  // so not (6 or 3 or 2)
             94: "INPUT_4",
-            95: "INPUT_ANY_BACK",
-            103: "INPUT_NOT_DOWN",
+            95: "INPUT_ANYBACK",
+            97: "INPUT_ANYBACK_STRICT_PRESS",
+            102: "INPUT_NOT_4",
+            103: "INPUT_NOTANYBACK",
             107: "INPUT_5",
+            108: "INPUT_ALWAYS_TRUE_DUPLICATE",  // this input is always successfully "parsed" and found to be present no matter what the actual inputs are
             115: "INPUT_NOT_5",
             120: "INPUT_6",
-            121: "INPUT_ANY_FORWARD",
+            121: "INPUT_ANYFORWARD",
+            123: "INPUT_ANYFORWARD_STRICT_PRESS",
+            128: "INPUT_NOT_6",
+            129: "INPUT_NOTANYFORWARD",
             133: "INPUT_7",
+            134: "INPUT_4_OR_7_OR_8",
+            141: "INPUT_NOT_7",
+            142: "INPUT_NOT_4_OR_7_OR_8",  // so not (4 or 7 or 8)
             146: "INPUT_8",
-            147: "INPUT_ANY_UP",
-            155: "INPUT_8ELM_NOT",
+            147: "INPUT_ANYUP",
+            149: "INPUT_ANYUP_STRICT_PRESS",
+            154: "INPUT_NOT_8",
+            155: "INPUT_NOTANYUP",
             159: "INPUT_9",
+            160: "INPUT_6_OR_9_OR_8",
             167: "INPUT_NOT_9",
-            172: "INPUT_236",
-            173: "INPUT_623",
-            174: "INPUT_214",
-            175: "INPUT_41236",
-            177: "INPUT_63214",
-            178: "INPUT_236236",
-            179: "INPUT_214214",
-            180: "INPUT_4123641236",
-            182: "INPUT_632146",
-            184: "INPUT_2141236",
-            185: "INPUT_236214",
-            186: "INPUT_22",
-            188: "INPUT_CHARGE_BACK_FORWARD_30F",
-            189: "INPUT_CHARGE_DOWN_UP_30F",
-            196: "INPUT_P_MASH",
+            168: "INPUT_NOT_6_OR_9_OR_8",  // so not (6 or 9 or 8)
+            172: "INPUT_236",  // 2(5)3(10)6(10). Explanation: motions don't have buffer windows for the motion itself in general. Instead, they have a buffer window for each input in the sequence, and the buffer window of the motion in general is actually the buffer window of its last input. Motions are being scanned in the input buffer input-by-input from the last input towards the first, looking for each direction in sequence. We will print the buffer windows for each direction of a motion in parentheses, and on every input, except the first and the last, the window includes the frame of that input and all frames up to and not including the next input (ex. 236, the 3 has 10f window, so starting from the 6, you must find the last frame where 6 was being held, then go one frame deeper into the past, 6 won't be held there anymore, and that frame is part of the window, so you count 1, and you count back into the past until you count 10 frames and on one of those frames 3 must have been held). On the last input the window includes the frame of the last input and all frames between that and the current frame inclusively. For the first (oldest) direction of a motion, it is looking not for the start of the direction input, but for any frame on which that direction had been "held" (it's not looking for a "press" of that direction, i.e. the start of its "held" interval). For any direction but the first, it is looking for the start of that input, i.e. the frame when it starts being held or when it got "pressed". In the 2(5)3(10)6(10) motion, holding 2, then releasing it for 4 frames and doing 36 will produce the motion, while holding 2, then releasing it for 5 frames and doing 36 will not produce the motion.
+            173: "INPUT_623",  // 6(8)2(12)3(7)
+            174: "INPUT_214",  // 2(5)1(10)4(10)
+            175: "INPUT_41236",  // 4(5)1(12)2(12)3(12)6(12) or 4(5)2(12)3(12)6(12) or 4(5)1(12)2(12)6(12) or 4(5)1(12)3(12)6(12)
+            176: "INPUT_421",  // 4(8)2(12)1(7)
+            177: "INPUT_63214",  // 6(5)3(12)2(12)1(12)4(12) or 6(5)2(12)1(12)4(12) or 6(5)3(12)2(12)4(12) or 6(5)3(12)1(12)4(12)
+            178: "INPUT_236236",  // 2(5)6(15)2(15)6(12) or 2(5)6(17)ANYDOWN(17)6(12) or 2(5)6(17)2(17)ANYFORWARD(12)
+            179: "INPUT_214214",  // 2(5)4(15)2(15)4(12) or 2(5)4(17)ANYDOWN(17)4(12) or 2(5)4(17)2(17)ANYBACK(12)
+            180: "INPUT_4123641236",  // 4(5)2(16)6(16)4(16)2(16)6(10)
+            181: "INPUT_6321463214",  // 6(5)2(16)4(16)6(16)2(16)4(10)
+            182: "INPUT_632146",  // 6(6)3(12)2(12)1(12)4(12)6(12) or 6(4)2(8)1(8)4(8)6(8) or 6(4)3(8)2(8)4(8)6(8) or 6(6)2(12)4(12)6(12) or 6(4)3(12)1(8)4(8)6(8)
+            183: "INPUT_641236",  // 6(6)4(14)1(14)2(14)3(14)6(14)
+            184: "INPUT_2141236",  // 2(6)1(12)4(12)ANYDOWN(24)6(10) or 2(6)4(12)2(12)6(10) or 2(6)4(12)2(12)3(12)6(10)
+            185: "INPUT_2363214",  // 2(6)3(12)6(12)ANYDOWN(24)4(10) or 2(6)6(12)2(12)4(10) or 2(6)6(12)2(12)1(12)4(10)
+            186: "INPUT_22",  // ANYDOWN(10)NOT_ANYDOWN(10)2(10)
+            187: "INPUT_46",  // 4(5)6(10)
+            188: "INPUT_CHARGE_BACK_FORWARD_30F",  // (ANYBACK must be charged (held) for at least 30f) ANYBACK(10)ANYFORWARD(10); ANYBACK(10) means that after releasing the charge, you must press ANYFORWARD within 10 frames, including the frame when you press ANYFORWARD and not including the frame when you last held the charge. ANYFORWARD(10) means same thing as in all other input buffer windows, that ANYFORWARD stays "active" for 10 frames, including the frame on which you pressed ANYFORWARD and including the current frame. So pressing ANYFORWARD for 9 frames and on frame 10 pressing the special move's button will still produce the special move while ANYFORWARD held for 10, followed by button will not
+            189: "INPUT_CHARGE_DOWN_UP_30F",  // (ANYDOWN must be charged for at least 30f) ANYDOWN(10)ANYUP(10)
+            190: "INPUT_6428",  // 6(6)4(14)2(14)8(10)
+            191: "INPUT_CHARGE_BACK_UP_30F", // (ANYBACK must be charged for at least 30f) ANYBACK(10)2(10)ANYUP(10)
+            192: "INPUT_64641236",  // 6(12)4(12)6(12)4(16)2(16)6(10)
+            193: "INPUT_342646",  // 3(10)4(16)2(16)6(10)4(10)6(10)
+            194: "INPUT_28",  // ANYDOWN(12)ANYUP(10)
+            195: "INPUT_646",  // 6(5)4(9)6(7)
+            196: "INPUT_P_MASH",  // mash inputs work by counting whether the number of times a button is pressed during a mash is >= 5. A button press is considered to be a part of a mash if it is pressed within 11 frames of the last press. A mash stays "valid" or "buffered" for 12 frames after the last press, including the frame of the last press
             197: "INPUT_K_MASH",
             198: "INPUT_S_MASH",
             199: "INPUT_H_MASH",
-            200: "INPUT_TAUNT_MASH",
-            214: "INPUT_ROMAN_CANCEL",
-            215: "INPUT_SUPERJUMP",
-            216: "INPUT_JUMP",
-            217: "INPUT_DASH_TRG",
-            218: "INPUT_BDASH_TRG",
-            219: "INPUT_EASYGUARD_BACK",
-            225: "INPUT_66_QUICK",
-            251: "INPUT_CHARGE_BACK_FORWARD_40F",
-            252: "INPUT_CHARGE_DOWN_UP_40F",
-            253: "INPUT_CHARGE_BACK_FORWARD_45F",
-            254: "INPUT_CHARGE_DOWN_UP_45F",
-            268: "INPUT_BURST",
-            269: "INPUT_HOLD_2BUTTON",
-            270: "INPUT_ROMAN_CANCEL_FORCE",
+            200: "INPUT_D_MASH",
+            201: "INPUT_CIRCLE",  // uses own poorly understood input parsing with buffer windows that are hard to describe that parses an input that seems to resemble a circle
+            204: "INPUT_222",  // ANYDOWN(8)NOT_ANYDOWN(8)ANYDOWN(8)NOT_ANYDOWN(8)2(8)
+            205: "INPUT_2222",  // ANYDOWN(10)NOT_ANYDOWN(10)ANYDOWN(10)NOT_ANYDOWN(10)ANYDOWN(10)NOT_ANYDOWN(10)2(10)
+            206: "INPUT_236236_STRICTER",  // 2(5)6(10)2(10)6(10)
+            212: "INPUT_PRESS_D_DUPLICATE",  // same as INPUT_PRESS_D
+            213: "INPUT_HOLD_6_OR_3_AND_PRESS_TWO_OF_PKSH",
+            214: "INPUT_ROMAN_CANCEL",  // any 3 or more of PKSH
+            215: "INPUT_SUPERJUMP",  // the buffer window for the down press is 12f, including current frame. Down must not be pressed for longer than 13 frames. The up press must be on the current frame and cannot be buffered, however the superjump move itself (distinguished by moveType: (*_SUPER_JUMP)) can be buffered and its buffer window is 3f including current frame
+            216: "INPUT_ANYUP_STRICT_PRESS_DUPLICATE",  // same as INPUT_ANYUP_STRICT_PRESS
+            217: "INPUT_FORWARD_DASH",  // the first input of a dash is 6 or 9. This activates the 12f buffer window that includes the current frame. Within this window, you must press 6 again, however you can't slide into 6 from a 3 or a 9. Successfully completing a dash makes it buffered for 3 frames, including current frame, and terminates the 12f buffer window. This means that a third 6 press would start over the dash parsing from the beginning. This also means that dash cannot be mashed, since its 66 inputs come in pairs. Releasing 9/6/3 while the dash has already been successfully parsed and buffered will terminate its buffer window immediately on that frame. Meaning that if you want to dash after recovering from a move, you must keep holding 6 on the frame after the move ends. This is unlike the 3f button press buffer, in which the button need not be held continuously in order for the button buffer to keep being active. Additionally, changing the direction in any way (including from 5 to 2, from 2 to 3, etc) 4 times (not including the initial 6/9 input) terminates the 12f buffer window and the 3f dash buffer. However, if you complete the dash input on the very frame where you do the 4'th direction change, the dash is still successful, but will only have a 1f buffer, including current frame.
+            218: "INPUT_BACKDASH",  // is buffered same way as INPUT_FORWARD_DASH, except in the opposite direction. This backdash version has a 3f buffer for the completed successful backdash
+            219: "INPUT_BLOCK_WITH_CROSSUP_PROTECTION",  // you're considered holding block if you're holding 7/4/1, however, if you got crossed up, a 3f crossup protection starts. The cross up is determined at the start of a logic tick, before players have moved by their respective speeds on that frame. If you're not holding block, you're still considered holding block during crossup protection if you have held block in the past 6f. If you're airborne, things are different: if the opponent's player is behind your back, you're considered holding block if you're holding any forward or any back direction.
+            220: "INPUT_BLOCK",  // this is the same as INPUT_BLOCK_WITH_CROSSUP_PROTECTION but without crossup protection
+            221: "INPUT_151",  // 1(8)5(8)1(6)
+            222: "INPUT_252",  // 2(8)5(8)2(6)
+            223: "INPUT_353",  // 3(8)5(8)3(6)
+            224: "INPUT_454",  // 4(8)5(8)4(6)
+            225: "INPUT_66_QUICK",  // 6(8)5(8)6(6)
+            226: "INPUT_757",  // 7(8)5(8)7(6)
+            227: "INPUT_858",  // 8(8)5(8)8(6)
+            228: "INPUT_959",  // 9(8)5(8)9(6)
+            233: "INPUT_ALWAYS_TRUE_DUPLICATE2",  // this input is always successfully "parsed" and found to be present no matter what the actual inputs are
+            234: "INPUT_ALWAYS_FALSE_DUPLICATE",  // this input is never found to be present no matter what the actual inputs are
+            235: "INPUT_623_LENIENT",  // 6(8)2(12)3(14)
+            238: "INPUT_22_LENIENT",  // ANYDOWN(10)NOT_ANYDOWN(10)2(14)
+            239: "INPUT_5_OR_4_OR_ANY_UP",
+            240: "INPUT_5_OR_ANY_UP",
+            241: "INPUT_5_OR_6_OR_ANY_UP",
+            242: "INPUT_5_OR_4_OR_7_OR_8",
+            243: "INPUT_421_LENIENT",  // 4(8)2(12)1(14)
+            246: "INPUT_16243",  // 1(16)6(16)2(16)4(16)3(16)
+            247: "INPUT_546",  // 5(6)4(11)6(3)
+            249: "INPUT_5_ANYBACK_ANYFORWARD_STRICTER",  // 5(20)ANYBACK(10)ANYFORWARD(6)
+            250: "INPUT_5_ANYFORWARD_ANYBACK",  // 5(20)ANYFORWARD(10)ANYBACK(6)
+            251: "INPUT_CHARGE_BACK_FORWARD_40F",  // (ANYBACK must be charged (held) for at least 40f) ANYBACK(10)ANYFORWARD(10)
+            252: "INPUT_CHARGE_DOWN_UP_40F",  // (ANYDOWN must be charged (held) for at least 40f) ANYDOWN(10)ANYUP(10)
+            253: "INPUT_CHARGE_BACK_FORWARD_45F",  // (ANYBACK must be charged (held) for at least 45f) ANYBACK(10)ANYFORWARD(10)
+            254: "INPUT_CHARGE_DOWN_UP_45F",  // (ANYDOWN must be charged (held) for at least 45f) ANYDOWN(10)ANYUP(10)
+            255: "INPUT_236236236",  // 2(5)6(15)2(15)6(15)2(15)6(12)
+            256: "INPUT_623_WITHIN_LAST_3F",  // 6(8)2(12)3(3)
+            257: "INPUT_5_ANYBACK_ANYFORWARD_WITHIN_LAST_2F",  // 5(20)ANYBACK(10)ANYFORWARD(2)
+            258: "INPUT_NOTANYDOWN_2",  // NOT_ANYDOWN(10)2(5)
+            259: "INPUT_46_WITHIN_LAST_1F",  // 4(8)6(1)
+            260: "INPUT_CHARGE_DOWN_10F",  // hold ANYDOWN for between 10 to 20 frames. Any less or more, as well as releasing ANYDOWN, makes it invalid.
+	            261: "INPUT_546_BUTNOT_54_ANYDOWN_6",  // 5(6)4(11)6(3) but not 5(6)4(11)ANYDOWN(11)6(3)
+            262: "INPUT_5_ANYBACK_ANYFORWARD_LENIENT",  // 5(20)ANYBACK(14)ANYFORWARD(8)
+            268: "INPUT_BURST",  // D + (one of PKSH)
+            269: "INPUT_HOLD_TWO_OR_MORE_OF_PKSH",
+            270: "INPUT_PRESS_TWO_OR_MORE_OF_PKSH_GLITCHED",  // the glitch is that when you press two buttons simultaneously, on that frame you get this input, but on the next frame you don't get this input and on the frame after that you get this input again without you having to do anything extra. If you plink two buttons (one frame apart from each other), unless you pressed more buttons after this, the second activation of the input does not happen though. If you continuously mash buttons to activate this input, it will "blink" each frame, switching between on and off.
+            271: "INPUT_PRESS_ANYBACK_WITHIN_LAST_8F_NO_MASH_ALLOWED",  // does not benefit from crossup protection or being able to block both ways when airborne and the opponent is behind your back. This checks specifically for ANYBACK. So, pressing ANYBACK triggers an 8f window, including current frame, where this input becomes active. However, pressing ANYBACK again within a 20f window, including the frame of the first ANYBACK press, will make it ignore the new ANYBACK press and forget the last ANYBACK press, and restart counting the 20f window. A successfully performed Instant Block removes the 20f window, making you immediately able to produce this input again
             272: "INPUT_P_OR_K_OR_S_OR_H",
             273: "INPUT_BOOLEAN_OR",
-            274: "INPUT_HAS_PRECEDING_5",
-            275: "INPUT_ITEM",
-            276: "INPUT_G_HOLD",
-            279: "INPUT_G_EASY_ON",
+            274: "INPUT_HAS_PRECEDING_5",  // this has no buffer and merely checks if the last frame's direction input was 5
+            275: "INPUT_ITEM",  // same as INPUT_PRESS_SPECIAL
+            276: "INPUT_HOLD_SPECIAL",  // the "Special" button is used for the Stylish mode controls
+            277: "INPUT_SPECIAL_STRICT_PRESS",
+            278: "INPUT_SPECIAL_STRICT_RELEASE",
+            279: "INPUT_PRESS_SPECIAL",
+            280: "INPUT_NOT_HOLD_SPECIAL",
+            281: "INPUT_RELEASE_SPECIAL",
             285: "INPUT_ANY_TWO_OF_PKSH",
-            287: "INPUT_MOM_TAUNT",
-            288: "INP_DASH_TRG_2F",
-            289: "INP_BDASH_TRG_2F",
-            291: "INPUT_ALWAYS_FALSE",
-            292: "INPUT_PRESS_TAUNT",
+            286: "INPUT_ROMAN_CANCEL_DUPLICATE",  // same as INPUT_ROMAN_CANCEL
+            287: "INPUT_MOM_TAUNT",  // don't know what this means
+            288: "INPUT_FORWARD_DASH_WITHIN_LAST_2F",  // is buffered same way as INPUT_FORWARD_DASH, except the completed dash's buffer is 2f instead of 3f
+            289: "INPUT_BACKDASH_WITHIN_LAST_2F",  // is buffered same way as INPUT_BACKDASH, except the completed backdash's buffer is 2f instead of 3f
+            290: "INPUT_P_OR_K_OR_S_OR_H_OR_D_STRICT_PRESS",
+            291: "INPUT_ALWAYS_FALSE",  // this input is never found to be present no matter what the actual inputs are
+            292: "INPUT_PRESS_TAUNT_DUPLICATE",  // same as INPUT_PRESS_TAUNT
+            293: "INPUT_HOLD_ONE_OR_MORE_OF_PKSH",
+            294: "INPUT_HOLD_ONE_OR_MORE_OF_PKSH_OR_D",
         },
         "groundHitEffect0_882": {
-            0: "NORMAL_UPPER",
-            1: "AIR_NORMAL",
-            2: "CRUMPLE",
-            3: "FORCE_CROUCH",
-            4: "FORCE_STAND",
-            5: "NORMAL_LOWER",
-            6: "BLITZ_REJECT_STAND",
-            7: "BLITZ_REJECT_CROUCH",
-            8: "AIR_FACE_UP",
-            9: "AIR_LAUNCH",
-            10: "AIR_FACE_DOWN",
-            11: "AIR_STRONG",
-            12: "KIRIMOMI",
-            13: "KIRIMOMI_B",
-            14: "BLITZ_REJECT_AIR",
-            15: "STAGGER",
-            16: "EX_DAMAGE_BALL_MOF",
-            17: "EX_DAMAGE",
-            18: "NONE",
-            26: "AIR_SOMERSAULT",
+            0: "GROUND_NORMAL",  // does either crouching hitstun, high standing or low standing hitstun, depending on whether the opponent is crouching and how high the attack hit them
+            1: "AIR_NORMAL",  // exact same as AIR_FACE_UP
+            2: "CRUMPLE",  // causes Hizakuzure animation. This later leads to face down wakeup
+            3: "FORCE_CROUCH",  // crouching hitstun
+            4: "FORCE_STAND_HIGH",  // high standing hitstun
+            5: "FORCE_STAND_LOW",  // low standing hitstun
+            6: "BLITZ_REJECT_STAND",  // causes standing Hajikare animation
+            7: "BLITZ_REJECT_CROUCH",  // causes crouching Hajikare animation
+            8: "AIR_FACE_UP",  // if the speed applied to the opponent is directed downward and they're grounded, they immediately get knocked down onto their back. Otherwise launches into air such that you land face up
+            9: "AIR_LAUNCH",  // if the speed applied to the opponent is directed downward and they're grounded, they immediately get knocked down onto their face. Launches into air vertically (it's a different animation). You will end up face down
+            10: "AIR_FACE_DOWN",  // launches into air such that you land face down
+            11: "AIR_STRONG", // causes Blowoff animation. Leads to face up knockdown
+            12: "KIRIMOMI",  // the animation you see when you get hit by 5D. Leads to vertical fall which leads to face down knockdown
+            13: "KIRIMOMI_B",  // same as KIRIMOMI
+            14: "BLITZ_REJECT_AIR",  // causes air Hajikare animation
+            15: "STAGGER",  // causes Jitabata animation during which you must mash to get out and a light blue bar with a button graphic is shown on top of you
+            16: "EX_DAMAGE_BALL_MOF",  // same as EX_DAMAGE
+            17: "EX_DAMAGE",  // EX_DAMAGE is getting hit by Elphelt 236236K or Venom throw. I think it just launches you relatively high and transitions to CmnActB/VDownUpper
+            18: "EX_DAMAGE_LAND",
+            19: "BLITZ_REJECT_AUTODECIDE_STANDCROUCHAIR",
+            20: "BLITZ_REJECT_AUTODECIDE_STANDCROUCHAIR2",  // same as BLITZ_REJECT_AUTODECIDE_STANDCROUCHAIR
+            21: "NORMAL_AUTODECIDE_HIGHERLOWER",  // standing hitstun, high/low version depends on how high the attack connected
+            22: "THROW_CLASH_AUTODECIDE_CROUCHSTAND",  // same as BLITZ_REJECT_AUTODECIDE_STANDCROUCHAIR but shorter (30f) rejection period instead of 60f
+            23: "THROW_CLASH_STAND",  // same as BLITZ_REJECT_STAND, but shorter (30f) rejection period instead of 60f
+            24: "THROW_CLASH_CROUCH",  // same as BLITZ_REJECT_CROUCH, but shorter (30f) rejection period instead of 60f
+            25: "THROW_CLASH_AIR",  // same as BLITZ_REJECT_AIR, but shorter (30f) rejection period instead of 60f
+            26: "AIR_SOMERSAULT",  // causes ZSpin animation, which leads to face down knockdown
+            2147483647: "UNSPECIFIED",  // default value. Translates to GROUND_NORMAL for groundHitEffect and AIR_NORMAL for airHitEffect
         },
         "guardType0_1098": {
             0: "ANY",
             1: "HIGH",
             2: "LOW",
-            3: "NONE",
-        },
-        "ifOperation0_6": {
-            9: "IS_EQUAL",
-            10: "IS_GREATER",
-            11: "IS_LESSER",
-            12: "IS_GREATER_OR_EQUAL",
-            13: "IS_LESSER_OR_EQUAL",
-            15: "IS_NOT_EQUAL",
+            3: "NONE",  // attacks with this property are called "true unblockables". The only super armor that counters them is superArmorGuardImpossible
         },
         "modifyAccumulator0_45": {
-            0: "ADD",
-            1: "SUB",
-            2: "MUL",
-            3: "DIV",
-            4: "MOD",
-            5: "AND",
-            6: "OR",
-            7: "BIT_AND",
-            8: "BIT_OR",
-            9: "IS_EQUAL",
-            10: "IS_GREATER",
-            11: "IS_LESSER",
-            12: "IS_GREATER_OR_EQUAL",
-            13: "IS_LESSER_OR_EQUAL",
-            14: "BIT_DELETE",
-            15: "IS_NOT_EQUAL",
-            16: "MOD_EQUALS_0",
-            17: "MOD_EQUALS_1",
-            18: "MOD_EQUALS_2",
-            19: "ADD_DIR",
-            20: "SET",
-            21: "SET_DIR",
-            22: "PERCENT",
+            0: "ADD",  // result = x + y
+            1: "SUB",  // result = x - y
+            2: "MUL",  // result = x * y
+            3: "DIV",  // result = x / y (round down)
+            4: "MOD",  // result = x % y (remainder of division)
+            5: "AND",  // result = x && y (only returns 1 if x != 0 and y != 0, otherwise returns 0)
+            6: "OR",  // result = x || y (returns 1 if x != 0 or y != 0, otherwise returns 0)
+            7: "BIT_AND",  // result = x & y (bitwise AND)
+            8: "BIT_OR",  // result = x | y (bitwise OR)
+            9: "IS_EQUAL",  // result = (x == y) (returns 1 if x == y, otherwise 0)
+            10: "IS_GREATER",  // result = (x > y)
+            11: "IS_LESSER",  // result = (x < y)
+            12: "IS_GREATER_OR_EQUAL",  // result = (x >= y)
+            13: "IS_LESSER_OR_EQUAL",  // result = (x <= y)
+            14: "BIT_NOT",  // result = (x & (~y)) (this bitwise inverts the right argument and then performs a BIT_AND)
+            15: "IS_NOT_EQUAL",  // result = (x != y) (returns 1 if x != y, otherwise 0)
+            16: "MOD_EQUALS_0",  // result = ((x % y) == 0)
+            17: "MOD_EQUALS_1",  // result = ((x % y) == 1)
+            18: "MOD_EQUALS_2",  // result = ((x % y) == 2)
+            19: "ADD_DIR",  // result = x + y * facing (facing is 1 if your graphical sprite is facing right, -1 otherwise)
+            20: "TAKE_RIGHT_VALUE_UNCHANGED",  // result = y
+            21: "SET_DIR",  // result = y * facing (facing is 1 if your graphical sprite is facing right, -1 otherwise)
+            22: "GREATER_THAN_RANDOM",  // result = (x > (rand() % y)) (returns 1 if x > than that, otherwise returns 0. Their rand() function produces numbers from 0 to 4294967295)
         },
 		"KILL_TYPE": {
             0: "NORMAL",
@@ -250,12 +602,15 @@
             16: "DUST_FOLLOWUP",
             17: "NORMAL",
             18: "SPECIAL",
+            19: "MIST_CANCEL",
             20: "OVERDRIVE",
             21: "INSTANT_KILL",
             22: "DEAD_ANGLE_ATTACK",
             23: "BLUE_BURST",
             24: "GOLD_BURST",
             26: "FAULTLESS_DEFENCE",
+            27: "ROMAN_CANCEL_YELLOW",
+            28: "ROMAN_CANCEL_REDPURPLE",
             32: "INSTANT_KILL_PREPARATION",
             33: "BLITZ_SHIELD",
         },
@@ -266,27 +621,98 @@
             3: "DISALLOWED_ON_WHIFF_WITH_X_MARK",
         },
         "upon0_21": {
-            0: "IMMEDIATE",
-            1: "BEFORE_EXIT",
-            2: "LANDING",
-            3: "FRAME_STEP",
-            8: "HIT_OR_GUARD",
-            10: "HIT",
-            11: "RECEIVE_ATTACK",
-            23: "HIT_OR_BLOCK",
-            35: "PLAYER_DAMAGE",
-            45: "ON_DESTROY",
-            47: "AFTER_EXIT",
-            50: "SUPERFREEZE",
-            53: "START",
-            74: "GUARD",
+            0: "IMMEDIATE",  // runs after a state is entered and most settings have been prepared for your move. Like, for example, enableNormals: 0 has already been called for you. This event happens after the OnFinalize call and some more initialization during state transition. The state name (checkCurrentStateName) is already initialized to the new, current move at this point (after OnFinalize and before IMMEDIATE). The upon: (IMMEDIATE) handler registration for this event does not have to be the first instruction in a move subroutine, but having it at the top speeds up it being found by the game. Not having this at all would force the game to scan through the entire subroutine each time upon entry, until the endState instruction, wasting time, so, if you don't need it, you should just have an empty upon: (IMMEDIATE) handler at the top. A few initialization things still happen after this event, like resetting air options.
+            1: "BEFORE_EXIT",  // called when switching state after some fields already got reset, like those that get reset prior to OnActionBeginPre, but also, in addition to that, fields like setLinkObjectDestroyOnStateChange and all other linked entities. However, the current state name (checkCurrentStateName) is not changed yet. Immediately after this event, OnFinalize subroutine is called, if one is present. BEFORE_EXIT and OnFinalize and FINALIZE are also called, in this order, when the object is finalized (see deactivateObj). This event gets cleared (unregistered) after it is called.
+            2: "LANDING",  // called after touching the ground. Afer this event is called, it is automatically unregistered.
+            3: "ANIMATION_FRAME_ADVANCED",  // called only when not in hitstop, superfreeze or losing a frame due to RC slowdown, after a new sprite frame has been reached. New sprite frame being reached is what I call regular script execution. Each frame when you're not in hitstop, not skipping a frame due to RC slowdown and not in slowdown, the sprite frame advances. When the sprite frame counter reaches its maximum value, maximum value - that you can set using sprite and overrideSpriteLengthIf functions - all bbscript instructions that are after that sprite instruction (the sprite instruction that you have been stalled on up until this point) get executed, until the next sprite instruction or spriteEnd is reached. You then get stalled on that sprite or spriteEnd instruction. Then this event fires. This event is also called 'idling', because OnIdling subroutine is fired immediately after this event. By the way, when entering a new state, all its instructions get executed, until a sprite instruction, and then the execution continues until a second sprite instruction or spriteEnd. An endState does not stall execution like spriteEnd does. When projectiles are present on the screen, players advance their frames first, then projectiles.
+            4: "SPEED_Y_DECREASED_BELOW_TARGET",  // use setEventTrigger to specify desired speedY
+            5: "LANDING_REPEATUSE",  // gets called right before the LANDING event. Unlike the LANDING event, this event does not get automatically unregistered every time it is fired
+            6: "TOUCH_WALL_OR_SCREEN_EDGE",
+            7: "STATE_REACHED_END",  // called when reaching the end of the state normally, uninterrupted, via exitState or endState instruction
+            8: "YOUR_ATTACK_COLLISION",  // called when landing an attack either on a projectile or a player, be it hit or block or other. OnAttackCollision gets called immediately after this event on clash
+            9: "YOUR_ATTACK_COLLISION_WITH_A_PLAYER",  // called when landing an attack on a player, be it hit or block or other
+            10: "HIT_THE_ENEMY_PLAYER",  // called when landing a non-blocked, non-armored hit on the enemy player. Landing hits on projectiles or summons does not count
+            11: "GOT_HIT",  // called when getting hit by a projectile or player. Whenever I say 'hit' I mean not blocking or armoring that. The game refers to this event as "DAMAGE", so whenever you see events with DAMAGE in their name, they mean non-blocked, non-armored hits from attack collisions. This excludes poison damage or chip damage or damage taken from armoring hits. This event is called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnDamage subroutine is called, if one is present
+            12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames
+            13: "REACHED_TARGET_ANIM_DURATION",  // use setEventTrigger to specify the number of frames you want passed before getting this event. The frames being checked against that value are FRAMES_PLAYED_IN_STATE
+            14: "DIE",
+            15: "NOT_HOLD_P",  // every frame that you (the projectile or the player) are not in hitstop, if your player is not holding P, this event is fired
+            16: "NOT_HOLD_K",  // similar to NOT_HOLD_P
+            17: "NOT_HOLD_S",  // similar to NOT_HOLD_P
+            18: "NOT_HOLD_H",  // similar to NOT_HOLD_P
+            19: "NOT_HOLD_D",  // similar to NOT_HOLD_P
+            20: "DISTANCE_TO_PLAYER_LESS_THAN_TARGET",  // if you're a projectile, this would fire when the distance to your own player is less than the value you provided in setEventTrigger. It does not measure distance to the opponent
+            21: "FINALIZE",  // gets called before removing an entity from the entity list. Things like deactivateObj cause that. The full sequence of calls is BEFORE_EXIT, OnFinalize, FINALIZE (this event) when removing an entity from the list. When transitioning to a new state, the sequence of calls is BEFORE_EXIT, OnFinalize (without this event).
+            23: "CUSTOM_SIGNAL_0",  // these events are not reserved by the engine and may be used freely in scripts
+            24: "CUSTOM_SIGNAL_1",
+            25: "CUSTOM_SIGNAL_2",
+            26: "CUSTOM_SIGNAL_3",
+            27: "CUSTOM_SIGNAL_4",
+            28: "CUSTOM_SIGNAL_5",
+            29: "CUSTOM_SIGNAL_6",
+            30: "CUSTOM_SIGNAL_7",
+            31: "CUSTOM_SIGNAL_8",
+            32: "CUSTOM_SIGNAL_9",
+            33: "MUTEKI",  // signalled when armoring a hit. Gets called at a later stage than ARMOR and ARMOR2 events, after you've already taken damage
+            35: "PLAYER_GOT_HIT",  // when a player entity gets hit, all projectiles that belong to them and the player himself are notified of that through this event. This is called at an early stage of a hit, before damage is taken or attack properties are copied to the defender
+            36: "FRAME_STEP",  // called after FRAMESTEP_1 every frame, including during hitstop, superfreeze and slowdown
+            37: "CLASH",  // works for both players and projectiles
+            38: "PLAYER_BLOCKED",  // when a player entity blocks a hit, the player and all projectiles that belong to them are notified of this through this event
+            39: "PRE_DRAW",  // this is the last event sent to each entity in the game during an game engine tick
+            40: "GUARD",  // when you block a hit. Called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnGuard subroutine is called, if one is present
+            41: "ARMOR",  // when you armor a hit. Called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. OnArmor subroutine is called immediately afterwards, if one is present
+            42: "PRE_FRAME_STEP",  // called at the end of pre-frame initialization. Is called even during hitstop, superfreeze, slowdown. Is called at a stage that happens before a new sprite frame is reached, so before ANIMATION_FRAME_ADVANCED signal
+            43: "ARMOR2",  // when armoring a hit from either a player or a projectile, this is called after you've already taken damage. If the attacker is a projectile, ARMOR2_PROJECTILE is called immediately before this
+            44: "HIT_OWN_PROJECTILE_DEFAULT",  // this signal is the default that is set for the situation when a player's hitboxes hit their own projectiles' hurtboxes. If this is the current value of the signal, then no signal is sent to projectiles that were hit at all, which means that in order to use this mechanism, you must specify a different signal. You can specify a different signal using naguriNaguru
+            45: "DESTROY",  // called when calling requestDestroy, if player is in hitstun or blockstun and destroyOnPlayerHitstun or destroyOnPlayerGuard are used, when maximum number of hits specified in numberOfHits is reached, if player state changed and something like destroyOnPlayerStateChange is used, when destroyTenmetsuTimer has expired, when destroyAssari or destroyAssariEx are used and object is destroyed by hitbox interactions, when destroyOnInstantKill is used and either your or opponent's players have been instant killed, 
+            46: "TOUCH_WALL",
+            47: "PLAYER_CHANGED_STATE",  // when a player begins a new action, all of their projectiles are notified of this through this event
+            49: "SEND_SIGNAL_NAME",  // sent event gets fired on the target entity of sendSignalName calls
+            50: "SUPERFREEZE",  // sent to the entity that initiated a superfreeze when the superfreeze starts, which is before the animation frame advanced
+            51: "LANDED",  // this event is sent after you land, and is similar to LANDING event, except it happens very close to the end of the logic tick. It is automatically cleared each time it is sent
+            53: "START",  // this event was observed to be sent every frame, except during hitstop. I think it's not sent during hitstun either, but I'm not sure
+            54: "BEFORE_ATTACK_PROPERTIES_COPY",  // sent to the attacker upon every attack collision, before determining the attack values and parameters that were received by the defender
+            55: "BEFORE_ATTACK_PROPERTIES_COPY_HIT_BY_TEAMMEMBER",  // same as BEFORE_ATTACK_PROPERTIES_COPY, except this event is only fired if you hit your own team. And this ignores the fact that a projectile could've been reflected - the teams remain how they were
+            56: "FRAME_STEP_AFTER",  // this event is called twice per frame, and both of these times are before the hit detection is performed and after the animation frame has advanced. Immediately after the first event, FRAME_STEP_AFTER_EXTRA is also sent
+            57: "PLAYER_GOT_INSTANT_KILLED",  // when a player gets IK'd, all of their projectiles are notified with this event
+            58: "OPPONENT_GOT_INSTANT_KILLED",  // when a player lands an IK, all of the attacker player's projectiles are notified of this event
+            59: "INSTANT_KILL",  // all entities in the game are notified by this event whenever any IK is landed on anyone
+            60: "NO_GUARD_EFFECT",  // when a player got hit or armored a hit while having a non-0 superArmorDamagePercent, this event is sent to the attacker entity, be it a player or a projectile, at the very start of the function that processes hits
+            61: "YOUR_ATK_GOT_FD_BLOCKED",
+            63: "ENTRY_WAIT",  // sent to the entity when they enter the CmnActEntryWait state after finishing playing their intro cutscene. While Player 1 plays their intro, Player 2 initially starts out in CmnActEntryWait, but does not get this signal
+            64: "ARMOR2_PROJECTILE",  // when armoring a hit from a projectile, this is called after you've already taken damage. Called before ARMOR2
+            65: "REFLECT_ENEMY_PROJECTILE",  // sent after successfully reflecting an opponent's projectile
+            66: "GOT_REFLECTED",  // sent to the projectile when it gets reflected
+            67: "PRE_COLLISION_CHECK",  // sent once every frame, including hitstop and superfreeze and slowed down frames, even if no hit is going to happen, before hit detection. This is the perfect place to put code which changes attack properties based on opponent's Y or other value that changes every frame, in order to remove dependency on the order of P1-P2 execution
+            68: "ASSARI_GOT_HIT",  // if the projectile has destroyAssariEx set to 1, it receives this event when taking a hit, after the NUMBER_OF_HITS_TAKEN is incremented. If the projectile ran out of hits and will be destroyed, this is called before it is destroyed.
+            69: "GOT_HIT2",  // this event is only sent to players and only when they get hit, meaning they have not blocked or armored the attack. It is called right before the OnDamage2 subroutine, be it present or not, after attack data got copied, tension increased, dash cancelled, landing recovery cleared, but before the damage is dealt
+            71: "PLAYER_GETTING_HIT",  // when a player gets hit, all projectiles belonging to the player who got hit, and the player themselves, receive this event, after attack data got copied, but before tension got increased or damage got dealt. This event does not include damage taken from armoring hits, poison damage or any damage other than from non-blocked, non-armored hits
+            72: "PLAYER_BLOCKED_ATTACK",  // when a player blocks an attack, all projectiles belonging to the player who blocked, and the player themselves, receive this event, after attack data got copied, but before tension got increased or damage got dealt
+            73: "ENEMY_GETTING_HIT",  // when a player gets hit, all projectiles belonging to the player who dealt the hit, and the attacker player themselves, receive this event, after attack data got copied, but before tension got increased or damage got dealt
+            74: "ENEMY_BLOCKED_ATTACK",  // when a player blocks an attack, all projectiles belonging to the player who dealt the attack, and the attacker player themselves, receive this event, after attack data got copied, but before tension got increased or damage got dealt
+            76: "DECIDE_GUARD_EFFECT",  // called on the player or projectile that got hit or blocked or armored an attack right after attack data got copied and the guardEffectObject function got automatically called with 0, whatever that does.
+            77: "FRAME_STEP_AFTER_EXTRA",  // runs immediately after the first of the two FRAME_STEP_AFTER events
+            78: "HIT_THE_OPPONENT_PRE_ATK_VALUES_COPY",  // same as BEFORE_ATTACK_PROPERTIES_COPY, except this event is only fired if you hit an opponent player or projectile and they did not block or armor the hit. This is called way before the actual damage is dealt
+            
+            // While there are events that can be handled with the upon instruction and the like,
+            //  it is also worth noting that the game engine calls predefined bbscript subroutines in player or effect scripts
+            //  at certain points in the game engine:
+            // PreInit: charaName gets reset to empty prior to this call. This gets called on stage or round reset for both players
+            // PreInit2nd: gets called for both players right after PreInit has been called for both players. You can use this to run initialization scripts that depend on the other player's PreInit.
+            // cmn_SkillInit: gets called in the cmn_ef script for the player right after the container for all player's moves has been constructed and right before calling RoundInit
+            // RoundInit: gets called right after cmn_SkillInit after PreInit2nd has been called for both players and some more round initialization has happened. This is called before even the starting X has been set and before animation has been set to CmnActStand
+            // OnActionBeginPre: gets called after the state was partially changed to a new one and many fields, like color, have been reset, before firing BEFORE_EXIT event
+            // OnFinalize: gets called immediately after a BEFORE_EXIT event, which can happen both on state transition and when the entity is being deleted from the game
+            // OnActionBegin: gets called after the IMMEDIATE event and some more initialization happened during state transition
+            // OnIdling: gets called immediately after ANIMATION_FRAME_ADVANCED event
+            // OnAttackCollision: gets called immediately after YOUR_ATTACK_COLLISION on clash
         },
         "POS_TYPE": {
-            100: "PLAYER",
+            100: "ORIGIN",  // the origin point that is between your legs
             101: "ATTACK",
-            102: "DAMAGE",
-            103: "CENTER",
-            104: "FLOOR_CENTER",
+            102: "DAMAGE",  // this is last point of the hit which is at the center of the intersection between an attacker's hitboxes and a defender's pushboxes
+            103: "CENTER",  // center of your body depends on your stance: crouching and lying poses body centers are lower than standing
+            104: "FLOOR_CENTER",  // same as LAND
             105: "BODY_RANDOM",
             106: "EX_RECT_RANDOM",
             107: "AURA",
@@ -294,8 +720,8 @@
             109: "PRIVATE_1",
             110: "PRIVATE_2",
             111: "PRIVATE_3",
-            112: "PAST_HALF",
-            113: "GTMP",
+            112: "PAST_HALF",  // the middle position of the origin point between past frame's X;Y and this frame's X;Y
+            113: "GTMP",  // returns a point made up of GTMP_X and GTMP_Y
             114: "HEAD",
             115: "NECK",
             116: "ABDOMINAL",
@@ -303,16 +729,17 @@
             118: "L_LEG",
             119: "HEART",
             120: "ENEMY_LAND",
-            121: "NOZEKORI",
+            121: "FLOOR_ALIAS",
             122: "ASHIMOTO_RANDOM",
-            123: "PLAYER_LAND",
+            123: "LAND",  // land is your current X position with the Y position of floor
             124: "FRONT_05_BODY",
             125: "FRONT_1_BODY",
             126: "FRONT_2_BODY",
+            127: "BACK_05_BODY",
             128: "BACK_1_BODY",
             129: "BACK_2_BODY",
-            130: "EX_POINT_F",
-            131: "WORLD_ZERO",
+            130: "EX_POINT_F",  // refers to EXPOINT_X, EXPOINT_Y variables
+            131: "WORLD_ZERO",  // the 0;0 point of the arena, which is its middle on the floor level
             132: "ENEMY_CENTER",
             133: "ENEMY_BODY_RANDOM",
             134: "ENEMY_EX_RECT_RANDOM",
@@ -348,9 +775,58 @@
             164: "BACK_3_BODY",
             165: "SCREEN_CENTER",
         },
-		"SUPER_ARMOR_TYPE": {
-            0: "DODGE",
+        "SUPER_ARMOR_TYPE": {
+            0: "DODGE",  // dodge just makes you ignore hits
             1: "ARMOR",
+        },
+        "STRIKE_OR_THROW": {
+            0: "STRIKE",
+            1: "THROW",
+        },
+        "op1": {
+        	0: "IS_TRUE",  // result = (value != 0)
+        	1: "IS_FALSE",  // result = (value == 0)
+        	2: "RANDOM_PERCENTAGE_IS_LESS",  // result = (value > (rand() % 100))
+        	3: "ABSOLUTE_VALUE",  // result = (value < 0 ? -value : value)
+        },
+        "CalcDistanceExMode": {
+        	0: "X_AND_Y",  // result = sqrt(dx^2 + dy^2)
+        	1: "X_ONLY",  // result = abs(dx)
+        	2: "Y_ONLY",  // result = abs(dy)
+        	3: "X_TOWARDS_FACING",  // result = (entity 2 x - entity 1 x) * sprite facing of entity 1
+        },
+        // the various values of this enum affect what arguments of the homing instruction mean what. Refer to the comments inside of the homing instruction for details
+        "HomingType": {
+        	0: "PERCENTAGE_FROM_DISTANCE_AND_DRAG",  // penultimate argument is percentage from distance to use as acceleration, last argument is drag percentage
+        	1: "ACCELERATION_AND_DRAG",  // penultimate argument is absolute value of acceleration, last argument is drag percentage
+        	2: "MAXIMUM_SPEED_AND_ACCELERATION",  // penultimate argument is maximum absolute speed, last argument is absolute acceleration
+        },
+        "Boolean": {
+        	0: "FALSE",
+        	1: "TRUE",
+        },
+        "HitboxType": {
+        	// hitbox data is stored by type, each type has a number of boxes, identified by index
+        	0: "HURTBOX",
+        	1: "HITBOX",
+        	2: "EX_POINT",  // this hitbox is used to obtain position of type EX_POINT_RANDOM
+        	3: "EX_POINT_EXTENDED",  // this hitbox is used to obtain position of type EX_RECT_RANDOM
+        	5: "PUSHBOX",  // only affects horizontal extents
+        	7: "NECK",
+        	8: "ABDOMEN",
+        	10: "SUPER_ARMOR_BY_SG_COLLISION",  // if you enabled this via superArmorBySGCollision, if an attacker's hitbox missed your hurtbox, it is additionally checked against this type of hurtbox. If the collision is detected, there is a hit
+        	11: "R_LEG",
+        	12: "L_LEG",
+        	13: "PRIVATE_0",  // this hitbox is used to obtain position of type PRIVATE_0
+        	14: "PRIVATE_1",  // this hitbox is used to obtain position of type PRIVATE_1
+        	15: "PRIVATE_2",  // this hitbox is used to obtain position of type PRIVATE_2
+        	16: "PRIVATE_3",  // this hitbox is used to obtain position of type PRIVATE_3
+        },
+        "AttackFrontDirection": {
+        	0: "ATTACKER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's facing
+        	1: "ATTACKER_PLAYER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's player's facing
+        	2: "CALCULATE_FROM_ATTACKER_X",  // set facing based on the difference of X coordinates between you and the attacker
+        	3: "CALCULATE_FROM_ATTACKER_PLAYER_X",  // set facing based on the difference of X coordinates between you and the attacker's player
         },
     },
     instructions: Sized({
@@ -365,19 +841,22 @@
         1: (
             size: 4,
             name: "endState",
-            codeBlock: End,
+            codeBlock: EndState,
             args: [],
         ),
         2: (
             size: 40,
+            // when a sprite instruction is executed, execution continues until a spriteEnd or another sprite instruction, and then the script waits for the sprite to finish playing its frames, before proceeding next. I call this "regular script execution" and describe it in ANIMATION_FRAME_ADVANCED event.
             name: "sprite",
             args: [
                 String32,
+                // specifies the duration in frames of this sprite
                 Number,
             ],
         ),
         3: (
             size: 4,
+            // this will stall code execution until the current sprite finishes playing
             name: "spriteEnd",
             args: [],
         ),
@@ -397,10 +876,11 @@
         ),
         6: (
             size: 24,
+            // modifies ACCUMULATOR
             name: "ifOperation",
             codeBlock: Begin,
             args: [
-                Enum("ifOperation0_6"),
+                Enum("modifyAccumulator0_45"),
                 AccessedValue,
                 AccessedValue,
             ],
@@ -415,6 +895,7 @@
         ),
         8: (
             size: 20,
+            // checks the charaName of the opponent character (see charaName)
             name: "ifOpponentCharacter",
             codeBlock: Begin,
             args: [
@@ -435,6 +916,7 @@
         ),
         11: (
             size: 36,
+            // markers are also called "labels". You can set markers outside of any kind of 'if' and 'upon' and other blocks, in the main body of the state. You can then go to such markers using goToMarker, gotoIfOperation, gotoLabelIf, gotoLabelIfNot. If you set a marker inside a block (like an if), you should only go to it using goToSameBlockMarkerIf, and you must not jump between or out of blocks to avoid freezing the game. You need not execute the setMarker instruction in order to actually set the marker, because, when jumping to a marker, the game engine scans the whole, entire subroutine, looking for the corresponding setMarker instruction, and jumps there. If multiple markers are present with the same name, the game will only ever use the first one. In different states, you can use markers with same names, and they won't conflict, as the game looks for a marker only within the current state.
             name: "setMarker",
             args: [
                 String32,
@@ -442,6 +924,7 @@
         ),
         12: (
             size: 36,
+            // going to a marker is always instant, including in other marker-going functions, unless stated otherwise
             name: "goToMarker",
             args: [
                 String32,
@@ -449,6 +932,7 @@
         ),
         13: (
             size: 56,
+            // modifies ACCUMULATOR. Goes to marker if condition is satisfied
             name: "gotoIfOperation",
             args: [
                 String32,
@@ -459,6 +943,7 @@
         ),
         14: (
             size: 36,
+            // will only go to the specified marker on the next frame after this instruction is executed, if this instruction is executed during regular script execution or in an event handler for an event that fires after the regular script execution. Will go to the specified marker instantly, on this frame, if this instruction is executed during regular script execution or in an event handler before regular script execution. "Regular script execution" is defined in the comments for ANIMATION_FRAME_ADVANCED event.
             name: "gotoLabelRequests",
             args: [
                 String32,
@@ -475,7 +960,7 @@
         16: (
             size: 4,
             name: "endSubroutine",
-            codeBlock: End,
+            codeBlock: EndState,
             args: [],
         ),
         17: (
@@ -492,6 +977,7 @@
         ),
         19: (
             size: 8,
+            // calling this function with an argument of 0 doesn't do anything. Deactivation is basically like deletion of an object, which causes a BEFORE_EXIT event, and an OnFinalize call, and a FINALIZE event, in this order, right before it's deleted for good. Deactivation puts the entity in a deactivated state, and it gets permanently removed from the entity list later. Deactivation is different from requestDestroy and destruction of an object in that deactivation deletes an object, while destruction does not. Destruction can only happen once in the lifetime of an object and causes it to turn off its attack, clear its LANDING and LANDING_REPEATUSE event handlers and fire its DESTROY event.
             name: "deactivateObj",
             args: [
                 Enum("Entity"),
@@ -499,11 +985,13 @@
         ),
         20: (
             size: 4,
+            // deactivate self
             name: "deactivateCurrentObject",
             args: [],
         ),
         21: (
             size: 8,
+            // registers an event handler for the specified event that gets executed when that event fires
             name: "upon",
             codeBlock: Begin,
             args: [
@@ -525,6 +1013,7 @@
         ),
         24: (
             size: 44,
+            // this takes you to a marker instantly. Going to a label exits you out of an 'if' block, unlike goToSameBlockMarkerIf, which doesn't. This means that executing instructions after the marker jump done using this instruction will continue execution until the whole state exits or sprite stalling happens, whereas execution that happens after a goToSameBlockMarkerIf continues until the end of the 'if' block from which that go-to was done, and then proceeds as normal after the 'if' block ends
             name: "gotoLabelIf",
             args: [
                 String32,
@@ -541,6 +1030,7 @@
         ),
         26: (
             size: 16,
+            // changes the last sprite's duration based on the condition (which checks that argument 2 != 0)
             name: "overrideSpriteLengthIf",
             args: [
                 Number,
@@ -549,6 +1039,7 @@
         ),
         27: (
             size: 36,
+            // jumping to a state is instant if performed in superfreeze event handler, PRE_FRAME_STEP or at or before a new sprite frame is reached. And happens on the next frame if performed later, This applies to all state jumping, unless stated otherwise
             name: "jumpToState",
             args: [
                 String32,
@@ -556,6 +1047,7 @@
         ),
         28: (
             size: 36,
+            // jumps to state only if not already in that state
             name: "jumpToStateIfNotSame",
             args: [
                 String16,
@@ -565,31 +1057,26 @@
             size: 68,
             name: "jumpToStateIfNot",
             args: [
+            	// state name to check. If in this state, then don't jump
                 String32,
+                // state name to jump to
                 String32,
-            ],
-        ),
-        30: (
-            size: 20,
-            name: "ifPlayerCharacter",
-            codeBlock: Begin,
-            args: [
-                String16,
             ],
         ),
         31: (
             size: 56,
+            // modifies ACCUMULATOR and instantly goes to marker if condition is satisfied. Does not exit you out of an 'if' block. This means that any further instruction you execute will be executed until the end of the 'if' block is encountered, and then will proceed as normal after the 'if' block ends
+            name: "goToSameBlockMarkerIf",
             args: [
                 String32,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("modifyAccumulator0_45"),
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         32: (
             size: 36,
+            // finds an object that is on your team and in the state named <argument 1> and deactivates it
             name: "deactivateObjectByName",
             args: [
                 String32,
@@ -597,48 +1084,56 @@
         ),
         33: (
             size: 48,
+            // sets ACCUMULATOR to 1 if non-destroyed entity on your team in specified state of specified index is found, sets ACCUMULATOR to 0 otherwise
             name: "findState",
             args: [
+            	// the state to find. The entity must also be on your team and not destroyed
                 String32,
-                Number,
-                Number,
-                Number,
+                // here you may only specify slots into which you can store, see named_value_maps: Entities. The found entity will be stored here
+                Enum("Entity"),
+                // the index of the entity to find. You start the search with index 0, and after you've found the first entity, you repeat findState with index 1 and so on. This variable gets incremented by 1 automatically no matter what, whether the entity is found or not
+                AccessedValue,
             ],
         ),
         34: (
             size: 40,
+            // goes to specified state when the specified event happens, instantly if the event happens before sprites reach the next frame, and on the next frame if after
             name: "interruptAction",
             args: [
-                Number,
+                Enum("upon0_21"),
                 String32,
             ],
         ),
         35: (
             size: 40,
+            // goes to the label on this frame, if the event happened before sprites advance by one frame, and on the next frame, if after
             name: "gotoLabelUpon",
             args: [
-                Number,
+                Enum("upon0_21"),
                 String32,
             ],
         ),
         36: (
             size: 12,
+            // some events accept extra values to be used in condition checks that check whether the event should be fired. This sets the first of the two values
             name: "setEventTrigger",
             args: [
-                Number,
+                Enum("upon0_21"),
                 Number,
             ],
         ),
         37: (
             size: 12,
+            // some events accept extra values to be used in condition checks that check whether the event should be fired. This sets the second of the two values
             name: "setEventTrigger2",
             args: [
-                Number,
+                Enum("upon0_21"),
                 Number,
             ],
         ),
         38: (
             size: 36,
+            // deactivates all objects that are in the specified state and on your team, except self
             name: "deactivateObjectByNameExceptSelf",
             args: [
                 String32,
@@ -646,11 +1141,13 @@
         ),
         40: (
             size: 4,
+            // finishes runOnObject
             name: "endRunOnObject",
             args: [],
         ),
         41: (
             size: 8,
+            // runOnObject switches the context entity on which you're running the script, making all actions apply to them instead
             name: "runOnObject",
             args: [
                 Enum("Entity"),
@@ -658,33 +1155,42 @@
         ),
         42: (
             size: 20,
+            // gets the value from entity <argument 1>'s slot <argument 2> and sets it to entity <argument 3>'s slot <argument 4>
             name: "stackObjectEx",
             args: [
+            	// host entity to set the slot for, slot specified in argument 2
 			    Enum("Entity"),
-				Number,
-                Number,
-                Number,
+			    // the slot on the entity, specified in argument 1, to set into. You can only provide stack slots here into which you can store, see named_value_maps: Entities
+				Enum("Entity"),
+				// host entity to get the value from
+                Enum("Entity"),
+                // the slot on the host entity, specified in argument 3, from which to get the value
+                Enum("Entity"),
 			],
         ),
         43: (
             size: 12,
+            // copies a reference to an entity from slot <argument 2> to slot <argument 1>
             name: "setObjectToStackSlot",
             args: [
+            	// entity to set. You can only provide stack slots here into which you can store, see named_value_maps: Entities
                 Enum("Entity"),
+                // entity to get
                 Enum("Entity"),
             ],
         ),
         44: (
             size: 16,
+            // computes operation and stores the result in ACCUMULATOR
             name: "op1",
             args: [
-                Number,
-                Number,
-                Number,
+                Enum("op1"),
+                AccessedValue,
             ],
         ),
         45: (
             size: 24,
+            // computes operation and saves the result in ACCUMULATOR
             name: "modifyAccumulator",
             args: [
                 Enum("modifyAccumulator0_45"),
@@ -696,12 +1202,15 @@
             size: 20,
             name: "storeValue",
             args: [
+            	// destination value
                 AccessedValue,
+                // source value
                 AccessedValue,
             ],
         ),
         47: (
             size: 20,
+            // this is not an 'if' block opener. Modifies ACCUMULATOR if the opponent's character matches the one specified
             name: "ifOpponentCharacterMain",
             args: [
                 String16,
@@ -709,6 +1218,7 @@
         ),
         48: (
             size: 8,
+            // checks if the input is currently buffered. Sets ACCUMULATOR to 0 or 1
             name: "checkInput",
             args: [
                 Enum("checkInput0_48"),
@@ -716,6 +1226,7 @@
         ),
         49: (
             size: 8,
+            // checks the specified condition and sets ACCUMULATOR to 0 or 1
             name: "checkMoveCondition",
             args: [
                 Enum("MoveCondition"),
@@ -723,14 +1234,20 @@
         ),
         50: (
             size: 20,
-            name: "calcRound",
+            // returns min(max(source value, min value), max value) into the ACCUMULATOR. Same as C# Math.Clamp(source value, min value, max value). The source value remains unchanged. The comparison is signed
+            name: "clamp",
             args: [
+            	// source value
                 AccessedValue,
-                AccessedValue,
+                // min value
+                Number,
+                // max value
+                Number,
 			],
         ),
         51: (
             size: 8,
+            // active here means the entity exists and has not been deactivated. An object that is destroyed may still be considered active
             name: "isObjectActive",
             args: [
                 Enum("Entity"),
@@ -738,30 +1255,42 @@
         ),
         52: (
             size: 32,
+            // this operation does not modify ACCUMULATOR. Instead it stores the result of the operation into the variable specified by the last argument
             name: "modifyVarAfterOperation",
             args: [
-                Enum("modifyAccumulator0_45"),
+			    Enum("modifyAccumulator0_45"),
+			    // the left (x) argument of the operation
                 AccessedValue,
+                // the right (y) argument of the operation
                 AccessedValue,
+                // the variable to store the result into
                 AccessedValue,
 			],
         ),
         53: (
             size: 28,
+            // reads value from entity <argument 3>'s variable <argument 4> and writes it into entity <argument 1>'s variable <argument 2>
             name: "storeFromObjToObj",
             args: [
+            	// destination entity
                 Enum("Entity"),
+                // destination variable of the entity
                 AccessedValue,
+                // source entity
                 Enum("Entity"),
+                // source variable of the entity
                 AccessedValue,
             ],
         ),
         54: (
             size: 24,
+            // does not modify ACCUMULATOR. Stores the result of the operation into the first argument
             name: "modifyVar",
             args: [
                 Enum("modifyAccumulator0_45"),
+                // destination variable, and also left (x) argument of operation
                 AccessedValue,
+                // second (right, y) argument of the operation
                 AccessedValue,
             ],
         ),
@@ -769,7 +1298,7 @@
             size: 8,
             name: "pauseSprite",
             args: [
-                Number,
+            	Enum("Boolean"),
             ],
         ),
         57: (
@@ -781,32 +1310,38 @@
         ),
         58: (
             size: 8,
-            name: "",
+            name: "deactivateWhenOutsideArena",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         59: (
             size: 44,
+            // gets the specified setting by name and stores into the specified destination variable
             name: "getTrainingItemVal",
             args: [
+            	// the setting to get
                 String32,
-                Number,
-                Number,
+                // the destination variable to store the setting's value into
+                AccessedValue,
             ],
         ),
         60: (
             size: 20,
+            // calculates sqrt((pos1.x - pos2.x)^2 + (pos1.y - pos2.y)^2) and stores it into ACCUMULATOR
             name: "calcDistance",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
+            	// the entity from which to get position specified in argument 2
+                Enum("Entity"),
+                Enum("POS_TYPE"),
+                // the entity from which to get position specified in argument 4
+                Enum("Entity"),
+                Enum("POS_TYPE"),
 			],
         ),
         61: (
             size: 20,
+            // if the opponent is not a boss (see IS_BOSS' description), returns 0 into ACCUMULATOR. Otherwise, checks if the opponent character's name matches the one specified and returns 1 if yes, 0 if no
             name: "checkEnemyNameNotBoss",
             args: [
 				String16,
@@ -814,16 +1349,22 @@
         ),
         62: (
             size: 28,
+            // reads the position's coordinates X and Y separately into two specified variables
             name: "posTypeToVar",
             args: [
+            	// the entity from which to obtain the position
 				Enum("Entity"),
+				// the position to obtain
                 Enum("POS_TYPE"),
+                // receives the X coordinate of the position
                 AccessedValue,
+                // receives the Y coordinate of the position
                 AccessedValue,
 			],
         ),
         92: (
             size: 8,
+            // sets X position relative to the center of the stage. If the graphical sprite is facing left then negates the position
             name: "setPositionX",
             args: [
                 Number,
@@ -831,6 +1372,7 @@
         ),
         93: (
             size: 8,
+            // directly sets position X
             name: "setRawPositionX",
             args: [
                 Number,
@@ -838,6 +1380,7 @@
         ),
         94: (
             size: 8,
+            // offsets the current position X towards current facing by the specified amount. Specifying a negative amount offsets you in a direction opposite from the facing
             name: "addPositionX",
             args: [
                 Number,
@@ -845,6 +1388,7 @@
         ),
         95: (
             size: 8,
+            // offsets the current position X by the specified amount directly, regardless of facing
             name: "addPositionXRaw",
             args: [
                 Number,
@@ -852,16 +1396,19 @@
         ),
         96: (
             size: 4,
+            // saves position X into a secure place from which you can later restore it using popPositionX. You can only store one position X at a time, there's no stack
             name: "pushPositionX",
             args: [],
         ),
         97: (
             size: 4,
+            // restores position X to the value last saved using pushPositionX. Calling this twice or more times has the same effect as calling it once
             name: "popPositionX",
             args: [],
         ),
         98: (
             size: 8,
+            // directly sets position Y to the value
             name: "setPositionY",
             args: [
                 Number,
@@ -869,6 +1416,7 @@
         ),
         99: (
             size: 8,
+            // offsets position Y by the specified amount
             name: "addPositionY",
             args: [
                 Number,
@@ -876,24 +1424,30 @@
         ),
         100: (
             size: 4,
+            // saves position Y into a secure place from which you can later restore it using popPositionY. You can only store one position Y at a time, there's no stack
             name: "pushPositionY",
             args: [],
         ),
         101: (
             size: 4,
+            // restores position Y to the value last saved using pushPositionY. Calling this twice or more times has the same effect as calling it once
             name: "popPositionY",
             args: [],
         ),
         102: (
             size: 12,
+            // generates a random number from min to max (exclusive) and offsets position X by that amount, towards the facing direction
             name: "randomAddPositionX",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         103: (
             size: 12,
+            // generates a random number from min to max (exclusive) and offsets position Y by that amount
             name: "randomAddPositionY",
             args: [
                 Number,
@@ -902,6 +1456,7 @@
         ),
         104: (
             size: 12,
+            // generates a random number from min to max (exclusive) and offsets position X by that amount, regardless of facing
             name: "randomAddRawPositionX",
             args: [
                 Number,
@@ -910,6 +1465,7 @@
         ),
         105: (
             size: 8,
+            // sets speed X to exactly the amount provided, towards facing
             name: "physicsXImpulse",
             args: [
                 Number,
@@ -917,6 +1473,7 @@
         ),
         106: (
             size: 8,
+            // sets speed X to exactly the amount provided, regardless of facing
             name: "physicsXImpulseAbsolute",
             args: [
                 Number,
@@ -924,6 +1481,7 @@
         ),
         107: (
             size: 8,
+            // adds the specified amount to speed X, towards facing
             name: "addVelocityX",
             args: [
                 Number,
@@ -931,30 +1489,36 @@
         ),
         108: (
             size: 8,
-            name: "",
+            // adds the specified amount to speed X, regardless facing
+            name: "addVelocityXAbsolute",
             args: [
                 Number,
             ],
         ),
         109: (
             size: 4,
+            // saves speed X into a secure place from which you can later restore it using popVelocityX. You can only store one speed X at a time, there's no stack
             name: "pushVelocityX",
             args: [],
         ),
         110: (
             size: 4,
+            // restores speed X to the value last saved using pushVelocityX. Calling this twice or more times has the same effect as calling it once
             name: "popVelocityX",
             args: [],
         ),
         111: (
             size: 8,
+            // changes speed X by multiplying it the specified percentage
             name: "velocityXPercent",
             args: [
+            	// the percentage by which to multiply
                 Number,
             ],
         ),
         112: (
             size: 8,
+            // sets speed Y to the specified value
             name: "physicsYImpulse",
             args: [
                 Number,
@@ -962,6 +1526,7 @@
         ),
         113: (
             size: 8,
+            // adds the specified amount to speed Y
             name: "addVelocityY",
             args: [
                 Number,
@@ -969,16 +1534,19 @@
         ),
         114: (
             size: 4,
+            // saves speed Y into a secure place from which you can later restore it using popVelocityY. You can only store one speed y at a time, there's no stack
             name: "pushVelocityY",
             args: [],
         ),
         115: (
             size: 4,
+            // restores speed Y to the value last saved using pushVelocityY. Calling this twice or more times has the same effect as calling it once
             name: "popVelocityY",
             args: [],
         ),
         116: (
             size: 8,
+            // changes speed Y by multiplying it by the specified percentage
             name: "velocityYPercent",
             args: [
                 Number,
@@ -986,22 +1554,29 @@
         ),
         117: (
             size: 12,
+            // adds a random amount from min to max (exclusive) to speed X, towards facing
             name: "randomAddVelocityX",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         118: (
             size: 12,
+            // adds a random amount from min to max (exclusive) to speed Y
             name: "randomAddVelocityY",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         119: (
             size: 12,
+            // adds a random amount from min to max (exclusive) to speed X, regardless facing
             name: "randomAddRawVelocityX",
             args: [
                 Number,
@@ -1010,6 +1585,7 @@
         ),
         120: (
             size: 8,
+            // sets acceleration X to the specified value, towards facing
             name: "setAcceleration",
             args: [
                 Number,
@@ -1017,6 +1593,7 @@
         ),
         121: (
             size: 8,
+            // sets acceleration X directly
             name: "setRawAcceleration",
             args: [
                 Number,
@@ -1024,6 +1601,7 @@
         ),
         122: (
             size: 8,
+            // adds specified amount to acceleration X, towards facing
             name: "addAcceleration",
             args: [
                 Number,
@@ -1031,6 +1609,7 @@
         ),
         123: (
             size: 8,
+            // adds specified amount to acceleration X, regardless facing
             name: "addRawAcceleration",
             args: [
                 Number,
@@ -1038,23 +1617,28 @@
         ),
         124: (
             size: 4,
+            // saves acceleration X into a secure place from which you can later restore it using popAcceleration. You can only store one acceleration X at a time, there's no stack
             name: "pushAcceleration",
             args: [],
         ),
         125: (
             size: 4,
+            // restores acceleration X to the value last saved using pushAcceleration. Calling this twice or more times has the same effect as calling it once
             name: "popAcceleration",
             args: [],
         ),
         126: (
             size: 8,
+            // changes acceleration X by multiplying it by specified percentage
             name: "accelerationPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         127: (
             size: 8,
+            // sets gravity to the specified amount. Gravity here means acceleration Y, directed downwards. Y axis is pointing up, but positive gravity is pointed down
             name: "setGravity",
             args: [
                 Number,
@@ -1062,6 +1646,7 @@
         ),
         128: (
             size: 8,
+            // increases gravity by the specified amount
             name: "addGravity",
             args: [
                 Number,
@@ -1069,39 +1654,50 @@
         ),
         129: (
             size: 4,
+            // saves gravity into a secure place from which you can later restore it using popGravity. You can only store one gravity at a time, there's no stack
             name: "pushGravity",
             args: [],
         ),
         130: (
             size: 4,
+            // restores gravity to the value last saved using pushGravity. Calling this twice or more times has the same effect as calling it once
             name: "popGravity",
             args: [],
         ),
         131: (
             size: 8,
+            // changes gravity by multiplying it by specified percentage
             name: "gravityPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         132: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to acceleration X, towards facing
             name: "randomAddAcceleration",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         133: (
             size: 12,
+            // generates a random number from min to max (exclusive) and modifies gravity by adding it to it
             name: "randomAddGravity",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         134: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to acceleration X, regardless facing
             name: "randomAddAccelerationRaw",
             args: [
                 Number,
@@ -1110,16 +1706,19 @@
         ),
         135: (
             size: 4,
+            // sets gravity back to the default value. You can change the default value for player entities by calling 'gravity' function. For projectile entities the default value is always 1925
             name: "resetGravity",
             args: [],
         ),
         136: (
             size: 4,
+            // sets gravity to 1925
             name: "defaultGravity",
             args: [],
         ),
         137: (
             size: 8,
+            // sets dash momentum (inertia) to the specified value, towards facing. Inertia is just an extra speed X
             name: "setInertia",
             args: [
                 Number,
@@ -1127,6 +1726,7 @@
         ),
         138: (
             size: 8,
+            // sets dash momentum (inertia) to the specified value, regardless facing. Inertia is just an extra speed X
             name: "setInertiaRaw",
             args: [
                 Number,
@@ -1134,6 +1734,7 @@
         ),
         139: (
             size: 8,
+            // adds the specified amount to dash momentum (inertia), towards facing. Inertia is just an extra speed X
             name: "addInertia",
             args: [
                 Number,
@@ -1141,6 +1742,7 @@
         ),
         140: (
             size: 8,
+            // adds the specified amount to dash momentum (inertia), regardless facing. Inertia is just an extra speed X
             name: "addInertiaRaw",
             args: [
                 Number,
@@ -1148,18 +1750,22 @@
         ),
         141: (
             size: 4,
+            // saves inertia into a secure place from which you can later restore it using popInertia. You can only store one inertia at a time, there's no stack
             name: "pushInertia",
             args: [],
         ),
         142: (
             size: 4,
+            // restores inertia to the value last saved using pushInertia. Calling this twice or more times has the same effect as calling it once
             name: "popInertia",
             args: [],
         ),
         143: (
             size: 8,
+            // modifies inertia by multiplying it by the specified percentage
             name: "inertiaPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
@@ -1167,32 +1773,40 @@
             size: 8,
             name: "ignoreInertia",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         145: (
             size: 12,
+            // generates a random number from min to max (exclusive) and modifies inertia by adding it to it, towards facing
             name: "randomAddInertia",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         146: (
             size: 12,
+            // generates a random number from min to max (exclusive) and modifies inertia by adding it to it, regardless facing
             name: "randomAddRawInertia",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         147: (
             size: 4,
+            // sets gravity to 1925
             name: "defaultGravity2",
             args: [],
         ),
         148: (
             size: 8,
+            // sets scale X to the specified value. 1000 is 100% scale
             name: "setObjectWidth",
             args: [
                 Number,
@@ -1200,6 +1814,7 @@
         ),
         149: (
             size: 8,
+            // adds specified amount to scale X. When scale X is equal to 1000 that means 100% scale
             name: "addObjectWidth",
             args: [
                 Number,
@@ -1207,13 +1822,16 @@
         ),
         150: (
             size: 8,
+            // multiplies current scale X by the specified percentage
             name: "objectWidthPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         151: (
             size: 8,
+            // sets the speed at which scale X grows per frame. Note that 1000 scale means 100%
             name: "setObjectWidthScaleSpeed",
             args: [
                 Number,
@@ -1221,6 +1839,7 @@
         ),
         152: (
             size: 8,
+            // increases the speed at which scale X grows per frame by the specified amount. Note that 1000 scale means 100%
             name: "addObjectWidthScaleSpeed",
             args: [
                 Number,
@@ -1228,21 +1847,27 @@
         ),
         153: (
             size: 8,
+            // changes the speed by which scale X grows per frame by multiplying it by the specified percentage
             name: "objectWidthScaleSpeedPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         154: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to scale X. When scale X is equal to 1000 that means 100%
             name: "randomAddObjectWidth",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         155: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to the speed by which scale X grows per frame. When scale X is equal to 1000 that means 100%
             name: "randomAddObjectWidthScaleSpeed",
             args: [
                 Number,
@@ -1251,6 +1876,7 @@
         ),
         156: (
             size: 8,
+            // sets scale Y to the specified amount. When scale Y is 1000 that means 100%
             name: "setObjectHeight",
             args: [
                 Number,
@@ -1258,6 +1884,7 @@
         ),
         157: (
             size: 8,
+            // adds the specified amount to scale Y. When scale Y is 1000 that means 100%
             name: "addObjectHeight",
             args: [
                 Number,
@@ -1265,6 +1892,7 @@
         ),
         158: (
             size: 8,
+            // changes current scale Y by multiplying by the specified amount
             name: "objectHeightPercent",
             args: [
                 Number,
@@ -1272,6 +1900,7 @@
         ),
         159: (
             size: 8,
+            // sets the speed at which scale Y grows per frame. Note that 1000 scale means 100%
             name: "setObjectHeightScaleSpeed",
             args: [
                 Number,
@@ -1279,6 +1908,7 @@
         ),
         160: (
             size: 8,
+            // increases the speed at which scale Y grows per frame by the specified amount. Note that 1000 scale means 100%
             name: "addObjectHeightScaleSpeed",
             args: [
                 Number,
@@ -1286,13 +1916,16 @@
         ),
         161: (
             size: 8,
+            // changes the speed by which scale Y grows per frame by multiplying it by the specified percentage
             name: "objectHeightScaleSpeedPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         162: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to scale Y. When scale Y is equal to 1000 that means 100%
             name: "randomAddObjectHeight",
             args: [
                 Number,
@@ -1301,6 +1934,7 @@
         ),
         163: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to the speed by which scale Y grows per frame. When scale Y is equal to 1000 that means 100%
             name: "randomAddObjectHeightScaleSpeed",
             args: [
                 Number,
@@ -1309,6 +1943,7 @@
         ),
         164: (
             size: 8,
+            // sets the pitch, or rotation. Pitch must be specified in 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing left. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "setAngle",
             args: [
                 Number,
@@ -1316,6 +1951,7 @@
         ),
         165: (
             size: 8,
+            // adds to the pitch, or rotation. Pitch must be specified in 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing left. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "addAngle",
             args: [
                 Number,
@@ -1323,6 +1959,7 @@
         ),
         166: (
             size: 8,
+            // sets the speed with which pitch changes every frame. Pitch must be specified in 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing lef5. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "setAngleSpeed",
             args: [
                 Number,
@@ -1330,6 +1967,7 @@
         ),
         167: (
             size: 8,
+            // increases the speed with which pitch changes every frame, by the specified amount. Pitch must be specified in 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing left. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "addAngleSpeed",
             args: [
                 Number,
@@ -1337,21 +1975,27 @@
         ),
         168: (
             size: 8,
+            // changes the speed with which pitch changes every frame, by multiplying it by the specified percentage. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "angleSpeedPercent",
             args: [
+            	// the percentage
                 Number,
             ],
         ),
         169: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to the pitch. 1000 pitch means 1 degree of rotation around the axis perpendicular to the screen counter-clockwise when facing right, and clockwise when facing left.
             name: "randomAddAngle",
             args: [
+            	// min
                 Number,
+                // max
                 Number,
             ],
         ),
         170: (
             size: 12,
+            // generates a random number from min to max (exclusive) and adds it to the speed with which pitch changes every frame. 1000 pitch means 1 degree of rotation around the axis perpendicular to the screen counter-clockwise when facing right, and clockwise when facing left.
             name: "randomAddAngleSpeed",
             args: [
                 Number,
@@ -1360,11 +2004,13 @@
         ),
         171: (
             size: 4,
+            // sets the pitch to a random value
             name: "randomAngle",
             args: [],
         ),
         172: (
             size: 8,
+            // hitboxes rotate and resize around this point, specified relative to the origin point of the dummy. This point does not mirror left/right along with the character's facing
             name: "setTransformCenterX",
             args: [
                 Number,
@@ -1372,6 +2018,7 @@
         ),
         173: (
             size: 8,
+            // hitboxes rotate and resize around this point, specified relative to the origin point of the dummy. This point does not mirror left/right along with the character's facing
             name: "setTransformCenterY",
             args: [
                 Number,
@@ -1379,6 +2026,7 @@
         ),
         174: (
             size: 8,
+            // this timer decrements every frame. Once it reaches 0, speed, acceleration, gravity and dash/airdash momentums are reset to 0 (haltMomentum gets called with TRUE)
             name: "setSpeedTimeLimit",
             args: [
                 Number,
@@ -1386,29 +2034,37 @@
         ),
         175: (
             size: 8,
+            // percentage of speed Y that you retain when bouncing off the ground, redirected upwards. Must be positive. Set to -1 or lower to disable
             name: "setBoundRate",
             args: [
+            	// percentage. Specify < 0 to disable
                 Number,
             ],
         ),
         176: (
             size: 8,
+            // reset speed, acceleration, gravity to 0. An extra boolean argument is provided, where if you specify TRUE, dash momentum and airdash no-FD timer and airdash vertical trajectory straightening timer also get reset
             name: "haltMomentum",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         177: (
             size: 16,
-            name: "moveObjectToCollisionPoint",
+            // moves you to the top-left corner of the hitbox of the desired type and index, obtained from the desired entity
+            name: "moveObjectToHitboxPoint",
             args: [
+            	// the entity from which to read the position of the top-left of the hitbox
                 Enum("Entity"),
-                Number,
+                // the hitbox type to read
+                Enum("HitboxType"),
+                // the index of the hitbox to read. If the index is out of bounds, the entity's origin point is used instead
                 Number,
             ],
         ),
         178: (
             size: 8,
+            // moves you to the origin point of the specified entity
             name: "moveToObject",
             args: [
                 Enum("Entity"),
@@ -2294,6 +2950,8 @@
         ),
         456: (
             size: 8,
+            // tells the calling entity to get its value of ANIMATION_DIDNT_ADVANCE from the target entity.
+            // This effectively makes it so the calling entity only animates and moves when the target entity animates and moves
             name: "stopLinkObject",
             args: [
                 Enum("Entity"),
@@ -2308,6 +2966,7 @@
         ),
         458: (
             size: 8,
+            // when the designated entity gets hit (meaning it hasn't blocked or armored the hit), the caller entity gets destroyed. Set to 0 to unlink the entities
             name: "setLinkObjectDestroyOnDamage",
             args: [
                 Enum("Entity"),
@@ -2369,9 +3028,10 @@
         ),
         467: (
             size: 8,
+            // ties the hitboxes of the specified entity to the entity executing this instruction
             name: "linkObjectCollision",
             args: [
-                Number,
+                Enum("Entity"),
             ],
         ),
         468: (
@@ -2664,8 +3324,8 @@
             size: 12,
             name: "initializeAttackCategory",
             args: [
-                Number,
-                Number,
+                Enum("moveType0_1378"),
+                Enum("characterState0_1379"),
             ],
         ),
         709: (
@@ -2750,6 +3410,7 @@
         ),
         731: (
             size: 8,
+            // seems to have an effect only in MOM mode
             name: "hitEffectOnpa",
             args: [
                 Number,
@@ -3216,7 +3877,7 @@
         ),
         1020: (
             size: 8,
-            name: "attackNoHitLoseBalance",
+            name: "whiffOnPrejump",
             args: [
                 Number,
             ],
@@ -3354,9 +4015,11 @@
         ),
         1051: (
             size: 8,
+            // determines how the defender's facing is calculated upon getting hit or blocking a hit from this attack.
+            // Default value is CALCULATE_FROM_ATTACKER_PLAYER_X and gets reset on every state change
             name: "attackFrontDirection",
             args: [
-                Number,
+                Enum("AttackFrontDirection"),
             ],
         ),
         1052: (
@@ -3600,13 +4263,15 @@
         ),
         1092: (
             size: 8,
-            name: "setProration",
+            // percentage. Only gets applied if this hit is the first in a combo
+            name: "setInitialProration",
             args: [
                 Number,
             ],
         ),
         1093: (
             size: 8,
+            // percentage. Gets applied if is less than the current proration. Current proration is the lowest of all the initial and forced prorations of all hits so far.
             name: "setForcedProration",
             args: [
                 Number,
@@ -3614,9 +4279,10 @@
         ),
         1094: (
             size: 8,
+            // changes the facing of the defender to the opposite (of what was calculated using attackFrontDirection) when they get hit or block the attack. Default is FALSE
             name: "attackDirectionReverse",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1096: (
@@ -3712,6 +4378,7 @@
         ),
         1109: (
             size: 8,
+            // stagger is only applied if groundCounterHitEffect: (STAGGER) and it is ground counterhit, or if groundHitEffect: (STAGGER) and it is ground non-counterhit, or groundHitEffect: (STAGGER) and it is counterhit and groundCounterHitEffect is unspecified.
             name: "staggerDuration",
             args: [
                 Number,
@@ -3719,6 +4386,7 @@
         ),
         1110: (
             size: 8,
+            // causes your attack to deal half the amount of hitstop to the opponent, rounded down
             name: "shortHitstop",
             args: [
                 Number,
@@ -3761,6 +4429,7 @@
         ),
         1116: (
             size: 8,
+            // ignores strike invul, throw invul, superArmorType: (ARMOR), invulnForAegisField. Does not ignore invulnForce
             name: "ignoreInvuln",
             args: [
                 Number,
@@ -3866,6 +4535,7 @@
         ),
         1131: (
             size: 8,
+            // if this flag is set, if this is a dust move, it won't launch, and if this move is performed during the initial portion of a dust combo, it won't be possible to cancel it like you usually can during dust combos
             name: "noDustScaling",
             args: [
                 Number,
@@ -3887,7 +4557,8 @@
         ),
         1134: (
             size: 8,
-            name: "setComboPushbackLevel",
+            // as the combo progresses, hits on airborne opponent apply to them less and less vertical speed. Calling this with 1 turns off that scaling
+            name: "noPushbackYScaling",
             args: [
                 Number,
             ],
@@ -3950,6 +4621,7 @@
         ),
         1145: (
             size: 8,
+            // when your attacks connects with the opponent, it will give this much time, in frames, of invulnForce
             name: "invulnTime",
             args: [
                 Number,
@@ -3957,6 +4629,7 @@
         ),
         1146: (
             size: 8,
+            // similar to invulnTime, this attack gives the opponent the specified duration of invulnForce when you hit them
             name: "dustInvulnTime",
             args: [
                 Number,
@@ -4043,7 +4716,7 @@
             size: 8,
             name: "strikeOrThrow",
             args: [
-                Number,
+                Enum("STRIKE_OR_THROW"),
             ],
         ),
         1159: (
@@ -4055,6 +4728,7 @@
         ),
         1160: (
             size: 8,
+            // if this attack connects, immediately call invulnForce: 1 and romanCancelAvailability: (DISALLOWED) on self inside the hit logic
             name: "enemyDamageInvulnForceAndNoRomanCancel",
             args: [
                 Number,
@@ -4146,6 +4820,7 @@
         ),
         1173: (
             size: 8,
+            // setting this to 1 means this attack is a normal ground throw. This gets called automatically from the game engine. Chijou means ground, tuujou means normal, nage means throw, tsukami means grab
             name: "chijoutuujounageTsukami",
             args: [
                 Number,
@@ -4153,6 +4828,7 @@
         ),
         1174: (
             size: 8,
+            // setting this to 1 means this attack is a normal airthrow. This gets called automatically from the game engine
             name: "kuuchuutuujounageTsukami",
             args: [
                 Number,
@@ -4160,6 +4836,7 @@
         ),
         1175: (
             size: 8,
+            // this flag is set by the game inside the defaultThrowInit function. It means executing normal ground throw, after the grab was successful
             name: "chijoutuujounageTsukamiExecute",
             args: [
                 Number,
@@ -4167,6 +4844,7 @@
         ),
         1176: (
             size: 8,
+            // this flag is set by the game inside the defaultThrowInit function. It means executing normal air throw, after the grab was successful
             name: "kuuchuutuujounageTsukamiExecute",
             args: [
                 Number,
@@ -4578,6 +5256,7 @@
         ),
         1264: (
             size: 20,
+            // sets the charaName of your character, to be checked by functions like ifOpponentCharacter
             name: "charaName",
             args: [
                 String16,
@@ -4914,7 +5593,7 @@
         1382: (
             size: 36,
             name: "addMove",
-            codeBlock: Begin,
+            codeBlock: BeginNonrecursive,
             args: [
                 String32,
             ],
@@ -5018,9 +5697,10 @@
         ),
         1398: (
             size: 8,
+            // if set to 1 (default is 0), cancelling into this move won't be allowed if you're currently in this move
             name: "moveNotSame",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1399: (
@@ -5106,7 +5786,7 @@
         1415: (
             size: 68,
             name: "setStylishCombo",
-            codeBlock: Begin,
+            codeBlock: BeginNonrecursive,
             args: [
                 String32,
                 String32,
@@ -5503,7 +6183,7 @@
         ),
         1616: (
             size: 8,
-            name: "",
+            name: "enableWhiffCancelsOnNextFrame",
             args: [
                 Number,
             ],
@@ -5545,6 +6225,7 @@
         ),
         1622: (
             size: 36,
+            // makes it so the specified move can only be gatlinged into after hitting the opponent player
             name: "addPDChain",
             args: [
                 String32,
@@ -5642,15 +6323,16 @@
         ),
         1638: (
             size: 4,
-            name: "",
+            // gets automatically called at the start of CmnActRoundWin/Lose (winning/losing a round) and CmnActResultWin/Lose (winning/losing a match) states. Using this function you can call it directly. This function makes you invulnForce: 1, resets speed, dash and airdash momentum and registers STATE_REACHED_END event handler that makes you return to _NEUTRAL (standing/crouching/jumping) state
+            name: "onRoundEnd",
             args: [],
         ),
         1641: (
             size: 12,
-            name: "",
+            name: "defaultThrowInit",
             args: [
-                Number,
-                Number,
+                Enum("moveType0_1378"),
+                Enum("characterState0_1379"),
             ],
         ),
         1669: (
@@ -5939,8 +6621,21 @@
             size: 12,
             name: "sendSignal",
             args: [
+            	// the entity to send the signal to. The entity must not be deactivated (see deactivateObj)
                 Enum("Entity"),
-                Enum("Entity"),
+                // only the following signals may be sent:
+                // CUSTOM_SIGNAL_0
+                // CUSTOM_SIGNAL_1
+                // CUSTOM_SIGNAL_2
+                // CUSTOM_SIGNAL_3
+                // CUSTOM_SIGNAL_4
+                // CUSTOM_SIGNAL_5
+                // CUSTOM_SIGNAL_6
+                // CUSTOM_SIGNAL_7
+                // CUSTOM_SIGNAL_8
+                // CUSTOM_SIGNAL_9
+                // Attempting to send any other signal will achieve nothing.
+                Enum("upon0_21"),
             ],
         ),
         1767: (
@@ -5973,16 +6668,42 @@
             size: 40,
             name: "sendSignalToAction",
             args: [
+            	// specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to all your non-deactivated (see deactivateObj) entities that are in the state named this.
                 String32,
-                Number,
+                // only the following signals may be sent:
+                // CUSTOM_SIGNAL_0
+                // CUSTOM_SIGNAL_1
+                // CUSTOM_SIGNAL_2
+                // CUSTOM_SIGNAL_3
+                // CUSTOM_SIGNAL_4
+                // CUSTOM_SIGNAL_5
+                // CUSTOM_SIGNAL_6
+                // CUSTOM_SIGNAL_7
+                // CUSTOM_SIGNAL_8
+                // CUSTOM_SIGNAL_9
+                // Attempting to send any other signal will achieve nothing.
+                Enum("upon0_21"),
             ],
         ),
         1772: (
             size: 40,
             name: "sendSignalToOldestAction",
             args: [
+            	// specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to your oldest non-deactivated (see deactivateObj) entity that is in the state named this.
                 String32,
-                Number,
+                // only the following signals may be sent:
+                // CUSTOM_SIGNAL_0
+                // CUSTOM_SIGNAL_1
+                // CUSTOM_SIGNAL_2
+                // CUSTOM_SIGNAL_3
+                // CUSTOM_SIGNAL_4
+                // CUSTOM_SIGNAL_5
+                // CUSTOM_SIGNAL_6
+                // CUSTOM_SIGNAL_7
+                // CUSTOM_SIGNAL_8
+                // CUSTOM_SIGNAL_9
+                // Attempting to send any other signal will achieve nothing.
+                Enum("upon0_21"),
             ],
         ),
         1788: (
@@ -6028,6 +6749,7 @@
         ),
         1794: (
             size: 8,
+            // enables an extra check of an attacker's hitbox versus your SUPER_ARMOR_BY_SG_COLLISION hitbox type, if it missed your main hurtbox
             name: "superArmorBySGCollision",
             args: [
                 Number,
@@ -6113,6 +6835,7 @@
         ),
         1820: (
             size: 8,
+            // if you have enabled superArmorBySGCollision and an attacker's hitbox missed your main hurtbox and connected instead with SUPER_ARMOR_BY_SG_COLLISION hurtbox, if additionally this attribute is set, the hit gets ignored
             name: "superArmorSGCollisionShippaiIgnore",
             args: [
                 Number,
@@ -6346,9 +7069,13 @@
         ),
         1873: (
             size: 8,
+            // If clash cancel is enabled, from a clash you will be able to cancel into pretty much anything, like FD and forward dash.
+            // Without this, only gatlings, special cancels and jump cancels get enabled.
+            // The following move types by default have clashCancel set to TRUE:
+            // NORMAL, DEAD_ANGLE_ATTACK, INSTANT_KILL_PREPARATION, BLITZ_SHIELD, SPECIAL, MIST_CANCEL, OVERDRIVE, INSTANT_KILL
             name: "clashCancel",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1874: (
@@ -6415,8 +7142,11 @@
             size: 16,
             name: "sendSignalEx",
             args: [
+            	// the entity to send the signal to
+                Enum("Entity"),
+                // this parameter can be accessed in the signal handler using SEND_SIGNAL_EX_PARAM2 named variable
                 Number,
-                Number,
+                // this parameter can be accessed in the signal handler using SEND_SIGNAL_EX_PARAM3 named variable
                 Number,
             ],
         ),
@@ -6425,14 +7155,10 @@
             name: "callPrivateFunction",
             args: [
                 String32,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         1887: (
@@ -6477,6 +7203,7 @@
         ),
         1922: (
             size: 8,
+            // calling this with argument 1 on a projectile allows the player who landed a hit with this projectile to jump cancel and gatling. This is obsolete and superseded by linkObjectCollision
             name: "forceHitSignal",
             args: [
                 Number,
@@ -6581,8 +7308,11 @@
         ),
         1938: (
             size: 20,
+            // modifies ACCUMULATOR
             name: "checkStageName",
-            args: [],
+            args: [
+            	String16,
+        	],
         ),
         1939: (
             size: 8,
@@ -6879,23 +7609,30 @@
                 Number,
             ],
         ),
+        // has three usages, depending on the first argument:
+        // homing: (PERCENTAGE_FROM_DISTANCE_AND_DRAG), Entity, Position, OffsetX, OffsetY, Percentage of distance to use as acceleration, Drag percentage
+        // homing: (ACCELERATION_AND_DRAG),             Entity, Position, OffsetX, OffsetY, Absolute acceleration, Drag percentage
+        // homing: (MAXIMUM_SPEED_AND_ACCELERATION),    Entity, Position, OffsetX, OffsetY, Maximum speed, Absolute acceleration
         1997: (
             size: 48,
             name: "homing",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("HomingType"),
+                // the entity + position specify the destination to which to home into
+                Enum("Entity"),
+                // this position is specified relative to the specified entity
+                Enum("POS_TYPE"),
+                // the X offset applied to the homing destination towards the facing direction of the graphical sprite of the entity referenced by the second argument
+                AccessedValue,
+                // the Y offset applied to the homing destination
+                AccessedValue,
+                // in homing type PERCENTAGE_FROM_DISTANCE_AND_DRAG, specifies percentage of distance to use as acceleration. In type ACCELERATION_AND_DRAG, it is absolute acceleration. In type MAXIMUM_SPEED_AND_ACCELERATION, it is abosolute maixmum speed (actual speed will gradually be altered until it matches maximum speed)
+                AccessedValue,
+                // in type MAXIMUM_SPEED_AND_ACCELERATION, controls how fast the speed changes to the desired one and specifies absolute acceleration. In types PERCENTAGE_FROM_DISTANCE_AND_DRAG and ACCELERATION_AND_DRAG, it is like drag percentage, which means it multiplies the current speed by itself, as a percentage, every frame, before acceleration (the previous argument) is applied.
+                AccessedValue,
             ],
         ),
+        // the name of the state that was prior to the current state. For example, cancelling a 5P into 5K will show that "last state name" is NmlAtk5A, during 5K's animation
         1998: (
             size: 36,
             name: "checkLastStateName",
@@ -6907,7 +7644,7 @@
             size: 40,
             name: "checkLastAttackHitStateName",
             args: [
-                Number,
+                Enum("Entity"),
                 String32,
             ],
         ),
@@ -6918,6 +7655,7 @@
         ),
         2001: (
             size: 40,
+            // during BEFORE_EXIT event "current state name" still points to the old state name. Then OnFinalize fires. Then the "current state name" is set to the new state. During the IMMEDIATE event the "current state name" is already set to the new state
             name: "checkCurrentStateName",
             args: [
                 Enum("Entity"),
@@ -6935,8 +7673,8 @@
             size: 12,
             name: "moveToPosType",
             args: [
-                Number,
-                Number,
+                Enum("Entity"),
+                Enum("POS_TYPE"),
             ],
         ),
         2005: (
@@ -6964,15 +7702,21 @@
         ),
         2008: (
             size: 44,
+            // sends SEND_SIGNAL_NAME signal to the entity specified in arg1. Arg2 and 3 get stored in a place during that event, and you can check Arg2 using checkSignalName.
+            // After this function ends, it resets the target entity's storage places for Arg 2 and 3 back to their original values.
             name: "sendSignalName",
             args: [
-                Number,
+            	// the target entity on which to fire the SEND_SIGNAL_NAME event
+                Enum("Entity"),
+                // gets stored somewhere inside the target entity. You can use checkSignalName to check this name
                 String32,
+                // gets stored somewhere inside the target entity. There is no way to access or check this argument. It is useless
                 Number,
             ],
         ),
         2009: (
             size: 36,
+            // checks what was arg 2 of the last sendSignalName call that fired your last SEND_SIGNAL_NAME event handler. However, you can only check the value inside the SEND_SIGNAL_NAME handler, as it gets immediately reset after that handler finishes
             name: "checkSignalName",
             args: [
                 String32,
@@ -7081,6 +7825,7 @@
         2025: (
             size: 36,
             name: "beginMeshSet",
+            codeBlock: Begin,
             args: [
                 String32,
             ],
@@ -7095,6 +7840,7 @@
         2027: (
             size: 4,
             name: "endMeshSet",
+            codeBlock: End,
             args: [],
         ),
         2028: (
@@ -7952,7 +8698,7 @@
             name: "floorEffect",
             args: [
                 Number,
-                Number,
+                Enum("POS_TYPE"),
             ],
         ),
         2144: (
@@ -7994,9 +8740,10 @@
         ),
         2150: (
             size: 8,
+            // makes the object not move even when it has a speed set. False by default
             name: "ignoreSpeed",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         2151: (
@@ -8036,6 +8783,7 @@
         ),
         2156: (
             size: 8,
+            // makes you just not participate in any hit collision checks
             name: "invulnForce",
             args: [
                 Number,
@@ -8058,6 +8806,7 @@
         ),
         2159: (
             size: 8,
+            // the maximum number of hits you can deal in the whole animation. Decreases by 1 each hit
             name: "maxHit",
             args: [
                 Number,
@@ -8141,12 +8890,9 @@
             size: 28,
             name: "setRandom",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         2171: (
@@ -8189,6 +8935,7 @@
         ),
         2176: (
             size: 8,
+            // calling this function with an argument of 0 doesn't do anything. Destruction is different from deactivation in that deactivation deletes an object, while destruction does not. Destruction can only happen once in the lifetime of an object and causes it to turn off its attack (enter recovery), clear its LANDING and LANDING_REPEATUSE event handlers and fire its DESTROY event. Calling this a second time won't do anything.
             name: "requestDestroy",
             args: [
                 Enum("Entity"),
@@ -8196,6 +8943,7 @@
         ),
         2177: (
             size: 8,
+            // makes you get destroyed as soon as an active attack touches your hurtbox
             name: "destroyAssari",
             args: [
                 Number,
@@ -8208,6 +8956,7 @@
         ),
         2179: (
             size: 8,
+            // resets to 1 on each new state entry. The maximum number of hits this projectile can take before getting destroyed (see requestDestroy). To prevent the projectile from getting destroyed upon reaching this number of hits, use destroyAiuchi: 1
             name: "numberOfHits",
             args: [
                 Number,
@@ -8222,6 +8971,7 @@
         ),
         2181: (
             size: 8,
+            // specify the number of hits to be added to the current number of hits taken so far by the projectile, when the opponent either blocks or armors the projectile's hit. Gets reset to 0 on each new state entry
             name: "destroyOnEnemyGuard",
             args: [
                 Number,
@@ -8250,7 +9000,7 @@
         ),
         2185: (
             size: 8,
-            name: "destroyOnPlayerEnemy",
+            name: "destroyOnPlayerHitstun",
             args: [
                 Number,
             ],
@@ -8264,20 +9014,23 @@
         ),
         2187: (
             size: 8,
-            name: "destroyOnSelfInstantKill",
+            // if passed 1, this object will be destroyed on both ally and enemy player instant kills connecting
+            name: "destroyOnInstantKill",
             args: [
                 Number,
             ],
         ),
         2188: (
             size: 8,
-            name: "destroyOnEnemyInstantill",
+            // this function sets a flag that is not used anywhere
+            name: "destroyOnEnemyInstantKill_OBSOLETE",
             args: [
                 Number,
             ],
         ),
         2189: (
             size: 8,
+            // works in tandem with destroyAssariEx. Call with 1 to register hits or 0 (default) to not register them. Specifying a number greater than 1 will increment the number of hits taken by that many hits each hit instead. The projectile gets destroyed when reaching the maximum number of hits (see numberOfHits)
             name: "destroyOnDamageCollision",
             args: [
                 Number,
@@ -8285,14 +9038,15 @@
         ),
         2190: (
             size: 12,
+            // when the timer expires, the object destroys itself. The timer does not advance when in hitstop
             name: "destroyTenmetsuTimer",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         2191: (
             size: 8,
+            // calling this with 1 makes the projectile not disappear when it takes the maximum number of hits. Gets reset to 0 on each new state entry
             name: "destroyAiuchi",
             args: [
                 Number,
@@ -8307,6 +9061,7 @@
         ),
         2193: (
             size: 8,
+            // makes this projectile able to get hit by active attacks touching its hurtbox. This also enables it to receive ASSARI_GOT_HIT event, and you can control whether the number of hits counter gets incremented upon hit by calling destroyOnDamageCollision. Gets reset to 0 on each new state entry. The projectile will get destroyed when reaching the maximum number of hits, set by numberOfHits.
             name: "destroyAssariEx",
             args: [
                 Number,
@@ -8438,10 +9193,10 @@
             size: 20,
             name: "moveToPosTypeToPosTypeEx",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("Entity"),
+                Enum("POS_TYPE"),
+                Enum("Entity"),
+                Enum("POS_TYPE"),
             ],
         ),
         2219: (
@@ -8595,12 +9350,11 @@
         ),
         2247: (
             size: 20,
+            // allows you to set two arguments that will be accessible to the entity that you create next using createObject or createObjectWithArg via CREATE_ARG_HIKITSUKI_VAL_1 and CREATE_ARG_HIKITSUKI_VAL_2 named variables
             name: "createArgHikitsukiVal",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         2248: (
@@ -8735,9 +9489,10 @@
         ),
         2282: (
             size: 8,
+            // makes this entity ignore slowdown caused by RC
             name: "ignoreSlowdown",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         2283: (
@@ -8832,8 +9587,14 @@
         ),
         2296: (
             size: 20,
-            name: "nozekoriEnchou",
-            args: [],
+            // checks if opponent's LAST_RECEIVED_COLLISION_ID is equal to <argument 1>, and that they're currently in hitstun, and if yes, then locks hitstun for the current frame returns a 1 into <argument 2>, otherwise returns 0 into <argument 2>
+            name: "nokezoriEnchou",
+            args: [
+            	// the value to check against opponent's LAST_RECEIVED_COLLISION_ID
+            	AccessedValue,
+            	// the value to return 1 or 0 into, depending on whether hitstun was locked (1 if yes)
+            	AccessedValue,
+        	],
         ),
         2297: (
             size: 12,
@@ -8875,13 +9636,14 @@
         ),
         2302: (
             size: 24,
+            // stores result in ACCUMULATOR
             name: "calcDistanceEx",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("CalcDistanceExMode"),
+                Enum("Entity"),
+                Enum("POS_TYPE"),
+                Enum("Entity"),
+                Enum("POS_TYPE"),
             ],
         ),
         2309: (
@@ -8927,11 +9689,9 @@
             size: 24,
             name: "forcePoison",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("Entity"),
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         2316: (
@@ -8980,7 +9740,7 @@
             size: 8,
             name: "naguriNaguru",
             args: [
-                Number,
+                Enum("upon0_21"),
             ],
         ),
         2323: (
@@ -9013,9 +9773,10 @@
         ),
         2327: (
             size: 8,
+            // if provided TRUE, then, when this move connects with an opponent, the attacker will have callPrivateFunction: s32'ClearPastSenkoInputTime' called on them. All moves that have moveType: (NORMAL) have bufferInputReset: 1 by default. This helps prevent a single 5P press from doing a 5P (hit) gatling into another 5P for 5Ps that have 3f startup.
             name: "bufferInputReset",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         2328: (
@@ -9041,6 +9802,7 @@
         ),
         2331: (
             size: 8,
+            // specifies the startup of the attack, which is used to trigger Dramatic Finale. This timer will decrement by 1 each frame and when both players have attacks out, if many different other conditions are satisfied, and both players' current dokiDokiStopHassei values are below DOKI_DOKI_STOP_HASSEI_PRE_TIME, Dramatic Finale may be triggered
             name: "dokiDokiStopHassei",
             args: [
                 Number,
@@ -9269,7 +10031,11 @@
         2380: (
             size: 44,
             name: "trialAdvice",
-            args: [],
+            args: [
+            	Number,
+            	String32,
+            	Number,
+        	],
         ),
         2381: (
             size: 8,
