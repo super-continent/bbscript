@@ -4840,7 +4840,6 @@
             args: [
                 Enum("posTypeToVar1_62"),
                 Number,
-                Number,
             ],
         ),
         672: (
