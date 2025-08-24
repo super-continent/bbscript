@@ -240,130 +240,52 @@
         232: "TrialTutorialHighScore",
         233: "TrialTutorialScore",
         234: "MOMSpecialValue",
-	},
+    },
     named_value_maps: {
-        "MoveFlag": {
-            1: "LAND",
-            2: "AIR",
-            3: "REQUIRES_50_METER",
-            4: "REQUIRES_100_METER",
-            5: "REQUIRES_25_METER",
-			6: "CAN_JUMP",
-            19: "ALLOW_ONE_USE",
+        "GroundHitEffect": {
+            0: "NORMAL_UPPER",
+            1: "AIR_NORMAL",
+            2: "CRUMPLE",
+            3: "FORCE_CROUCH",
+            4: "FORCE_STAND",
+            5: "NORMAL_LOWER",
+            6: "GUARD_BREAK_STAND",
+            7: "GUARD_BREAK_CROUCH",
+            8: "AIR_FACE_UP",
+            9: "AIR_LAUNCH",
+            10: "AIR_FACE_DOWN",
+            11: "AIR_STRONG",
+            12: "KIRIMOMI",
+            13: "KIRIMOMI_B",
+            14: "GUARD_BREAK_AIR",
+            15: "STAGGER",
+            16: "EX_DAMAGE_BALL_MOF",
+            17: "EX_DAMAGE",
+            18: "NONE",
+            19: "GUARD_BREAK",
+            20: "GUARD_BREAK_SAFE",
+            21: "FORCE_STAND_AUTO",
+            22: "GUARD_BREAK_GRAB_STAND_OR_CROUCH",
+            23: "GUARD_BREAK_GRAB_STAND",
+            24: "GUARD_BREAK_GRAB_CROUCH",
+            25: "GUARD_BREAK_GRAB_AIR",
+            26: "AIR_SOMERSAULT",
+            27: "KIRIMOMI_LAND",
+            28: "KIRIMOMI_VERTICAL",
+            29: "KIRIMOMI_SIDE",
+            30: "Z_SPIN",
+            31: "RUSH_FINISH",
+            32: "FUTTOBI_FINISH",
+            33: "EXPLOSION_FINISH",
+            34: "WALL_STICK",
+            35: "FORCE_STAND_BOTTOM",
+            36: "FLOAT_DAMAGE",
         },
-        "Upon": {
-            0: "IMMEDIATE",
-            1: "BEFORE_EXIT",
-            2: "TOUCH_GROUND",
-            3: "FRAME_STEP",
-            7: "ACTION_END",
-            10: "HIT",
-        },
-        "MoveStance": {
-            0: "NONE",
-            1: "STANDING",
-            2: "CROUCHING",
-            3: "JUMPING",
-        },
-        "MoveType": {
-            0: "NEUTRAL",
-            1: "FORWARD_WALK",
-            2: "BACKWARD_WALK",
-            3: "FORWARD_DASH",
-			4: "BACKWARD_DASH",
-            5: "FORWARD_JUMP",
-            6: "BACKWARD_JUMP",
-            7: "NEUTRAL_JUMP",
-			8: "FORWARD_SUPER_JUMP",
-            9: "BACKWARD_SUPER_JUMP",
-            10: "NEUTRAL_SUPER_JUMP",
-            11: "FORWARD_AIR_JUMP",
-			12: "BACKWARD_AIR_JUMP",
-            13: "NEUTRAL_AIR_JUMP",
-            14: "FORWARD_AIR_DASH",
-            15: "BACKWARD_AIR_DASH",
-			16: "NORMAL",
-            17: "SPECIAL",
-            19: "SUPER",
-        },
-        "MoveSubType": {
-            0: "DEFAULT",
-            6: "NORMAL_THROW",
-        },
-        "MoveStunCondition": {
-            0: "NOT_HIT_OR_BLOCKSTUN",
-            1: "HIT_OR_BLOCKSTUN_OK",
-            2: "HIT_OR_BLOCKSTUN_ONLY",
-            3: "HITSTUN_ONLY",
-            4: "BLOCKSTUN_ONLY",
-            5: "NOT_APPLICABLE",
-        },
-        "posTypeToVar": {
-            100: "PLAYER",
-            101: "ATTACK",
-            102: "DAMAGE",
-            103: "CENTER",
-            104: "FLOOR_CENTER",
-            105: "BODY_RANDOM",
-            106: "EX_RECT_RANDOM",
-            107: "AURA",
-            108: "PRIVATE_0",
-            109: "PRIVATE_1",
-            110: "PRIVATE_2",
-            111: "PRIVATE_3",
-            112: "PAST_HALF",
-            113: "GTMP",
-            114: "HEAD",
-            115: "NECK",
-            116: "ABDOMINAL",
-            117: "R_LEG",
-            118: "L_LEG",
-            119: "HEART",
-            120: "ENEMY_LAND",
-            121: "NOZEKORI",
-            122: "ASHIMOTO_RANDOM",
-            123: "PLAYER_LAND",
-            124: "FRONT_05_BODY",
-            125: "FRONT_1_BODY",
-            126: "FRONT_2_BODY",
-            128: "BACK_1_BODY",
-            129: "BACK_2_BODY",
-            130: "EX_POINT_F",
-            131: "WORLD_ZERO",
-            132: "ENEMY_CENTER",
-            133: "ENEMY_BODY_RANDOM",
-            134: "ENEMY_EX_RECT_RANDOM",
-            135: "ENEMY_AURA",
-            136: "ENEMY_HEAD",
-            137: "ENEMY_NECK",
-            138: "ENEMY_ABDOMINAL",
-            139: "ENEMY_R_LEG",
-            140: "ENEMY_L_LEG",
-            141: "ENEMY_HEART",
-            142: "ENEMY_EX_POINT_F",
-            143: "EX_POINT_PG",
-            144: "BODY_RANDOM_3D",
-            145: "EX_POINT_RANDOM",
-            146: "BIKKURI",
-            147: "CHEST_3D",
-            148: "LEG_CENTER",
-            149: "HEAD_3D",
-            150: "PELVIS_3D",
-            151: "BODY_RANDOM_3D_NO_HEAD",
-            152: "SHOULDER_L_3D",
-            153: "SHOULDER_R_3D",
-            154: "ELBOW_L_3D",
-            155: "ELBOW_R_3D",
-            156: "HAND_L_3D",
-            157: "HAND_R_3D",
-            158: "CALF_L_3D",
-            159: "CALF_R_3D",
-            160: "FOOT_L_3D",
-            161: "FOOT_R_3D",
-            162: "AFRO_3D",
-            163: "FRONT_3_BODY",
-            164: "BACK_3_BODY",
-            165: "SCREEN_CENTER",
+        "GuardType": {
+            0: "ANY",
+            1: "HIGH",
+            2: "LOW",
+            3: "NONE",
         },
         "InputType": {
             4: "INPUT_PRESS_L",
@@ -395,11 +317,84 @@
             95: "INPUT_66",
             109: "INPUT_BOOLEAN_OR",
         },
-        "GuardType": {
-            0: "ANY",
-            1: "HIGH",
-            2: "LOW",
-            3: "NONE",
+        "KillType": {
+            0: "NORMAL",
+            1: "NOT_KILL",
+            2: "NOT_KILL_IN_COMBO",
+            3: "KILL",
+        },
+        "MoveFlag": {
+            1: "LAND",
+            2: "AIR",
+            3: "REQUIRES_50_METER",
+            4: "REQUIRES_100_METER",
+            5: "REQUIRES_25_METER",
+            6: "CAN_JUMP",
+            19: "ALLOW_ONE_USE",
+        },
+        "MoveStance": {
+            0: "NONE",
+            1: "STANDING",
+            2: "CROUCHING",
+            3: "JUMPING",
+        },
+        "MoveStunCondition": {
+            0: "NOT_HIT_OR_BLOCKSTUN",
+            1: "HIT_OR_BLOCKSTUN_OK",
+            2: "HIT_OR_BLOCKSTUN_ONLY",
+            3: "HITSTUN_ONLY",
+            4: "BLOCKSTUN_ONLY",
+            5: "NOT_APPLICABLE",
+        },
+        "MoveSubType": {
+            0: "DEFAULT",
+            6: "NORMAL_THROW",
+        },
+        "MoveType": {
+            0: "NEUTRAL",
+            1: "FORWARD_WALK",
+            2: "BACKWARD_WALK",
+            3: "FORWARD_DASH",
+            4: "BACKWARD_DASH",
+            5: "FORWARD_JUMP",
+            6: "BACKWARD_JUMP",
+            7: "NEUTRAL_JUMP",
+            8: "FORWARD_SUPER_JUMP",
+            9: "BACKWARD_SUPER_JUMP",
+            10: "NEUTRAL_SUPER_JUMP",
+            11: "FORWARD_AIR_JUMP",
+            12: "BACKWARD_AIR_JUMP",
+            13: "NEUTRAL_AIR_JUMP",
+            14: "FORWARD_AIR_DASH",
+            15: "BACKWARD_AIR_DASH",
+            16: "NORMAL",
+            17: "SPECIAL",
+            19: "SUPER",
+        },
+        "ObjectID": {
+            0: "NULL",
+            1: "PREVIOUS",
+            2: "PARENT",
+            3: "PLAYER",
+            4: "STACK0",
+            5: "STACK1",
+            6: "STACK2",
+            7: "STACK3",
+            8: "STACK4",
+            9: "STACK5",
+            10: "STACK6",
+            11: "STACK7",
+            13: "WINNER",
+            14: "LOSER",
+            22: "ENEMY",
+            23: "SELF",
+            24: "ATTACKER",
+            25: "DEFENDER",
+            27: "PLAYER_1",
+            28: "PLAYER_2",
+            37: "MAIN_PLAYER_1",
+            38: "MAIN_PLAYER_2",
+            39: "DAMAGE_EFFECT",
         },
         "Operation": {
             0: "ADD",
@@ -425,12 +420,6 @@
             20: "SET",
             21: "SET_DIR",
             22: "PERCENT",
-        },
-        "KillType": {
-            0: "NORMAL",
-            1: "NOT_KILL",
-            2: "NOT_KILL_IN_COMBO",
-            3: "KILL",
         },
         "PosType": {
             100: "PLAYER",
@@ -499,96 +488,108 @@
             164: "BACK_3_BODY",
             165: "SCREEN_CENTER",
         },
-        "ObjectID": {
-            0: "NULL",
-            1: "PREVIOUS",
-            2: "PARENT",
-            3: "PLAYER",
-            4: "STACK0",
-            5: "STACK1",
-            6: "STACK2",
-            7: "STACK3",
-            8: "STACK4",
-            9: "STACK5",
-            10: "STACK6",
-            11: "STACK7",
-            13: "WINNER",
-            14: "LOSER",
-            22: "ENEMY",
-            23: "SELF",
-            24: "ATTACKER",
-            25: "DEFENDER",
-            27: "PLAYER_1",
-            28: "PLAYER_2",
-            37: "MAIN_PLAYER_1",
-            38: "MAIN_PLAYER_2",
-            39: "DAMAGE_EFFECT",
-        },
         "SuperArmorType": {
             0: "DODGE",
             1: "ARMOR",
             2: "PARRY",
         },
-        "GroundHitEffect": {
-            0: "NORMAL_UPPER",
-            1: "AIR_NORMAL",
-            2: "CRUMPLE",
-            3: "FORCE_CROUCH",
-            4: "FORCE_STAND",
-            5: "NORMAL_LOWER",
-            6: "GUARD_BREAK_STAND",
-            7: "GUARD_BREAK_CROUCH",
-            8: "AIR_FACE_UP",
-            9: "AIR_LAUNCH",
-            10: "AIR_FACE_DOWN",
-            11: "AIR_STRONG",
-            12: "KIRIMOMI",
-            13: "KIRIMOMI_B",
-            14: "GUARD_BREAK_AIR",
-            15: "STAGGER",
-            16: "EX_DAMAGE_BALL_MOF",
-            17: "EX_DAMAGE",
-            18: "NONE",
-            19: "GUARD_BREAK",
-            20: "GUARD_BREAK_SAFE",
-            21: "FORCE_STAND_AUTO",
-            22: "GUARD_BREAK_GRAB_STAND_OR_CROUCH",
-            23: "GUARD_BREAK_GRAB_STAND",
-            24: "GUARD_BREAK_GRAB_CROUCH",
-            25: "GUARD_BREAK_GRAB_AIR",
-            26: "AIR_SOMERSAULT",
-            27: "KIRIMOMI_LAND",
-            28: "KIRIMOMI_VERTICAL",
-            29: "KIRIMOMI_SIDE",
-            30: "Z_SPIN",
-            31: "RUSH_FINISH",
-            32: "FUTTOBI_FINISH",
-            33: "EXPLOSION_FINISH",
-            34: "WALL_STICK",
-            35: "FORCE_STAND_BOTTOM",
-            36: "FLOAT_DAMAGE",
+        "Upon": {
+            0: "IMMEDIATE",
+            1: "BEFORE_EXIT",
+            2: "TOUCH_GROUND",
+            3: "FRAME_STEP",
+            7: "ACTION_END",
+            10: "HIT",
+        },
+        "posTypeToVar": {
+            100: "PLAYER",
+            101: "ATTACK",
+            102: "DAMAGE",
+            103: "CENTER",
+            104: "FLOOR_CENTER",
+            105: "BODY_RANDOM",
+            106: "EX_RECT_RANDOM",
+            107: "AURA",
+            108: "PRIVATE_0",
+            109: "PRIVATE_1",
+            110: "PRIVATE_2",
+            111: "PRIVATE_3",
+            112: "PAST_HALF",
+            113: "GTMP",
+            114: "HEAD",
+            115: "NECK",
+            116: "ABDOMINAL",
+            117: "R_LEG",
+            118: "L_LEG",
+            119: "HEART",
+            120: "ENEMY_LAND",
+            121: "NOZEKORI",
+            122: "ASHIMOTO_RANDOM",
+            123: "PLAYER_LAND",
+            124: "FRONT_05_BODY",
+            125: "FRONT_1_BODY",
+            126: "FRONT_2_BODY",
+            128: "BACK_1_BODY",
+            129: "BACK_2_BODY",
+            130: "EX_POINT_F",
+            131: "WORLD_ZERO",
+            132: "ENEMY_CENTER",
+            133: "ENEMY_BODY_RANDOM",
+            134: "ENEMY_EX_RECT_RANDOM",
+            135: "ENEMY_AURA",
+            136: "ENEMY_HEAD",
+            137: "ENEMY_NECK",
+            138: "ENEMY_ABDOMINAL",
+            139: "ENEMY_R_LEG",
+            140: "ENEMY_L_LEG",
+            141: "ENEMY_HEART",
+            142: "ENEMY_EX_POINT_F",
+            143: "EX_POINT_PG",
+            144: "BODY_RANDOM_3D",
+            145: "EX_POINT_RANDOM",
+            146: "BIKKURI",
+            147: "CHEST_3D",
+            148: "LEG_CENTER",
+            149: "HEAD_3D",
+            150: "PELVIS_3D",
+            151: "BODY_RANDOM_3D_NO_HEAD",
+            152: "SHOULDER_L_3D",
+            153: "SHOULDER_R_3D",
+            154: "ELBOW_L_3D",
+            155: "ELBOW_R_3D",
+            156: "HAND_L_3D",
+            157: "HAND_R_3D",
+            158: "CALF_L_3D",
+            159: "CALF_R_3D",
+            160: "FOOT_L_3D",
+            161: "FOOT_R_3D",
+            162: "AFRO_3D",
+            163: "FRONT_3_BODY",
+            164: "BACK_3_BODY",
+            165: "SCREEN_CENTER",
         },
     },
     instructions: Sized({
         0: (
             size: 36,
             name: "beginState",
-            args: [
-                String32
-            ],
             codeBlock: Begin,
+            args: [
+                String32,
+            ],
         ),
         1: (
             size: 4,
             name: "endState",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         2: (
             size: 40,
             name: "sprite",
             args: [
-                String32, Number
+                String32,
+                Number,
             ],
         ),
         3: (
@@ -599,54 +600,54 @@
         4: (
             size: 12,
             name: "if",
+            codeBlock: Begin,
             args: [
                 AccessedValue,
             ],
-            codeBlock: Begin,
         ),
         5: (
             size: 4,
             name: "endIf",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         6: (
             size: 24,
             name: "ifOperation",
+            codeBlock: Begin,
             args: [
                 Enum("Operation"),
                 AccessedValue,
                 AccessedValue,
             ],
-            codeBlock: Begin,
         ),
         7: (
             size: 12,
             name: "ifNot",
+            codeBlock: Begin,
             args: [
                 AccessedValue,
             ],
-            codeBlock: Begin,
         ),
         8: (
             size: 20,
             name: "ifOpponentCharacter",
+            codeBlock: Begin,
             args: [
                 String16,
-			],
-            codeBlock: Begin,
+            ],
         ),
         9: (
             size: 4,
             name: "else",
-            args: [],
             codeBlock: Begin,
+            args: [],
         ),
         10: (
             size: 4,
             name: "endElse",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         11: (
             size: 36,
@@ -682,16 +683,16 @@
         15: (
             size: 36,
             name: "beginSubroutine",
+            codeBlock: Begin,
             args: [
                 String32,
             ],
-            codeBlock: Begin,
         ),
         16: (
             size: 4,
             name: "endSubroutine",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         17: (
             size: 36,
@@ -720,16 +721,16 @@
         21: (
             size: 8,
             name: "upon",
+            codeBlock: Begin,
             args: [
                 Enum("Upon"),
             ],
-            codeBlock: Begin,
         ),
         22: (
             size: 4,
             name: "endUpon",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         23: (
             size: 8,
@@ -748,7 +749,7 @@
         ),
         25: (
             size: 44,
-			name: "gotoLabelIfNot",
+            name: "gotoLabelIfNot",
             args: [
                 String32,
                 AccessedValue,
@@ -764,10 +765,10 @@
         ),
         27: (
             size: 36,
-			name: "jumpToState",
+            name: "jumpToState",
             args: [
                 String32,
-			],
+            ],
         ),
         28: (
             size: 36,
@@ -863,10 +864,10 @@
         39: (
             size: 12,
             name: "ifOnFrame",
+            codeBlock: Begin,
             args: [
                 AccessedValue,
             ],
-            codeBlock: Begin,
         ),
         40: (
             size: 4,
@@ -1340,10 +1341,10 @@
         ),
         137: (
             size: 8,
-			name: "setInertia",
+            name: "setInertia",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         138: (
             size: 8,
@@ -1375,8 +1376,8 @@
             size: 8,
             name: "inertiaPercent",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         144: (
             size: 8,
@@ -1945,6 +1946,12 @@
                 Number,
             ],
         ),
+        252: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         253: (
             size: 8,
             args: [
@@ -2073,6 +2080,12 @@
             ],
         ),
         273: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        274: (
             size: 8,
             args: [
                 Number,
@@ -2965,38 +2978,38 @@
         ),
         446: (
             size: 8,
-			name: "linkObjectPushCollision",
+            name: "linkObjectPushCollision",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         447: (
             size: 8,
-			name: "linkObjectAngle",
+            name: "linkObjectAngle",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         448: (
             size: 8,
-			name: "linkObjectPosition",
+            name: "linkObjectPosition",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         449: (
             size: 8,
-			name: "linkObjectDirection",
+            name: "linkObjectDirection",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         450: (
             size: 8,
-			name: "stopLinkObject",
+            name: "stopLinkObject",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         451: (
             size: 8,
@@ -3054,17 +3067,17 @@
         ),
         460: (
             size: 8,
-			name: "linkObjectZ",
+            name: "linkObjectZ",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         461: (
             size: 8,
-			name: "linkObjectCollision",
+            name: "linkObjectCollision",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         462: (
             size: 40,
@@ -3137,6 +3150,12 @@
         479: (
             size: 20,
             args: [],
+        ),
+        480: (
+            size: 8,
+            args: [
+                Number,
+            ],
         ),
         507: (
             size: 8,
@@ -3513,7 +3532,7 @@
         ),
         701: (
             size: 4,
-			name: "initializeAttackCategoryByCurrent",
+            name: "initializeAttackCategoryByCurrent",
             args: [],
         ),
         702: (
@@ -4011,6 +4030,12 @@
             name: "resetGroundCounterHitEffect",
             args: [],
         ),
+        882: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         883: (
             size: 8,
             args: [
@@ -4348,7 +4373,7 @@
             args: [
                 Number,
             ],
-        ),    
+        ),
         988: (
             size: 8,
             args: [
@@ -4425,6 +4450,12 @@
                 Number,
             ],
         ),
+        1019: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         1021: (
             size: 20,
             name: "attackRange",
@@ -4444,7 +4475,7 @@
         ),
         1029: (
             size: 12,
-			name: "wallPushback",
+            name: "wallPushback",
             args: [
                 Number,
                 Number,
@@ -6091,7 +6122,7 @@
             name: "initCharPhysique",
             args: [
                 Number,
-			],
+            ],
         ),
         1284: (
             size: 8,
@@ -6159,7 +6190,7 @@
         ),
         1294: (
             size: 8,
-			name: "opponentTensionGainedOnHit",
+            name: "opponentTensionGainedOnHit",
             args: [
                 Number,
             ],
@@ -6174,14 +6205,14 @@
         1296: (
             size: 8,
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1297: (
             size: 8,
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1298: (
             size: 8,
@@ -6196,6 +6227,20 @@
             ],
         ),
         1300: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1301: (
+            size: 4,
+            args: [],
+        ),
+        1302: (
+            size: 4,
+            args: [],
+        ),
+        1303: (
             size: 8,
             args: [
                 Number,
@@ -6481,7 +6526,7 @@
         ),
         1400: (
             size: 8,
-			name: "moveType",
+            name: "moveType",
             args: [
                 Enum("MoveType"),
             ],
@@ -6510,16 +6555,16 @@
         1404: (
             size: 36,
             name: "addMove",
+            codeBlock: Begin,
             args: [
                 String32,
             ],
-            codeBlock: Begin,
         ),
         1405: (
             size: 4,
             name: "endMove",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         1406: (
             size: 8,
@@ -6537,7 +6582,7 @@
         ),
         1408: (
             size: 8,
-			name: "isFollowupMove",
+            name: "isFollowupMove",
             args: [
                 Number,
             ],
@@ -6591,7 +6636,7 @@
         ),
         1416: (
             size: 36,
-			name: "moveAlias",
+            name: "moveAlias",
             args: [
                 String32,
             ],
@@ -6681,8 +6726,8 @@
         1431: (
             size: 8,
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1434: (
             size: 8,
@@ -6754,6 +6799,19 @@
                 Number,
             ],
         ),
+        1447: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        1448: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         1498: (
             size: 8,
             name: "usableByCPU",
@@ -6763,10 +6821,10 @@
         ),
         1501: (
             size: 8,
-			name: "usableByPlayer",
+            name: "usableByPlayer",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1502: (
             size: 36,
@@ -6882,14 +6940,14 @@
         ),
         1533: (
             size: 8,
-			name: "cpuEstimatePoint",
+            name: "cpuEstimatePoint",
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1534: (
             size: 8,
-			name: "cpuEstimateLevelLimit",
+            name: "cpuEstimateLevelLimit",
             args: [
                 Number,
             ],
@@ -6914,12 +6972,12 @@
         ),
         1553: (
             size: 4,
-			name: "cpuEstimateTagGuard",
+            name: "cpuEstimateTagGuard",
             args: [],
         ),
         1554: (
             size: 4,
-			name: "cpuEstimateTagCombo",
+            name: "cpuEstimateTagCombo",
             args: [],
         ),
         1555: (
@@ -7106,6 +7164,28 @@
             args: [
                 Number,
             ],
+        ),
+        1627: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1628: (
+            size: 36,
+            args: [],
+        ),
+        1629: (
+            size: 36,
+            args: [],
+        ),
+        1630: (
+            size: 36,
+            args: [],
+        ),
+        1631: (
+            size: 36,
+            args: [],
         ),
         1632: (
             size: 36,
@@ -7508,26 +7588,26 @@
         1707: (
             size: 164,
             name: "mouthTable",
-			args: [
-				String16,
-				String16,
+            args: [
+                String16,
+                String16,
                 String32,
                 String32,
                 String32,
                 String32,
-			],
+            ],
         ),
         1708: (
             size: 164,
             name: "vsCharaMouthTable",
             args: [
-				String16,
-				String16,
+                String16,
+                String16,
                 String32,
                 String32,
                 String32,
                 String32,
-			],
+            ],
         ),
         1709: (
             size: 8,
@@ -7538,26 +7618,26 @@
         1710: (
             size: 148,
             name: "mouthTable2",
-			args: [
-				String16,
+            args: [
+                String16,
                 String32,
                 String32,
                 String32,
                 String32,
-			],
+            ],
         ),
         1711: (
             size: 180,
             name: "vsCharaMouthTable2",
-			args: [
-				String16,
-				String16,
-				String16,
+            args: [
+                String16,
+                String16,
+                String16,
                 String32,
                 String32,
                 String32,
                 String32,
-			],
+            ],
         ),
         1712: (
             size: 164,
@@ -8419,8 +8499,8 @@
         1960: (
             size: 8,
             args: [
-				Number,
-			],
+                Number,
+            ],
         ),
         1961: (
             size: 8,
@@ -8717,6 +8797,12 @@
             size: 24,
             args: [],
         ),
+        2006: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
         2008: (
             size: 8,
             args: [
@@ -8881,8 +8967,8 @@
             size: 36,
             name: "linkPawn",
             args: [
-				String32,
-			],
+                String32,
+            ],
         ),
         2040: (
             size: 40,
@@ -8963,10 +9049,10 @@
         2052: (
             size: 36,
             name: "beginMeshSet",
+            codeBlock: Begin,
             args: [
                 String32,
             ],
-            codeBlock: Begin,
         ),
         2053: (
             size: 36,
@@ -8978,8 +9064,8 @@
         2054: (
             size: 4,
             name: "endMeshSet",
-            args: [],
             codeBlock: End,
+            args: [],
         ),
         2055: (
             size: 36,
@@ -9114,7 +9200,7 @@
                 Number,
                 Number,
                 Number,
-				Number,
+                Number,
                 Number,
                 Number,
                 Number,
@@ -9133,14 +9219,14 @@
                 Number,
                 Number,
                 Number,
-				Number,
                 Number,
                 Number,
                 Number,
                 Number,
                 Number,
                 Number,
-				Number,
+                Number,
+                Number,
                 Number,
                 Number,
             ],
@@ -10461,6 +10547,14 @@
                 Number,
             ],
         ),
+        2302: (
+            size: 44,
+            args: [],
+        ),
+        2303: (
+            size: 48,
+            args: [],
+        ),
         2305: (
             size: 8,
             name: "uiBattleText",
@@ -10543,7 +10637,6 @@
         ),
         2318: (
             size: 8,
-
             args: [
                 Number,
             ],
@@ -11189,7 +11282,6 @@
         ),
         2483: (
             size: 20,
-
             args: [
                 Number,
                 Number,
@@ -11458,6 +11550,14 @@
             args: [],
         ),
         2542: (
+            size: 4,
+            args: [],
+        ),
+        2543: (
+            size: 4,
+            args: [],
+        ),
+        2544: (
             size: 4,
             args: [],
         ),
@@ -11800,6 +11900,12 @@
             ],
         ),
         2643: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        2644: (
             size: 8,
             args: [
                 Number,
