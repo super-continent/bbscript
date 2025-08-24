@@ -601,7 +601,6 @@
             188: "INPUT_CHARGE_BACK_FORWARD_30F",
             189: "INPUT_CHARGE_DOWN_UP_30F",
             190: "INPUT_6428",
-            191: "INPUT_CHARGE_UP_DOWN_30F",
             192: "INPUT_46463214",
             193: "INPUT_64641236",
             194: "INPUT_DOWN_UP",
@@ -820,7 +819,7 @@
             125: "RED_ROMAN_CANCEL",
             126: "NOT_DRAMA_ASSIST",
             127: "ENEMY_CAN_BURST",
-            129: "REQUIRES_50_BURST"
+            129: "REQUIRES_50_BURST",
         },
         "OBJECT_ID": {
             0: "NULL",
@@ -999,12 +998,76 @@
             102: "NAGURU",
             103: "BG_CLASH_EVENT",
         },
+        "ZLINE": {
+            0: "FAR_DISTANCE",
+            1: "MIDDLE_DISTANCE",
+            2: "NEAR_DISTANCE",
+            3: "NEAREST_DISTANCE",
+            4: "MAX_DISTANCE",
+        },
+        "activeState": {
+            0: "ACTV_NOT_ACTIVE",
+            1: "ACTV_ACTIVE",
+            2: "ACTV_REQ_ACTIVE",
+            3: "ACTV_REQ_NO_ACTIVE",
+            4: "ACTV_WAITING_0",
+            5: "ACTV_WAITING_1",
+            6: "ACTV_WAITING_2",
+        },
+        "attackDirection": {
+            0: "SELF",
+            1: "PLAYER",
+            2: "SELF_TO_ENEMY",
+            3: "PLAYER_TO_ENEMY",
+        },
+        "attackType": {
+            0: "INSTANT_KILL",
+        },
+        "characterShoes": {
+            0: "SHOES_NORMAL",
+            1: "SHOES_LEATHER",
+            2: "SHOES_BOOT",
+            3: "SHOES_HEAL",
+            4: "SHOES_SANDAL",
+            5: "SHOES_BAREFOOT_LIGHT",
+            6: "SHOES_BAREFOOT_HEAVY",
+            7: "SHOES_METAL_LIGHT",
+            8: "SHOES_METAL_HEAVY",
+            9: "SHOES_COMICAL",
+            10: "SHOES_GETA",
+        },
+        "characterSize": {
+            0: "SMALL",
+            1: "MEDIUM",
+            2: "LARGE",
+            3: "EXTRA_LARGE",
+        },
         "characterState0_1406": {
             0: "NONE",
             1: "STANDING",
             2: "CROUCHING",
             3: "JUMPING",
             4: "ASSIST_PLAYER",
+        },
+        "collisionType": {
+            0: "CT_DAMAGE",
+            1: "CT_ATTACK",
+            2: "CT_EXPOINT",
+            3: "CT_EXRECT",
+            4: "CT_EXVECTOR",
+            5: "CT_PUSH",
+            6: "CT_TEMP_CENTER",
+            7: "CT_NECK",
+            8: "CT_ABDOMINAL",
+            9: "CT_ATTACK_VS_PUSH",
+            10: "CT_SP_GUARD",
+            11: "CT_R_LEG",
+            12: "CT_L_LEG",
+            13: "CT_PRIVATE_POINT_0",
+            14: "CT_PRIVATE_POINT_1",
+            15: "CT_PRIVATE_POINT_2",
+            16: "CT_PRIVATE_POINT_3",
+            17: "CT_EXTEND_JON",
         },
         "counterHitProcess0_1038": {
             0: "SMALL",
@@ -1017,6 +1080,17 @@
             0: "DEFAULT",
             1: "NO_COUNTER",
             2: "FORCE_COUNTER",
+        },
+        "distanceType": {
+            0: "DISTANCE_RAW",
+            1: "DISTANCE_X",
+            2: "DISTANCE_Y",
+            3: "DISTANCE_X_FRONT",
+        },
+        "exHoming": {
+            0: "DISTANCE_ACCELERATION",
+            1: "FIXED_ACCELERATION",
+            2: "ACCELERATE_TO_SPEED",
         },
         "groundHitEffect0_882": {
             0: "NORMAL_UPPER",
@@ -1129,13 +1203,6 @@
             56: "INSTANT_KILL_PREPARATION",
             57: "BLITZ_SHIELD",
         },
-        "attackType": {
-            0: "NONE",
-            0: "NORMAL",
-            0: "SPECIAL",
-            0: "OVERDRIVE",
-            0: "INSTANT_KILL",
-        },
         "posTypeToVar1_62": {
             0: "EX_POINT_0",
             1: "EX_POINT_1",
@@ -1235,6 +1302,12 @@
             164: "BACK_3_BODY",
             165: "SCREEN_CENTER",
         },
+        "resultsWinPositionType": {
+            0: "DEFAULT_POSITION",
+            1: "SIDE_NORMAL_POSITION",
+            2: "SIDE_REVERSE_POSITION",
+            3: "CENTER_POSITION",
+        },
         "superArmorType0_1840": {
             0: "DODGE",
             1: "ARMOR",
@@ -1245,12 +1318,17 @@
             1: "OD",
             9: "COUNTER_CAMERA",
         },
-        "ZLINE": {
-            0: "FAR_DISTANCE",
-            1: "MIDDLE_DISTANCE",
-            2: "NEAR_DISTANCE",
-            3: "NEAREST_DISTANCE",
-            4: "MAX_DISTANCE",
+        "target": {
+            0: "ENEMY",
+            1: "ALLY",
+            2: "ANY",
+            3: "ENEMY_DAMAGE_ANY_SHOT",
+        },
+        "wsbBlowoffType": {
+            0: "BLOWOFF_DEFAULT",
+            1: "BLOWOFF_SLIDE",
+            2: "BLOWOFF_UP",
+            3: "BLOWOFF_DOWN",
         },
         "zLineLevel": {
             0: "LV_MIN",
@@ -1258,89 +1336,6 @@
             2: "LV2",
             3: "LV3",
             4: "LV_MAX",
-        },
-        "activeState": {
-            0: "ACTV_NOT_ACTIVE",
-            1: "ACTV_ACTIVE",
-            2: "ACTV_REQ_ACTIVE",
-            3: "ACTV_REQ_NO_ACTIVE",
-            4: "ACTV_WAITING_0",
-            5: "ACTV_WAITING_1",
-            6: "ACTV_WAITING_2",
-        },
-        "target": {
-            0: "ENEMY",
-            1: "ALLY",
-            2: "ANY",
-            3: "ENEMY_DAMAGE_ANY_SHOT",
-        },
-        "attackDirection": {
-            0: "SELF",
-            1: "PLAYER",
-            2: "SELF_TO_ENEMY",
-            3: "PLAYER_TO_ENEMY",
-        },
-        "characterSize": {
-            0: "SMALL",
-            1: "MEDIUM",
-            2: "LARGE",
-            3: "EXTRA_LARGE",
-        },
-        "distanceType": {
-            0: "DISTANCE_RAW",
-            1: "DISTANCE_X",
-            2: "DISTANCE_Y",
-            3: "DISTANCE_X_FRONT",
-        },
-        "collisionType": {
-            0: "CT_DAMAGE",
-            1: "CT_ATTACK",
-            2: "CT_EXPOINT",
-            3: "CT_EXRECT",
-            4: "CT_EXVECTOR",
-            5: "CT_PUSH",
-            6: "CT_TEMP_CENTER",
-            7: "CT_NECK",
-            8: "CT_ABDOMINAL",
-            9: "CT_ATTACK_VS_PUSH",
-            10:"CT_SP_GUARD", 
-            11:"CT_R_LEG", 
-            12:"CT_L_LEG",
-            13:"CT_PRIVATE_POINT_0", 
-            14:"CT_PRIVATE_POINT_1", 
-            15:"CT_PRIVATE_POINT_2", 
-            16:"CT_PRIVATE_POINT_3", 
-            17:"CT_EXTEND_JON" ,
-        },
-        "characterShoes": {
-            0: "SHOES_NORMAL",
-            1: "SHOES_LEATHER",
-            2: "SHOES_BOOT",
-            3: "SHOES_HEAL",
-            4: "SHOES_SANDAL",
-            5: "SHOES_BAREFOOT_LIGHT",
-            6: "SHOES_BAREFOOT_HEAVY",
-            7: "SHOES_METAL_LIGHT",
-            8: "SHOES_METAL_HEAVY",
-            9: "SHOES_COMICAL",
-            10: "SHOES_GETA",
-        },
-        "exHoming": {
-            0: "DISTANCE_ACCELERATION",
-            1: "FIXED_ACCELERATION",
-            2: "ACCELERATE_TO_SPEED",
-        },
-        "resultsWinPositionType": {
-            0: "DEFAULT_POSITION",
-            1: "SIDE_NORMAL_POSITION",
-            2: "SIDE_REVERSE_POSITION",
-            3: "CENTER_POSITION",
-        },
-        "wsbBlowoffType": {
-            0: "BLOWOFF_DEFAULT",
-            1: "BLOWOFF_SLIDE",
-            2: "BLOWOFF_UP",
-            3: "BLOWOFF_DOWN",
         },
     },
     instructions: Sized({
@@ -3277,6 +3272,10 @@
             args: [
                 Number,
             ],
+        ),
+        309: (
+            size: 24,
+            args: [],
         ),
         337: (
             size: 8,
@@ -5300,6 +5299,20 @@
                 Number,
             ],
         ),
+        775: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        776: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
         778: (
             size: 12,
             name: "hitGravity",
@@ -6241,6 +6254,24 @@
         969: (
             size: 8,
             name: "counterHitRedRomanCancelTime",
+            args: [
+                Number,
+            ],
+        ),
+        970: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        971: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        972: (
+            size: 8,
             args: [
                 Number,
             ],
@@ -8632,6 +8663,13 @@
             args: [
                 String32,
                 String32,
+            ],
+        ),
+        1329: (
+            size: 12,
+            args: [
+                Number,
+                Number,
             ],
         ),
         1333: (
