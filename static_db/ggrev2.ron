@@ -5,9 +5,9 @@
     literal_tag: 0,
     variable_tag: 2,
     named_variables: {
-    	// You can only write to variables that are marked as "writable". Writing to non-writable variables will have no effect.
-    	// Variables marked as "per player" allow access from effect scripts, but they access that value through their corresponding player.
-    	// Variables marked as "global" are stored in the game engine as a single variable, and both players and their effect scripts access the same variable.
+        // You can only write to variables that are marked as "writable". Writing to non-writable variables will have no effect.
+        // Variables marked as "per player" allow access from effect scripts, but they access that value through their corresponding player.
+        // Variables marked as "global" are stored in the game engine as a single variable, and both players and their effect scripts access the same variable.
         0:  "ACCUMULATOR",  // writable. Is used to obtain values from 'calcDistance', some if functions, checks, and other common functions
         1:  "ROTATION",  // writable. In 1/1000'th of degree. 1000 means 1 degree. Positive value rotates counter-clockwise when facing right, and clockwise when facing left. Same as PITCH. Pitch is the angle of rotation around the axis perpendicular to the screen
         2: "IS_CMN_ACT",  // returns 1 if the current action is a CmnAct..., otherwise returns 0
@@ -138,7 +138,7 @@
         // 160
         161: "WAS_INPUT_USING_STYLISH",  // the move was performed using the Special button
         162: "NUMBER_OF_HITS_MAX",  // writable. Does not decrease with each hit taken. Specifies the maximum number of hits the projectile can take before getting destroyed (see requestDestroy). Is set using numberOfHits function or directly. When setting a value < 0, 0 is set instead.
-        163: "NUMBER_OF_HITS_TAKEN",  // increments each hit taken. If destroyAssariEx is set to 1 (default is 0) or if destroyAiuchi is not set to 1 (default is 0), you get destroyed when you reach NUMBER_OF_HITS_MAX 
+        163: "NUMBER_OF_HITS_TAKEN",  // increments each hit taken. If destroyAssariEx is set to 1 (default is 0) or if destroyAiuchi is not set to TRUE (default is FALSE), you get destroyed when you reach NUMBER_OF_HITS_MAX 
         164: "IS_BURST_SUPER",  // per player
         165: "DUST_GATLING_TIMER", // writable, per player. During this timer, any non-follow-up, non-super, non-IK move can be cancelled into from any normal. Decrements by 1 each frame
         166: "HITSTUN",  // writable, per player. Returns the current remaining number of frames of hitstun of your player
@@ -187,7 +187,7 @@
     },
     named_value_maps: {
         "Entity": {
-        	// all entity slots that can be used to store entities are stored directly inside of the projectile or player that is accessing the entity
+            // all entity slots that can be used to store entities are stored directly inside of the projectile or player that is accessing the entity
             1: "PREVIOUS",  // the last created entity using createObject, createObjectWithArg
             2: "PARENT",  // the entity that created this object
             3: "PLAYER",  // the corresponding player of this projectile, or the player themselves
@@ -473,7 +473,7 @@
             258: "INPUT_NOTANYDOWN_2",  // NOT_ANYDOWN(10)2(5)
             259: "INPUT_46_WITHIN_LAST_1F",  // 4(8)6(1)
             260: "INPUT_CHARGE_DOWN_10F",  // hold ANYDOWN for between 10 to 20 frames. Any less or more, as well as releasing ANYDOWN, makes it invalid.
-	            261: "INPUT_546_BUTNOT_54_ANYDOWN_6",  // 5(6)4(11)6(3) but not 5(6)4(11)ANYDOWN(11)6(3)
+            261: "INPUT_546_BUTNOT_54_ANYDOWN_6",  // 5(6)4(11)6(3) but not 5(6)4(11)ANYDOWN(11)6(3)
             262: "INPUT_5_ANYBACK_ANYFORWARD_LENIENT",  // 5(20)ANYBACK(14)ANYFORWARD(8)
             268: "INPUT_BURST",  // D + (one of PKSH)
             269: "INPUT_HOLD_TWO_OR_MORE_OF_PKSH",
@@ -561,7 +561,7 @@
             21: "SET_DIR",  // result = y * facing (facing is 1 if your graphical sprite is facing right, -1 otherwise)
             22: "GREATER_THAN_RANDOM",  // result = (x > (rand() % y)) (returns 1 if x > than that, otherwise returns 0. Their rand() function produces numbers from 0 to 4294967295)
         },
-		"KILL_TYPE": {
+        "KILL_TYPE": {
             0: "NORMAL",
             1: "NOT_KILL",
             2: "NOT_KILL_IN_COMBO",
@@ -631,7 +631,7 @@
             7: "STATE_REACHED_END",  // called when reaching the end of the state normally, uninterrupted, via exitState or endState instruction
             8: "YOUR_ATTACK_COLLISION",  // called when landing an attack either on a projectile or a player, be it hit or block or other. OnAttackCollision gets called immediately after this event on clash
             9: "YOUR_ATTACK_COLLISION_WITH_A_PLAYER",  // called when landing an attack on a player, be it hit or block or other
-            10: "HIT_THE_ENEMY_PLAYER",  // called when landing a non-blocked, non-armored hit on the enemy player. Landing hits on projectiles or summons does not count
+            10: "HIT_A_PLAYER",  // called when landing a non-blocked, non-armored hit on a player. Landing hits on projectiles or summons does not count
             11: "GOT_HIT",  // called when getting hit by a projectile or player. Whenever I say 'hit' I mean not blocking or armoring that. The game refers to this event as "DAMAGE", so whenever you see events with DAMAGE in their name, they mean non-blocked, non-armored hits from attack collisions. This excludes poison damage or chip damage or damage taken from armoring hits. This event is called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnDamage subroutine is called, if one is present
             12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames
             13: "REACHED_TARGET_ANIM_DURATION",  // use setEventTrigger to specify the number of frames you want passed before getting this event. The frames being checked against that value are FRAMES_PLAYED_IN_STATE
@@ -656,7 +656,7 @@
             33: "MUTEKI",  // signalled when armoring a hit. Gets called at a later stage than ARMOR and ARMOR2 events, after you've already taken damage
             35: "PLAYER_GOT_HIT",  // when a player entity gets hit, all projectiles that belong to them and the player himself are notified of that through this event. This is called at an early stage of a hit, before damage is taken or attack properties are copied to the defender
             36: "FRAME_STEP",  // called after FRAMESTEP_1 every frame, including during hitstop, superfreeze and slowdown
-            37: "CLASH",  // works for both players and projectiles
+            37: "CLASH",  // works for both players and projectiles. Projectiles may only clash if neither has setProjectileDurability: 0 and not both are setProjectileDurability: 2 or greater at the same time. If projectiles have different setProjectileDurability, only the weaker projectile gets the CLASH event and its NUMBER_OF_HITS_TAKEN incremented by its destroyOnClash amount. Players may not clash with projectiles.
             38: "PLAYER_BLOCKED",  // when a player entity blocks a hit, the player and all projectiles that belong to them are notified of this through this event
             39: "PRE_DRAW",  // this is the last event sent to each entity in the game during an game engine tick
             40: "GUARD",  // when you block a hit. Called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnGuard subroutine is called, if one is present
@@ -710,7 +710,7 @@
         "POS_TYPE": {
             100: "ORIGIN",  // the origin point that is between your legs
             101: "ATTACK",
-            102: "DAMAGE",  // this is last point of the hit which is at the center of the intersection between an attacker's hitboxes and a defender's pushboxes
+            102: "DAMAGE",  // this is last point of the hit which is at the center of the intersection between an attacker's hitboxes and a defender's hurtboxes
             103: "CENTER",  // center of your body depends on your stance: crouching and lying poses body centers are lower than standing
             104: "FLOOR_CENTER",  // same as LAND
             105: "BODY_RANDOM",
@@ -784,49 +784,67 @@
             1: "THROW",
         },
         "op1": {
-        	0: "IS_TRUE",  // result = (value != 0)
-        	1: "IS_FALSE",  // result = (value == 0)
-        	2: "RANDOM_PERCENTAGE_IS_LESS",  // result = (value > (rand() % 100))
-        	3: "ABSOLUTE_VALUE",  // result = (value < 0 ? -value : value)
+            0: "IS_TRUE",  // result = (value != 0)
+            1: "IS_FALSE",  // result = (value == 0)
+            2: "RANDOM_PERCENTAGE_IS_LESS",  // result = (value > (rand() % 100))
+            3: "ABSOLUTE_VALUE",  // result = (value < 0 ? -value : value)
         },
         "CalcDistanceExMode": {
-        	0: "X_AND_Y",  // result = sqrt(dx^2 + dy^2)
-        	1: "X_ONLY",  // result = abs(dx)
-        	2: "Y_ONLY",  // result = abs(dy)
-        	3: "X_TOWARDS_FACING",  // result = (entity 2 x - entity 1 x) * sprite facing of entity 1
+            0: "X_AND_Y",  // result = sqrt(dx^2 + dy^2)
+            1: "X_ONLY",  // result = abs(dx)
+            2: "Y_ONLY",  // result = abs(dy)
+            3: "X_TOWARDS_FACING",  // result = (entity 2 x - entity 1 x) * sprite facing of entity 1
         },
         // the various values of this enum affect what arguments of the homing instruction mean what. Refer to the comments inside of the homing instruction for details
         "HomingType": {
-        	0: "PERCENTAGE_FROM_DISTANCE_AND_DRAG",  // penultimate argument is percentage from distance to use as acceleration, last argument is drag percentage
-        	1: "ACCELERATION_AND_DRAG",  // penultimate argument is absolute value of acceleration, last argument is drag percentage
-        	2: "MAXIMUM_SPEED_AND_ACCELERATION",  // penultimate argument is maximum absolute speed, last argument is absolute acceleration
+            0: "PERCENTAGE_FROM_DISTANCE_AND_DRAG",  // penultimate argument is percentage from distance to use as acceleration, last argument is drag percentage
+            1: "ACCELERATION_AND_DRAG",  // penultimate argument is absolute value of acceleration, last argument is drag percentage
+            2: "MAXIMUM_SPEED_AND_ACCELERATION",  // penultimate argument is maximum absolute speed, last argument is absolute acceleration
         },
         "Boolean": {
-        	0: "FALSE",
-        	1: "TRUE",
+            0: "FALSE",
+            1: "TRUE",
         },
         "HitboxType": {
-        	// hitbox data is stored by type, each type has a number of boxes, identified by index
-        	0: "HURTBOX",
-        	1: "HITBOX",
-        	2: "EX_POINT",  // this hitbox is used to obtain position of type EX_POINT_RANDOM
-        	3: "EX_POINT_EXTENDED",  // this hitbox is used to obtain position of type EX_RECT_RANDOM
-        	5: "PUSHBOX",  // only affects horizontal extents
-        	7: "NECK",
-        	8: "ABDOMEN",
-        	10: "SUPER_ARMOR_BY_SG_COLLISION",  // if you enabled this via superArmorBySGCollision, if an attacker's hitbox missed your hurtbox, it is additionally checked against this type of hurtbox. If the collision is detected, there is a hit
-        	11: "R_LEG",
-        	12: "L_LEG",
-        	13: "PRIVATE_0",  // this hitbox is used to obtain position of type PRIVATE_0
-        	14: "PRIVATE_1",  // this hitbox is used to obtain position of type PRIVATE_1
-        	15: "PRIVATE_2",  // this hitbox is used to obtain position of type PRIVATE_2
-        	16: "PRIVATE_3",  // this hitbox is used to obtain position of type PRIVATE_3
+            // hitbox data is stored by type, each type has a number of boxes, identified by index
+            0: "HURTBOX",
+            1: "HITBOX",
+            2: "EX_POINT",  // this hitbox is used to obtain position of type EX_POINT_RANDOM
+            3: "EX_POINT_EXTENDED",  // this hitbox is used to obtain position of type EX_RECT_RANDOM
+            5: "PUSHBOX",  // only affects horizontal extents
+            7: "NECK",
+            8: "ABDOMEN",
+            10: "SUPER_ARMOR_BY_SG_COLLISION",  // if you enabled this via superArmorBySGCollision, if an attacker's hitbox missed your hurtbox, it is additionally checked against this type of hurtbox. If the collision is detected, there is a hit
+            11: "R_LEG",
+            12: "L_LEG",
+            13: "PRIVATE_0",  // this hitbox is used to obtain position of type PRIVATE_0
+            14: "PRIVATE_1",  // this hitbox is used to obtain position of type PRIVATE_1
+            15: "PRIVATE_2",  // this hitbox is used to obtain position of type PRIVATE_2
+            16: "PRIVATE_3",  // this hitbox is used to obtain position of type PRIVATE_3
         },
         "AttackFrontDirection": {
-        	0: "ATTACKER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's facing
-        	1: "ATTACKER_PLAYER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's player's facing
-        	2: "CALCULATE_FROM_ATTACKER_X",  // set facing based on the difference of X coordinates between you and the attacker
-        	3: "CALCULATE_FROM_ATTACKER_PLAYER_X",  // set facing based on the difference of X coordinates between you and the attacker's player
+            0: "ATTACKER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's facing
+            1: "ATTACKER_PLAYER_FACING_OPPOSITE",  // set facing to the opposite of the attacker's player's facing
+            2: "CALCULATE_FROM_ATTACKER_X",  // set facing based on the difference of X coordinates between you and the attacker
+            3: "CALCULATE_FROM_ATTACKER_PLAYER_X",  // set facing based on the difference of X coordinates between you and the attacker's player
+        },
+        "CreationFacing": {
+            0: "NORMAL",  // face the same direction as the parent
+            1: "OPPOSITE",  // face opposite direction of the parent
+            2: "LEFT",  // face absolute left
+            3: "RIGHT",  // face absolute right
+        },
+        "AttackType": {
+            0: "NONE",
+            1: "NORMAL",
+            2: "EX",
+            3: "OVERDRIVE",
+            4: "IK",
+        },
+        "ExDamageType": {
+            0: "NONE",
+            1: "VDOWN_UPPER",
+            2: "BDOWN_UPPER",
         },
     },
     instructions: Sized({
@@ -840,6 +858,7 @@
         ),
         1: (
             size: 4,
+            // this instruction does not wait for the current sprite to finish playing. If you need such wait, use exitState
             name: "endState",
             codeBlock: EndState,
             args: [],
@@ -972,6 +991,7 @@
         ),
         18: (
             size: 4,
+            // this instruction waits for the current sprite to finish playing and then for one more frame to advance forward, before exiting state. So, for example, if you end with sprite: s32'name', 3, it would play 3 frames of that sprite (sprite frame counter 0/3, 1/3, 2/3), and then wait for 3/3 so to speak to exit
             name: "exitState",
             args: [],
         ),
@@ -1057,7 +1077,7 @@
             size: 68,
             name: "jumpToStateIfNot",
             args: [
-            	// state name to check. If in this state, then don't jump
+                // state name to check. If in this state, then don't jump
                 String32,
                 // state name to jump to
                 String32,
@@ -1087,7 +1107,7 @@
             // sets ACCUMULATOR to 1 if non-destroyed entity on your team in specified state of specified index is found, sets ACCUMULATOR to 0 otherwise
             name: "findState",
             args: [
-            	// the state to find. The entity must also be on your team and not destroyed
+                // the state to find. The entity must also be on your team and not destroyed
                 String32,
                 // here you may only specify slots into which you can store, see named_value_maps: Entities. The found entity will be stored here
                 Enum("Entity"),
@@ -1158,22 +1178,22 @@
             // gets the value from entity <argument 1>'s slot <argument 2> and sets it to entity <argument 3>'s slot <argument 4>
             name: "stackObjectEx",
             args: [
-            	// host entity to set the slot for, slot specified in argument 2
-			    Enum("Entity"),
-			    // the slot on the entity, specified in argument 1, to set into. You can only provide stack slots here into which you can store, see named_value_maps: Entities
-				Enum("Entity"),
-				// host entity to get the value from
+                // host entity to set the slot for, slot specified in argument 2
+                Enum("Entity"),
+                // the slot on the entity, specified in argument 1, to set into. You can only provide stack slots here into which you can store, see named_value_maps: Entities
+                Enum("Entity"),
+                // host entity to get the value from
                 Enum("Entity"),
                 // the slot on the host entity, specified in argument 3, from which to get the value
                 Enum("Entity"),
-			],
+            ],
         ),
         43: (
             size: 12,
             // copies a reference to an entity from slot <argument 2> to slot <argument 1>
             name: "setObjectToStackSlot",
             args: [
-            	// entity to set. You can only provide stack slots here into which you can store, see named_value_maps: Entities
+                // entity to set. You can only provide stack slots here into which you can store, see named_value_maps: Entities
                 Enum("Entity"),
                 // entity to get
                 Enum("Entity"),
@@ -1202,7 +1222,7 @@
             size: 20,
             name: "storeValue",
             args: [
-            	// destination value
+                // destination value
                 AccessedValue,
                 // source value
                 AccessedValue,
@@ -1237,13 +1257,13 @@
             // returns min(max(source value, min value), max value) into the ACCUMULATOR. Same as C# Math.Clamp(source value, min value, max value). The source value remains unchanged. The comparison is signed
             name: "clamp",
             args: [
-            	// source value
+                // source value
                 AccessedValue,
                 // min value
                 Number,
                 // max value
                 Number,
-			],
+            ],
         ),
         51: (
             size: 8,
@@ -1258,21 +1278,21 @@
             // this operation does not modify ACCUMULATOR. Instead it stores the result of the operation into the variable specified by the last argument
             name: "modifyVarAfterOperation",
             args: [
-			    Enum("modifyAccumulator0_45"),
-			    // the left (x) argument of the operation
+                Enum("modifyAccumulator0_45"),
+                // the left (x) argument of the operation
                 AccessedValue,
                 // the right (y) argument of the operation
                 AccessedValue,
                 // the variable to store the result into
                 AccessedValue,
-			],
+            ],
         ),
         53: (
             size: 28,
             // reads value from entity <argument 3>'s variable <argument 4> and writes it into entity <argument 1>'s variable <argument 2>
             name: "storeFromObjToObj",
             args: [
-            	// destination entity
+                // destination entity
                 Enum("Entity"),
                 // destination variable of the entity
                 AccessedValue,
@@ -1298,11 +1318,12 @@
             size: 8,
             name: "pauseSprite",
             args: [
-            	Enum("Boolean"),
+                Enum("Boolean"),
             ],
         ),
         57: (
             size: 8,
+            // priority is used to decide which projectiles to throw out when there are too many projectiles on the arena and yet more projectiles must still be created
             name: "setObjectPriority",
             args: [
                 Number,
@@ -1320,7 +1341,7 @@
             // gets the specified setting by name and stores into the specified destination variable
             name: "getTrainingItemVal",
             args: [
-            	// the setting to get
+                // the setting to get
                 String32,
                 // the destination variable to store the setting's value into
                 AccessedValue,
@@ -1331,36 +1352,36 @@
             // calculates sqrt((pos1.x - pos2.x)^2 + (pos1.y - pos2.y)^2) and stores it into ACCUMULATOR
             name: "calcDistance",
             args: [
-            	// the entity from which to get position specified in argument 2
+                // the entity from which to get position specified in argument 2
                 Enum("Entity"),
                 Enum("POS_TYPE"),
                 // the entity from which to get position specified in argument 4
                 Enum("Entity"),
                 Enum("POS_TYPE"),
-			],
+            ],
         ),
         61: (
             size: 20,
             // if the opponent is not a boss (see IS_BOSS' description), returns 0 into ACCUMULATOR. Otherwise, checks if the opponent character's name matches the one specified and returns 1 if yes, 0 if no
             name: "checkEnemyNameNotBoss",
             args: [
-				String16,
-			],
+                String16,
+            ],
         ),
         62: (
             size: 28,
             // reads the position's coordinates X and Y separately into two specified variables
             name: "posTypeToVar",
             args: [
-            	// the entity from which to obtain the position
-				Enum("Entity"),
-				// the position to obtain
+                // the entity from which to obtain the position
+                Enum("Entity"),
+                // the position to obtain
                 Enum("POS_TYPE"),
                 // receives the X coordinate of the position
                 AccessedValue,
                 // receives the Y coordinate of the position
                 AccessedValue,
-			],
+            ],
         ),
         92: (
             size: 8,
@@ -1439,7 +1460,7 @@
             // generates a random number from min to max (exclusive) and offsets position X by that amount, towards the facing direction
             name: "randomAddPositionX",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1512,7 +1533,7 @@
             // changes speed X by multiplying it the specified percentage
             name: "velocityXPercent",
             args: [
-            	// the percentage by which to multiply
+                // the percentage by which to multiply
                 Number,
             ],
         ),
@@ -1557,7 +1578,7 @@
             // adds a random amount from min to max (exclusive) to speed X, towards facing
             name: "randomAddVelocityX",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1568,7 +1589,7 @@
             // adds a random amount from min to max (exclusive) to speed Y
             name: "randomAddVelocityY",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1632,7 +1653,7 @@
             // changes acceleration X by multiplying it by specified percentage
             name: "accelerationPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1669,7 +1690,7 @@
             // changes gravity by multiplying it by specified percentage
             name: "gravityPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1678,7 +1699,7 @@
             // generates a random number from min to max (exclusive) and adds it to acceleration X, towards facing
             name: "randomAddAcceleration",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1689,7 +1710,7 @@
             // generates a random number from min to max (exclusive) and modifies gravity by adding it to it
             name: "randomAddGravity",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1765,7 +1786,7 @@
             // modifies inertia by multiplying it by the specified percentage
             name: "inertiaPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1781,7 +1802,7 @@
             // generates a random number from min to max (exclusive) and modifies inertia by adding it to it, towards facing
             name: "randomAddInertia",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1792,7 +1813,7 @@
             // generates a random number from min to max (exclusive) and modifies inertia by adding it to it, regardless facing
             name: "randomAddRawInertia",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1825,7 +1846,7 @@
             // multiplies current scale X by the specified percentage
             name: "objectWidthPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1850,7 +1871,7 @@
             // changes the speed by which scale X grows per frame by multiplying it by the specified percentage
             name: "objectWidthScaleSpeedPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1859,7 +1880,7 @@
             // generates a random number from min to max (exclusive) and adds it to scale X. When scale X is equal to 1000 that means 100%
             name: "randomAddObjectWidth",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -1919,7 +1940,7 @@
             // changes the speed by which scale Y grows per frame by multiplying it by the specified percentage
             name: "objectHeightScaleSpeedPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1978,7 +1999,7 @@
             // changes the speed with which pitch changes every frame, by multiplying it by the specified percentage. Pitch is the angle of rotation around the axis perpendicular to the screen
             name: "angleSpeedPercent",
             args: [
-            	// the percentage
+                // the percentage
                 Number,
             ],
         ),
@@ -1987,7 +2008,7 @@
             // generates a random number from min to max (exclusive) and adds it to the pitch. 1000 pitch means 1 degree of rotation around the axis perpendicular to the screen counter-clockwise when facing right, and clockwise when facing left.
             name: "randomAddAngle",
             args: [
-            	// min
+                // min
                 Number,
                 // max
                 Number,
@@ -2037,7 +2058,7 @@
             // percentage of speed Y that you retain when bouncing off the ground, redirected upwards. Must be positive. Set to -1 or lower to disable
             name: "setBoundRate",
             args: [
-            	// percentage. Specify < 0 to disable
+                // percentage. Specify < 0 to disable
                 Number,
             ],
         ),
@@ -2054,7 +2075,7 @@
             // moves you to the top-left corner of the hitbox of the desired type and index, obtained from the desired entity
             name: "moveObjectToHitboxPoint",
             args: [
-            	// the entity from which to read the position of the top-left of the hitbox
+                // the entity from which to read the position of the top-left of the hitbox
                 Enum("Entity"),
                 // the hitbox type to read
                 Enum("HitboxType"),
@@ -2077,7 +2098,7 @@
                 Enum("Entity"),
                 Number,
                 Enum("Entity"),
-			],
+            ],
         ),
         180: (
             size: 8,
@@ -2287,6 +2308,7 @@
         ),
         244: (
             size: 4,
+            // calls instantInitializeForProjectile: (SPECIAL), (FALSE)
             name: "specialAttack",
             args: [],
         ),
@@ -2318,7 +2340,7 @@
             size: 8,
             name: "setNoCollision",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         253: (
@@ -2875,6 +2897,8 @@
         ),
         445: (
             size: 40,
+            // uses creation specific arguments set by createArgHikitsukiVal, createArgAngle, createArgScale, createArgDirection, createArgSocket, createArgLightColor, createArgColor, createArgTransPriority, createArgNoAssert
+            // this function resets all creation specific arguments to default after creation
             name: "createObjectWithArg",
             args: [
                 String32,
@@ -2883,6 +2907,8 @@
         ),
         446: (
             size: 40,
+            // uses default creation specific arguments before creation
+            // this function resets all creation specific arguments to default after creation
             name: "createObject",
             args: [
                 String32,
@@ -3015,9 +3041,9 @@
             size: 40,
             name: "linkParticleEx",
             args: [
-			    String32,
+                String32,
                 Enum("POS_TYPE"),
-			],
+            ],
         ),
         466: (
             size: 8,
@@ -3337,7 +3363,7 @@
             size: 8,
             name: "attackType",
             args: [
-                Number,
+                Enum("AttackType"),
             ],
         ),
         711: (
@@ -3398,7 +3424,7 @@
             size: 8,
             name: "hitEffectSpecial",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         730: (
@@ -3863,9 +3889,10 @@
         ),
         1018: (
             size: 8,
+            // automatically skips hitbox collision check as successful
             name: "attackCollisionForceExpand",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1019: (
@@ -3886,7 +3913,7 @@
             size: 8,
             name: "burst",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1022: (
@@ -3912,11 +3939,16 @@
         ),
         1027: (
             size: 20,
+            // sets the boundaries within which the opponent's origin point must be in order for the attack to connect. These are specified relative to the attacker's origin point and facing. To disable the X check, set max X to the same value as min X. To disable the Y check, set min Y to the same value as max Y.
             name: "attackRange",
             args: [
+                // max X
                 Number,
+                // min X
                 Number,
+                // max Y
                 Number,
+                // min Y
                 Number,
             ],
         ),
@@ -3936,9 +3968,10 @@
         ),
         1039: (
             size: 8,
+            // disables opponent's burst gauge on hit
             name: "ignoreBurst",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1040: (
@@ -4001,6 +4034,7 @@
         ),
         1049: (
             size: 8,
+            // specify maximum allowed distance between the edges of your and your opponent's pushboxes for the attack to connect. This can be combined with attackRange. To disable this check, set this to negative
             name: "throwRange",
             args: [
                 Number,
@@ -4047,7 +4081,7 @@
             size: 8,
             name: "attackIgnoreOutPower",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1058: (
@@ -4075,7 +4109,7 @@
             size: 8,
             name: "onlyHitPlayer",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1062: (
@@ -4103,7 +4137,7 @@
             size: 8,
             name: "attackNoHitNotKillCombo",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1066: (
@@ -4133,11 +4167,15 @@
             size: 32,
             name: "attackExHitParam",
             args: [
+                // add
                 Number,
+                // max
                 Number,
+                // min
                 Number,
+                // flags
                 Number,
-                Enum("deactivateObjectById0_19"),
+                Enum("Entity"),
                 AccessedValue,
             ],
         ),
@@ -4145,7 +4183,9 @@
             size: 12,
             name: "poison",
             args: [
+                // duration
                 Number,
+                // percentage
                 Number,
             ],
         ),
@@ -4174,14 +4214,14 @@
             size: 8,
             name: "attackShutUp",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1076: (
             size: 8,
             name: "whiffIfCombo",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1077: (
@@ -4216,14 +4256,14 @@
             size: 8,
             name: "nextHitInstantKillOnly",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1082: (
             size: 8,
             name: "whiffOtg",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1083: (
@@ -4258,7 +4298,7 @@
             size: 8,
             name: "allHitsCounter",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1092: (
@@ -4310,7 +4350,7 @@
             size: 8,
             name: "isAirUnblockable",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1100: (
@@ -4359,7 +4399,7 @@
             size: 8,
             name: "autoParam",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1107: (
@@ -4403,7 +4443,7 @@
             size: 8,
             name: "disableHitstopForSelf",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1113: (
@@ -4509,28 +4549,28 @@
             size: 8,
             name: "noGravityScaling",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1128: (
             size: 8,
             name: "noHitstunScaling",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1129: (
             size: 8,
             name: "noPushbackScaling",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1130: (
             size: 8,
             name: "ignoreOtg",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1131: (
@@ -4538,14 +4578,14 @@
             // if this flag is set, if this is a dust move, it won't launch, and if this move is performed during the initial portion of a dust combo, it won't be possible to cancel it like you usually can during dust combos
             name: "noDustScaling",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1132: (
             size: 8,
             name: "noDamageScaling",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1133: (
@@ -4565,6 +4605,7 @@
         ),
         1137: (
             size: 8,
+            // chip damage is equal to attackKezuri / 128 * 100%. Standard value is 16 for specials, which equates to 12.5% damage as chip damage.
             name: "attackKezuri",
             args: [
                 Number,
@@ -4572,9 +4613,10 @@
         ),
         1138: (
             size: 8,
+            // means this attack can be armored by players who have superArmorForReflect set to TRUE
             name: "attackReflect",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1139: (
@@ -4609,7 +4651,7 @@
             size: 8,
             name: "prorationTandan",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1144: (
@@ -4667,7 +4709,7 @@
             size: 8,
             name: "noFinishCamera",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1152: (
@@ -4723,7 +4765,7 @@
             size: 8,
             name: "exDamageType",
             args: [
-                Number,
+                Enum("ExDamageType"),
             ],
         ),
         1160: (
@@ -4752,14 +4794,15 @@
             size: 8,
             name: "blitzBreak",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1164: (
             size: 8,
+            // allows the attack to deal 20% damage bonus when the attacker is in the Hellfire state
             name: "hellfire",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1165: (
@@ -4801,7 +4844,7 @@
             size: 8,
             name: "nagenuke",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1171: (
@@ -4880,8 +4923,10 @@
         ),
         1181: (
             size: 8,
-            name: "appendCollision",
+            // when hitting airborne opponents, multiplies pushback by this amount / 100 if the provided percentage is not 0
+            name: "hitPushbackXAir",
             args: [
+            	// percentage. Specify 0 to ignore
                 Number,
             ],
         ),
@@ -6344,11 +6389,11 @@
             size: 132,
             name: "mouth",
             args: [
-				String32,
                 String32,
                 String32,
                 String32,
-			],
+                String32,
+            ],
         ),
         1672: (
             size: 4,
@@ -6621,7 +6666,7 @@
             size: 12,
             name: "sendSignal",
             args: [
-            	// the entity to send the signal to. The entity must not be deactivated (see deactivateObj)
+                // the entity to send the signal to. The entity must not be deactivated (see deactivateObj)
                 Enum("Entity"),
                 // only the following signals may be sent:
                 // CUSTOM_SIGNAL_0
@@ -6668,7 +6713,7 @@
             size: 40,
             name: "sendSignalToAction",
             args: [
-            	// specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to all your non-deactivated (see deactivateObj) entities that are in the state named this.
+                // specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to all your non-deactivated (see deactivateObj) entities that are in the state named this.
                 String32,
                 // only the following signals may be sent:
                 // CUSTOM_SIGNAL_0
@@ -6689,7 +6734,7 @@
             size: 40,
             name: "sendSignalToOldestAction",
             args: [
-            	// specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to your oldest non-deactivated (see deactivateObj) entity that is in the state named this.
+                // specifies the name of the state to check all your entities for. You can only send signals to your own entities, not your opponent's. The signal will be sent to your oldest non-deactivated (see deactivateObj) entity that is in the state named this.
                 String32,
                 // only the following signals may be sent:
                 // CUSTOM_SIGNAL_0
@@ -6752,14 +6797,14 @@
             // enables an extra check of an attacker's hitbox versus your SUPER_ARMOR_BY_SG_COLLISION hitbox type, if it missed your main hurtbox
             name: "superArmorBySGCollision",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1795: (
             size: 8,
             name: "superArmorEnabled",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1796: (
@@ -6773,7 +6818,7 @@
             size: 8,
             name: "superArmorThrow",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1808: (
@@ -6792,37 +6837,42 @@
         ),
         1814: (
             size: 8,
+            // can armor attacks that have burst set to TRUE
             name: "superArmorBurst",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1815: (
             size: 8,
+            // an attack is considered a mid if guardType is set to ANY
             name: "superArmorMid",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1816: (
             size: 8,
+            // an attack is considered a low if guardType is set to HIGH
             name: "suporArmorOverhead",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1817: (
             size: 8,
+            // an attack is considered a low if guardType is set to LOW
             name: "superArmorLow",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1818: (
             size: 8,
+            // can armor unblockables. An attack is considered unblockable if it has guardType set to NONE
             name: "superArmorGuardImpossible",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1819: (
@@ -6838,21 +6888,23 @@
             // if you have enabled superArmorBySGCollision and an attacker's hitbox missed your main hurtbox and connected instead with SUPER_ARMOR_BY_SG_COLLISION hurtbox, if additionally this attribute is set, the hit gets ignored
             name: "superArmorSGCollisionShippaiIgnore",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1821: (
             size: 8,
+            // allows to armor attacks that have the nagenuke flag set
             name: "superArmorNagenuke",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1822: (
             size: 8,
+            // having this flag allows you to block attacks that have isAirUnblockable set to TRUE. An attack is considered air unblockable if its guardType is not NONE and it has isAirUnblockable set to TRUE. You need to have this flag even if you're blocking such attacks on the ground
             name: "superArmorAirUnblockable",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1823: (
@@ -6864,16 +6916,18 @@
         ),
         1824: (
             size: 8,
+            // having this flag allows you to armor projectile attacks
             name: "superArmorObjectAttacck",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1825: (
             size: 8,
+            // having this flag allows you to armor non-projectile (direct, player) attacks
             name: "superArmorHontaiAttacck",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1826: (
@@ -6885,23 +6939,26 @@
         ),
         1827: (
             size: 8,
+            // can only armor attacks that have attackReflect set to TRUE. Also, this is very important, but superArmorType must be DODGE. If you armor ("dodge") a projectile successfully it automatically gets reflected. You will receive a REFLECT_ENEMY_PROJECTILE event and the projectile will receive a GOT_REFLECTED event
             name: "superArmorForReflect",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1828: (
             size: 8,
+            // can armor projectile attacks from objects that have setProjectileDurability set to 0
             name: "superArmorProjectileLevel0",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1829: (
             size: 8,
+            // can armor overdrives
             name: "superArmorOverdrive",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1830: (
@@ -6913,9 +6970,10 @@
         ),
         1831: (
             size: 8,
+            // can armor Blitz Break attacks. Note that overdrives are by default Blitz Breaks
             name: "superArmorBlitzBreak",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1832: (
@@ -6934,9 +6992,10 @@
         ),
         1834: (
             size: 8,
+            // if you don't have this attribute and armor a hit, you take damage scaled by superArmorDamagePercent and with guts applied to it. If you do have this attribute and armor a hit, you take chip damage like you do on block
             name: "superArmorHeadAttribute",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         1851: (
@@ -7132,17 +7191,88 @@
         ),
         1884: (
             size: 12,
+            // 1) Initializes move properties and;
+            // 2) Sets counterhit state;
+            // 3) Sets setObjectPriority: 2.
+            // What "Initializes move properties" does is:
+            // 1) Resets attack data. This means:
+            //     attackType: (NONE)
+            //     attackLevel: 0
+            //     damage: 0
+            //     resets all flags to (FALSE), except prorationTandan: (TRUE) and unknown flag (attack data 0x18, 0x100): (TRUE)
+            //     enemyHitstopAddition: 2147483647, 2147483647, 2147483647
+            //     hitstop: 2147483647
+            //     attackLockWaitTime: 15
+            //     blockstunAmount: 2147483647
+            //     airBlockstunAddition: 2147483647
+            //     attackRange: -1, -1, -1, -1
+            //     throwRange: -1
+            //     setProjectileDurability: 0
+            //     counterHitType: (DEFAULT)
+            //     attackLockAction: s32''
+            //     damageEffect: 0, s32''
+            //     guardEffect: 0, s32''
+            //     damageToFaultlessDefense: 2147483647
+            //     attackEffectLimit: 0
+            //     attackFrontDirection: (CALCULATE_FROM_ATTACKER_PLAYER_X)
+            //     attackEffectScale: 1000
+            //     killType: (NORMAL)
+            //     nextHitActionName: s32''
+            //     attackExHitParam: 0, -1000000, 1000000, 0, 0, Val(0)
+            //     poison: 0, 0
+            //     throwRejectType: 0
+            //     minimumDamagePercent: 0
+            //     stunValue: 2147483647
+            //     guardType: (ANY)
+            //     attackLockSprite: s32''
+            //     throwSprite: s32''
+            //     autoParam: (TRUE)
+            //     hitPushbackX: 100
+            //     pushbackXForHit: 100
+            //     crouchHitstunAddition: 0
+            //     airHitstunFromLandAddition: 0
+            //     atkAngle: 0
+            //     staggerDuration: 30
+            //     tensionGainOnConnect: 2147483647
+            //     hitSoundEffect: s32''
+            //     hitCommonSfxAppend: s32''
+            //     guardSoundEffect: s32''
+            //     attackLevelForGuard: 2147483647
+            //     riscPlus: 2147483647
+            //     riscMinus: 2147483647
+            //     setInitialProration: 2147483647
+            //     setForcedProration: 2147483647
+            //     riscMinusStarter: 0
+            //     riscMinusOnce: 2147483647
+            //     attackKezuri: 16
+            //     unburstableTime: 0
+            //     invulnTime: 0
+            //     dustInvulnTime: 0
+            //     damageSprite: -1
+            //     lifeStealPercent: 0
+            //     exDamageType: (NONE)
+            //     trialName: s32''
+            //     hitPushbackXAir: 0
+            //     undefined2125: 0
+            // 2) For projectiles sets setProjectileDurability: 1 and attackFrontDirection: (CALCULATE_FROM_ATTACKER_PLAYER_X), disableHitstopForSelf: (TRUE).
+            // 3.a) If move type is NORMAL, sets attackType: (NORMAL), for players if move state is standing or crouching, sets isAirUnblockable: (TRUE), and if state is jumping, sets guardType: (HIGH).
+            // 3.b) If move type is SPECIAL or MIST_CANCEL, attackType: (EX), sets attackKezuri: 16, hitEffectSpecial: (TRUE).
+            // 3.c) If move type is OVERDRIVE, sets attackType: (OVERDRIVE), hitEffectSpecial: (TRUE), minimumDamagePercent: 20, ignoreBurst: (TRUE), for projectiles sets setProjectileDurability: 2, for everyone tensionGainOnConnect: 0, attackKezuri: 16, blitzBreak: (TRUE), hellfire: (TRUE).
+            // 3.d) If move type is INSTANT_KILL, sets attackType: (IK), hitEffectSpecial: (TRUE), minimumDamagePercent: 20, ignoreBurst: (TRUE), nextHitInstantKillOnly: (TRUE), noGravityScaling: (TRUE), noHitstunScaling: (TRUE), ignoreOtg: (TRUE), noPushbackScaling: (TRUE), noDustScaling: (TRUE), noDamageScaling: (TRUE), onlyHitPlayer: (TRUE), attackNoHitNotKillCombo: (TRUE), killType: (NOT_KILL), attackIgnoreOutPower: (TRUE), attackShutup: (TRUE), allHitsCounter: (FALSE), for projectiles sets setProjectileDurability: 2, for everyone tensionGainOnConnect: 0, whiffOtg: (TRUE), whiffIfCombo: (TRUE), noFinishCamera: (TRUE), enemyHitstopAddition: 0, 0, 0
+            // 3.e) If move type is DEAD_ANGLE_ATTACK or BLITZ_SHIELD, sets attackType: (NORMAL).
+            // 4) For projectiles sets riscPlus: 2
             name: "instantInitializeForProjectile",
             args: [
-                Number,
-                Number,
+                Enum("moveType0_1378"),
+                // update action ID. If true, assigns a unique ID to the projectile's attack
+                Enum("Boolean"),
             ],
         ),
         1885: (
             size: 16,
             name: "sendSignalEx",
             args: [
-            	// the entity to send the signal to
+                // the entity to send the signal to
                 Enum("Entity"),
                 // this parameter can be accessed in the signal handler using SEND_SIGNAL_EX_PARAM2 named variable
                 Number,
@@ -7311,8 +7441,8 @@
             // modifies ACCUMULATOR
             name: "checkStageName",
             args: [
-            	String16,
-        	],
+                String16,
+            ],
         ),
         1939: (
             size: 8,
@@ -7656,6 +7786,7 @@
         2001: (
             size: 40,
             // during BEFORE_EXIT event "current state name" still points to the old state name. Then OnFinalize fires. Then the "current state name" is set to the new state. During the IMMEDIATE event the "current state name" is already set to the new state
+            // during PLAYER_CHANGED_STATE event it points to the old state.
             name: "checkCurrentStateName",
             args: [
                 Enum("Entity"),
@@ -7706,7 +7837,7 @@
             // After this function ends, it resets the target entity's storage places for Arg 2 and 3 back to their original values.
             name: "sendSignalName",
             args: [
-            	// the target entity on which to fire the SEND_SIGNAL_NAME event
+                // the target entity on which to fire the SEND_SIGNAL_NAME event
                 Enum("Entity"),
                 // gets stored somewhere inside the target entity. You can use checkSignalName to check this name
                 String32,
@@ -8023,7 +8154,7 @@
         2049: (
             size: 68,
             name: "targetCameraWorldPos",
-			args: [
+            args: [
                 Number,
                 Number,
                 Number,
@@ -8562,6 +8693,7 @@
         ),
         2122: (
             size: 4,
+            // pauses sprite frame advancement and prevents exitState instruction from being executed
             name: "eventLoadFileWait",
             args: [],
         ),
@@ -8569,13 +8701,21 @@
             size: 36,
             name: "eventLoadFile",
             args: [
-				String32,
-			],
+                String32,
+            ],
         ),
         2124: (
             size: 4,
             name: "eventStopLip",
             args: [],
+        ),
+        2125: (
+            size: 8
+            name: "",
+            args: [
+            	// it is some kind of distance that triggers some calculation on hit. This is either pointless or I have not found what that calculation is for
+                Number,
+            ],
         ),
         2126: (
             size: 36,
@@ -8956,7 +9096,7 @@
         ),
         2179: (
             size: 8,
-            // resets to 1 on each new state entry. The maximum number of hits this projectile can take before getting destroyed (see requestDestroy). To prevent the projectile from getting destroyed upon reaching this number of hits, use destroyAiuchi: 1
+            // resets to 1 on each new state entry. The maximum number of hits this projectile can take before getting destroyed (see requestDestroy). To prevent the projectile from getting destroyed upon reaching this number of hits, use destroyAiuchi: (TRUE)
             name: "numberOfHits",
             args: [
                 Number,
@@ -8964,6 +9104,7 @@
         ),
         2180: (
             size: 8,
+            // number of hits to increment NUMBER_OF_HITS_TAKEN by when hitting a player
             name: "destroyOnEnemyDamage",
             args: [
                 Number,
@@ -8979,6 +9120,7 @@
         ),
         2182: (
             size: 8,
+            // number of hits to increment NUMBER_OF_HITS_TAKEN by when hitting a projectile
             name: "destroyOnHit",
             args: [
                 Number,
@@ -8986,6 +9128,7 @@
         ),
         2183: (
             size: 8,
+            // number of hits to increment NUMBER_OF_HITS_TAKEN by when clashing with another projectile. If you're a setProjectileDurability: 2 projectile or greater clashing with a setProjectileDurability: 1 projectile, you don't even register clashes, only the other one does
             name: "destroyOnClash",
             args: [
                 Number,
@@ -9046,10 +9189,10 @@
         ),
         2191: (
             size: 8,
-            // calling this with 1 makes the projectile not disappear when it takes the maximum number of hits. Gets reset to 0 on each new state entry
+            // calling this with (TRUE) makes the projectile not disappear when it takes the maximum number of hits. Gets reset to (FALSE) on each new state entry
             name: "destroyAiuchi",
             args: [
-                Number,
+                Enum("Boolean"),
             ],
         ),
         2192: (
@@ -9337,7 +9480,7 @@
             size: 8,
             name: "createArgDirection",
             args: [
-                Number,
+                Enum("CreationFacing"),
             ],
         ),
         2246: (
@@ -9590,11 +9733,11 @@
             // checks if opponent's LAST_RECEIVED_COLLISION_ID is equal to <argument 1>, and that they're currently in hitstun, and if yes, then locks hitstun for the current frame returns a 1 into <argument 2>, otherwise returns 0 into <argument 2>
             name: "nokezoriEnchou",
             args: [
-            	// the value to check against opponent's LAST_RECEIVED_COLLISION_ID
-            	AccessedValue,
-            	// the value to return 1 or 0 into, depending on whether hitstun was locked (1 if yes)
-            	AccessedValue,
-        	],
+                // the value to check against opponent's LAST_RECEIVED_COLLISION_ID
+                AccessedValue,
+                // the value to return 1 or 0 into, depending on whether hitstun was locked (1 if yes)
+                AccessedValue,
+            ],
         ),
         2297: (
             size: 12,
@@ -10032,10 +10175,10 @@
             size: 44,
             name: "trialAdvice",
             args: [
-            	Number,
-            	String32,
-            	Number,
-        	],
+                Number,
+                String32,
+                Number,
+            ],
         ),
         2381: (
             size: 8,
