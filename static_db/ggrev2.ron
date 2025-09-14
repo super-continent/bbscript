@@ -127,7 +127,7 @@
         143: "IS_PLAYING_SOUND",
         // 144: global
         // 145, 146, 148, 149, 150, 151: per player
-        152: "HELLFIRE",  // per player. Hellfire is a state when you have < 10% health while being combo'd or < 20% in neutral
+        152: "HELLFIRE",  // per player. Hellfire is a state when you have < 10% health while being combo'd or you returned to neutral with < 20% health and then you stay in hellfire state until you either regain health or die
         153: "LOWEST_HELD_BUTTON",  // per player. Possible values: 0: none, 1: PUNCH, 2: KICK, 3: SLASH, 4: HEAVY SLASH, 5: DUST, 6: TAUNT
         154: "IS_CPU",  // per player
         155: "IS_A_CPU_WHO_IS_NOT_PERFORMING_AN_EMOVE",  // per player
@@ -624,7 +624,7 @@
             0: "IMMEDIATE",  // runs after a state is entered and most settings have been prepared for your move. Like, for example, enableNormals: 0 has already been called for you. This event happens after the OnFinalize call and some more initialization during state transition. The state name (checkCurrentStateName) is already initialized to the new, current move at this point (after OnFinalize and before IMMEDIATE). The upon: (IMMEDIATE) handler registration for this event does not have to be the first instruction in a move subroutine, but having it at the top speeds up it being found by the game. Not having this at all would force the game to scan through the entire subroutine each time upon entry, until the endState instruction, wasting time, so, if you don't need it, you should just have an empty upon: (IMMEDIATE) handler at the top. A few initialization things still happen after this event, like resetting air options.
             1: "BEFORE_EXIT",  // called when switching state after some fields already got reset, like those that get reset prior to OnActionBeginPre, but also, in addition to that, fields like setLinkObjectDestroyOnStateChange and all other linked entities. However, the current state name (checkCurrentStateName) is not changed yet. Immediately after this event, OnFinalize subroutine is called, if one is present. BEFORE_EXIT and OnFinalize and FINALIZE are also called, in this order, when the object is finalized (see deactivateObj). This event gets cleared (unregistered) after it is called.
             2: "LANDING",  // called after touching the ground. Afer this event is called, it is automatically unregistered.
-            3: "ANIMATION_FRAME_ADVANCED",  // called only when not in hitstop, superfreeze or losing a frame due to RC slowdown, after a new sprite frame has been reached. New sprite frame being reached is what I call regular script execution. Each frame when you're not in hitstop, not skipping a frame due to RC slowdown and not in slowdown, the sprite frame advances. When the sprite frame counter reaches its maximum value, maximum value - that you can set using sprite and overrideSpriteLengthIf functions - all bbscript instructions that are after that sprite instruction (the sprite instruction that you have been stalled on up until this point) get executed, until the next sprite instruction or spriteEnd is reached. You then get stalled on that sprite or spriteEnd instruction. Then this event fires. This event is also called 'idling', because OnIdling subroutine is fired immediately after this event. By the way, when entering a new state, all its instructions get executed, until a sprite instruction, and then the execution continues until a second sprite instruction or spriteEnd. An endState does not stall execution like spriteEnd does. When projectiles are present on the screen, players advance their frames first, then projectiles.
+            3: "ANIMATION_FRAME_ADVANCED",  // called only when not in hitstop, superfreeze or losing a frame due to RC slowdown, after a new sprite frame has been reached. New sprite frame being reached is what I call regular script execution. Each frame when you're not in hitstop, not skipping a frame due to RC slowdown and not in slowdown, the sprite frame advances. When the sprite frame counter reaches its maximum value, maximum value - that you can set using sprite and overrideSpriteLengthIf functions - all bbscript instructions that are after that sprite instruction (the sprite instruction that you have been stalled on up until this point) get executed, until the next sprite instruction or spriteEnd is reached. You then get stalled on that sprite or spriteEnd instruction. Then this event fires. This event is also called 'idling', because OnIdling subroutine is fired immediately after this event. By the way, when entering a new state, all its instructions get executed, until a sprite instruction, and then the execution continues until a second sprite instruction or spriteEnd. When projectiles are present on the arena, players advance their frames first, then projectiles.
             4: "SPEED_Y_DECREASED_BELOW_TARGET",  // use setEventTrigger to specify desired speedY
             5: "LANDING_REPEATUSE",  // gets called right before the LANDING event. Unlike the LANDING event, this event does not get automatically unregistered every time it is fired
             6: "TOUCH_WALL_OR_SCREEN_EDGE",
@@ -633,7 +633,7 @@
             9: "YOUR_ATTACK_COLLISION_WITH_A_PLAYER",  // called when landing an attack on a player, be it hit or block or other
             10: "HIT_A_PLAYER",  // called when landing a non-blocked, non-armored hit on a player. Landing hits on projectiles or summons does not count
             11: "GOT_HIT",  // called when getting hit by a projectile or player. Whenever I say 'hit' I mean not blocking or armoring that. The game refers to this event as "DAMAGE", so whenever you see events with DAMAGE in their name, they mean non-blocked, non-armored hits from attack collisions. This excludes poison damage or chip damage or damage taken from armoring hits. This event is called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnDamage subroutine is called, if one is present
-            12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames
+            12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames. After this event, OnNoStopIdling gets called.
             13: "REACHED_TARGET_ANIM_DURATION",  // use setEventTrigger to specify the number of frames you want passed before getting this event. The frames being checked against that value are FRAMES_PLAYED_IN_STATE
             14: "DIE",
             15: "NOT_HOLD_P",  // every frame that you (the projectile or the player) are not in hitstop, if your player is not holding P, this event is fired
@@ -705,6 +705,7 @@
             // OnFinalize: gets called immediately after a BEFORE_EXIT event, which can happen both on state transition and when the entity is being deleted from the game
             // OnActionBegin: gets called after the IMMEDIATE event and some more initialization happened during state transition
             // OnIdling: gets called immediately after ANIMATION_FRAME_ADVANCED event
+            // OnNoStopIdling: gets called immediately after FRAMESTEP_1 event
             // OnAttackCollision: gets called immediately after YOUR_ATTACK_COLLISION on clash
         },
         "POS_TYPE": {
@@ -858,7 +859,7 @@
         ),
         1: (
             size: 4,
-            // this instruction does not wait for the current sprite to finish playing. If you need such wait, use exitState
+            // this instruction does wait for the current sprite to finish playing, just like exitState does
             name: "endState",
             codeBlock: EndState,
             args: [],
@@ -4371,6 +4372,7 @@
             size: 8,
             name: "hitPushbackX",
             args: [
+                // percentage
                 Number,
             ],
         ),
@@ -4613,7 +4615,8 @@
         ),
         1138: (
             size: 8,
-            // means this attack can be armored by players who have superArmorForReflect set to TRUE
+            // means this attack can be armored by players who have superArmorForReflect set to TRUE.
+            // also for someone or something that has the superArmorJibaku falg it means that they can armor hits only from either projectiles that have attackReflect flag, or projectiles that were initially created by their opponent, or projectiles that are not currently reflected (swapped their team to the opposite)
             name: "attackReflect",
             args: [
                 Enum("Boolean"),
@@ -4926,7 +4929,7 @@
             // when hitting airborne opponents, multiplies pushback by this amount / 100 if the provided percentage is not 0
             name: "hitPushbackXAir",
             args: [
-            	// percentage. Specify 0 to ignore
+                // percentage. Specify 0 to ignore
                 Number,
             ],
         ),
@@ -6854,7 +6857,7 @@
         1816: (
             size: 8,
             // an attack is considered a low if guardType is set to HIGH
-            name: "suporArmorOverhead",
+            name: "superArmorOverhead",
             args: [
                 Enum("Boolean"),
             ],
@@ -6985,6 +6988,7 @@
         ),
         1833: (
             size: 8,
+            // can only armor hits only from either projectiles that have attackReflect flag, or projectiles that were initially created by your opponent, or projectiles that are not currently reflected (swapped their team to the opposite)
             name: "superArmorJibaku",
             args: [
                 Number,
@@ -8693,7 +8697,7 @@
         ),
         2122: (
             size: 4,
-            // pauses sprite frame advancement and prevents exitState instruction from being executed
+            // pauses sprite frame advancement and prevents exitState, endState instructions from being executed
             name: "eventLoadFileWait",
             args: [],
         ),
@@ -8713,7 +8717,7 @@
             size: 8
             name: "",
             args: [
-            	// it is some kind of distance that triggers some calculation on hit. This is either pointless or I have not found what that calculation is for
+                // it is some kind of distance that triggers some calculation on hit. This is either pointless or I have not found what that calculation is for
                 Number,
             ],
         ),
@@ -9053,8 +9057,10 @@
             size: 16,
             name: "venomBall",
             args: [
+                // angle
                 Number,
                 Number,
+                // flags
                 Number,
             ],
         ),
