@@ -1,8 +1,9 @@
-use std::{collections::HashSet, io::Write};
+use std::{io::Write, ops::AddAssign};
 
 use crate::{
     error::BBScriptError,
     game_config::{ArgType, GenericInstruction, ScriptConfig, SizedString, UnsizedInstruction},
+    HashMap,
 };
 
 use byteorder::{ByteOrder, WriteBytesExt};
@@ -35,7 +36,7 @@ fn assemble_script<B: ByteOrder>(
     // TODO: figure out behavior around eliminating duplicate state jump entries
     let mut previous_jump_entries = std::collections::HashSet::new();
 
-    let mut jump_entry_count = 0;
+    let mut jump_entry_counts = HashMap::<u32, u32>::new();
     let mut jump_table_buffer: Vec<u8> = Vec::new();
 
     for instruction in program {
@@ -90,7 +91,10 @@ fn assemble_script<B: ByteOrder>(
                 if previous_jump_entries.insert(name.0.clone()) {
                     jump_table_buffer.write_all(&name.to_vec()).unwrap();
                     jump_table_buffer.write_u32::<B>(offset).unwrap();
-                    jump_entry_count += 1;
+                    jump_entry_counts
+                        .entry(instruction_info.id())
+                        .or_insert(0)
+                        .add_assign(1);
                 }
             }
         }
@@ -158,7 +162,13 @@ fn assemble_script<B: ByteOrder>(
     }
     let mut result = Vec::new();
 
-    result.write_u32::<B>(jump_entry_count as u32).unwrap();
+    // writes jump table counts in order specified by the config
+    // DNF is the only game that uses that at the moment
+    for id in &db.jump_table_ids {
+        let count = jump_entry_counts.get(id).unwrap_or(&0);
+        result.write_u32::<B>(*count).unwrap();
+    }
+
     result.append(&mut jump_table_buffer);
     result.append(&mut script_buffer);
 
