@@ -263,6 +263,7 @@ impl ScriptConfig {
                 .map(|x| GenericInstruction::Sized(id, x.clone())),
             InstructionInfo::Unsized(ref map) => map
                 .get(&id)
+                .or(Some(&UnsizedInstruction::new()))
                 .map(|x| GenericInstruction::Unsized(id, x.clone())),
         }
     }
