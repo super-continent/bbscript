@@ -18,7 +18,7 @@
         7:  "PHYSICS_X_IMPULSE",  // writable. Your current X speed. If you set this, this sets your speed towards your current facing, so, providing a positive value while facing to the left would assign you negative speed. If you get this value, it gets multiplied by your facing before you see the result, so, if your speed is negative while facing to the left you get read a positive speed.
         8:  "PHYSICS_Y_IMPULSE",  // writable. Your current Y speed. Positive speed Y means going up, negative going down
         // 9, 10, 11, 12
-        13: "FRAMES_PLAYED_IN_STATE",  // restarts from 1 on each state. Only advances forward when a sprite frame advances
+        13: "FRAMES_PLAYED_IN_STATE",  // restarts from 0 on each state. Only gets incremented by 1 after a sprite frame advances, but before invoking the ANIMATION_FRAME_ADVANCED event
         14: "OPPONENT_X_DISTANCE",  // the absolute value of opponent x - your x
         15: "OPPONENT_Y_DISTANCE",  // the absolute value of opponent y - your y
         16: "MATCH_RUNNING",  // global
@@ -79,7 +79,7 @@
         91: "ALWAYS_ZERO",  // this always returns 0, no matter what
         92: "IS_PERFORMED_RAW",  // this means that the move was not cancelled into from another move
         93: "PLAYER_SIDE",  // 0 for P1 effects and player, 1 for P2 effects and player
-        // 95: per player
+        95: "PLAYING_MOUTH_ANIM", // per player
         96: "DISTANCE_FROM_THIS_CENTER_TO_ENEMY_CENTER_DUPLICATE",  // same as DISTANCE_FROM_THIS_CENTER_TO_ENEMY_CENTER
         97: "PITCH",  // writable. In 1/1000'th of a degree. So 1000 means 1 degree. Means same thing as ROTATION. 0 is unrotated and positive angle rotates you counter-clockwise when facing right, or clockwise when facing left. Pitch is the angle of rotation around the axis perpendicular to the screen
         // 98
@@ -626,14 +626,14 @@
             2: "LANDING",  // called after touching the ground. Afer this event is called, it is automatically unregistered.
             3: "ANIMATION_FRAME_ADVANCED",  // called only when not in hitstop, superfreeze or losing a frame due to RC slowdown, after a new sprite frame has been reached. New sprite frame being reached is what I call regular script execution. Each frame when you're not in hitstop, not skipping a frame due to RC slowdown and not in slowdown, the sprite frame advances. When the sprite frame counter reaches its maximum value, maximum value - that you can set using sprite and overrideSpriteLengthIf functions - all bbscript instructions that are after that sprite instruction (the sprite instruction that you have been stalled on up until this point) get executed, until the next sprite instruction or spriteEnd is reached. You then get stalled on that sprite or spriteEnd instruction. Then this event fires. This event is also called 'idling', because OnIdling subroutine is fired immediately after this event. By the way, when entering a new state, all its instructions get executed, until a sprite instruction, and then the execution continues until a second sprite instruction or spriteEnd. When projectiles are present on the arena, players advance their frames first, then projectiles.
             4: "SPEED_Y_DECREASED_BELOW_TARGET",  // use setEventTrigger to specify desired speedY
-            5: "LANDING_REPEATUSE",  // gets called right before the LANDING event. Unlike the LANDING event, this event does not get automatically unregistered every time it is fired
+            5: "LANDING_REPEATUSE",  // gets called right before the LANDING event. Unlike the LANDING event, this event does not get automatically unregistered every time it is fired. Landing happens before animations are advanced, which means gotoLabelRequests done here will work effectively immediately.
             6: "TOUCH_WALL_OR_SCREEN_EDGE",
             7: "STATE_REACHED_END",  // called when reaching the end of the state normally, uninterrupted, via exitState or endState instruction
             8: "YOUR_ATTACK_COLLISION",  // called when landing an attack either on a projectile or a player, be it hit or block or other. OnAttackCollision gets called immediately after this event on clash
             9: "YOUR_ATTACK_COLLISION_WITH_A_PLAYER",  // called when landing an attack on a player, be it hit or block or other
             10: "HIT_A_PLAYER",  // called when landing a non-blocked, non-armored hit on a player. Landing hits on projectiles or summons does not count
             11: "GOT_HIT",  // called when getting hit by a projectile or player. Whenever I say 'hit' I mean not blocking or armoring that. The game refers to this event as "DAMAGE", so whenever you see events with DAMAGE in their name, they mean non-blocked, non-armored hits from attack collisions. This excludes poison damage or chip damage or damage taken from armoring hits. This event is called at an early stage after the hit is registered, before taking damage or copying attack properties to the defender. Immediately after this, OnDamage subroutine is called, if one is present
-            12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames. After this event, OnNoStopIdling gets called.
+            12: "FRAMESTEP_1",  // the first frame step event that happens after the idling event. Frame step events happen even during hitstop, superfreeze and RC slowdown frames. After this event, OnNoStopIdling gets called. Other entities' events don't get to be called inbetween some entity's idling event and FRAMESTEP_1 event.
             13: "REACHED_TARGET_ANIM_DURATION",  // use setEventTrigger to specify the number of frames you want passed before getting this event. The frames being checked against that value are FRAMES_PLAYED_IN_STATE
             14: "DIE",
             15: "NOT_HOLD_P",  // every frame that you (the projectile or the player) are not in hitstop, if your player is not holding P, this event is fired
@@ -655,7 +655,7 @@
             32: "CUSTOM_SIGNAL_9",
             33: "MUTEKI",  // signalled when armoring a hit. Gets called at a later stage than ARMOR and ARMOR2 events, after you've already taken damage
             35: "PLAYER_GOT_HIT",  // when a player entity gets hit, all projectiles that belong to them and the player himself are notified of that through this event. This is called at an early stage of a hit, before damage is taken or attack properties are copied to the defender
-            36: "FRAME_STEP",  // called after FRAMESTEP_1 every frame, including during hitstop, superfreeze and slowdown
+            36: "FRAME_STEP",  // called after FRAMESTEP_1 every frame, including during hitstop, superfreeze and slowdown. OnFrameStep gets called immediately after. Other entities' events like ANIMATION_FRAME_ADVANCED and FRAMESTEP_1 and others don't get called inbetween this entity's ANIMATION_FRAME_ADVANCED and FRAME_STEP events. This means that players run first, each player advances their animation, fires ANIMATION_FRAME_ADVANCED, FRAMESTEP_1, FRAME_STEP and so on, then the other player does that, and then all projectiles do the same, each projectile one at a time.
             37: "CLASH",  // works for both players and projectiles. Projectiles may only clash if neither has setProjectileDurability: 0 and not both are setProjectileDurability: 2 or greater at the same time. If projectiles have different setProjectileDurability, only the weaker projectile gets the CLASH event and its NUMBER_OF_HITS_TAKEN incremented by its destroyOnClash amount. Players may not clash with projectiles.
             38: "PLAYER_BLOCKED",  // when a player entity blocks a hit, the player and all projectiles that belong to them are notified of this through this event
             39: "PRE_DRAW",  // this is the last event sent to each entity in the game during an game engine tick
@@ -707,6 +707,7 @@
             // OnIdling: gets called immediately after ANIMATION_FRAME_ADVANCED event
             // OnNoStopIdling: gets called immediately after FRAMESTEP_1 event
             // OnAttackCollision: gets called immediately after YOUR_ATTACK_COLLISION on clash
+            // OnFrameStep: gets called immediately after FRAME_STEP event
         },
         "POS_TYPE": {
             100: "ORIGIN",  // the origin point that is between your legs
@@ -1060,7 +1061,7 @@
         ),
         27: (
             size: 36,
-            // jumping to a state is instant if performed in superfreeze event handler, PRE_FRAME_STEP or at or before a new sprite frame is reached. And happens on the next frame if performed later, This applies to all state jumping, unless stated otherwise
+            // jumping to a state is instant if performed in superfreeze event handler, PRE_FRAME_STEP or at or before a new sprite frame is reached. And happens on the next frame if performed later. This applies to all state jumping, unless stated otherwise
             name: "jumpToState",
             args: [
                 String32,
@@ -3452,6 +3453,7 @@
         ),
         754: (
             size: 8,
+            // absolute speed. Only for air hits, as ground hits always have speed 0. This works independently of pushback, which is set with hitPushbackX, so both "hitAirPushbackX" and "hitPushbackX" get applied additively together on air hits. To avoid ambiguity, we'll call the speed applied by "hitAirPushbackX" "launch speed" and the speed applied by "hitPushbackX" "pushback".  Default launch speed is 10500, but if the attack has autoParam flag, then if the hit was a ground hit and groundHitEffect is AIR_LAUNCH, then 3500, else if groundHitEffect is AIR_FACE_DOWN, then 5250, otherwise 7000. If the attack has autoParam flag, then if the hit was an air hit and airHitEffect is AIR_LAUNCH, then 3500. Specifying hitAirPushbackX overrides the default launch speed. Launch speed does not get prorated in a combo.
             name: "hitAirPushbackX",
             args: [
                 Number,
@@ -3464,6 +3466,7 @@
         ),
         756: (
             size: 8,
+            // see hitAirPushbackX. This is the same, but for air counterhits. If the attack was an air counterhit, but this wasn't set, and instead hitAirPushbackX was set, hitAirPushbackX gets applied instead. And if it is not set either, the default launch speed is applied, which is described in hitAirPushbackX. Ground hits always have launch speed 0 and only the pushback, set by hitPushbackX, works on them.
             name: "counterhitAirPushbackX",
             args: [
                 Number,
@@ -4370,16 +4373,19 @@
         ),
         1102: (
             size: 8,
+            // specifies percentage modifier for the pushback. Pushback gets prorated during a combo based on the combo timer. The base value that gets multiplied by this percentage / 100 is determined based on the attack level. If the character is in the air and hitPushbackXAir is set, hitPushbackXAir is used instead. If the character is in hitstun, pushbackXForHit gets multiplied by the pushback / 100 on top of hitPushbackX or hitPushbackXAir.
             name: "hitPushbackX",
             args: [
-                // percentage
+                // percentage. Default percentage is 100%.
                 Number,
             ],
         ),
         1103: (
             size: 8,
+            // specifies percentage modifier for the pushback on hit (hitstun). This is to be combined multiplicatively with either hitPushbackX or hitPushbackXAir (if the hit was a ground hit or hitPushbackXAir wasn't set and the hit was an air hit, hitPushbackX is used, and if the hit was an air hit and hitPushbackXAir was set, then hitPushbackXAir is used). This means pushbackXForHit gets multiplied by the pushback / 100 after it got multiplied by hitPushbackX / 100 or hitPushbackXAir / 100.
             name: "pushbackXForHit",
             args: [
+                // percentage. Default value is 100%.
                 Number,
             ],
         ),
@@ -4929,7 +4935,7 @@
             // when hitting airborne opponents, multiplies pushback by this amount / 100 if the provided percentage is not 0
             name: "hitPushbackXAir",
             args: [
-                // percentage. Specify 0 to ignore
+                // percentage. Specify 0 to ignore. Default value is 0.
                 Number,
             ],
         ),
@@ -5710,6 +5716,10 @@
         ),
         1392: (
             size: 8,
+            // Each player and projectile has "individual" force disable flags and "overall" force disable flags. Every frame, somewhere after PRE_FRAME_STEP event, the overall flags for each entity are remade as a BIT_OR of all individual flags of projectiles and player on their team (reflected projectiles count as still being on your team). Before animations advance, and possibly after in the same loop (due to 1-frame kara cancels being possible), moves can be performed, and a move can be assigned these force disable flags using this instruction. A move will check the "overall" force disable flags of the player using BIT_AND, and if the player has any of the force disable flags, the move won't be performed.
+            // "Overall" force disable flags only reset on stage reset and shortly before being assembled from "individual" force disable flags. The only way to directly manipulate the overall flags is by using addMoveForceDisableFlagQuick.
+            // "Individual" force disable flags reset on animation change. Use addMoveForceDisableFlag and deleteMoveForceDisableFlag.
+            // Because animations advance after moves can be performed, generally setting force disable flags in a move's script has a 1f delay, meaning it will only take effect on the next frame. And using the "quick" version will have the same delay, but not for moves that would be kara cancels from the current move on this same frame. After starting a move, if the game sees you actually changed state, it can check for more moves again in the same loop, and you can change your state like this up to 10 times.
             name: "forceDisableFlag",
             args: [
                 Number,
@@ -6196,6 +6206,7 @@
         ),
         1601: (
             size: 8,
+            // see forceDisableFlag. Adds an "individual" force disable flag to the current player or projectile, in addition to setting the "overall" force disable flags for the current player or projectile (projectiles don't get to use this to directly set overall force disable flags on a player, other than with runOnObject)
             name: "addMoveForceDisableFlagQuick",
             args: [
                 Number,
@@ -6203,6 +6214,7 @@
         ),
         1602: (
             size: 8,
+            // see forceDisableFlag. Adds an "individual" force disable flag to the current player or projectile.
             name: "addMoveForceDisableFlag",
             args: [
                 Number,
@@ -6210,6 +6222,7 @@
         ),
         1603: (
             size: 8,
+            // see forceDisableFlag. Deletes an "individual" force disable flags from the current player or projectile.
             name: "deleteMoveForceDisableFlag",
             args: [
                 Number,
@@ -8714,7 +8727,7 @@
             args: [],
         ),
         2125: (
-            size: 8
+            size: 8,
             name: "",
             args: [
                 // it is some kind of distance that triggers some calculation on hit. This is either pointless or I have not found what that calculation is for
@@ -9922,7 +9935,7 @@
         ),
         2327: (
             size: 8,
-            // if provided TRUE, then, when this move connects with an opponent, the attacker will have callPrivateFunction: s32'ClearPastSenkoInputTime' called on them. All moves that have moveType: (NORMAL) have bufferInputReset: 1 by default. This helps prevent a single 5P press from doing a 5P (hit) gatling into another 5P for 5Ps that have 3f startup.
+            // if provided TRUE, then, when this move connects with an opponent, the attacker will have callPrivateFunction: s32'ClearPastSenkoInputTime' called on them, and if the declared inputs for the connected move contained INPUT_PRESS_P, the buffered P button press will get cleared, and so on for the K, S, H, D, Taunt and Special button presses. All moves that have moveType: (NORMAL) have bufferInputReset: (TRUE) by default. This helps prevent a single 5P press from doing a 5P (hit) gatling into another 5P for 5Ps that have 3f startup.
             name: "bufferInputReset",
             args: [
                 Enum("Boolean"),
