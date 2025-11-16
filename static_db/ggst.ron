@@ -601,7 +601,6 @@
             188: "INPUT_CHARGE_BACK_FORWARD_30F",
             189: "INPUT_CHARGE_DOWN_UP_30F",
             190: "INPUT_6428",
-            191: "INPUT_CHARGE_UP_DOWN_30F",
             192: "INPUT_46463214",
             193: "INPUT_64641236",
             194: "INPUT_DOWN_UP",
@@ -750,10 +749,10 @@
             13: "PLAYERVAL_1_TRUE",
             14: "PLAYERVAL_2_TRUE",
             15: "PLAYERVAL_3_TRUE",
-            16: "PLAYERVAL_1_FALSE",
-            17: "PLAYERVAL_2_FALSE",
-            18: "PLAYERVAL_3_FALSE",
-            19: "PLAYERVAL_4_FALSE",
+            16: "PLAYERVAL_0_FALSE",
+            17: "PLAYERVAL_1_FALSE",
+            18: "PLAYERVAL_2_FALSE",
+            19: "PLAYERVAL_3_FALSE",
             20: "EXGAUGE_0_FILLED",
             21: "EXGAUGE_1_FILLED",
             22: "EXGAUGE_2_FILLED",
@@ -800,14 +799,14 @@
             87: "ENEMY_IN_HITSTUN",
             88: "ENEMY_IN_COUNTER_HITSTUN",
             89: "ENEMY_STAND",
-            90: "VARIABLE_201_TRUE",
-            91: "VARIABLE_202_TRUE",
-            92: "VARIABLE_203_TRUE",
-            93: "VARIABLE_204_TRUE",
-            94: "VARIABLE_201_FALSE",
-            95: "VARIABLE_202_FALSE",
-            96: "VARIABLE_203_FALSE",
-            97: "VARIABLE_204_FALSE",
+            90: "PLAYERVAL_4_TRUE",
+            91: "PLAYERVAL_5_TRUE",
+            92: "PLAYERVAL_6_TRUE",
+            93: "PLAYERVAL_7_TRUE",
+            94: "PLAYERVAL_4_FALSE",
+            95: "PLAYERVAL_5_FALSE",
+            96: "PLAYERVAL_6_FALSE",
+            97: "PLAYERVAL_7_FALSE",
             98: "IS_CPU",
             99: "CHAIN_READY",
             105: "IS_MAIN_PLAYER",
@@ -818,7 +817,9 @@
             111: "IS_KNOCKED_DOWN",
             124: "IN_HITSTOP",
             125: "RED_ROMAN_CANCEL",
+            126: "NOT_DRAMA_ASSIST",
             127: "ENEMY_CAN_BURST",
+            129: "REQUIRES_50_BURST",
         },
         "OBJECT_ID": {
             0: "NULL",
@@ -954,7 +955,7 @@
             59: "ANY_HIT_BY_INSTANT_KILL",
             60: "PLAYER_RECEIVE_ATTACK_OR_ARMOR",
             61: "FAULTLESS_DEFENCE_HIT",
-            62: "PLAYER_RECEIVE_ATTACK_PRIVATE",
+            62: "PLAYER_RECEIVE_ATTACK_GROUNDED",
             63: "TAG",
             64: "INVULN_PRE_HITSTOP_FOR_PROJECTILE",
             65: "REFLECT",
@@ -978,7 +979,7 @@
             83: "FORCE_UP",
             84: "FORCE_DOWN",
             85: "MAIN_PLAYER_RECEIVE_HIT",
-            86: "ALLY_GUARD",
+            86: "ENEMY_GUARD",
             87: "Z_REVERSAL",
             88: "DRAGON_RUSH_CLASH",
             89: "MAIN_PLAYER_RECEIVE_ATTACK_PRE_CONTROL",
@@ -997,12 +998,76 @@
             102: "NAGURU",
             103: "BG_CLASH_EVENT",
         },
+        "ZLINE": {
+            0: "FAR_DISTANCE",
+            1: "MIDDLE_DISTANCE",
+            2: "NEAR_DISTANCE",
+            3: "NEAREST_DISTANCE",
+            4: "MAX_DISTANCE",
+        },
+        "activeState": {
+            0: "ACTV_NOT_ACTIVE",
+            1: "ACTV_ACTIVE",
+            2: "ACTV_REQ_ACTIVE",
+            3: "ACTV_REQ_NO_ACTIVE",
+            4: "ACTV_WAITING_0",
+            5: "ACTV_WAITING_1",
+            6: "ACTV_WAITING_2",
+        },
+        "attackDirection": {
+            0: "SELF",
+            1: "PLAYER",
+            2: "SELF_TO_ENEMY",
+            3: "PLAYER_TO_ENEMY",
+        },
+        "attackType": {
+            0: "INSTANT_KILL",
+        },
+        "characterShoes": {
+            0: "SHOES_NORMAL",
+            1: "SHOES_LEATHER",
+            2: "SHOES_BOOT",
+            3: "SHOES_HEAL",
+            4: "SHOES_SANDAL",
+            5: "SHOES_BAREFOOT_LIGHT",
+            6: "SHOES_BAREFOOT_HEAVY",
+            7: "SHOES_METAL_LIGHT",
+            8: "SHOES_METAL_HEAVY",
+            9: "SHOES_COMICAL",
+            10: "SHOES_GETA",
+        },
+        "characterSize": {
+            0: "SMALL",
+            1: "MEDIUM",
+            2: "LARGE",
+            3: "EXTRA_LARGE",
+        },
         "characterState0_1406": {
             0: "NONE",
             1: "STANDING",
             2: "CROUCHING",
             3: "JUMPING",
             4: "ASSIST_PLAYER",
+        },
+        "collisionType": {
+            0: "CT_DAMAGE",
+            1: "CT_ATTACK",
+            2: "CT_EXPOINT",
+            3: "CT_EXRECT",
+            4: "CT_EXVECTOR",
+            5: "CT_PUSH",
+            6: "CT_TEMP_CENTER",
+            7: "CT_NECK",
+            8: "CT_ABDOMINAL",
+            9: "CT_ATTACK_VS_PUSH",
+            10: "CT_SP_GUARD",
+            11: "CT_R_LEG",
+            12: "CT_L_LEG",
+            13: "CT_PRIVATE_POINT_0",
+            14: "CT_PRIVATE_POINT_1",
+            15: "CT_PRIVATE_POINT_2",
+            16: "CT_PRIVATE_POINT_3",
+            17: "CT_EXTEND_JON",
         },
         "counterHitProcess0_1038": {
             0: "SMALL",
@@ -1015,6 +1080,17 @@
             0: "DEFAULT",
             1: "NO_COUNTER",
             2: "FORCE_COUNTER",
+        },
+        "distanceType": {
+            0: "DISTANCE_RAW",
+            1: "DISTANCE_X",
+            2: "DISTANCE_Y",
+            3: "DISTANCE_X_FRONT",
+        },
+        "exHoming": {
+            0: "DISTANCE_ACCELERATION",
+            1: "FIXED_ACCELERATION",
+            2: "ACCELERATE_TO_SPEED",
         },
         "groundHitEffect0_882": {
             0: "NORMAL_UPPER",
@@ -1128,6 +1204,37 @@
             57: "BLITZ_SHIELD",
         },
         "posTypeToVar1_62": {
+            0: "EX_POINT_0",
+            1: "EX_POINT_1",
+            2: "EX_POINT_2",
+            3: "EX_POINT_3",
+            4: "EX_POINT_4",
+            5: "EX_POINT_5",
+            6: "EX_POINT_6",
+            7: "EX_POINT_7",
+            8: "EX_POINT_8",
+            9: "EX_POINT_9",
+            10: "EX_POINT_10",
+            11: "EX_POINT_11",
+            12: "EX_POINT_12",
+            13: "EX_POINT_13",
+            14: "EX_POINT_14",
+            15: "EX_POINT_15",
+            16: "EX_POINT_16",
+            17: "EX_POINT_17",
+            18: "EX_POINT_18",
+            19: "EX_POINT_19",
+            20: "EX_POINT_20",
+            21: "EX_POINT_21",
+            22: "EX_POINT_22",
+            23: "EX_POINT_23",
+            24: "EX_POINT_24",
+            25: "EX_POINT_25",
+            26: "EX_POINT_26",
+            27: "EX_POINT_27",
+            28: "EX_POINT_28",
+            29: "EX_POINT_30",
+            30: "ZERO",
             100: "PLAYER",
             101: "ATTACK",
             102: "DAMAGE",
@@ -1195,10 +1302,40 @@
             164: "BACK_3_BODY",
             165: "SCREEN_CENTER",
         },
+        "resultsWinPositionType": {
+            0: "DEFAULT_POSITION",
+            1: "SIDE_NORMAL_POSITION",
+            2: "SIDE_REVERSE_POSITION",
+            3: "CENTER_POSITION",
+        },
         "superArmorType0_1840": {
             0: "DODGE",
             1: "ARMOR",
             2: "PARRY",
+        },
+        "superFreezeType0_271": {
+            0: "RC",
+            1: "OD",
+            9: "COUNTER_CAMERA",
+        },
+        "target": {
+            0: "ENEMY",
+            1: "ALLY",
+            2: "ANY",
+            3: "ENEMY_DAMAGE_ANY_SHOT",
+        },
+        "wsbBlowoffType": {
+            0: "BLOWOFF_DEFAULT",
+            1: "BLOWOFF_SLIDE",
+            2: "BLOWOFF_UP",
+            3: "BLOWOFF_DOWN",
+        },
+        "zLineLevel": {
+            0: "LV_MIN",
+            1: "LV1",
+            2: "LV2",
+            3: "LV3",
+            4: "LV_MAX",
         },
     },
     instructions: Sized({
@@ -1520,9 +1657,9 @@
             name: "stackObjectEx",
             args: [
                 Enum("OBJECT_ID"),
+                Enum("OBJECT_ID"),
                 Number,
-                Number,
-                Number,
+                Enum("OBJECT_ID"),
             ],
         ),
         43: (
@@ -1666,9 +1803,9 @@
             name: "calcDistance",
             args: [
                 Number,
+                Enum("posTypeToVar1_62"),
                 Number,
-                Number,
-                Number,
+                Enum("posTypeToVar1_62"),
             ],
         ),
         61: (
@@ -2566,7 +2703,7 @@
             name: "warpWithArg",
             args: [
                 Enum("OBJECT_ID"),
-                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
                 AccessedValue,
                 AccessedValue,
                 AccessedValue,
@@ -2646,7 +2783,7 @@
         ),
         208: (
             size: 8,
-            name: "exTempPerSpeedX",
+            name: "ExTempPerSpeedX",
             args: [
                 Number,
             ],
@@ -2674,7 +2811,7 @@
         ),
         212: (
             size: 12,
-            name: "limitInertia",
+            name: "LimitInertia",
             args: [
                 Number,
                 Number,
@@ -3135,6 +3272,10 @@
             args: [
                 Number,
             ],
+        ),
+        309: (
+            size: 24,
+            args: [],
         ),
         337: (
             size: 8,
@@ -3992,7 +4133,7 @@
             name: "createSocketLinkParticle",
             args: [
                 String32,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
             ],
         ),
@@ -4017,7 +4158,7 @@
         ),
         483: (
             size: 72,
-            name: "linkObjectAsanoLight",
+            name: "LinkObjectAsanoLight",
             args: [
                 Number,
                 String32,
@@ -4042,7 +4183,7 @@
         ),
         487: (
             size: 4,
-            name: "deleteNoLinkParticle",
+            name: "DeleteNoLinkParticle",
             args: [],
         ),
         513: (
@@ -4139,7 +4280,7 @@
         ),
         592: (
             size: 8,
-            name: "soundOption_MainSideOnly",
+            name: "SoundOption_MainSideOnly",
             args: [
                 Number,
             ],
@@ -4611,19 +4752,19 @@
         ),
         650: (
             size: 24,
-            name: "setFloorAttribute",
+            name: "SetFloorAttribute",
             args: [],
         ),
         651: (
             size: 24,
-            name: "setFloorSfx",
+            name: "SetFloorSfx",
             args: [],
         ),
         658: (
             size: 16,
             name: "landingEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4632,7 +4773,7 @@
             size: 16,
             name: "airTechEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4641,7 +4782,7 @@
             size: 16,
             name: "dashStepEFfect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4650,7 +4791,7 @@
             size: 16,
             name: "dashStartEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4659,7 +4800,7 @@
             size: 16,
             name: "wallBounceEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4668,7 +4809,7 @@
             size: 16,
             name: "dashStopEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4677,7 +4818,7 @@
             size: 16,
             name: "walkStopEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4685,12 +4826,18 @@
         670: (
             size: 20,
             name: "landBreakEffect",
-            args: [],
+            args: [
+                Enum("posTypeToVar1_62"),
+                Number,
+                Number,
+                Number,
+            ],
         ),
         671: (
             size: 8,
             name: "auraEffect",
             args: [
+                Enum("posTypeToVar1_62"),
                 Number,
             ],
         ),
@@ -4698,7 +4845,7 @@
             size: 16,
             name: "effectForDownLv1",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4707,7 +4854,7 @@
             size: 16,
             name: "effectForDownLv2",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4716,7 +4863,7 @@
             size: 16,
             name: "effectForDownLv3",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4725,7 +4872,7 @@
             size: 16,
             name: "brakeSfx",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4734,7 +4881,7 @@
             size: 16,
             name: "jumpSfx",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4743,7 +4890,7 @@
             size: 16,
             name: "superJumpSfx",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -4753,13 +4900,13 @@
             name: "clashParticleEffect",
             args: [
                 String32,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
             ],
         ),
         679: (
             size: 12,
-            name: "staticSoundVolume",
+            name: "StaticSoundVolume",
             args: [
                 Number,
                 Number,
@@ -4767,12 +4914,12 @@
         ),
         680: (
             size: 4,
-            name: "staticSoundAllClear",
+            name: "StaticSoundAllClear",
             args: [],
         ),
         681: (
             size: 20,
-            name: "setupVoice_IgnoreStatic",
+            name: "SetupVoice_IgnoreStatic",
             args: [
                 String16,
             ],
@@ -4799,7 +4946,7 @@
             size: 8,
             name: "attackType",
             args: [
-                Number,
+                Enum("attackType"),
             ],
         ),
         711: (
@@ -4813,8 +4960,7 @@
             size: 12,
             name: "damage",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         713: (
@@ -5005,8 +5151,7 @@
             size: 12,
             name: "hitAirPushbackX",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         755: (
@@ -5018,8 +5163,7 @@
             size: 12,
             name: "counterhitAirPushbackX",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         757: (
@@ -5047,24 +5191,18 @@
             size: 28,
             name: "hitAirPushbackXOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         761: (
             size: 28,
             name: "counterHitAirPushbackXOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         762: (
@@ -5094,16 +5232,14 @@
             size: 12,
             name: "preGuardRange",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         766: (
             size: 12,
             name: "hitAirPushbackY",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         767: (
@@ -5115,8 +5251,7 @@
             size: 12,
             name: "counterhitAirPushbackY",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         769: (
@@ -5128,24 +5263,18 @@
             size: 28,
             name: "hitAirPushbackYOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         771: (
             size: 28,
             name: "counterHitAirPushbackYOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         772: (
@@ -5170,6 +5299,20 @@
                 Number,
             ],
         ),
+        775: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
+        776: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
         778: (
             size: 12,
             name: "hitGravity",
@@ -5186,8 +5329,7 @@
             size: 12,
             name: "counterhitGravity",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         781: (
@@ -5206,24 +5348,18 @@
             size: 28,
             name: "hitGravityOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         784: (
             size: 28,
             name: "counterHitGravityOverTime",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                AccessedValue,
+                AccessedValue,
+                AccessedValue,
             ],
         ),
         785: (
@@ -6035,14 +6171,14 @@
             size: 8,
             name: "wallBlowoffType",
             args: [
-                Number,
+                Enum("wsbBlowoffType"),
             ],
         ),
         954: (
             size: 8,
             name: "counterWallBlowoffType",
             args: [
-                Number,
+                Enum("wsbBlowoffType"),
             ],
         ),
         955: (
@@ -6118,6 +6254,24 @@
         969: (
             size: 8,
             name: "counterHitRedRomanCancelTime",
+            args: [
+                Number,
+            ],
+        ),
+        970: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        971: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        972: (
+            size: 8,
             args: [
                 Number,
             ],
@@ -6423,7 +6577,7 @@
             size: 40,
             name: "damageEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 String32,
             ],
         ),
@@ -6431,7 +6585,7 @@
             size: 40,
             name: "guardEffect",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 String32,
             ],
         ),
@@ -6460,7 +6614,7 @@
             size: 8,
             name: "attackFrontDirection",
             args: [
-                Number,
+                Enum("attackDirection"),
             ],
         ),
         1052: (
@@ -6565,7 +6719,7 @@
             size: 16,
             name: "attackHitPositionType",
             args: [
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
             ],
@@ -7562,7 +7716,7 @@
             name: "atkMagnetismXActPosBase",
             args: [
                 Number,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
                 Number,
@@ -7574,7 +7728,7 @@
             name: "atkMagnetismYActPosBase",
             args: [
                 Number,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
                 Number,
@@ -7961,7 +8115,7 @@
             size: 8,
             name: "shoesType",
             args: [
-                Number,
+                Enum("characterShoes"),
             ],
         ),
         1263: (
@@ -8152,9 +8306,9 @@
         ),
         1288: (
             size: 8,
-            name: "initCharPhysique",
+            name: "initCharacterSize",
             args: [
-                Number,
+                Enum("characterSize"),
             ],
         ),
         1289: (
@@ -8496,7 +8650,7 @@
             args: [
                 String32,
                 Number,
-                Number,
+                Enum("collisionType"),
                 Number,
                 Number,
                 Number,
@@ -8509,6 +8663,13 @@
             args: [
                 String32,
                 String32,
+            ],
+        ),
+        1329: (
+            size: 12,
+            args: [
+                Number,
+                Number,
             ],
         ),
         1333: (
@@ -11599,9 +11760,9 @@
             size: 48,
             name: "homing",
             args: [
-                Number,
-                Number,
-                Number,
+                Enum("exHoming"),
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
                 Number,
                 Number,
                 Number,
@@ -11659,17 +11820,17 @@
             size: 12,
             name: "moveToPosType",
             args: [
-                Number,
-                Number,
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2037: (
             size: 16,
             name: "moveToPosTypeToPosType",
             args: [
-                Number,
-                Number,
-                Number,
+                Enum("posTypeToVar1_62"),
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2038: (
@@ -12483,7 +12644,7 @@
             args: [
                 String32,
                 String32,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
             ],
         ),
@@ -12635,7 +12796,7 @@
             size: 8,
             name: "resultWinPosition",
             args: [
-                Number,
+                Enum("resultsWinPositionType"),
             ],
         ),
         2164: (
@@ -12732,7 +12893,7 @@
             name: "shoesSfx",
             args: [
                 Number,
-                Number,
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2178: (
@@ -12740,8 +12901,8 @@
             name: "shoesSfxEx",
             args: [
                 Number,
-                Number,
-                Number,
+                Enum("characterShoes"),
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2180: (
@@ -12809,8 +12970,8 @@
             size: 12,
             name: "zLine",
             args: [
-                Number,
-                Number,
+                Enum("ZLINE"),
+                Enum("zLineLevel"),
             ],
         ),
         2190: (
@@ -13242,10 +13403,10 @@
             size: 20,
             name: "moveToPosTypeToPosTypeEx",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2251: (
@@ -13355,7 +13516,7 @@
             size: 8,
             name: "tempShoesType",
             args: [
-                Number,
+                Enum("characterShoes"),
             ],
         ),
         2268: (
@@ -13363,7 +13524,7 @@
             name: "checkFloorAttribute",
             args: [
                 Number,
-                Number,
+                Enum("posTypeToVar1_62"),
                 Number,
             ],
         ),
@@ -13692,7 +13853,7 @@
             size: 8,
             name: "attackTarget",
             args: [
-                Number,
+                Enum("target"),
             ],
         ),
         2312: (
@@ -13855,11 +14016,11 @@
             size: 24,
             name: "calcDistanceEx",
             args: [
-                Number,
-                Number,
-                Number,
-                Number,
-                Number,
+                Enum("distanceType"),
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
+                Enum("OBJECT_ID"),
+                Enum("posTypeToVar1_62"),
             ],
         ),
         2335: (
@@ -14887,7 +15048,7 @@
                 Number,
                 Number,
                 Number,
-                Number,
+                Enum("activeState"),
                 Number,
                 Number,
             ],
@@ -14901,7 +15062,7 @@
                 Number,
                 Number,
                 Number,
-                Number,
+                Enum("activeState"),
                 Number,
                 Number,
             ],
@@ -15450,7 +15611,7 @@
                 Number,
                 Number,
                 Number,
-                Number,
+                Enum("activeState"),
                 Number,
                 Number,
             ],
