@@ -242,7 +242,7 @@
         ),
         1: (
             name: "endState",
-            codeBlock: End,
+            codeBlock: EndState,
             args: [
             ],
         ),
@@ -279,7 +279,7 @@
         ),
         9: (
             name: "endSubroutine",
-            codeBlock: End,
+            codeBlock: EndState,
             args: [
             ],
         ),

@@ -581,8 +581,8 @@
         1: (
             size: 4,
             name: "endState",
-            codeBlock: End,
             args: [],
+            codeBlock: EndState,
         ),
         2: (
             size: 40,
@@ -691,8 +691,8 @@
         16: (
             size: 4,
             name: "endSubroutine",
-            codeBlock: End,
             args: [],
+            codeBlock: EndState,
         ),
         17: (
             size: 36,

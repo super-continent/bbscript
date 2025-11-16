@@ -686,6 +686,7 @@ pub enum CodeBlock {
     End,
     NoBlock,
     BeginNonrecursive,
+    EndState,
 }
 
 impl Default for CodeBlock {

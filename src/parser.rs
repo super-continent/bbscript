@@ -98,11 +98,18 @@ impl ScriptConfig {
                     if indent > 0 {
                         last_block_type_valid = false;
                         indent -= 1;
-                        if indent == 0 {
-                            block_ended = true;
+                        if indent < 1 {
+                            indent = 1;
                         }
                     }
-                }
+                },
+                CodeBlock::EndState => {
+                    if indent > 0 {
+                        last_block_type_valid = false;
+                        indent = 0;
+                        block_ended = true;
+                    }
+                },
                 _ => {}
             }
 
