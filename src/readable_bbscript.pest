@@ -12,7 +12,7 @@ function_name = @{
 
 args = { arg ~ ("," ~ arg)* ~ ","? }
 
-arg = {
+arg = ${
   "s16'" ~ string16 ~ "'"
 | "s32'" ~ string32 ~ "'"
 | "Mem(" ~ (named_var | var_id) ~ ")"
