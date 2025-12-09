@@ -3275,7 +3275,12 @@
         ),
         309: (
             size: 24,
-            args: [],
+            name: "tensionGainReduce",
+            args: [
+                Enum("OBJECT_ID"),
+                AccessedValue,
+                AccessedValue,
+            ],
         ),
         337: (
             size: 8,
@@ -5301,9 +5306,9 @@
         ),
         775: (
             size: 12,
+            name: "riscDamageScalingPercent",
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         776: (
@@ -6260,12 +6265,14 @@
         ),
         970: (
             size: 8,
+            name: "harden",
             args: [
                 Number,
             ],
         ),
         971: (
             size: 8,
+            name: "hardenTime",
             args: [
                 Number,
             ],
@@ -8667,9 +8674,9 @@
         ),
         1329: (
             size: 12,
+			name: "riscGainPercent"
             args: [
-                Number,
-                Number,
+                AccessedValue,
             ],
         ),
         1333: (
@@ -10619,7 +10626,7 @@
             name: "sendSignal",
             args: [
                 Enum("OBJECT_ID"),
-                Enum("OBJECT_ID"),
+                Enum("UPON"),
             ],
         ),
         1799: (
