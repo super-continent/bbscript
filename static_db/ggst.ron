@@ -5152,6 +5152,13 @@
                 Number,
             ],
         ),
+        744: (
+            size: 12,
+            args: [
+                Number,
+                Number,
+            ],
+        ),
         754: (
             size: 12,
             name: "hitAirPushbackX",
@@ -6348,6 +6355,16 @@
             args: [
                 Number,
             ],
+        ),
+        1006: (
+            size: 8,
+            args: [
+                Number,
+            ],
+        ),
+        1007: (
+            size: 36,
+            args: [],
         ),
         1014: (
             size: 16,
@@ -8674,7 +8691,7 @@
         ),
         1329: (
             size: 12,
-			name: "riscGainPercent"
+			name: "riscGainPercent",
             args: [
                 AccessedValue,
             ],
@@ -14591,6 +14608,12 @@
             args: [
                 String32,
                 Number,
+                Number,
+            ],
+        ),
+        2434: (
+            size: 8,
+            args: [
                 Number,
             ],
         ),
