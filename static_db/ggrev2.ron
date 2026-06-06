@@ -5200,7 +5200,7 @@
         ),
         1249: (
             size: 8,
-            name: "guardBalanceTension",
+            name: "guardBalanceDecay",
             args: [
                 Number,
             ],
